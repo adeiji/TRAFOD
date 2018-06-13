@@ -14,6 +14,13 @@ enum Minerals {
     case IMPULSE
 }
 
+extension UIColor {
+    struct Style {
+        static var ANTIGRAVMINERAL:UIColor  { return UIColor(red: 14.0/255.0, green: 210.0/255, blue: 241.0/255, alpha: 1) }
+        static var IMPULSEMINERAL:UIColor { return UIColor(red: 241.0/255.0, green: 70.0/255.0, blue: 17.0/255.0, alpha: 1.0) }
+    }
+}
+
 class Ground : SKShapeNode {
     
     override init() {
@@ -96,6 +103,11 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     private let portalNodeType:UInt32 = 5
     private var gravityTimeLeft:Int = 0
     
+    private var rain:SKEmitterNode!
+    private var explanation:SKSpriteNode!
+    
+    
+    
     enum PlayerState {
         case INAIR
         case JUMP
@@ -144,7 +156,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if key == .ANTIGRAV {
                     if self.antiGravCounterThrowNode.parent != self.camera {
                         self.addThrowButton()
-                        self.antiGravCounterThrowNode.position = CGPoint(x: 260, y: -227)
+                        self.antiGravCounterThrowNode.position = CGPoint(x: 260, y: -287)
                         self.antiGravCounterNode.position = CGPoint(x: -570, y: 400)
                         self.antiGravCounterLabel.position = CGPoint(x: -500,  y: 390)
                         self.antiGravCounterLabel.fontSize = 50
@@ -173,21 +185,21 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func addJumpButton () {
-        self.jumpButton = SKSpriteNode(texture: SKTexture(imageNamed: "jumpbutton"), color: .clear, size: CGSize(width: 200, height: 200))
-        self.jumpButton.position = CGPoint(x: 472 , y: -227)
+        self.jumpButton = SKSpriteNode(texture: SKTexture(imageNamed: "jumpbutton"), color: .clear, size: CGSize(width: 250, height: 250))
+        self.jumpButton.position = CGPoint(x: 530 , y: -287)
         self.camera?.addChild(self.jumpButton)
     }
     
     private func addThrowButton () {
         self.throwButton = SKSpriteNode(texture: SKTexture(imageNamed: "throwbutton"), color: .clear, size: CGSize(width: 200, height: 200))
-        self.throwButton.position = CGPoint(x: 260 , y: -227)
+        self.throwButton.position = CGPoint(x: 260 , y: -287)
         self.camera?.addChild(self.throwButton)
     }
     
     private func addThrowImpulseButton () {
         self.throwImpulseButton = SKSpriteNode(texture: SKTexture(imageNamed: "throwbutton"), color: .clear, size: CGSize(width: 200, height: 200))
-        self.throwImpulseButton.position = CGPoint(x: 472 , y: 0)
-        self.impulseCounterThrowNode.position = CGPoint(x: 472, y: 0)
+        self.throwImpulseButton.position = CGPoint(x: 530 , y: -30)
+        self.impulseCounterThrowNode.position = CGPoint(x: 530, y: -30)
         
         self.camera?.addChild(self.throwImpulseButton)
         self.camera?.addChild(self.impulseCounterThrowNode)
@@ -212,7 +224,77 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         addChild(self.player)
     }
     
+    private func showBackgroundParticles () {
+        if let backgroundParticlesPath = Bundle.main.path(forResource: "Background", ofType: "sks") {
+            if let backgroundParticles = NSKeyedUnarchiver.unarchiveObject(withFile: backgroundParticlesPath) as? SKEmitterNode {
+                backgroundParticles.particleColor = UIColor(red: 22.0/255.0, green: 43.0/255.0, blue: 87.0/255.0, alpha: 1.0)
+                backgroundParticles.particlePositionRange.dx = self.scene!.size.width
+                backgroundParticles.particlePositionRange.dy = self.scene!.size.height
+                backgroundParticles.zPosition = -35
+                self.camera?.addChild(backgroundParticles)
+            }
+        }
+    }
+    
+    private func showFireFlies () {
+        if let fireFliesParticlesPath = Bundle.main.path(forResource: "FireFlies", ofType: "sks") {
+            if let fireFliesParticles = NSKeyedUnarchiver.unarchiveObject(withFile: fireFliesParticlesPath) as? SKEmitterNode {
+                fireFliesParticles.particlePositionRange.dx = self.scene!.size.width
+                fireFliesParticles.particlePositionRange.dy = self.scene!.size.height
+                fireFliesParticles.zPosition = 0
+                self.camera?.addChild(fireFliesParticles)
+            }
+        }
+    }
+    
+    private func showRain () {
+        if let rainPath = Bundle.main.path(forResource: "Rain", ofType: "sks") {
+            if let rain = NSKeyedUnarchiver.unarchiveObject(withFile: rainPath) as? SKEmitterNode {
+                rain.particlePositionRange.dx = self.scene!.size.width
+                rain.position = CGPoint(x: 0, y: self.scene!.size.height / 2.0)
+                self.camera?.addChild(rain)
+                self.rain = rain
+            }
+        }
+    }
+    
+    private func showMineralParticles () {
+        for child in self.children {
+            if child.name == "getAntiGrav" || child.name == "getImpulse" {
+                if let magicPath = Bundle.main.path(forResource: "Magic", ofType: "sks") {
+                    if let magic = NSKeyedUnarchiver.unarchiveObject(withFile: magicPath) as? SKEmitterNode {
+                        if child.name == "getAntiGrav" {
+                            magic.particleColor = UIColor.Style.ANTIGRAVMINERAL
+                        } else {
+                            magic.particleColor = UIColor.Style.IMPULSEMINERAL
+                        }
+                        magic.position = CGPoint(x: 0, y: 0)
+                        child.addChild(magic)
+                    }
+                }
+                
+            }
+        }
+    }
+    
+    private func showGroundParticles () {
+        for child in self.children {
+            if child.name == "ground" {
+                if let magicPath = Bundle.main.path(forResource: "RainPatter", ofType: "sks") {
+                    if let magic = NSKeyedUnarchiver.unarchiveObject(withFile: magicPath) as? SKEmitterNode {
+                        magic.position = CGPoint(x: 0, y: 0)
+                        child.addChild(magic)
+                    }
+                }
+            }
+        }
+    }
+    
     override func didMove(to view: SKView) {
+        self.showFireFlies()
+        self.showMineralParticles()
+        self.showBackgroundParticles()
+        self.showRain()
         self.physicsWorld.contactDelegate = self
         self.addJumpButton()
         self.createPlayer()
@@ -341,13 +423,37 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         run(mineralCrashSound)
     }
     
+    func slowRain () {
+        
+    }
+    
+    func showMineralCrash (withColor color: UIColor, contact: SKPhysicsContact, duration: TimeInterval = 5) {
+        if let crashPath = Bundle.main.path(forResource: "Spark", ofType: "sks") {
+            if let crash = NSKeyedUnarchiver.unarchiveObject(withFile: crashPath) as? SKEmitterNode {
+                crash.position = contact.contactPoint
+                crash.position.y = crash.position.y + 10
+                crash.particleColor = color
+                self.addChild(crash)
+                
+                let timeToShowSpark = SKAction.wait(forDuration: duration)
+                let removeSparkBlock = SKAction.run {
+                    crash.removeFromParent()
+                }
+                
+                let sequence = SKAction.sequence([timeToShowSpark, removeSparkBlock])
+                self.run(sequence)
+            }
+        }
+    }
+    
     func antiGravUsed () {
         self.playMineralCrashSound()
         let antiGravSound = SKAction.playSoundFileNamed("antigrav", waitForCompletion: false)
         run(antiGravSound)
         
         if !self.forces.contains(.ANTIGRAV) {
-            self.physicsWorld.gravity.dy = self.physicsWorld.gravity.dy / 2.0
+            self.slowRain()
+            self.physicsWorld.gravity.dy = self.physicsWorld.gravity.dy / 2.2
             self.forces.append(.ANTIGRAV)
             
             let antiGravView = self.camera?.childNode(withName: self.antiGravViewKey)
@@ -393,6 +499,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     func getImpulse () {
         if self.player.hasImpulse == false {
             self.player.hasImpulse = true
+            self.showMineralReceivedBox(nodeName: "impulseRecievedBox")
         }
         
         if var count = self.player.mineralCounts[.IMPULSE] {
@@ -407,10 +514,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func getAntiGrav () {
-        if self.player.hasAntigrav == false {
-            self.player.hasAntigrav = true
-        }
-        
         if var count = self.player.mineralCounts[.ANTIGRAV] {
             count = count + 10
             self.player.mineralCounts[.ANTIGRAV] = count
@@ -420,11 +523,28 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         self.playMineralSound()
         self.showMineralCount()
+        if self.player.hasAntigrav == false {
+            self.showMineralReceivedBox(nodeName: "antigravRecievedBox")
+        }
+    }
+    
+    func showMineralReceivedBox (nodeName: String) {
+        
+        self.player.hasAntigrav = true
+        self.explanation = self.childNode(withName: nodeName) as! SKSpriteNode
+        self.childNode(withName: nodeName)?.alpha = 1.0
+        let fade = SKAction.fadeAlpha(to: 1.0, duration: 1.0)
+        self.childNode(withName: nodeName)?.run(fade)
     }
     
     private func playMineralSound () {
         let getMineralSound = SKAction.playSoundFileNamed("mineralgrab", waitForCompletion: false)
         run(getMineralSound)
+    }
+    
+    private func playSound (fileName: String) {
+        let sound = SKAction.playSoundFileNamed(fileName, waitForCompletion: false)
+        run(sound)
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
@@ -436,13 +556,14 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                     self.player.zRotation = 0.0
                     self.lastPointOnGround = self.player.position
                     self.playerState = .ONGROUND
+                    self.playSound(fileName: "hitground")
                 }
             }
         }
         
         if contactContains(strings: ["ground", "mineral", "gravity"], contactA: contactAName ?? "", contactB: contactBName ?? "") {
             self.antiGravUsed()
-            
+            self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact)
             if let node = getContactNode(string: "mineral", contact: contact) {
                 node.removeFromParent()
             }
@@ -451,7 +572,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         
         if contactContains(strings: ["ground", "mineral", "impulse"], contactA: contactAName ?? "", contactB: contactBName ?? "") {
             self.impulseUsed(crashPosition: contact.contactPoint)
-            
+            self.showMineralCrash(withColor: UIColor.Style.IMPULSEMINERAL, contact: contact, duration: 0.2)
             if let node = getContactNode(string: "mineral", contact: contact) {
                 node.removeFromParent()
             }
@@ -485,15 +606,16 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.green
-            self.addChild(n)
-        }
         if self.nodes(at: pos).contains(self.jumpButton) {
-            if self.playerState == .ONGROUND {
-                self.playerState = .JUMP
+            if self.explanation != nil {
+                self.explanation.removeFromParent()
+                self.explanation = nil
+            } else {
+                if self.playerState == .ONGROUND {
+                    self.playerState = .JUMP
+                }
             }
+            
         } else if self.throwButton != nil && self.nodes(at: pos).contains(self.throwButton) {
             self.playerAction = .THROW
             self.throwingMineral = .ANTIGRAV
@@ -522,7 +644,7 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     private func jump() {
-        self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 600))
+        self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 500))
         let jumpSound = SKAction.playSoundFileNamed("one", waitForCompletion: false)
         run(jumpSound)
         self.player.texture = SKTexture(imageNamed: "spinning")
@@ -538,11 +660,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchMoved(toPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.blue
-            self.addChild(n)
-        }
         
         if let originalPos = self.originalTouchPosition {
             let differenceInXPos = originalPos.x - pos.x
@@ -573,11 +690,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchUp(atPoint pos : CGPoint) {
-        if let n = self.spinnyNode?.copy() as! SKShapeNode? {
-            n.position = pos
-            n.strokeColor = SKColor.red
-            self.addChild(n)
-        }
         
         self.playerRunningState = .STANDING
         removeAction(forKey: self.stepsKey)
@@ -640,7 +752,26 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
                 if self.stepCounter == 7 {
                     self.stepCounter = 0
                 }
+                
+                if let stepParticlePath = Bundle.main.path(forResource: "GroundParticle", ofType: "sks") {
+                    if let stepParticle = NSKeyedUnarchiver.unarchiveObject(withFile: stepParticlePath) as? SKEmitterNode {
+                        stepParticle.position = self.player.position
+                        stepParticle.position.y = stepParticle.position.y - 50
+                        let fade = SKAction.fadeAlpha(to: 0.0, duration: 2)
+                        self.addChild(stepParticle)
+                        stepParticle.run(fade)
+                        let timer = SKAction.wait(forDuration: 2.0)
+                        let block = SKAction.run {
+                            stepParticle.removeFromParent()
+                        }
+                        
+                        let sequence = SKAction.sequence([timer, block])
+                        self.run(sequence)
+                    }
+                }
             }
+            
+            
         }
     }
     
@@ -770,8 +901,6 @@ class GameScene: SKScene, SKPhysicsContactDelegate {
         } else {
             self.camera?.position.y = -159
         }
-        
-        
     }
     
     private func moveBackground (distance: CGFloat) {
