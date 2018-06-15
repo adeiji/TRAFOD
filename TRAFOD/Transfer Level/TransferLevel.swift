@@ -71,6 +71,7 @@ class TransferLevel : World {
             let dt = currentTime - self.lastUpdateTime
             self.handlePlayerRotation(dt: dt)
             rewind()
+            self.lastUpdateTime = currentTime
             return
         }
         
@@ -139,19 +140,35 @@ class TransferLevel : World {
         zeroGravView.position = CGPoint(x: 0, y: 0)
         self.camera?.addChild(zeroGravView)
         self.gravityTimeLeftLabel.removeFromParent()
-        let wait = SKAction.wait(forDuration: 5.0)
+        var wait = SKAction.wait(forDuration: 5.0)
         let blackScreen = SKSpriteNode(color: .black, size: self.scene!.size)
-        blackScreen.alpha = 0
+        blackScreen.alpha = 0        
         self.camera?.addChild(blackScreen)
         let fade = SKAction.fadeAlpha(to: 1.0, duration: 5.0)
         blackScreen.run(fade)
-        
+        let speech = self.childNode(withName: "speech")
         let speechBlock = SKAction.run {
-            let speech = self.childNode(withName: "speech")
             speech?.alpha = 1.0
         }
         
-        let sequence = SKAction.sequence([wait, speechBlock])
+        var sequence = SKAction.sequence([wait, speechBlock])
+        run(sequence)
+        
+        wait = SKAction.wait(forDuration: 10.0)
+        
+        let comingSoonBlock = SKAction.run {
+            let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
+            self.player.run(fade)
+            speech?.run(fade, completion: {
+                let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
+                let comingSoon = self.childNode(withName: "comingsoon")
+                comingSoon?.run(fade)
+            })
+            
+            
+        }
+        
+        sequence = SKAction.sequence([wait, comingSoonBlock])
         run(sequence)
     }
     

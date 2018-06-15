@@ -10,18 +10,29 @@ import Foundation
 import SpriteKit
 import GameplayKit
 
-class Story : SKScene {
+class Story : World {
     
     private var cameraPositions = [CGPoint(x: 0, y: 0),CGPoint(x: 1334, y: 0),
                                    CGPoint(x: 2512, y: 0), CGPoint(x: 3718, y: 0),
                                    CGPoint(x: 5280, y: 0), CGPoint(x: 6769, y: 0),
                                    CGPoint(x: 8123, y: 0)]
     private var fadeColor:SKSpriteNode!
-    private var backgroundMusic:SKAudioNode!
+    private var minCameraX:CGFloat!
     
     override func didMove(to view: SKView) {
-        self.fadeColor = self.camera?.childNode(withName: "fadeColor") as! SKSpriteNode
-        self.playStory()
+        super.didMove(to: view)
+        self.physicsWorld.contactDelegate = self
+        self.createPlayer()
+        self.showFireFlies()
+        self.showBackgroundParticles()
+        self.player.position.x = -200        
+//        self.fadeColor = self.camera?.childNode(withName: "fadeColor") as! SKSpriteNode
+//        self.playStory()
+        
+        if let node = self.childNode(withName: "Page1Text") {
+            let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
+            node.run(fade)
+        }
         
         if let musicURL = Bundle.main.url(forResource: "Introduction Music", withExtension: "wav") {
             self.backgroundMusic = SKAudioNode(url: musicURL)
@@ -43,6 +54,38 @@ class Story : SKScene {
         let sequence = SKAction.sequence([timer, fadeBlock])
         run(sequence)
         
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+        
+        let dt = currentTime - self.lastUpdateTime
+        self.moveCamera()
+        self.handlePlayerRotation(dt: dt)
+        self.lastUpdateTime = currentTime
+    }
+    
+    func moveCamera() {
+        if self.player.position.x > self.camera!.position.x {
+            if self.minCameraX == nil {
+                self.minCameraX = self.camera!.position.x
+            }
+        }
+        
+        if ((self.minCameraX != nil) && (self.player.position.x >= self.minCameraX)) && self.player.position.x < 8640 {
+            self.camera?.position.x = self.player.position.x
+        }
+    }
+    
+    override func didBegin(_ contact: SKPhysicsContact) {
+        super.didBegin(contact)
+        
+        let aName = contact.bodyA.node?.name ?? ""
+        let bName = contact.bodyB.node?.name ?? ""
+        
+        if contactContains(strings: ["firstLevel","dawud"], contactA: aName, contactB: bName) {
+            self.showFirstLevel()
+        }
     }
     
     func playStory (cameraPosition: CGPoint = CGPoint(x: 0, y: 0), duration: TimeInterval = 12, counter:Int = 0) {

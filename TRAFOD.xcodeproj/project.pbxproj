@@ -41,6 +41,7 @@
 		F438D07420CE37DB00EC2606 /* level1background7.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06C20CE37DB00EC2606 /* level1background7.png */; };
 		F438D07520CE37DB00EC2606 /* level1background3.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06D20CE37DB00EC2606 /* level1background3.png */; };
 		F438D07620CE37DB00EC2606 /* level1background5.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06E20CE37DB00EC2606 /* level1background5.png */; };
+		F44A9A8D20D3E25D004E389C /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A9A8C20D3E25D004E389C /* World.swift */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
 		F44E1A2320CF541800FD026E /* Menu.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2220CF541800FD026E /* Menu.sks */; };
 		F44E1A2520CF543900FD026E /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2420CF543900FD026E /* menu.png */; };
@@ -152,6 +153,7 @@
 		F438D06C20CE37DB00EC2606 /* level1background7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background7.png; sourceTree = "<group>"; };
 		F438D06D20CE37DB00EC2606 /* level1background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background3.png; sourceTree = "<group>"; };
 		F438D06E20CE37DB00EC2606 /* level1background5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background5.png; sourceTree = "<group>"; };
+		F44A9A8C20D3E25D004E389C /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
 		F44E1A2220CF541800FD026E /* Menu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Menu.sks; sourceTree = "<group>"; };
 		F44E1A2420CF543900FD026E /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -395,6 +397,7 @@
 				F4B03CF320C94B8900F0B346 /* Assets.xcassets */,
 				F4B03CF520C94B8900F0B346 /* LaunchScreen.storyboard */,
 				F4B03CF820C94B8900F0B346 /* Info.plist */,
+				F44A9A8C20D3E25D004E389C /* World.swift */,
 			);
 			path = TRAFOD;
 			sourceTree = "<group>";
@@ -690,6 +693,7 @@
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
+				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
