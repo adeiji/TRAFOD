@@ -69,6 +69,8 @@
 		F44E1A6D20D116CC00FD026E /* RopeBridge 2.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A6B20D116CC00FD026E /* RopeBridge 2.png */; };
 		F44E1A6E20D116CC00FD026E /* RopeBridge 1.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A6C20D116CC00FD026E /* RopeBridge 1.png */; };
 		F44E1A7120D1170700FD026E /* TransferLevel.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A7020D1170700FD026E /* TransferLevel.sks */; };
+		F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E1A7220D1249900FD026E /* TransferLevel.swift */; };
+		F4648F1C20D2679100CE97E1 /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = F4648F1B20D2679100CE97E1 /* platform.png */; };
 		F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03CE620C94B8700F0B346 /* AppDelegate.swift */; };
 		F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CE820C94B8700F0B346 /* GameScene.sks */; };
 		F4B03CEB20C94B8700F0B346 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CEA20C94B8700F0B346 /* Actions.sks */; };
@@ -178,6 +180,8 @@
 		F44E1A6B20D116CC00FD026E /* RopeBridge 2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RopeBridge 2.png"; sourceTree = "<group>"; };
 		F44E1A6C20D116CC00FD026E /* RopeBridge 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RopeBridge 1.png"; sourceTree = "<group>"; };
 		F44E1A7020D1170700FD026E /* TransferLevel.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TransferLevel.sks; sourceTree = "<group>"; };
+		F44E1A7220D1249900FD026E /* TransferLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferLevel.swift; sourceTree = "<group>"; };
+		F4648F1B20D2679100CE97E1 /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
 		F4B03CE320C94B8700F0B346 /* TRAFOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAFOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B03CE620C94B8700F0B346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B03CE820C94B8700F0B346 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -348,6 +352,7 @@
 			isa = PBXGroup;
 			children = (
 				F44E1A7020D1170700FD026E /* TransferLevel.sks */,
+				F44E1A7220D1249900FD026E /* TransferLevel.swift */,
 			);
 			path = "Transfer Level";
 			sourceTree = "<group>";
@@ -415,6 +420,7 @@
 		F4B8E88C20CA4F4200E558F8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F4648F1B20D2679100CE97E1 /* platform.png */,
 				F44E1A6C20D116CC00FD026E /* RopeBridge 1.png */,
 				F44E1A6B20D116CC00FD026E /* RopeBridge 2.png */,
 				F44E1A3020CFBC3700FD026E /* Story Images */,
@@ -572,6 +578,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4648F1C20D2679100CE97E1 /* platform.png in Resources */,
 				F4B8E8B120CA79D300E558F8 /* level1ground2.png in Resources */,
 				F438D04920CD34E700EC2606 /* footsteps.mp3 in Resources */,
 				F438D04E20CD34E700EC2606 /* random_noise1.mp3 in Resources */,
@@ -683,6 +690,7 @@
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
+				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
