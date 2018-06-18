@@ -25,7 +25,8 @@ class Story : World {
         self.createPlayer()
         self.showFireFlies()
         self.showBackgroundParticles()
-        self.player.position.x = -200        
+        self.player.position.x = -200
+        self.showCityFire()
 //        self.fadeColor = self.camera?.childNode(withName: "fadeColor") as! SKSpriteNode
 //        self.playStory()
         
@@ -37,6 +38,17 @@ class Story : World {
         if let musicURL = Bundle.main.url(forResource: "Introduction Music", withExtension: "wav") {
             self.backgroundMusic = SKAudioNode(url: musicURL)
             addChild(self.backgroundMusic)
+        }
+    }
+    
+    func showCityFire () {
+        if let backgroundParticlesPath = Bundle.main.path(forResource: "Fire", ofType: "sks") {
+            if let backgroundParticles = NSKeyedUnarchiver.unarchiveObject(withFile: backgroundParticlesPath) as? SKEmitterNode {
+                backgroundParticles.particlePositionRange.dx = self.scene!.size.width                
+                backgroundParticles.zPosition = -35
+                backgroundParticles.position = CGPoint(x: 0, y: (self.scene!.size.height / -2.0) + 10)
+                self.camera?.addChild(backgroundParticles)
+            }
         }
     }
     
@@ -72,7 +84,7 @@ class Story : World {
             }
         }
         
-        if ((self.minCameraX != nil) && (self.player.position.x >= self.minCameraX)) && self.player.position.x < 8640 {
+        if ((self.minCameraX != nil) && (self.player.position.x >= self.minCameraX)) && self.player.position.x < 10310 {
             self.camera?.position.x = self.player.position.x
         }
     }
@@ -114,14 +126,17 @@ class Story : World {
         
         let sequence = SKAction.sequence([timer, storyBlock])
         run(sequence)
-        
     }
     
-    func showFirstLevel () {
-        // Take user to the first level
-        let level1 = GameScene(fileNamed: "GameScene")
-        let transition = SKTransition.moveIn(with: .right, duration: 1)
-        level1?.scaleMode = SKSceneScaleMode.aspectFill
-        self.view?.presentScene(level1!, transition: transition)
+    func showFirstLevel () {                
+        DispatchQueue.main.async {            
+            let loading = Loading(fileNamed: "Loading")
+            loading?.nextSceneName = "GameScene"
+//            loading?.player = self.player
+            let transition = SKTransition.moveIn(with: .right, duration: 0)
+            loading?.scaleMode = SKSceneScaleMode.aspectFill
+            self.view?.presentScene(loading!, transition: transition)
+            
+        }
     }
 }

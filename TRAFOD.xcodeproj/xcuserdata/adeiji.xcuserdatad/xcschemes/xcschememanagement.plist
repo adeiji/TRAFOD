@@ -4,10 +4,33 @@
 <dict>
 	<key>SchemeUserState</key>
 	<dict>
+		<key>TRAFOD Release.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>1</integer>
+		</dict>
 		<key>TRAFOD.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
 			<integer>0</integer>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>F4B03CE220C94B8700F0B346</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F4B03CFC20C94B8900F0B346</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>F4B03D0720C94B8900F0B346</key>
+		<dict>
+			<key>primary</key>
+			<true/>
 		</dict>
 	</dict>
 </dict>

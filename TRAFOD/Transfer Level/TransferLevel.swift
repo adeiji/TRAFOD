@@ -17,10 +17,27 @@ class TransferLevel : World {
     private var throwMineral = false    
     private var sceneState:SceneState!
     
+    var previousWorldCameraPosition:CGPoint!
+    var previousWorldPlayerPosition:CGPoint!
+    
     enum SceneState {
         case MOVIE
         case REWIND
         case NORMAL
+    }
+    
+    func showMineralsReceived () {
+        if let antiGravCount = self.player.mineralCounts[.ANTIGRAV] {
+            if let node = self.childNode(withName: "antiGravCounter") as? SKLabelNode {
+                node.text = "Collected \(antiGravCount) of 220"
+            }
+        }
+        
+        if let impulseCount = self.player.mineralCounts[.IMPULSE] {
+            if let node = self.childNode(withName: "impulseCounter") as? SKLabelNode {
+                node.text = "Collected \(impulseCount) of 330"
+            }
+        }
     }
     
     override func didMove(to view: SKView) {
@@ -32,10 +49,18 @@ class TransferLevel : World {
         self.showBackgroundParticles()
         self.showFireFlies()
         self.physicsWorld.contactDelegate = self
-        self.createPlayer()
+        
         self.player.position = CGPoint(x: -(self.scene!.size.width / 2.0) + 100 , y: 0)
         self.player.hasAntigrav = true
-//        self.addChild(self.player)
+        self.showMineralsReceived()
+        
+        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "mp3") {
+            self.backgroundMusic = SKAudioNode(url: musicURL)
+            let volume = SKAction.changeVolume(to: 0.7, duration: 0.0)
+            self.backgroundMusic.run(volume)
+            addChild(self.backgroundMusic)
+        }
+        self.addChild(self.player)
     }
     
     func checkIfFalling () {
@@ -146,30 +171,31 @@ class TransferLevel : World {
         self.camera?.addChild(blackScreen)
         let fade = SKAction.fadeAlpha(to: 1.0, duration: 5.0)
         blackScreen.run(fade)
-        let speech = self.childNode(withName: "speech")
-        let speechBlock = SKAction.run {
-            speech?.alpha = 1.0
-        }
-        
-        var sequence = SKAction.sequence([wait, speechBlock])
-        run(sequence)
-        
-        wait = SKAction.wait(forDuration: 10.0)
-        
-        let comingSoonBlock = SKAction.run {
-            let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
-            self.player.run(fade)
-            speech?.run(fade, completion: {
-                let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
-                let comingSoon = self.childNode(withName: "comingsoon")
-                comingSoon?.run(fade)
-            })
+        if let speech = self.camera?.childNode(withName: "speech") {
+            let speechBlock = SKAction.run {
+                speech.alpha = 1.0
+            }
             
+            var sequence = SKAction.sequence([wait, speechBlock])
+            run(sequence)
             
+            wait = SKAction.wait(forDuration: 10.0)
+            
+            let comingSoonBlock = SKAction.run {
+                let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
+                self.player.run(fade)
+                speech.run(fade, completion: {
+                    let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
+                    let comingSoon = self.camera?.childNode(withName: "comingsoon")
+                    comingSoon?.run(fade)
+                })
+                
+                
+            }
+            
+            sequence = SKAction.sequence([wait, comingSoonBlock])
+            run(sequence)
         }
-        
-        sequence = SKAction.sequence([wait, comingSoonBlock])
-        run(sequence)
     }
     
     func moveCamera () {
@@ -196,9 +222,27 @@ class TransferLevel : World {
         let aName = contact.bodyA.node?.name ?? ""
         let bName = contact.bodyB.node?.name ?? ""
         
+        if contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
+            if let world = self.transitionToNextScreen(filename: "GameScene") {
+                world.camera?.position = self.previousWorldCameraPosition
+                world.player = self.player
+                world.collectedElements = self.collectedElements
+                if let elements = world.collectedElements[.LEVEL1] {
+                    world.removeCollectedElements(elements: elements)
+                }
+                if let end = world.childNode(withName: "end") {
+                    world.player.position = end.position
+                    world.previousPlayerRunningState = .RUNNINGLEFT
+                    
+                }
+                
+                return
+            }            
+        }
+        
         if contactContains(strings: ["ground", "mineralFreeze"], contactA: aName, contactB: bName) {
             self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact)
-            self.playMineralCrashSound()
+            self.sounds?.playSound(sound: .MINERALCRASH)            
             self.showRunning = true
             if let node = getContactNode(string: "mineralFreeze", contact: contact) {
                 node.removeFromParent()

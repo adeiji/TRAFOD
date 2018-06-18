@@ -54,7 +54,7 @@ class GameScene: World {
     
     private var label : SKLabelNode?
     private var spinnyNode : SKShapeNode?
-    private var minCameraX:CGFloat!
+    private var minCameraX:CGFloat = 882.971130371094
     
     enum Minerals {
         case ANTIGRAV
@@ -62,28 +62,49 @@ class GameScene: World {
     }
     
     override func didMove(to view: SKView) {
-        super.didMove(to: view)
-        
+        super.didMove(to: view)                
+        self.currentLevel = .LEVEL1
+        if self.player != nil {
+            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            self.addChild(self.player)
+            if let start = self.childNode(withName: "start") {
+                self.player.position = start.position
+            }
+        }
+                
         for node in self.children {
-            if node.name == "getAntiGrav" || node.name == "getImpulse" {
-                if let _ = node.physicsBody {
-                    if let node = node as? SKSpriteNode {
-                        if let size = node.texture?.size() {
-                            node.physicsBody = SKPhysicsBody(rectangleOf: size)
-                            node.physicsBody?.affectedByGravity = false
-                            node.physicsBody?.restitution = 0
-                            node.physicsBody?.mass = 0
-                            node.physicsBody?.isDynamic = true
-                            node.physicsBody?.collisionBitMask = 0
-                            node.physicsBody?.categoryBitMask = 0b0001
-                            node.physicsBody?.allowsRotation = false
+            if let name = node.name {
+                if name.contains("getAntiGrav") || name.contains("getImpulse") {
+                    if let _ = node.physicsBody {
+                        if let node = node as? SKSpriteNode {
+                            if let size = node.texture?.size() {
+                                node.physicsBody = SKPhysicsBody(rectangleOf: size)
+                                node.physicsBody?.affectedByGravity = false
+                                node.physicsBody?.restitution = 0
+                                node.physicsBody?.mass = 0
+                                node.physicsBody?.isDynamic = true
+                                node.physicsBody?.collisionBitMask = 0
+                                node.physicsBody?.categoryBitMask = 0b0001
+                                node.physicsBody?.allowsRotation = false
+                            }
                         }
                     }
                 }
             }
         }
         
-        self.createPlayer()
+        if self.player.hasAntigrav {
+            self.addThrowButton()
+            self.showMineralCount()
+        }
+        
+        if self.player.hasImpulse {
+            self.addThrowImpulseButton()
+            self.showMineralCount()
+        }
+        
+        
+        
         self.showFireFlies()
         self.showMineralParticles()
         self.showBackgroundParticles()
@@ -93,7 +114,7 @@ class GameScene: World {
         self.cameraXOffset = (self.camera?.position.x)! - self.player.position.x
         
         if let musicURL = Bundle.main.url(forResource: "Level1_Theme", withExtension: "mp3") {
-            self.backgroundMusic = SKAudioNode(url: musicURL)
+            self.backgroundMusic = SKAudioNode(url: musicURL)            
             addChild(self.backgroundMusic)
         }
         
@@ -105,7 +126,7 @@ class GameScene: World {
         
         let antiGravNode = self.camera?.childNode(withName: self.antiGravViewKey)
         antiGravNode?.isHidden = true
-    }
+    }        
     
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
@@ -117,13 +138,8 @@ class GameScene: World {
     
     func moveCamera() {
         
-        if self.player.position.x > self.camera!.position.x {
-            if self.minCameraX == nil {
-                self.minCameraX = self.camera!.position.x
-            }
-        }
         
-        if ((self.minCameraX != nil) && (self.player.position.x >= self.minCameraX)) && self.player.position.x < 31460 {
+        if ((self.player.position.x >= self.minCameraX)) && self.player.position.x < 31460 {
             self.camera?.position.x = self.player.position.x
         }
         
@@ -141,7 +157,12 @@ class GameScene: World {
         let contactBName = contact.bodyB.node?.name ?? ""
         
         if contactContains(strings: ["dawud", "endOfGame"], contactA: contactAName, contactB: contactBName) {
-            self.transitionToNextScreen(filename: "TransferLevel")
+            if let transferLevel = self.transitionToNextScreen(filename: "TransferLevel") as? TransferLevel {
+                transferLevel.collectedElements = self.collectedElements
+                transferLevel.previousWorldPlayerPosition = self.player.position
+                transferLevel.previousWorldCameraPosition = self.camera?.position
+                return
+            }
         }                
     }
 }

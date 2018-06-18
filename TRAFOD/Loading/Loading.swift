@@ -1,0 +1,91 @@
+//
+//  Loading.swift
+//  TRAFOD
+//
+//  Created by adeiji on 6/15/18.
+//  Copyright © 2018 Dephyned. All rights reserved.
+//
+
+import SpriteKit
+import GameKit
+
+class Loading : World {
+    var nextSceneName:String?
+    var nextScene:World?
+    var keepRunning = false
+    var shouldLoadNextScene = false
+    var loadingCrystal:SKNode!
+            
+    override func didMove(to view: SKView) {
+        self.createPlayer()
+        self.player.position.x = (self.scene!.size.width / -2.0) + 20
+        self.player.position.y = (self.scene!.size.height / -2.0) + 20
+        self.player.anchorPoint = CGPoint(x: 0.5, y: 0)
+        self.loadingCrystal = self.childNode(withName: "getAntiGrav")
+        self.showMineralParticles()
+        self.playerRunningState = .RUNNINGRIGHT
+        self.showFireFlies()
+        self.showBackgroundParticles()
+    }
+    
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        // DO NOTHING
+    }
+    
+    override func touchDown(atPoint pos: CGPoint) {
+        // DO NOTHING
+    }
+    
+    override func touchUp(atPoint pos: CGPoint) {
+        // DO NOTHING
+    }
+    
+    
+    
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+        
+        if self.lastUpdateTime == 0 {
+            self.lastUpdateTime = currentTime
+        }
+        
+        let dt = currentTime - self.lastUpdateTime
+        
+        if dt > 0 {
+            self.loadingCrystal.zRotation = self.loadingCrystal.zRotation + CGFloat(Double.pi / (-Double(dt * 1000)))
+        }
+        
+        if self.shouldLoadNextScene == true {
+            self.loadNextScene()
+            self.shouldLoadNextScene = false
+        }
+        
+        if self.player.position.x >= (self.scene!.size.width / 2.0) {
+            if let nextScene = self.nextScene {
+                let transition = SKTransition.moveIn(with: .right, duration: 0)
+                nextScene.scaleMode = SKSceneScaleMode.aspectFill
+                self.player.removeFromParent()
+                nextScene.player = self.player
+                self.view?.presentScene(nextScene, transition: transition)
+            }
+        } else if self.player.position.x >= 0 && self.keepRunning == false {
+            self.playerRunningState = .STANDING
+            self.shouldLoadNextScene = true
+            self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            self.keepRunning = true
+        }
+        
+        self.lastUpdateTime = currentTime
+    }
+    
+    func loadNextScene () {
+        DispatchQueue.global().async {
+            let nextScene = World(fileNamed: "GameScene")
+            DispatchQueue.main.async {
+                self.nextScene = nextScene
+                self.playerRunningState = .RUNNINGRIGHT
+            }
+        }
+        
+    }
+}
