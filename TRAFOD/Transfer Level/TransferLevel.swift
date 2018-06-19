@@ -28,8 +28,8 @@ class TransferLevel : World {
     
     func showMineralsReceived () {
         if let antiGravCount = self.player.mineralCounts[.ANTIGRAV] {
-            if let node = self.childNode(withName: "antiGravCounter") as? SKLabelNode {
-                node.text = "Collected \(antiGravCount) of 220"
+            if let myNode = self.childNode(withName: "antiGravCounter") as? SKLabelNode {
+                myNode.text = "Collected \(antiGravCount) of 220"
             }
         }
         
@@ -38,11 +38,11 @@ class TransferLevel : World {
                 node.text = "Collected \(impulseCount) of 330"
             }
         }
-    }
+    }        
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        
+        self.showDoorParticles()
         self.addThrowButton()
         self.addThrowImpulseButton()
         

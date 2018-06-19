@@ -94,7 +94,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.lastUpdateTime = 0
     }
     
-    override func didMove(to view: SKView) {
+    override func didMove(to view: SKView) {        
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
         self.throwButton = self.camera?.childNode(withName: "throwButton")
         self.throwImpulseButton = self.camera?.childNode(withName: "throwImpulseButton")
@@ -585,7 +585,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         // Show the first running image
         if currentTime - self.runTime == 0 {
             if self.playerState != .INAIR {
-                self.player.texture = SKTexture(imageNamed: "standing")
+                self.player.texture = SKTexture(imageNamed: "standing")                
             }
         } else if currentTime - self.runTime > 0.1 {
             if self.playerState != .INAIR {
@@ -918,4 +918,18 @@ class World: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
+    
+    func showDoorParticles () {
+        self.enumerateChildNodes(withName: "door") { (door, pointer) in
+            if let fireFliesParticlesPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
+                if let fireFliesParticles = NSKeyedUnarchiver.unarchiveObject(withFile: fireFliesParticlesPath) as? SKEmitterNode {
+                    fireFliesParticles.zPosition = 0
+                    fireFliesParticles.position = door.position
+                    self.addChild(fireFliesParticles)
+                }
+            }
+        }
+    }
+    
+
 }

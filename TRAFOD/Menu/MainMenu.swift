@@ -15,6 +15,7 @@ class MainMenu: World {
     private var canContinue = false
     
     override func didMove(to view: SKView) {
+        self.showDoorParticles()
         self.previousPlayerRunningState = .RUNNINGRIGHT
         self.createPlayer()
         self.player.position = CGPoint(x: 0, y: 0)

@@ -17,6 +17,7 @@ class Loading : World {
     var loadingCrystal:SKNode!
             
     override func didMove(to view: SKView) {
+        self.showDoorParticles()
         self.setupPlayer()
         self.loadingCrystal = self.childNode(withName: "getAntiGrav")
         self.showMineralParticles()

@@ -44,6 +44,7 @@
 		F438D07420CE37DB00EC2606 /* level1background7.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06C20CE37DB00EC2606 /* level1background7.png */; };
 		F438D07520CE37DB00EC2606 /* level1background3.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06D20CE37DB00EC2606 /* level1background3.png */; };
 		F438D07620CE37DB00EC2606 /* level1background5.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06E20CE37DB00EC2606 /* level1background5.png */; };
+		F442381D20D92CDB00EA4D01 /* Doors.sks in Resources */ = {isa = PBXBuildFile; fileRef = F442381C20D92CDB00EA4D01 /* Doors.sks */; };
 		F44A9A8D20D3E25D004E389C /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A9A8C20D3E25D004E389C /* World.swift */; };
 		F44A9A9020D4EB16004E389C /* Loading.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44A9A8F20D4EB16004E389C /* Loading.sks */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
@@ -171,6 +172,7 @@
 		F438D06C20CE37DB00EC2606 /* level1background7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background7.png; sourceTree = "<group>"; };
 		F438D06D20CE37DB00EC2606 /* level1background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background3.png; sourceTree = "<group>"; };
 		F438D06E20CE37DB00EC2606 /* level1background5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background5.png; sourceTree = "<group>"; };
+		F442381C20D92CDB00EA4D01 /* Doors.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Doors.sks; sourceTree = "<group>"; };
 		F44A9A8C20D3E25D004E389C /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		F44A9A8F20D4EB16004E389C /* Loading.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Loading.sks; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
@@ -397,6 +399,7 @@
 				F44E1A6720D0C69A00FD026E /* Background.sks */,
 				F44E1A6920D10BCB00FD026E /* Spark.sks */,
 				F4E799FB20D7604900ECE898 /* Fire.sks */,
+				F442381C20D92CDB00EA4D01 /* Doors.sks */,
 			);
 			path = Particles;
 			sourceTree = "<group>";
@@ -720,6 +723,7 @@
 				F4B8E8A120CA4FAA00E558F8 /* running_step7.png in Resources */,
 				F44E1A4820CFC4E600FD026E /* minerals.png in Resources */,
 				F438D03E20CD34E700EC2606 /* antigrav.mp3 in Resources */,
+				F442381D20D92CDB00EA4D01 /* Doors.sks in Resources */,
 				F438D05020CD34E700EC2606 /* random_noise2.mp3 in Resources */,
 				F4B8E8A720CA684B00E558F8 /* Ground Merged.png in Resources */,
 				F4B03CF720C94B8900F0B346 /* LaunchScreen.storyboard in Resources */,

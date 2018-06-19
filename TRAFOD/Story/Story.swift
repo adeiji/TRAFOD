@@ -25,6 +25,7 @@ class Story : World {
         self.createPlayer()
         self.showFireFlies()
         self.showBackgroundParticles()
+        self.showDoorParticles()        
         if let start = self.childNode(withName: "start") {
             self.player.position = start.position
         }
@@ -85,7 +86,7 @@ class Story : World {
             }
         }
         
-        if ((self.minCameraX != nil) && (self.player.position.x >= self.minCameraX)) && self.player.position.x < 10310 {
+        if ((self.minCameraX != nil) && (self.player.position.x >= self.minCameraX)) && self.player.position.x < 10000 {
             self.camera?.position.x = self.player.position.x
         }
     }

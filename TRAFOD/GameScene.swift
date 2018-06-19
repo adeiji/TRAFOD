@@ -101,6 +101,7 @@ class GameScene: World {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        self.showDoorParticles()
         self.physicsWorld.contactDelegate = self
         self.setupPlayer()
         self.removeCollectedElements()
@@ -154,7 +155,7 @@ class GameScene: World {
     }
     
     func moveCamera() {
-        if ((self.player.position.x >= self.minCameraX)) && self.player.position.x < 31460 {
+        if ((self.player.position.x >= self.minCameraX)) && self.player.position.x < 31862 {
             self.camera?.position.x = self.player.position.x
         }
         
