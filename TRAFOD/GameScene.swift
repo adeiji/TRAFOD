@@ -102,8 +102,8 @@ class GameScene: World {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self
-        
         self.setupPlayer()
+        self.removeCollectedElements()
         self.changeMineralPhysicsBodies()
         
         if self.player.hasAntigrav {

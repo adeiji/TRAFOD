@@ -111,7 +111,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.addJumpButton()
-        self.removeCollectedElements()
         self.enumerateChildNodes(withName: "ground") { (node, pointer) in
             node.physicsBody?.friction = 1.0
         }                
