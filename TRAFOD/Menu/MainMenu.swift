@@ -12,6 +12,7 @@ import GameplayKit
 class MainMenu: World {
 
     private var newGameButton:SKNode!
+    private var canContinue = false
     
     override func didMove(to view: SKView) {
         self.previousPlayerRunningState = .RUNNINGRIGHT
@@ -19,6 +20,7 @@ class MainMenu: World {
         self.player.position = CGPoint(x: 0, y: 0)
         self.showMineralParticles()
         self.showFireFlies()
+        self.getProgress()
         
         self.physicsWorld.contactDelegate = self
         if let musicURL = Bundle.main.url(forResource: "dawudsong", withExtension: "wav") {
@@ -27,16 +29,75 @@ class MainMenu: World {
         }
     }
     
+    func getProgress () {
+        if let progress = ProgressTracker.getProgress() {
+            if progress.currentLevel == GameLevels.level1 {
+                if let continueNode = self.childNode(withName: "continue") {
+                    continueNode.alpha = 1.0
+                }
+                
+                self.canContinue = true
+            }
+            
+            self.player.hasAntigrav = progress.hasAntigrav
+            self.player.hasImpulse = progress.hasImpulse
+        }
+    }
+    
+    func getMineralCounts () {
+        if let mineralCounts = ProgressTracker.getMineralCounts() {
+            for mineralCount in mineralCounts {
+                if mineralCount.mineral == Minerals.ANTIGRAV.rawValue {
+                    self.player.mineralCounts[.ANTIGRAV] = mineralCount.count
+                } else if mineralCount.mineral == Minerals.IMPULSE.rawValue {
+                    self.player.mineralCounts[.IMPULSE] = mineralCount.count
+                }
+            }
+        }
+    }
+    
     override func didBegin(_ contact: SKPhysicsContact) {
         let aName = contact.bodyA.node?.name ?? ""
         let bName = contact.bodyB.node?.name ?? ""
         
         if contactContains(strings: ["story", "dawud"], contactA: aName, contactB: bName) {
-            // Take user to the first level
-            let story = Story(fileNamed: "Story")
-            let transition = SKTransition.moveIn(with: .right, duration: 1)
-            story?.scaleMode = SKSceneScaleMode.aspectFill
-            self.view?.presentScene(story!, transition: transition)
+            // Take user to the first level and remove all progress
+            self.beginNewGame()
+            return            
         }
+        
+        if contactContains(strings: ["dawud", "gotoLevel"], contactA: aName, contactB: bName) {
+            if self.canContinue {
+                self.loadSavedGame()
+            }
+        }
+    }
+    
+    private func beginNewGame () {
+        ProgressTracker.reset()
+        let story = Story(fileNamed: "Story")
+        story?.player = self.player
+        self.player.removeFromParent()
+        let transition = SKTransition.moveIn(with: .right, duration: 1)
+        story?.scaleMode = SKSceneScaleMode.aspectFit
+        self.view?.presentScene(story!, transition: transition)
+    }
+    
+    /*
+     
+     Load a saved game, continue the story
+     
+     */
+    private func loadSavedGame () {
+        self.getMineralCounts()
+        let loading = Loading(fileNamed: "Loading")
+        loading?.nextSceneName = "GameScene"
+        self.getCollectedElements(level: GameLevels.level1)
+        loading?.collectedElements = self.collectedElements
+        loading?.player = self.player
+        self.player.removeFromParent()
+        let transition = SKTransition.moveIn(with: .right, duration: 0)
+        loading?.scaleMode = SKSceneScaleMode.aspectFit
+        self.view?.presentScene(loading!, transition: transition)
     }
 }

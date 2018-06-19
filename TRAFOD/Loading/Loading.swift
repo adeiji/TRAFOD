@@ -17,15 +17,25 @@ class Loading : World {
     var loadingCrystal:SKNode!
             
     override func didMove(to view: SKView) {
-        self.createPlayer()
+        self.setupPlayer()
+        self.loadingCrystal = self.childNode(withName: "getAntiGrav")
+        self.showMineralParticles()
+        self.showFireFlies()
+        self.showBackgroundParticles()
+        self.addChild(self.player)
+    }
+    
+    func setupPlayer () {
+        // If we don't set the player before hand than that means that this is a new game
+        if self.player == nil {
+            self.createPlayer()
+        }
+        
+        self.player.xScale = 1
         self.player.position.x = (self.scene!.size.width / -2.0) + 20
         self.player.position.y = (self.scene!.size.height / -2.0) + 20
         self.player.anchorPoint = CGPoint(x: 0.5, y: 0)
-        self.loadingCrystal = self.childNode(withName: "getAntiGrav")
-        self.showMineralParticles()
         self.playerRunningState = .RUNNINGRIGHT
-        self.showFireFlies()
-        self.showBackgroundParticles()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -63,9 +73,10 @@ class Loading : World {
         if self.player.position.x >= (self.scene!.size.width / 2.0) {
             if let nextScene = self.nextScene {
                 let transition = SKTransition.moveIn(with: .right, duration: 0)
-                nextScene.scaleMode = SKSceneScaleMode.aspectFill
+                nextScene.scaleMode = SKSceneScaleMode.aspectFit
                 self.player.removeFromParent()
                 nextScene.player = self.player
+                nextScene.collectedElements = self.collectedElements                
                 self.view?.presentScene(nextScene, transition: transition)
             }
         } else if self.player.position.x >= 0 && self.keepRunning == false {

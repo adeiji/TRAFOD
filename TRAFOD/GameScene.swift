@@ -9,9 +9,9 @@
 import SpriteKit
 import GameplayKit
 
-enum Minerals {
-    case ANTIGRAV
-    case IMPULSE
+enum Minerals: String {
+    case ANTIGRAV = "antigrav"
+    case IMPULSE = "impulse"
 }
 
 extension UIColor {
@@ -30,7 +30,7 @@ class Ground : SKShapeNode {
         self.physicsBody = SKPhysicsBody(edgeChainFrom: self.path!)
         self.physicsBody?.isDynamic = true
         self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.restitution  = 0.2
+        self.physicsBody?.restitution  = 0
         self.physicsBody?.categoryBitMask = 1
         self.physicsBody?.contactTestBitMask = 1
     }
@@ -61,17 +61,7 @@ class GameScene: World {
         case IMPULSE
     }
     
-    override func didMove(to view: SKView) {
-        super.didMove(to: view)                
-        self.currentLevel = .LEVEL1
-        if self.player != nil {
-            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            self.addChild(self.player)
-            if let start = self.childNode(withName: "start") {
-                self.player.position = start.position
-            }
-        }
-                
+    func changeMineralPhysicsBodies () {
         for node in self.children {
             if let name = node.name {
                 if name.contains("getAntiGrav") || name.contains("getImpulse") {
@@ -92,6 +82,29 @@ class GameScene: World {
                 }
             }
         }
+    }
+    
+    override func sceneDidLoad() {
+        super.sceneDidLoad()
+        self.currentLevel = .LEVEL1
+    }
+    
+    func setupPlayer () {
+        if self.player != nil {
+            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            self.addChild(self.player)
+            if let start = self.childNode(withName: "start") {
+                self.player.position = start.position
+            }
+        }
+    }
+    
+    override func didMove(to view: SKView) {
+        super.didMove(to: view)
+        self.physicsWorld.contactDelegate = self
+        
+        self.setupPlayer()
+        self.changeMineralPhysicsBodies()
         
         if self.player.hasAntigrav {
             self.addThrowButton()
@@ -103,18 +116,21 @@ class GameScene: World {
             self.showMineralCount()
         }
         
-        
-        
         self.showFireFlies()
         self.showMineralParticles()
         self.showBackgroundParticles()
-        self.showRain()
-        self.physicsWorld.contactDelegate = self
+        self.showRain()                
+        self.playBackgroundMusic()
         
-        self.cameraXOffset = (self.camera?.position.x)! - self.player.position.x
+        let antiGravNode = self.camera?.childNode(withName: self.antiGravViewKey)
+        antiGravNode?.isHidden = true
         
+        self.updateProgressLevel()
+    }
+    
+    func playBackgroundMusic () {
         if let musicURL = Bundle.main.url(forResource: "Level1_Theme", withExtension: "mp3") {
-            self.backgroundMusic = SKAudioNode(url: musicURL)            
+            self.backgroundMusic = SKAudioNode(url: musicURL)
             addChild(self.backgroundMusic)
         }
         
@@ -123,10 +139,11 @@ class GameScene: World {
             self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
             addChild(self.ambiance)
         }
-        
-        let antiGravNode = self.camera?.childNode(withName: self.antiGravViewKey)
-        antiGravNode?.isHidden = true
-    }        
+    }
+    
+    func updateProgressLevel () {
+        ProgressTracker.updateProgress(currentLevel: GameLevels.level1, player: self.player)
+    }
     
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
@@ -137,8 +154,6 @@ class GameScene: World {
     }
     
     func moveCamera() {
-        
-        
         if ((self.player.position.x >= self.minCameraX)) && self.player.position.x < 31460 {
             self.camera?.position.x = self.player.position.x
         }
@@ -157,7 +172,7 @@ class GameScene: World {
         let contactBName = contact.bodyB.node?.name ?? ""
         
         if contactContains(strings: ["dawud", "endOfGame"], contactA: contactAName, contactB: contactBName) {
-            if let transferLevel = self.transitionToNextScreen(filename: "TransferLevel") as? TransferLevel {
+            if let transferLevel = self.transitionToNextScreen(filename: "TransferLevel") as? TransferLevel {            
                 transferLevel.collectedElements = self.collectedElements
                 transferLevel.previousWorldPlayerPosition = self.player.position
                 transferLevel.previousWorldCameraPosition = self.camera?.position

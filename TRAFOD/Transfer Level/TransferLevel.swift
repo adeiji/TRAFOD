@@ -227,9 +227,8 @@ class TransferLevel : World {
                 world.camera?.position = self.previousWorldCameraPosition
                 world.player = self.player
                 world.collectedElements = self.collectedElements
-                if let elements = world.collectedElements[.LEVEL1] {
-                    world.removeCollectedElements(elements: elements)
-                }
+                world.removeCollectedElements()
+                
                 if let end = world.childNode(withName: "end") {
                     world.player.position = end.position
                     world.previousPlayerRunningState = .RUNNINGLEFT

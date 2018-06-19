@@ -25,10 +25,11 @@ class Story : World {
         self.createPlayer()
         self.showFireFlies()
         self.showBackgroundParticles()
-        self.player.position.x = -200
+        if let start = self.childNode(withName: "start") {
+            self.player.position = start.position
+        }
+        
         self.showCityFire()
-//        self.fadeColor = self.camera?.childNode(withName: "fadeColor") as! SKSpriteNode
-//        self.playStory()
         
         if let node = self.childNode(withName: "Page1Text") {
             let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
@@ -100,41 +101,14 @@ class Story : World {
         }
     }
     
-    func playStory (cameraPosition: CGPoint = CGPoint(x: 0, y: 0), duration: TimeInterval = 12, counter:Int = 0) {
-        self.camera?.position = cameraPosition
-        self.fade(duration: duration - 3)
-        let timer = SKAction.wait(forDuration: duration)
-        let storyBlock = SKAction.run {
-            if counter == self.cameraPositions.count - 2 {
-                let fadeAudio = SKAction.changeVolume(to: 0, duration: 5.0)
-                self.backgroundMusic.run(fadeAudio)
-            }
-            
-            if cameraPosition == self.cameraPositions.last {
-                self.showFirstLevel()
-            } else {
-                
-                var nextDuration:TimeInterval = 12
-                
-                if cameraPosition == self.cameraPositions[3] {
-                    nextDuration = 28
-                }
-                
-                self.playStory(cameraPosition: self.cameraPositions[counter + 1], duration: nextDuration, counter: counter + 1)
-            }
-        }
-        
-        let sequence = SKAction.sequence([timer, storyBlock])
-        run(sequence)
-    }
-    
     func showFirstLevel () {                
         DispatchQueue.main.async {            
             let loading = Loading(fileNamed: "Loading")
             loading?.nextSceneName = "GameScene"
-//            loading?.player = self.player
+            loading?.player = self.player
+            self.player.removeFromParent()
             let transition = SKTransition.moveIn(with: .right, duration: 0)
-            loading?.scaleMode = SKSceneScaleMode.aspectFill
+            loading?.scaleMode = SKSceneScaleMode.aspectFit
             self.view?.presentScene(loading!, transition: transition)
             
         }

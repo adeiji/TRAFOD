@@ -9,51 +9,6 @@
 import GameKit
 import SpriteKit
 
-enum Sounds: String {
-    case MINERALCRASH
-    case ANTIGRAV
-    case JUMP
-    case RUN = "FootstepsKey"
-    case LANDED
-}
-
-class SoundManager {
-    
-    let mineralCrashSound = SKAction.playSoundFileNamed("mineralcrash", waitForCompletion: false)
-    let antiGravSound = SKAudioNode(fileNamed: "antigrav")
-    let stepsSound = SKAction.playSoundFileNamed("footsteps", waitForCompletion: true)
-    let hitGround = SKAction.playSoundFileNamed("hitground", waitForCompletion: true)
-    
-    let world:World
-    
-    init(world:World) {
-        self.world = world
-        
-    }
-    
-    func stopSoundWithKey (key: String) {
-        self.world.removeAction(forKey: key)
-    }
-    
-    func playSound (sound: Sounds) {
-        if sound == .MINERALCRASH {
-            self.world.run(self.mineralCrashSound)
-        } else if sound == .ANTIGRAV {
-            self.antiGravSound.run(SKAction.changeVolume(to: 0.5, duration: 0))
-            self.antiGravSound.run(SKAction.changeVolume(to: 0, duration: 5.0))
-            if self.antiGravSound.parent == nil {
-                self.world.addChild(self.antiGravSound)
-            }
-            
-        } else if sound == .RUN {
-            let repeatAction = SKAction.repeatForever(self.stepsSound)
-            self.world.run(repeatAction, withKey: Sounds.RUN.rawValue)
-        } else if sound == .LANDED {            
-            self.world.run(self.hitGround)
-        }
-    }
-}
-
 class World: SKScene, SKPhysicsContactDelegate {
     
     var player:Player!
@@ -88,8 +43,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     private var runTime:TimeInterval = TimeInterval()
     private var stepCounter = 0
-    
-    var cameraXOffset:CGFloat = 0
+        
     var cameraYPosition:CGFloat = 0
     
     var backgroundMusic:SKAudioNode!
@@ -108,9 +62,9 @@ class World: SKScene, SKPhysicsContactDelegate {
     var rewindPoints = [CGPoint]()
     var rewindPointCounter = 0
     
-    var sounds:SoundManager?
     var collectedElements:[Levels:[String]] = [Levels:[String]]()
-    var currentLevel:Levels?
+    var sounds:SoundManager?
+    var currentLevel:Levels?    
     
     enum Levels {
         case LEVEL1
@@ -157,10 +111,10 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.addJumpButton()
-        
+        self.removeCollectedElements()
         self.enumerateChildNodes(withName: "ground") { (node, pointer) in
             node.physicsBody?.friction = 1.0
-        }
+        }                
     }
     
     func createPlayer () {
@@ -179,7 +133,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.contactTestBitMask = 1
         self.player.physicsBody?.collisionBitMask = 0b0010
         self.player.physicsBody?.allowsRotation = false
-        //        self.lastPointOnGround = self.player.position
         
         addChild(self.player)
     }
@@ -381,7 +334,7 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.changeGravityWithTime(antiGravView: antiGravView, timeLabel: timeLabel)
             }
             else {
-                if let index = self.forces.index(of: .ANTIGRAV) {
+                if let _ = self.forces.index(of: .ANTIGRAV) {
                     self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -9.8)
                     self.forces.remove(at: self.forces.index(of: .ANTIGRAV)!)
                     antiGravView?.isHidden = true
@@ -485,6 +438,23 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    func getCollectedElements (level: String) {
+        if let elements = ProgressTracker.getElementsCollected() {
+            for element in elements {
+                if element.level == level {
+                    for node in element.nodes {
+                        if element.level == GameLevels.level1 {
+                            if self.collectedElements[.LEVEL1] == nil {
+                               self.collectedElements[.LEVEL1] = [String]()
+                            }
+                            self.collectedElements[.LEVEL1]?.append(node)
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
     func addToCollectedElements (node:SKNode) {
         if let level = self.currentLevel {
             if self.collectedElements[level] == nil {
@@ -493,9 +463,9 @@ class World: SKScene, SKPhysicsContactDelegate {
             
             if let name = node.name {
                 self.collectedElements[level]?.append(name)
+                ProgressTracker.updateElementsCollected(level: GameLevels.level1, node: name)
             }
         }
-        
     }
     
     func playerIsFalling () -> Bool {
@@ -772,6 +742,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     func getImpulse () {
         if self.player.hasImpulse == false {
             self.player.hasImpulse = true
+            ProgressTracker.updateProgress(currentLevel: nil, player: self.player)
             self.showMineralReceivedBox(nodeName: "impulseRecievedBox")
         }
         
@@ -782,11 +753,14 @@ class World: SKScene, SKPhysicsContactDelegate {
             self.player.mineralCounts[.IMPULSE] = 10
         }
         
+        ProgressTracker.updateMineralCount(myMineral: Minerals.IMPULSE.rawValue, count: self.player.mineralCounts[.IMPULSE]!)
+        
         self.playMineralSound()
         self.showMineralCount()
     }
     
     func getAntiGrav () {
+        
         if var count = self.player.mineralCounts[.ANTIGRAV] {
             count = count + 10
             self.player.mineralCounts[.ANTIGRAV] = count
@@ -794,11 +768,14 @@ class World: SKScene, SKPhysicsContactDelegate {
             self.player.mineralCounts[.ANTIGRAV] = 10
         }
         
+        ProgressTracker.updateMineralCount(myMineral: Minerals.ANTIGRAV.rawValue, count: self.player.mineralCounts[.ANTIGRAV]!)
+        
         self.playMineralSound()
         self.showMineralCount()
         
-        if self.player.hasAntigrav == false {
+        if self.player.hasAntigrav == false {            
             self.player.hasAntigrav = true
+            ProgressTracker.updateProgress(currentLevel: nil, player: self.player)
             self.showMineralReceivedBox(nodeName: "antigravRecievedBox")
         }
     }
@@ -924,14 +901,14 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         let transition = SKTransition.moveIn(with: .right, duration: 1)
-        world?.scaleMode = SKSceneScaleMode.aspectFill
+        world?.scaleMode = SKSceneScaleMode.aspectFit
         self.player.removeFromParent()
         self.view?.presentScene(world!, transition: transition)
         
         return world
     }
     
-    func removeCollectedElements (elements: [String]) {
+    func removeCollectedElements () {
         if let level = self.currentLevel {
             if let elements = self.collectedElements[level] {
                 for nodeName in elements {
