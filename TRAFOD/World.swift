@@ -132,6 +132,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.contactTestBitMask = 1
         self.player.physicsBody?.collisionBitMask = 0b0010
         self.player.physicsBody?.allowsRotation = false
+        self.player.physicsBody?.friction = 0.4
         
         addChild(self.player)
     }
@@ -224,8 +225,17 @@ class World: SKScene, SKPhysicsContactDelegate {
         // Add an impulse node to the screen
         self.playSound(sound: .MINERALCRASH)
         
-        let impulseNode = SKSpriteNode(imageNamed: "Portal")
+        let impulseNode = SKSpriteNode(color: .clear, size: CGSize(width: 200, height: 200))
         impulseNode.position = crashPosition
+        
+        if let portalPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
+            if let portal = NSKeyedUnarchiver.unarchiveObject(withFile: portalPath) as? SKEmitterNode {
+                portal.particleBirthRate = portal.particleBirthRate * 10.0
+                portal.particleColor = .orange
+                impulseNode.addChild(portal)
+            }
+        }
+        
         if self.previousPlayerRunningState == .RUNNINGRIGHT {
             impulseNode.position.x = impulseNode.position.x + 150
         } else {
@@ -233,9 +243,9 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         impulseNode.zPosition = -5
-        impulseNode.position.y = impulseNode.position.y + impulseNode.texture!.size().height / 2.0
+        impulseNode.position.y = impulseNode.position.y + impulseNode.size.height / 2.0
         impulseNode.name = "portal"
-        impulseNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: impulseNode.texture!.size().height))
+        impulseNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: impulseNode.size.height))
         impulseNode.physicsBody?.allowsRotation = false
         impulseNode.physicsBody?.pinned = false
         impulseNode.physicsBody?.affectedByGravity = false
@@ -243,20 +253,11 @@ class World: SKScene, SKPhysicsContactDelegate {
         impulseNode.physicsBody?.collisionBitMask = 0
         impulseNode.physicsBody?.categoryBitMask = 0b0001
         
-        var oneRevolution:SKAction = SKAction.rotate(byAngle: CGFloat.pi * 2, duration: 1)
-        var repeatRotation:SKAction = SKAction.repeatForever(oneRevolution)
-        impulseNode.run(repeatRotation)
-        
         let warpTime = SKAction.wait(forDuration: 10.0)
         let timeNode = SKLabelNode()
         timeNode.fontSize = 40
         timeNode.zPosition = 5
         impulseNode.addChild(timeNode)
-        
-        oneRevolution = SKAction.rotate(byAngle: CGFloat.pi * -2, duration: 1)
-        repeatRotation = SKAction.repeatForever(oneRevolution)
-        timeNode.run(repeatRotation)
-        
         
         self.showImpulseTimeLeft(timeNode: timeNode)
         let impulseBlock = SKAction.run {

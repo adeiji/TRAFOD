@@ -15,18 +15,39 @@ class MainMenu: World {
     private var canContinue = false
     
     override func didMove(to view: SKView) {
-        self.showDoorParticles()
         self.previousPlayerRunningState = .RUNNINGRIGHT
         self.createPlayer()
         self.player.position = CGPoint(x: 0, y: 0)
         self.showMineralParticles()
         self.showFireFlies()
         self.getProgress()
+        self.showDoorParticles()
         
         self.physicsWorld.contactDelegate = self
         if let musicURL = Bundle.main.url(forResource: "dawudsong", withExtension: "wav") {
             let backgroundMusic = SKAudioNode(url: musicURL)
             addChild(backgroundMusic)
+        }
+    }
+    
+    override func showDoorParticles () {
+        self.enumerateChildNodes(withName: "door") { (door, pointer) in
+            if let fireFliesParticlesPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
+                if let fireFliesParticles = NSKeyedUnarchiver.unarchiveObject(withFile: fireFliesParticlesPath) as? SKEmitterNode {
+                    if self.canContinue == false {
+                        if door.position.x > 0 {
+                            fireFliesParticles.zPosition = 0
+                            fireFliesParticles.position = door.position
+                            self.addChild(fireFliesParticles)
+                        }
+                    } else {
+                        fireFliesParticles.zPosition = 0
+                        fireFliesParticles.position = door.position
+                        self.addChild(fireFliesParticles)
+                    }
+                    
+                }
+            }
         }
     }
     
