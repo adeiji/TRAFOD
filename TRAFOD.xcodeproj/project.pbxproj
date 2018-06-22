@@ -47,6 +47,7 @@
 		F442381F20DA509600EA4D01 /* story.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442381E20DA509600EA4D01 /* story.wav */; };
 		F442382120DA50AC00EA4D01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442382020DA50AC00EA4D01 /* dawudsong.wav */; };
 		F442382320DA54B500EA4D01 /* birdschirping.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442382220DA54B500EA4D01 /* birdschirping.wav */; };
+		F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A4D4420DC928100E53841 /* PurchaseService.swift */; };
 		F44A9A8D20D3E25D004E389C /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A9A8C20D3E25D004E389C /* World.swift */; };
 		F44A9A9020D4EB16004E389C /* Loading.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44A9A8F20D4EB16004E389C /* Loading.sks */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
@@ -175,6 +176,7 @@
 		F442381E20DA509600EA4D01 /* story.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = story.wav; sourceTree = "<group>"; };
 		F442382020DA50AC00EA4D01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dawudsong.wav; path = ../../../../../../dawudsong.wav; sourceTree = "<group>"; };
 		F442382220DA54B500EA4D01 /* birdschirping.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = birdschirping.wav; sourceTree = "<group>"; };
+		F44A4D4420DC928100E53841 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		F44A9A8C20D3E25D004E389C /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		F44A9A8F20D4EB16004E389C /* Loading.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Loading.sks; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
@@ -336,6 +338,14 @@
 			path = "Level 1";
 			sourceTree = "<group>";
 		};
+		F44A4D4320DC926900E53841 /* Purchasing */ = {
+			isa = PBXGroup;
+			children = (
+				F44A4D4420DC928100E53841 /* PurchaseService.swift */,
+			);
+			path = Purchasing;
+			sourceTree = "<group>";
+		};
 		F44A9A8E20D4EB04004E389C /* Loading */ = {
 			isa = PBXGroup;
 			children = (
@@ -446,6 +456,7 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F44A4D4320DC926900E53841 /* Purchasing */,
 				F45EDF6D20D8C01D0076C1C8 /* Persistance */,
 				F44A9A8E20D4EB04004E389C /* Loading */,
 				F44E1A6F20D116EC00FD026E /* Transfer Level */,
@@ -857,6 +868,7 @@
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
+				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,
 				F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
