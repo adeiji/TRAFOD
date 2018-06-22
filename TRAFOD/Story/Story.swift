@@ -37,7 +37,7 @@ class Story : World {
             node.run(fade)
         }
         
-        if let musicURL = Bundle.main.url(forResource: "Introduction Music", withExtension: "wav") {
+        if let musicURL = Bundle.main.url(forResource: "story", withExtension: "wav") {
             self.backgroundMusic = SKAudioNode(url: musicURL)
             addChild(self.backgroundMusic)
         }

@@ -135,7 +135,7 @@ class GameScene: World {
             addChild(self.backgroundMusic)
         }
         
-        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "mp3") {
+        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
             self.ambiance = SKAudioNode(url: musicURL)
             self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
             addChild(self.ambiance)

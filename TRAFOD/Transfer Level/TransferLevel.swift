@@ -54,12 +54,13 @@ class TransferLevel : World {
         self.player.hasAntigrav = true
         self.showMineralsReceived()
         
-        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "mp3") {
+        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
             self.backgroundMusic = SKAudioNode(url: musicURL)
             let volume = SKAction.changeVolume(to: 0.7, duration: 0.0)
             self.backgroundMusic.run(volume)
             addChild(self.backgroundMusic)
         }
+        
         self.addChild(self.player)
     }
     

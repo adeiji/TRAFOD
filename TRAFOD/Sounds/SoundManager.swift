@@ -22,18 +22,21 @@ class SoundManager {
     
     let mineralCrashSound = SKAction.playSoundFileNamed("mineralcrash", waitForCompletion: false)
     let antiGravSound = SKAudioNode(fileNamed: "antigrav")
-    let stepsSound = SKAction.playSoundFileNamed("footsteps", waitForCompletion: true)
+    let stepsSound = SKAudioNode(fileNamed: "footsteps")
     let hitGround = SKAction.playSoundFileNamed("hitground", waitForCompletion: true)
     
     let world:World
     
     init(world:World) {
         self.world = world
-        
     }
     
     func stopSoundWithKey (key: String) {
-        self.world.removeAction(forKey: key)
+        if key == Sounds.RUN.rawValue {
+            self.stepsSound.run(SKAction.changeVolume(to: 0, duration: 0))
+        } else {
+            self.world.removeAction(forKey: key)
+        }
     }
     
     func playSound (sound: Sounds) {
@@ -42,13 +45,16 @@ class SoundManager {
         } else if sound == .ANTIGRAV {
             self.antiGravSound.run(SKAction.changeVolume(to: 0.5, duration: 0))
             self.antiGravSound.run(SKAction.changeVolume(to: 0, duration: 5.0))
+            
             if self.antiGravSound.parent == nil {
                 self.world.addChild(self.antiGravSound)
             }
             
         } else if sound == .RUN {
-            let repeatAction = SKAction.repeatForever(self.stepsSound)
-            self.world.run(repeatAction, withKey: Sounds.RUN.rawValue)
+            self.stepsSound.run(SKAction.changeVolume(to: 0.4, duration: 0))
+            if self.stepsSound.parent == nil {
+                self.world.addChild(self.stepsSound)
+            }
         } else if sound == .LANDED {
             self.world.run(self.hitGround)
         }

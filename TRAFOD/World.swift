@@ -379,12 +379,27 @@ class World: SKScene, SKPhysicsContactDelegate {
             if contactAName.contains("ground") || contactBName.contains("ground") {
                 if contact.contactNormal.dy == 1 {
                     self.player.zRotation = 0.0
+                    if let physicsBody = self.player.physicsBody {
+                        self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
+                    }
+                    
                     self.lastPointOnGround = self.player.position
                     self.playerState = .ONGROUND
                     self.playSound(sound: .LANDED)
                     var point = self.player.position
                     if let node = getContactNode(string: "ground", contact: contact) {
                         point.x = node.position.x
+                        
+                        if let node = node as? SKSpriteNode {
+                            let minX = node.position.x - (node.size.width / 2.0)
+                            let maxX = node.position.x + (node.size.width / 2.0)
+                            
+                            if self.player.position.x < minX + (self.player.size.width / 2.0) {
+                                self.lastPointOnGround?.x = minX + (self.player.size.width / 2.0)
+                            } else if self.player.position.x > maxX - (self.player.size.width / 2.0) {
+                                self.lastPointOnGround?.x = maxX - (self.player.size.width / 2.0)
+                            }
+                        }
                     }
                     
                     self.rewindPoints = [point]
@@ -519,9 +534,6 @@ class World: SKScene, SKPhysicsContactDelegate {
             let differenceInXPos = originalPos.x - pos.x
             if abs(differenceInXPos) > 10 {
                 if differenceInXPos < 0 {
-                    if self.playerRunningState == .STANDING {
-                        self.playSound(sound: .RUN)
-                    }
                     if self.previousPlayerRunningState == .RUNNINGLEFT {
                         self.player.xScale = self.player.xScale * -1
                     }
@@ -536,6 +548,7 @@ class World: SKScene, SKPhysicsContactDelegate {
                 }
             } else {
                 self.playerRunningState = .STANDING
+                self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
             }
         }
     }
@@ -725,6 +738,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func handleJump () {
         if self.playerState == .JUMP {
+            self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
             self.jump()
         }
     }
@@ -815,6 +829,10 @@ class World: SKScene, SKPhysicsContactDelegate {
             if self.playerRunningState != .STANDING {
                 self.showRunning(currentTime: currentTime)
                 self.run()
+                
+                if self.playerState != .INAIR {
+                    self.playSound(sound: .RUN)
+                }
             } else {
                 if self.playerState != .INAIR {
                     self.player.texture = SKTexture(imageNamed: "standing")
