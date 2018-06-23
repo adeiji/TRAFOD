@@ -16,6 +16,7 @@ class TransferLevel : World {
     private var shouldShowNextLevelAction = false
     private var throwMineral = false    
     private var sceneState:SceneState!
+    private var websiteButton:SKLabelNode?
     
     var previousWorldCameraPosition:CGPoint!
     var previousWorldPlayerPosition:CGPoint!
@@ -38,7 +39,7 @@ class TransferLevel : World {
                 node.text = "Collected \(impulseCount) of 330"
             }
         }
-    }        
+    }
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -52,6 +53,7 @@ class TransferLevel : World {
         
         self.player.position = CGPoint(x: -(self.scene!.size.width / 2.0) + 100 , y: 0)
         self.player.hasAntigrav = true
+        self.player.xScale = 1
         self.showMineralsReceived()
         
         if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
@@ -149,6 +151,18 @@ class TransferLevel : World {
         }
     }
     
+    override func touchDown(atPoint pos: CGPoint) {
+        super.touchDown(atPoint: pos)
+        
+        if let websiteButton = self.websiteButton {
+            if self.nodes(at: pos).contains(websiteButton) {
+                if let url = URL(string: "http://www.trafodgame.net") {
+                    UIApplication.shared.open(url, options: [:])
+                }
+            }
+        }
+    }
+    
     override func touchMoved(toPoint pos: CGPoint) {
         if self.sceneState == .MOVIE {
             return
@@ -183,20 +197,40 @@ class TransferLevel : World {
             wait = SKAction.wait(forDuration: 10.0)
             
             let comingSoonBlock = SKAction.run {
-                let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
-                self.player.run(fade)
-                speech.run(fade, completion: {
-                    let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
-                    let comingSoon = self.camera?.childNode(withName: "comingsoon")
-                    comingSoon?.run(fade)
-                })
                 
-                
+                if PurchaseService.shared.isSubscriptionExpired == false && PurchaseService.shared.hasReceiptData {
+                    let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
+                    self.player.run(fade)
+                    speech.run(fade, completion: {
+                        
+                        if let node = self.camera?.childNode(withName: "comingsoon") {
+                            if let website = node.childNode(withName: "website") as? SKLabelNode {
+                                self.websiteButton = website
+                            }
+                        }
+                        
+                        let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
+                        let comingSoon = self.camera?.childNode(withName: "comingsoon")
+                        comingSoon?.run(fade)
+                    })
+                    
+                } else {
+                    let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
+                    self.player.run(fade)
+                    speech.run(fade, completion: {
+                        self.showSubscriptionPage()
+                    })
+                }
             }
             
             sequence = SKAction.sequence([wait, comingSoonBlock])
             run(sequence)
         }
+    }
+    
+    func showSubscriptionPage() {
+        let subscriptionVC = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "subscribe")
+        self.view?.window?.rootViewController = subscriptionVC
     }
     
     func moveCamera () {
@@ -227,6 +261,7 @@ class TransferLevel : World {
             if let world = self.transitionToNextScreen(filename: "GameScene") {
                 world.camera?.position = self.previousWorldCameraPosition
                 world.player = self.player
+                world.player.xScale = -1
                 world.collectedElements = self.collectedElements
                 world.removeCollectedElements()
                 

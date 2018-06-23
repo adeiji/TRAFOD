@@ -30,6 +30,10 @@ class MainMenu: World {
         }
     }
     
+    func isSubscribed () {
+        
+    }
+    
     override func showDoorParticles () {
         self.enumerateChildNodes(withName: "door") { (door, pointer) in
             if let fireFliesParticlesPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {

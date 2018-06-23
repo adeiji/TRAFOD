@@ -48,6 +48,7 @@
 		F442382120DA50AC00EA4D01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442382020DA50AC00EA4D01 /* dawudsong.wav */; };
 		F442382320DA54B500EA4D01 /* birdschirping.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442382220DA54B500EA4D01 /* birdschirping.wav */; };
 		F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A4D4420DC928100E53841 /* PurchaseService.swift */; };
+		F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */; };
 		F44A9A8D20D3E25D004E389C /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A9A8C20D3E25D004E389C /* World.swift */; };
 		F44A9A9020D4EB16004E389C /* Loading.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44A9A8F20D4EB16004E389C /* Loading.sks */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
@@ -108,6 +109,7 @@
 		F4B8E8AD20CA72BF00E558F8 /* level1mountains.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8AA20CA72BF00E558F8 /* level1mountains.png */; };
 		F4B8E8AF20CA794900E558F8 /* level1ground1.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8AE20CA794900E558F8 /* level1ground1.png */; };
 		F4B8E8B120CA79D300E558F8 /* level1ground2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8B020CA79D300E558F8 /* level1ground2.png */; };
+		F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */; };
 		F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */; };
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
 /* End PBXBuildFile section */
@@ -177,6 +179,7 @@
 		F442382020DA50AC00EA4D01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dawudsong.wav; path = ../../../../../../dawudsong.wav; sourceTree = "<group>"; };
 		F442382220DA54B500EA4D01 /* birdschirping.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = birdschirping.wav; sourceTree = "<group>"; };
 		F44A4D4420DC928100E53841 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
+		F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		F44A9A8C20D3E25D004E389C /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		F44A9A8F20D4EB16004E389C /* Loading.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Loading.sks; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
@@ -243,6 +246,7 @@
 		F4B8E8AA20CA72BF00E558F8 /* level1mountains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1mountains.png; sourceTree = "<group>"; };
 		F4B8E8AE20CA794900E558F8 /* level1ground1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1ground1.png; sourceTree = "<group>"; };
 		F4B8E8B020CA79D300E558F8 /* level1ground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1ground2.png; sourceTree = "<group>"; };
+		F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -342,6 +346,8 @@
 			isa = PBXGroup;
 			children = (
 				F44A4D4420DC928100E53841 /* PurchaseService.swift */,
+				F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */,
+				F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */,
 			);
 			path = Purchasing;
 			sourceTree = "<group>";
@@ -860,6 +866,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
@@ -869,6 +876,7 @@
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
+				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,
 				F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,

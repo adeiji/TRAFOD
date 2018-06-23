@@ -33,6 +33,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     private var playerAction:PlayerAction = .NONE
     
     var forces:[Minerals] = [Minerals]()
+    var impulses:[Minerals] = [Minerals]()
     private var gravityTimeLeft:Int = 0
     let antiGravViewKey = "antiGravView"
     
@@ -132,7 +133,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.contactTestBitMask = 1
         self.player.physicsBody?.collisionBitMask = 0b0010
         self.player.physicsBody?.allowsRotation = false
-        self.player.physicsBody?.friction = 0.4
+//        self.player.physicsBody?.friction = 0.4
         
         addChild(self.player)
     }
@@ -225,49 +226,61 @@ class World: SKScene, SKPhysicsContactDelegate {
         // Add an impulse node to the screen
         self.playSound(sound: .MINERALCRASH)
         
-        let impulseNode = SKSpriteNode(color: .clear, size: CGSize(width: 200, height: 200))
-        impulseNode.position = crashPosition
-        
-        if let portalPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
-            if let portal = NSKeyedUnarchiver.unarchiveObject(withFile: portalPath) as? SKEmitterNode {
-                portal.particleBirthRate = portal.particleBirthRate * 10.0
-                portal.particleColor = .orange
-                impulseNode.addChild(portal)
+        if self.impulses.count < 3 {
+            let impulseNode = SKSpriteNode(color: .clear, size: CGSize(width: 200, height: 200))
+            impulseNode.position = crashPosition
+            
+            if let portalPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
+                if let portal = NSKeyedUnarchiver.unarchiveObject(withFile: portalPath) as? SKEmitterNode {
+                    portal.particleBirthRate = portal.particleBirthRate * 2.0
+
+                    portal.particlePositionRange.dx = portal.particlePositionRange.dx * 2.0
+                    portal.particleColor = .orange
+                    impulseNode.addChild(portal)
+                }
             }
+            
+            if self.previousPlayerRunningState == .RUNNINGRIGHT {
+                impulseNode.position.x = impulseNode.position.x + 150
+            } else {
+                impulseNode.position.x = impulseNode.position.x - 150
+            }
+            
+            impulseNode.zPosition = -5
+            impulseNode.position.y = impulseNode.position.y + impulseNode.size.height / 2.0
+            impulseNode.name = "portal"
+            impulseNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: impulseNode.size.height))
+            impulseNode.physicsBody?.allowsRotation = false
+            impulseNode.physicsBody?.pinned = false
+            impulseNode.physicsBody?.affectedByGravity = false
+            impulseNode.physicsBody?.isDynamic = true
+            impulseNode.physicsBody?.collisionBitMask = 0
+            impulseNode.physicsBody?.categoryBitMask = 0b0001
+            
+            let warpTime = SKAction.wait(forDuration: 10.0)
+            let timeNode = SKLabelNode()
+            timeNode.fontSize = 40
+            timeNode.zPosition = 5
+            impulseNode.addChild(timeNode)
+            
+            self.showImpulseTimeLeft(timeNode: timeNode)
+            let impulseBlock = SKAction.run {
+                
+                if let _ = impulseNode.parent {
+                    if let _ = self.impulses.last {
+                        self.impulses.removeLast()
+                    }
+                }
+                
+                impulseNode.removeFromParent()
+            }
+            
+            let sequence = SKAction.sequence([warpTime, impulseBlock])
+            run(sequence)
+            
+            self.addChild(impulseNode)
+            self.impulses.append(.IMPULSE)
         }
-        
-        if self.previousPlayerRunningState == .RUNNINGRIGHT {
-            impulseNode.position.x = impulseNode.position.x + 150
-        } else {
-            impulseNode.position.x = impulseNode.position.x - 150
-        }
-        
-        impulseNode.zPosition = -5
-        impulseNode.position.y = impulseNode.position.y + impulseNode.size.height / 2.0
-        impulseNode.name = "portal"
-        impulseNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: impulseNode.size.height))
-        impulseNode.physicsBody?.allowsRotation = false
-        impulseNode.physicsBody?.pinned = false
-        impulseNode.physicsBody?.affectedByGravity = false
-        impulseNode.physicsBody?.isDynamic = true
-        impulseNode.physicsBody?.collisionBitMask = 0
-        impulseNode.physicsBody?.categoryBitMask = 0b0001
-        
-        let warpTime = SKAction.wait(forDuration: 10.0)
-        let timeNode = SKLabelNode()
-        timeNode.fontSize = 40
-        timeNode.zPosition = 5
-        impulseNode.addChild(timeNode)
-        
-        self.showImpulseTimeLeft(timeNode: timeNode)
-        let impulseBlock = SKAction.run {
-            impulseNode.removeFromParent()
-        }
-        
-        let sequence = SKAction.sequence([warpTime, impulseBlock])
-        run(sequence)
-        
-        self.addChild(impulseNode)
     }
     
     func showImpulseTimeLeft (timeNode: SKLabelNode, timeLeft: Int = 10) {
@@ -432,6 +445,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         
         if contactContains(strings: ["dawud", self.abyssKey], contactA: contactAName, contactB: contactBName) {
             self.playerState = .DEAD
+            return
         }
         
         if contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
@@ -651,6 +665,11 @@ class World: SKScene, SKPhysicsContactDelegate {
     func handleImpulse () {
         if let index = self.forces.index(of: .IMPULSE) {
             self.forces.remove(at: index)
+            
+            if let _ = self.impulses.last {
+                self.impulses.removeLast()
+            }
+            
             if self.player.physicsBody!.velocity.dx > 0.0 {
                 self.player.physicsBody?.applyImpulse(CGVector(dx: 600, dy: 250))
             } else {

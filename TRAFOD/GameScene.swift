@@ -157,6 +157,10 @@ class GameScene: World {
     func moveCamera() {
         if ((self.player.position.x >= self.minCameraX)) && self.player.position.x < 31862 {
             self.camera?.position.x = self.player.position.x
+        } else if self.player.position.x < self.minCameraX {
+            self.camera?.position.x = self.minCameraX
+        } else if self.player.position.x >= 31862 {
+            self.camera?.position.x = 31862
         }
         
         if self.player.position.y > 400 {
