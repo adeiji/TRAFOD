@@ -14,12 +14,15 @@ class PurchaseViewController: UIViewController {
     @IBOutlet weak var section1: UILabel!
     @IBOutlet weak var section2: UILabel!
     @IBOutlet weak var button: UIButton!
+    @IBOutlet weak var restorePurchaseButton: UIButton!
     @IBOutlet weak var websitePitch: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.button.layer.cornerRadius = 5.0
+        self.restorePurchaseButton.layer.cornerRadius = 5.0
+        
         if let title = PurchaseService.shared.title {
             self.myTitle.text = title
         }
@@ -39,6 +42,11 @@ class PurchaseViewController: UIViewController {
         }
         
         NotificationCenter.default.addObserver(self, selector: #selector(userSubscribed), name: .UserSubscribed, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(userSubscribed), name: .SubscriptionRestored, object: nil)
+    }
+    
+    @IBAction func restorePurchases(_ sender: Any) {
+        PurchaseService.shared.restorePurchases()
     }
     
     @objc func userSubscribed () {

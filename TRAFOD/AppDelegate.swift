@@ -48,7 +48,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKPaymentTransactionObser
     
     func handlePurchasedState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
         print("User purchased product id: \(transaction.payment.productIdentifier)")
-        print("User purchased product id: \(transaction.payment.productIdentifier)")
         
         queue.finishTransaction(transaction)
         PurchaseService.shared.uploadReceipt { (success) in
@@ -64,6 +63,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKPaymentTransactionObser
     
     func handleRestoredState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
         print("Purchase restored for product id: \(transaction.payment.productIdentifier)")
+        PurchaseService.shared.uploadReceipt { (success) in
+            DispatchQueue.main.async {
+                if let success = success {
+                    if success {
+                        DispatchQueue.main.async {
+                            NotificationCenter.default.post(name: .SubscriptionRestored, object: nil)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func handleFailedState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
@@ -99,5 +109,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKPaymentTransactionObser
 
 extension Notification.Name {
     static let UserSubscribed = Notification.Name("UserSubscribed")
+    static let SubscriptionRestored = Notification.Name("SubscriptionRestored")
 }
 

@@ -45,6 +45,10 @@ class PurchaseService: NSObject, SKProductsRequestDelegate {
         }
     }
     
+    func restorePurchases () {
+        SKPaymentQueue.default().restoreCompletedTransactions()
+    }
+    
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
         self.products = response.products
     }

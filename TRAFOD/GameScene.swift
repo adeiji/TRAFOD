@@ -120,7 +120,7 @@ class GameScene: World {
         self.showFireFlies()
         self.showMineralParticles()
         self.showBackgroundParticles()
-        self.showRain()                
+                        
         self.playBackgroundMusic()
         
         let antiGravNode = self.camera?.childNode(withName: self.antiGravViewKey)

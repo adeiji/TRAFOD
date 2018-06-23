@@ -84,17 +84,28 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLy-A6-bQc">
-                                <rect key="frame" x="192.5" y="314" width="282" height="38"/>
+                                <rect key="frame" x="101" y="314" width="225" height="38"/>
                                 <color key="backgroundColor" red="0.0" green="0.415962114760274" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="38" id="b6H-eI-hrG"/>
-                                    <constraint firstAttribute="width" constant="282" id="mIg-q2-Scy"/>
-                                </constraints>
                                 <state key="normal" title="Subscribe now for 3.49/month">
                                     <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
                                 <connections>
                                     <action selector="subscribePressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="y43-Rj-YP3"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qil-VC-bkb">
+                                <rect key="frame" x="349" y="314" width="225" height="38"/>
+                                <color key="backgroundColor" red="0.0" green="0.41527543534845446" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="225" id="6bU-pW-Rbp"/>
+                                    <constraint firstAttribute="height" constant="38" id="DBO-x1-NGK"/>
+                                </constraints>
+                                <state key="normal" title="Restore Purchase">
+                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <connections>
+                                    <action selector="restorePurchases:" destination="Zam-PA-v13" eventType="touchUpInside" id="Rbj-hh-1E7"/>
+                                    <action selector="subscribePressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="LTD-3j-dB5"/>
                                 </connections>
                             </button>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Blue Crystal.png" translatesAutoresizingMaskIntoConstraints="NO" id="JK1-AQ-PWa">
@@ -118,6 +129,7 @@
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="6Tg-tI-cpB" firstAttribute="top" secondItem="7yb-0X-KR5" secondAttribute="top" id="0Hb-Jj-pzc"/>
+                            <constraint firstItem="XLy-A6-bQc" firstAttribute="width" secondItem="Qil-VC-bkb" secondAttribute="width" id="0N7-dM-Y2Q"/>
                             <constraint firstItem="b7E-hM-zbX" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="3ip-MY-juo"/>
                             <constraint firstItem="WBM-6v-VDe" firstAttribute="top" secondItem="7yb-0X-KR5" secondAttribute="top" constant="38" id="89h-be-fOY"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="bottom" secondItem="QT4-gp-Y7q" secondAttribute="bottom" id="8YS-no-nDQ"/>
@@ -126,16 +138,19 @@
                             <constraint firstItem="b7E-hM-zbX" firstAttribute="top" secondItem="WBM-6v-VDe" secondAttribute="bottom" constant="27" id="9Oi-Vk-RCT"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="ESk-kk-DkP" secondAttribute="trailing" constant="20" id="9oh-Be-JFU"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="QT4-gp-Y7q" secondAttribute="trailing" id="D3E-Fq-gOO"/>
+                            <constraint firstItem="XLy-A6-bQc" firstAttribute="height" secondItem="Qil-VC-bkb" secondAttribute="height" id="IX2-cg-ISk"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="b7E-hM-zbX" secondAttribute="trailing" constant="36.5" id="NLZ-6m-7Ok"/>
-                            <constraint firstItem="7yb-0X-KR5" firstAttribute="bottom" secondItem="XLy-A6-bQc" secondAttribute="bottom" constant="23" id="NlI-f7-8WU"/>
+                            <constraint firstItem="Qil-VC-bkb" firstAttribute="centerX" secondItem="7yb-0X-KR5" secondAttribute="centerX" constant="128" id="SHt-cD-0gz"/>
                             <constraint firstItem="gee-eN-Koy" firstAttribute="centerX" secondItem="ESk-kk-DkP" secondAttribute="centerX" id="Snh-50-u8O"/>
+                            <constraint firstItem="XLy-A6-bQc" firstAttribute="centerX" secondItem="7yb-0X-KR5" secondAttribute="centerX" constant="-120" id="TFp-XA-bz8"/>
                             <constraint firstItem="gee-eN-Koy" firstAttribute="top" secondItem="ESk-kk-DkP" secondAttribute="bottom" constant="-7.5" id="TNt-5B-zXB"/>
                             <constraint firstItem="WBM-6v-VDe" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="Unl-Aa-9FS"/>
+                            <constraint firstItem="XLy-A6-bQc" firstAttribute="centerY" secondItem="Qil-VC-bkb" secondAttribute="centerY" id="YH2-HS-L0J"/>
                             <constraint firstItem="ESk-kk-DkP" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="Ypa-ez-jJx"/>
                             <constraint firstItem="Mjo-CS-gq0" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="cPN-Df-5O1"/>
+                            <constraint firstItem="7yb-0X-KR5" firstAttribute="bottom" secondItem="Qil-VC-bkb" secondAttribute="bottom" constant="23" id="gRu-nJ-alR"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="top" secondItem="QT4-gp-Y7q" secondAttribute="top" constant="1" id="k91-TL-b4c"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="WBM-6v-VDe" secondAttribute="trailing" constant="38" id="khZ-nQ-cHi"/>
-                            <constraint firstItem="XLy-A6-bQc" firstAttribute="centerX" secondItem="QT4-gp-Y7q" secondAttribute="centerX" id="mwT-LM-Qkc"/>
                             <constraint firstItem="Mjo-CS-gq0" firstAttribute="trailing" secondItem="Z6b-8K-zvg" secondAttribute="trailingMargin" id="nHV-mi-iIO"/>
                             <constraint firstItem="ESk-kk-DkP" firstAttribute="top" secondItem="Mjo-CS-gq0" secondAttribute="bottom" constant="23" id="u2l-Cw-Lhf"/>
                             <constraint firstItem="QT4-gp-Y7q" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" id="zlj-bw-jig"/>
@@ -148,6 +163,7 @@
                     <connections>
                         <outlet property="button" destination="XLy-A6-bQc" id="pPs-Wm-qOC"/>
                         <outlet property="myTitle" destination="WBM-6v-VDe" id="0Ts-ag-ZSo"/>
+                        <outlet property="restorePurchaseButton" destination="Qil-VC-bkb" id="8xF-vR-VJj"/>
                         <outlet property="section1" destination="b7E-hM-zbX" id="1Mt-c4-37l"/>
                         <outlet property="section2" destination="Mjo-CS-gq0" id="YGF-eY-nfF"/>
                         <outlet property="websitePitch" destination="ESk-kk-DkP" id="2hi-uA-TXx"/>
@@ -155,7 +171,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ldb-k0-vud" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="878" y="935"/>
+            <point key="canvasLocation" x="877.51124437781118" y="933.60000000000002"/>
         </scene>
         <!--Confirmation View Controller-->
         <scene sceneID="YVC-Ix-xj5">
