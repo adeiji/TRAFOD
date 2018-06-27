@@ -26,6 +26,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     var jumpButton:SKNode!
     var throwButton:SKNode!
     var throwImpulseButton:SKNode!
+    var grabButton:SKNode!
     
     var playerRunningState:PlayerRunningState = .STANDING
     var playerState:PlayerState = .ONGROUND
@@ -54,8 +55,9 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     private let playerNodeType:UInt32 = 2
     private let portalNodeType:UInt32 = 5
-    var rain:SKEmitterNode!
+    public var runningImpulseAmount:CGFloat = 20.0
     
+    var rain:SKEmitterNode!
     var lastUpdateTime : TimeInterval = 0
     var gravityTimeLeftLabel:SKLabelNode!
     
@@ -65,7 +67,10 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     var collectedElements:[Levels:[String]] = [Levels:[String]]()
     var sounds:SoundManager?
-    var currentLevel:Levels?    
+    var currentLevel:Levels?
+    
+    var impulseObjects:[SKNode] = [SKNode]()
+    
     
     enum Levels {
         case LEVEL1
@@ -83,6 +88,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         case ONGROUND
         case HITPORTAL
         case DEAD
+        case GRABBING
     }
     
     enum PlayerRunningState {
@@ -99,6 +105,11 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
         self.throwButton = self.camera?.childNode(withName: "throwButton")
         self.throwImpulseButton = self.camera?.childNode(withName: "throwImpulseButton")
+        self.grabButton = self.camera?.childNode(withName: "grabButton")
+        
+        self.grabButton.isUserInteractionEnabled = false
+        self.grabButton.isHidden = true
+        
         self.sounds = SoundManager(world: self)
         self.previousPlayerRunningState = .RUNNINGRIGHT
         if self.throwButton != nil {
@@ -138,8 +149,38 @@ class World: SKScene, SKPhysicsContactDelegate {
         addChild(self.player)
     }
     
-    func contactContains (strings: [String], contactA: String, contactB: String) -> Bool {
+    func contactContains (strings: [String], contactA: String = "", contactB: String = "", contact: SKPhysicsContact? = nil) -> Bool {
         var result = true
+        
+        if let contact = contact {
+            for string in strings {
+                var myResult = false
+                if let name = contact.bodyA.node?.name {
+                    if name.contains(string) {
+                        myResult = true
+                    }
+                } else {
+                    return false
+                }
+                
+                if let name = contact.bodyB.node?.name {
+                    if name.contains(string) {
+                        myResult = true
+                    }
+                } else {
+                    return false
+                }
+                
+                if myResult == false {
+                    result = false
+                    break
+                }
+                
+            }
+            
+            return result
+        }
+        
         for string in strings {
             var myResult = false
             if contactA.contains(string) {
@@ -361,11 +402,17 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        
         if self.explanation != nil && self.nodes(at: pos).contains(self.jumpButton) {
             self.explanation.removeFromParent()
             self.explanation = nil
         } else if self.explanation != nil {
+            return
+        }
+        
+        if self.grabButton != nil && self.grabButton.isHidden == false && self.nodes(at: pos).contains(self.grabButton) {
+            self.playerState = .GRABBING
+            self.playerRunningState = .STANDING
+            
             return
         }
         
@@ -387,7 +434,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     func didBegin(_ contact: SKPhysicsContact) {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
-        print("Contact initiated...")
+        print("Contact initiated...\(contactAName) & \(contactBName)")
         if (contactAName == "dawud") || (contactBName == "dawud") {
             if contactAName.contains("ground") || contactBName.contains("ground") {
                 if contact.contactNormal.dy == 1 {
@@ -426,14 +473,20 @@ class World: SKScene, SKPhysicsContactDelegate {
             if let node = getContactNode(string: "mineral", contact: contact) {
                 node.removeFromParent()
             }
+            
+            return
         }
         
         if contactContains(strings: ["ground", "mineral", "impulse"], contactA: contactAName , contactB: contactBName) {
-            self.impulseUsed(crashPosition: contact.contactPoint)
-            self.showMineralCrash(withColor: UIColor.Style.IMPULSEMINERAL, contact: contact, duration: 2)
+            if !contactContains(strings: ["nowarp"], contactA: contactAName, contactB: contactBName) {
+                self.impulseUsed(crashPosition: contact.contactPoint)
+                self.showMineralCrash(withColor: UIColor.Style.IMPULSEMINERAL, contact: contact, duration: 2)
+            }
             if let node = getContactNode(string: "mineral", contact: contact) {
                 node.removeFromParent()
             }
+            
+            return
         }
         
         if contactContains(strings: ["dawud", "portal"], contactA: contactAName , contactB: contactBName) {
@@ -441,6 +494,21 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.portalHit(portalNode: node as! SKSpriteNode)
                 node.removeFromParent()
             }
+            
+            return
+        }
+        
+        if contactContains(strings: ["rock", "portal"], contactA: contactAName, contactB: contactBName) {
+            if let node = getContactNode(string: "portal", contact: contact) {
+                self.portalHit(portalNode: node as! SKSpriteNode)
+                node.removeFromParent()
+            }
+            
+            if let node = getContactNode(string: "rock", contact: contact) {
+                self.impulseObjects.append(node)
+            }
+            
+            return
         }
         
         if contactContains(strings: ["dawud", self.abyssKey], contactA: contactAName, contactB: contactBName) {
@@ -455,6 +523,8 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.addToCollectedElements(node: node)
                 node.removeFromParent()
             }
+            
+            return
         }
         
         if contactContains(strings: ["dawud", "getAntiGrav"], contactA: contactAName , contactB: contactBName) {
@@ -464,7 +534,70 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.addToCollectedElements(node: node)
                 node.removeFromParent()
             }
+            
+            return
         }
+        
+        if contactContains(strings: ["dawud", "rock"], contactA: contactAName, contactB: contactBName) {
+            if let node = getContactNode(string: "rock", contact: contact) {
+                if let physicsBody = node.physicsBody {
+                    if player.strength * 9.8 >= abs(physicsBody.mass * self.physicsWorld.gravity.dy) {
+//                        node.physicsBody?.applyForce(CGVector(dx: player.physicsBody!.velocity.dx, dy: 0))
+                    }
+                }
+            }
+            
+            return
+        }
+    }
+    
+    /**
+     
+     Checks to see if the specified object is in front of the player
+     
+     - parameters: object The object to check if it's in front of the player
+     - returns: A boolean value indicating whether the object is in front or not
+     
+     */
+    func objectIsInFront (object: SKNode) -> Bool {
+        if self.player.xScale > 0 { // player facing right
+            
+            if object.position.x > self.player.position.x {
+                return true
+            } else {
+                return false
+            }
+        } else {
+            if object.position.x < self.player.position.x {
+                return true
+            } else {
+                return false
+            }
+        }
+    }
+    
+    /**
+     
+     Checks to see if the user is facing an object nearby that he is able to grab and move around
+     
+     */
+    func checkIfCanGrab () -> Bool {
+        if self.playerState == .ONGROUND {
+            if let objectsInContact = self.player.physicsBody?.allContactedBodies() {
+                for object in objectsInContact {
+                    if let name = object.node?.name {
+                        if name.contains("rock") {
+                            if self.objectIsInFront(object: object.node!) {
+                                self.player.grabbedObject = object.node
+                                return true
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        return false
     }
     
     func getCollectedElements (level: String) {
@@ -569,6 +702,11 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func touchUp(atPoint pos : CGPoint) {
         self.playerRunningState = .STANDING
+        
+        if self.playerState == .GRABBING {
+            self.playerState = .ONGROUND
+        }
+        
         self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
     }
     
@@ -663,21 +801,37 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     func handleImpulse () {
+        
         if let index = self.forces.index(of: .IMPULSE) {
             self.forces.remove(at: index)
             
             if let _ = self.impulses.last {
                 self.impulses.removeLast()
             }
-            
-            if self.player.physicsBody!.velocity.dx > 0.0 {
-                self.player.physicsBody?.applyImpulse(CGVector(dx: 600, dy: 250))
+            if self.impulseObjects.count == 0 {
+                if self.player.physicsBody!.velocity.dx > 0.0 {
+                    self.player.physicsBody?.applyImpulse(CGVector(dx: 600, dy: 250))
+                } else {
+                    self.player.physicsBody?.applyImpulse(CGVector(dx: -600, dy: 250))
+                }
             } else {
-                self.player.physicsBody?.applyImpulse(CGVector(dx: -600, dy: 250))
+                for object in self.impulseObjects {
+                    if object.physicsBody!.velocity.dx > 0.0 {
+                        object.physicsBody?.applyImpulse(CGVector(dx: 600 * (object.physicsBody?.mass ?? 1), dy: 250))
+                    } else {
+                        object.physicsBody?.applyImpulse(CGVector(dx: -600 * (object.physicsBody?.mass ?? 1), dy: 250))
+                    }
+                }
             }
         }
+        
     }
     
+    /**
+     
+     Adds the Impulse force to our forces object
+     
+     */
     func portalHit (portalNode: SKSpriteNode) {
         self.forces.append(.IMPULSE)
     }
@@ -843,91 +997,69 @@ class World: SKScene, SKPhysicsContactDelegate {
         
         if self.playerState == .DEAD {
             self.handlePlayerDied()
-        }
-        else {
-            if self.playerRunningState != .STANDING {
-                self.showRunning(currentTime: currentTime)
-                self.run()
-                
-                if self.playerState != .INAIR {
-                    self.playSound(sound: .RUN)
-                }
-            } else {
-                if self.playerState != .INAIR {
-                    self.player.texture = SKTexture(imageNamed: "standing")
-                }
-            }
-            
-            self.handleJump()
-            self.handleThrow()
-        }
-    }
-    
-    func showBackgroundParticles () {
-        if let backgroundParticlesPath = Bundle.main.path(forResource: "Background", ofType: "sks") {
-            if let backgroundParticles = NSKeyedUnarchiver.unarchiveObject(withFile: backgroundParticlesPath) as? SKEmitterNode {
-                backgroundParticles.particleColor = UIColor(red: 22.0/255.0, green: 43.0/255.0, blue: 87.0/255.0, alpha: 1.0)
-                backgroundParticles.particlePositionRange.dx = self.scene!.size.width
-                backgroundParticles.particlePositionRange.dy = self.scene!.size.height
-                backgroundParticles.zPosition = -35
-                self.camera?.addChild(backgroundParticles)
-            }
-        }
-    }
-    
-    func showFireFlies () {
-        if let fireFliesParticlesPath = Bundle.main.path(forResource: "FireFlies", ofType: "sks") {
-            if let fireFliesParticles = NSKeyedUnarchiver.unarchiveObject(withFile: fireFliesParticlesPath) as? SKEmitterNode {
-                fireFliesParticles.particlePositionRange.dx = self.scene!.size.width
-                fireFliesParticles.particlePositionRange.dy = self.scene!.size.height
-                fireFliesParticles.zPosition = 0
-                self.camera?.addChild(fireFliesParticles)
-            }
-        }
-    }
-    
-    func showRain () {
-        if let rainPath = Bundle.main.path(forResource: "Rain", ofType: "sks") {
-            if let rain = NSKeyedUnarchiver.unarchiveObject(withFile: rainPath) as? SKEmitterNode {
-                rain.particlePositionRange.dx = self.scene!.size.width
-                rain.position = CGPoint(x: 0, y: (self.scene!.size.height / 2.0) + 100)
-                self.camera?.addChild(rain)
-                self.rain = rain
-            }
-        }
-    }
-    
-    func showMineralParticles () {
-        for child in self.children {
-            if child.name == "getAntiGrav" || child.name == "getImpulse" {
-                if let magicPath = Bundle.main.path(forResource: "Magic", ofType: "sks") {
-                    if let magic = NSKeyedUnarchiver.unarchiveObject(withFile: magicPath) as? SKEmitterNode {
-                        if child.name == "getAntiGrav" {
-                            magic.particleColor = UIColor.Style.ANTIGRAVMINERAL
-                        } else {
-                            magic.particleColor = UIColor.Style.IMPULSEMINERAL
-                        }
-                        magic.position = CGPoint(x: 0, y: 0)
-                        child.addChild(magic)
+        } else {
+            if self.playerState != .GRABBING { // User can only move left to right when grabbing something
+                if self.playerRunningState != .STANDING {
+                    self.showRunning(currentTime: currentTime)
+                    self.run()
+                    
+                    if self.playerState != .INAIR {
+                        self.playSound(sound: .RUN)
+                    }
+                } else {
+                    if self.playerState != .INAIR {
+                        self.player.texture = SKTexture(imageNamed: "standing")
                     }
                 }
                 
-            }
-        }
-    }
-    
-    func showGroundParticles () {
-        for child in self.children {
-            if child.name == "ground" {
-                if let magicPath = Bundle.main.path(forResource: "RainPatter", ofType: "sks") {
-                    if let magic = NSKeyedUnarchiver.unarchiveObject(withFile: magicPath) as? SKEmitterNode {
-                        magic.position = CGPoint(x: 0, y: 0)
-                        child.addChild(magic)
-                    }
+                self.handleJump()
+                self.handleThrow()
+                
+                if checkIfCanGrab() {
+                    self.showGrabButton()
+                } else {
+                    self.hideGrabButton()
+                }
+            } else if self.playerState == .GRABBING {
+                self.moveGrabbedObject()
+                
+                if self.playerRunningState != .STANDING {
+                    self.showRunning(currentTime: currentTime)
                 }
             }
         }
     }
+    
+    func moveGrabbedObject () {
+        if let object = self.player.grabbedObject, let physicsBody = object.physicsBody {
+            let gravityDifference = (self.physicsWorld.gravity.dy / -9.8)
+            if abs(physicsBody.mass * self.physicsWorld.gravity.dy) <= self.player.strength * 9.81 {
+                if self.playerRunningState == .RUNNINGRIGHT {
+                    object.physicsBody?.applyImpulse(CGVector(dx: (self.runningImpulseAmount * 20) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                } else if self.playerRunningState == .RUNNINGLEFT {
+                    object.physicsBody?.applyImpulse(CGVector(dx: (-self.runningImpulseAmount * 20) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                } else if self.playerRunningState == .STANDING {
+                    if let physicsBody = object.physicsBody {
+                        object.physicsBody?.velocity = CGVector(dx: 0, dy: physicsBody.velocity.dy)
+                    }
+                }
+                
+                self.player.physicsBody?.velocity.dx = physicsBody.velocity.dx
+            }
+        }
+    }
+    
+    func hideGrabButton() {
+        self.grabButton.isHidden = true
+        self.grabButton.alpha = 0.0
+    }
+    
+    func showGrabButton () {
+        self.grabButton.isHidden = false
+        self.grabButton.alpha = 1.0
+    }
+    
+    
     @discardableResult
     func transitionToNextScreen (filename: String, player: Player? = nil) -> World? {
         let world = World(fileNamed: filename)
@@ -956,18 +1088,4 @@ class World: SKScene, SKPhysicsContactDelegate {
             }
         }
     }
-    
-    func showDoorParticles () {
-        self.enumerateChildNodes(withName: "door") { (door, pointer) in
-            if let fireFliesParticlesPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
-                if let fireFliesParticles = NSKeyedUnarchiver.unarchiveObject(withFile: fireFliesParticlesPath) as? SKEmitterNode {
-                    fireFliesParticles.zPosition = 0
-                    fireFliesParticles.position = door.position
-                    self.addChild(fireFliesParticles)
-                }
-            }
-        }
-    }
-    
-
 }

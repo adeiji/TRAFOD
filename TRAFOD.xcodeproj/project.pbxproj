@@ -43,6 +43,9 @@
 		F438D07420CE37DB00EC2606 /* level1background7.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06C20CE37DB00EC2606 /* level1background7.png */; };
 		F438D07520CE37DB00EC2606 /* level1background3.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06D20CE37DB00EC2606 /* level1background3.png */; };
 		F438D07620CE37DB00EC2606 /* level1background5.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06E20CE37DB00EC2606 /* level1background5.png */; };
+		F43FE24520E201270012D6E4 /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = F43FE24420E201270012D6E4 /* Level2.sks */; };
+		F43FE24720E203620012D6E4 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43FE24620E203620012D6E4 /* Level2.swift */; };
+		F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43FE24920E21A550012D6E4 /* World+Particles.swift */; };
 		F442381D20D92CDB00EA4D01 /* Doors.sks in Resources */ = {isa = PBXBuildFile; fileRef = F442381C20D92CDB00EA4D01 /* Doors.sks */; };
 		F442381F20DA509600EA4D01 /* story.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442381E20DA509600EA4D01 /* story.wav */; };
 		F442382120DA50AC00EA4D01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442382020DA50AC00EA4D01 /* dawudsong.wav */; };
@@ -174,6 +177,9 @@
 		F438D06C20CE37DB00EC2606 /* level1background7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background7.png; sourceTree = "<group>"; };
 		F438D06D20CE37DB00EC2606 /* level1background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background3.png; sourceTree = "<group>"; };
 		F438D06E20CE37DB00EC2606 /* level1background5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background5.png; sourceTree = "<group>"; };
+		F43FE24420E201270012D6E4 /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
+		F43FE24620E203620012D6E4 /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
+		F43FE24920E21A550012D6E4 /* World+Particles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+Particles.swift"; sourceTree = "<group>"; };
 		F442381C20D92CDB00EA4D01 /* Doors.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Doors.sks; sourceTree = "<group>"; };
 		F442381E20DA509600EA4D01 /* story.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = story.wav; sourceTree = "<group>"; };
 		F442382020DA50AC00EA4D01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dawudsong.wav; path = ../../../../../../dawudsong.wav; sourceTree = "<group>"; };
@@ -342,6 +348,23 @@
 			path = "Level 1";
 			sourceTree = "<group>";
 		};
+		F43FE24320E201140012D6E4 /* Levels */ = {
+			isa = PBXGroup;
+			children = (
+				F43FE24420E201270012D6E4 /* Level2.sks */,
+				F43FE24620E203620012D6E4 /* Level2.swift */,
+			);
+			path = Levels;
+			sourceTree = "<group>";
+		};
+		F43FE24820E21A410012D6E4 /* World */ = {
+			isa = PBXGroup;
+			children = (
+				F43FE24920E21A550012D6E4 /* World+Particles.swift */,
+			);
+			path = World;
+			sourceTree = "<group>";
+		};
 		F44A4D4320DC926900E53841 /* Purchasing */ = {
 			isa = PBXGroup;
 			children = (
@@ -462,6 +485,8 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F43FE24820E21A410012D6E4 /* World */,
+				F43FE24320E201140012D6E4 /* Levels */,
 				F44A4D4320DC926900E53841 /* Purchasing */,
 				F45EDF6D20D8C01D0076C1C8 /* Persistance */,
 				F44A9A8E20D4EB04004E389C /* Loading */,
@@ -692,6 +717,7 @@
 				F44E1A4C20CFC4E600FD026E /* watermineral.png in Resources */,
 				F438D05420CD4E2300EC2606 /* Level1_Theme.mp3 in Resources */,
 				F4B8E89D20CA4FAA00E558F8 /* running_step2.png in Resources */,
+				F43FE24520E201270012D6E4 /* Level2.sks in Resources */,
 				F438D04F20CD34E700EC2606 /* five.mp3 in Resources */,
 				F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */,
 				F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */,
@@ -866,6 +892,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F43FE24720E203620012D6E4 /* Level2.swift in Sources */,
 				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
@@ -875,6 +902,7 @@
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
+				F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,
