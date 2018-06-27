@@ -141,10 +141,9 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.restitution = 0
         self.player.physicsBody?.mass = 1
         self.player.physicsBody?.isDynamic = true
-        self.player.physicsBody?.contactTestBitMask = 1
-        self.player.physicsBody?.collisionBitMask = 0b0010
+        self.player.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects)
+        self.player.physicsBody?.collisionBitMask = 0b0010 | UInt32(PhysicsCategory.InteractableObjects)
         self.player.physicsBody?.allowsRotation = false
-//        self.player.physicsBody?.friction = 0.4
         
         addChild(self.player)
     }
@@ -437,7 +436,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         print("Contact initiated...\(contactAName) & \(contactBName)")
         if (contactAName == "dawud") || (contactBName == "dawud") {
             if contactAName.contains("ground") || contactBName.contains("ground") {
-                if contact.contactNormal.dy == 1 {
+                if contact.contactNormal.dy > 0.8 {
                     self.player.zRotation = 0.0
                     if let physicsBody = self.player.physicsBody {
                         self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
@@ -549,6 +548,14 @@ class World: SKScene, SKPhysicsContactDelegate {
             
             return
         }
+        
+        if contactContains(strings: ["cannonball", "ground"], contact: contact) {
+            if let node = getContactNode(string: "cannonball", contact: contact) {
+                node.removeFromParent()
+            }
+            
+            return
+        }
     }
     
     /**
@@ -600,6 +607,14 @@ class World: SKScene, SKPhysicsContactDelegate {
         return false
     }
     
+    /**
+     
+     Gets all the elements that the user has gotten so far
+     
+     - parameters:
+        - level The current level that the user is playing
+     
+     */
     func getCollectedElements (level: String) {
         if let elements = ProgressTracker.getElementsCollected() {
             for element in elements {
@@ -617,6 +632,14 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    /**
+     
+     Adds the current element to the elements that the user has collected
+     
+     - parameters:
+        - node The node that has been collected. ie: antigrav-mineral1
+     
+     */
     func addToCollectedElements (node:SKNode) {
         if let level = self.currentLevel {
             if self.collectedElements[level] == nil {
@@ -630,6 +653,13 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
+    /**
+     
+     Checks to see if the player has fallen below the last time he was on the ground
+     
+     - returns: A boolean value indicating whether the player is falling
+     
+     */
     func playerIsFalling () -> Bool {
         
         if let point = self.lastPointOnGround {
@@ -646,7 +676,14 @@ class World: SKScene, SKPhysicsContactDelegate {
             
         }
     }
-    
+    /**
+     
+     Checks to see if the player is on the ground
+     
+     - todo: Only return true if the player is standing on the ground
+     - returns: Bool If the player is on the ground or not
+     
+     */
     private func isGrounded () -> Bool {
         if let bodies = self.player.physicsBody?.allContactedBodies(), let groundPhysicsBody = self.ground?.physicsBody {
             if bodies.contains(groundPhysicsBody) {
@@ -657,10 +694,16 @@ class World: SKScene, SKPhysicsContactDelegate {
         return false
     }
     
+    /**
+     
+     Adds an impulse to the character to cuase him to jump and shows him as jumping
+     
+     */
     private func jump() {
         self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 500))
         self.player.texture = SKTexture(imageNamed: "spinning")
         self.playerState = .INAIR
+
     }
     
     func rotateJumpingPlayer (rotation: Double) {
@@ -869,9 +912,9 @@ class World: SKScene, SKPhysicsContactDelegate {
         mineralNode.physicsBody?.affectedByGravity = true
         mineralNode.physicsBody?.categoryBitMask = 2
         mineralNode.physicsBody?.isDynamic = true
-        mineralNode.physicsBody?.contactTestBitMask = 1
+        mineralNode.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects)
         mineralNode.physicsBody?.categoryBitMask = 0b0001
-        mineralNode.physicsBody?.collisionBitMask = 0
+        mineralNode.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects)
         mineralNode.physicsBody?.allowsRotation = false
         addChild(mineralNode)
         
