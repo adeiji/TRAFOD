@@ -13,6 +13,7 @@ import SpriteKit
 struct PhysicsCategory {
     static let InteractableObjects:Int32 = 0x1 << 3
     static let CannonBall:Int32 = 0x1 << 4
+    static let NonInteractableObjects:Int32 = 0x1 << 5
 }
 
 protocol AntiGravPlatformProtocol {
@@ -24,6 +25,14 @@ protocol AntiGravPlatformProtocol {
     
 }
 
+class Reset: SKSpriteNode {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.physicsBody?.categoryBitMask = 0b0001
+    }
+}
+
 class FlipSwitch : SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
@@ -33,21 +42,16 @@ class FlipSwitch : SKSpriteNode {
     }
 }
 
-class CannonBall : SKSpriteNode {
-    
-    init(cannon: Cannon) {
-        super.init(texture: nil, color: .orange, size: CGSize(width: 50, height: 50))
-        self.name = "cannonball"
-        self.physicsBody = SKPhysicsBody(circleOfRadius: 25)
-        self.physicsBody?.mass = 15
-        self.physicsBody?.collisionBitMask = 0b0010
-        self.physicsBody?.contactTestBitMask = 1
-        self.physicsBody?.isDynamic = true
-        cannon.addChild(self)
-    }
+class DoubleGravField : SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
+    }
+    
+    func gravitation (mass: CGFloat) -> CGVector {
+        return CGVector(dx: 0, dy: (-9.8 * 4) * mass)
     }
 }
 
@@ -55,11 +59,12 @@ class Cannon : SKSpriteNode {
     
     // The time to wait before firing again
     var timeToFire:Double = 3.0
+    var lastTimeFired:TimeInterval!
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.InteractableObjects)        
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.InteractableObjects)
     }
     
     /**
@@ -71,17 +76,50 @@ class Cannon : SKSpriteNode {
         let ball = CannonBall(cannon: self)
         
         let angle = self.zRotation * 180 / .pi
-        let yVector = (20000 - 20000 * (1 - (abs(90 - abs(angle)) / 90)))
-        let xVector = (20000 * (1 - (abs(90 - abs(angle)) / 90))) * (((90 - angle) / abs(90 - angle)) * -1)
+        let differenceFrom90Degrees = abs(90 - abs(angle))
+        let yVector = (20000 - 20000 * (1 - (differenceFrom90Degrees / 90)))
+        let xVector = (20000 * (1 - (differenceFrom90Degrees / 90) ) ) * ( ( (90 - angle) / abs(90 - angle) ) * -1)
         
         ball.physicsBody?.applyImpulse(CGVector(dx: xVector, dy: yVector))
     }
 }
 
+class CannonBall : SKSpriteNode {
+    
+    init(cannon: Cannon) {
+        super.init(texture: nil, color: .orange, size: CGSize(width: 50, height: 50))
+        self.name = "cannonball"
+        self.physicsBody = SKPhysicsBody(circleOfRadius: 25)
+        self.physicsBody?.mass = 15
+        self.physicsBody?.collisionBitMask = 0b0010
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.NonInteractableObjects)
+        self.physicsBody?.isDynamic = true
+        self.physicsBody?.restitution = 1.0
+        
+        cannon.addChild(self)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+}
+
 class Rock : SKSpriteNode {
+    
+    var startingPos:CGPoint!
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
+        self.startingPos = self.position
+        self.physicsBody?.collisionBitMask = 0b0010
+    }
+}
+
+class MovablePlatform : SKSpriteNode {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+                
         self.physicsBody?.collisionBitMask = 0b0010
     }
 }
@@ -136,6 +174,7 @@ class Level2 : World {
     
     var launchTime:TimeInterval?
     var cannons:[Cannon]?
+    var cannonTimes:[TimeInterval] = [ 3.0, 5.0, 3.0, 5.0, 7.0 ]
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -155,8 +194,13 @@ class Level2 : World {
     }
     
     func getCannons () {
-        if let cannons = self.childNode(withName: "cannons") {
-            self.cannons = cannons.children as? [Cannon]
+        if let cannonsGroup = self.childNode(withName: "cannons") {
+            if let cannons  = cannonsGroup.children as? [Cannon] {
+                self.cannons = cannons
+                for i in 0...(cannons.count - 1) {
+                    self.cannons![i].timeToFire = self.cannonTimes[i]
+                }
+            }
         }
     }
     
@@ -170,24 +214,64 @@ class Level2 : World {
             leftBoundary.position.y = camera.position.y
             rightBoundary.position.y = camera.position.y
         }
+    }
+    
+    override func touchDown(atPoint pos: CGPoint) {
+        super.touchDown(atPoint: pos)
         
+        if let camera = self.camera, let zoomOut = camera.childNode(withName: "zoomOut") {
+            if self.nodes(at: pos).contains(zoomOut) {
+                if camera.xScale == 1 {
+                    self.camera?.xScale = 2
+                    self.camera?.yScale = 2
+                } else if camera.xScale == 2 {
+                    camera.xScale = 1
+                    camera.yScale = 1
+                }
+            }
+        }
     }
     
     override func didBegin(_ contact: SKPhysicsContact) {
         super.didBegin(contact)
         
+        if contact.bodyA.node as? Reset != nil || contact.bodyB.node as? Reset != nil {
+            if contactContains(strings: ["dawud"], contact: contact) == false {
+                if let node = contact.bodyA.node as? Rock {
+                    self.objectsToReset.append(node)
+                } else if let node = contact.bodyA.node as? Rock {
+                    self.objectsToReset.append(node)
+                }
+            }
+            
+            return
+        }
+        
         if contact.bodyA.node as? FlipSwitch != nil || contact.bodyB.node as? FlipSwitch != nil {
             if self.contactContains(strings: ["switch1", "rock"], contact: contact) {
                 self.movePlatform(nodeName: "ground-nowarp-switch1")
+            } else if self.contactContains(strings: ["switch2", "cannonball"], contact: contact) {
+                let wait = SKAction.wait(forDuration: 1.0)
+                self.run(wait) {
+                    self.movePlatform(nodeName: "ground-nowarp-switch2", duration: 1.5)
+                }
+            } else if self.contactContains(strings: ["switch3", "rock"], contact: contact) {
+                self.movePlatform(nodeName: "ground-switch3", duration: 6.0)
+            } else if self.contactContains(strings: ["switch4", "rock"], contact: contact) {
+                self.movePlatform(nodeName: "ground-nowarp-switch4", duration: 6.0)
+            } else if self.contactContains(strings: ["switch5", "rock"], contact: contact) {
+                self.movePlatform(nodeName: "ground-switch5", duration: 6.0)
             }
+            
+            return
         }
     }
     
-    func movePlatform(nodeName: String) {
+    func movePlatform(nodeName: String, duration: TimeInterval = 0.65) {
         if let node = self.childNode(withName: nodeName) {
             node.physicsBody?.pinned = false
             node.physicsBody?.affectedByGravity = true
-            let action = SKAction.wait(forDuration: 0.65)
+            let action = SKAction.wait(forDuration: duration)
             node.run(action) {
                 node.physicsBody?.pinned = true
                 node.physicsBody?.affectedByGravity = false
@@ -203,18 +287,18 @@ class Level2 : World {
         - currentTime - The current time of the application run loop
      */
     func launchCannons (currentTime: TimeInterval) {
-        if let launchTime = self.launchTime {
-            let timeSinceLaunch = currentTime - launchTime
-            if timeSinceLaunch >= 3.0 {
-                if let cannons = self.cannons {
-                    for cannon in cannons {
+        if let cannons = self.cannons {
+            for cannon in cannons {
+                if cannon.lastTimeFired == nil {
+                    cannon.lastTimeFired = currentTime
+                    cannon.launch()
+                } else {
+                    if currentTime - cannon.lastTimeFired >= cannon.timeToFire {
                         cannon.launch()
-                        self.launchTime = currentTime
+                        cannon.lastTimeFired = currentTime
                     }
                 }
             }
-        } else {
-            self.launchTime = currentTime
         }
     }
     
@@ -227,7 +311,20 @@ class Level2 : World {
             }
         }
         
-//        self.launchCannons(currentTime: currentTime)
+        self.enumerateChildNodes(withName: "doubleGravField") { (node, pointer) in
+            if let gravFieldPhysicsBody = node.physicsBody {
+                let objectsInField = gravFieldPhysicsBody.allContactedBodies()
+                for object in objectsInField {
+                    if let node = node as? DoubleGravField {
+                        if object.node?.name?.contains("portal") == false {
+                            object.applyImpulse(node.gravitation(mass: object.mass))
+                        }
+                    }
+                }
+            }
+        }
+        
+        self.launchCannons(currentTime: currentTime)
         self.moveCamera()
         let dt = currentTime - self.lastUpdateTime
         self.handlePlayerRotation(dt: dt)

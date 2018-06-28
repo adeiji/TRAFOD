@@ -35,7 +35,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     var forces:[Minerals] = [Minerals]()
     var impulses:[Minerals] = [Minerals]()
-    private var gravityTimeLeft:Int = 0
+    var gravityTimeLeft:Int = 0
     let antiGravViewKey = "antiGravView"
     
     private var originalTouchPosition:CGPoint?
@@ -70,6 +70,10 @@ class World: SKScene, SKPhysicsContactDelegate {
     var currentLevel:Levels?
     
     var impulseObjects:[SKNode] = [SKNode]()
+    /**
+     - todo: Make sure that this is not a Rock object but instead use a protocol for all objects that can be reset when hitting another object
+     */
+    var objectsToReset:[SKSpriteNode] = [SKSpriteNode]()
     
     
     enum Levels {
@@ -141,7 +145,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.restitution = 0
         self.player.physicsBody?.mass = 1
         self.player.physicsBody?.isDynamic = true
-        self.player.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects)
+        self.player.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects)
         self.player.physicsBody?.collisionBitMask = 0b0010 | UInt32(PhysicsCategory.InteractableObjects)
         self.player.physicsBody?.allowsRotation = false
         
@@ -497,6 +501,20 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
+        if contactContains(strings: ["cannonball", "portal"], contactA: contactAName, contactB: contactBName) {
+            if let node = getContactNode(string: "portal", contact: contact) {
+                self.portalHit(portalNode: node as! SKSpriteNode)
+                node.removeFromParent()
+            }
+            
+            if let node = getContactNode(string: "cannonball", contact: contact) {
+                self.impulseObjects.append(node)
+            }
+            
+            return
+        }
+        
+        
         if contactContains(strings: ["rock", "portal"], contactA: contactAName, contactB: contactBName) {
             if let node = getContactNode(string: "portal", contact: contact) {
                 self.portalHit(portalNode: node as! SKSpriteNode)
@@ -505,6 +523,14 @@ class World: SKScene, SKPhysicsContactDelegate {
             
             if let node = getContactNode(string: "rock", contact: contact) {
                 self.impulseObjects.append(node)
+            }
+            
+            return
+        }
+        
+        if contactContains(strings: ["rock", self.abyssKey], contactA: contactAName, contactB: contactBName) {
+            if let node = getContactNode(string: "rock", contact: contact) as? Rock {
+                self.objectsToReset.append(node)
             }
             
             return
@@ -550,8 +576,10 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         if contactContains(strings: ["cannonball", "ground"], contact: contact) {
-            if let node = getContactNode(string: "cannonball", contact: contact) {
-                node.removeFromParent()
+            if contactContains(strings: ["rock"], contact: contact) == false {
+                if let node = getContactNode(string: "cannonball", contact: contact) {
+                    node.removeFromParent()
+                }
             }
             
             return
@@ -844,7 +872,6 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     func handleImpulse () {
-        
         if let index = self.forces.index(of: .IMPULSE) {
             self.forces.remove(at: index)
             
@@ -865,9 +892,10 @@ class World: SKScene, SKPhysicsContactDelegate {
                         object.physicsBody?.applyImpulse(CGVector(dx: -600 * (object.physicsBody?.mass ?? 1), dy: 250))
                     }
                 }
+                
+                self.impulseObjects.removeAll()
             }
         }
-        
     }
     
     /**
@@ -1071,6 +1099,19 @@ class World: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
+        
+        self.resetObjectsToOriginalPosition()
+    }
+    
+    func resetObjectsToOriginalPosition () {
+        for object in self.objectsToReset {
+            if let object = object as? Rock {
+                object.position = object.startingPos
+                object.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+            }
+        }
+        
+        self.objectsToReset = [SKSpriteNode]()
     }
     
     func moveGrabbedObject () {

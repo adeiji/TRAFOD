@@ -44,7 +44,6 @@
 		F438D07520CE37DB00EC2606 /* level1background3.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06D20CE37DB00EC2606 /* level1background3.png */; };
 		F438D07620CE37DB00EC2606 /* level1background5.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D06E20CE37DB00EC2606 /* level1background5.png */; };
 		F43FE24520E201270012D6E4 /* Level2.sks in Resources */ = {isa = PBXBuildFile; fileRef = F43FE24420E201270012D6E4 /* Level2.sks */; };
-		F43FE24720E203620012D6E4 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43FE24620E203620012D6E4 /* Level2.swift */; };
 		F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43FE24920E21A550012D6E4 /* World+Particles.swift */; };
 		F442381D20D92CDB00EA4D01 /* Doors.sks in Resources */ = {isa = PBXBuildFile; fileRef = F442381C20D92CDB00EA4D01 /* Doors.sks */; };
 		F442381F20DA509600EA4D01 /* story.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442381E20DA509600EA4D01 /* story.wav */; };
@@ -112,6 +111,8 @@
 		F4B8E8AD20CA72BF00E558F8 /* level1mountains.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8AA20CA72BF00E558F8 /* level1mountains.png */; };
 		F4B8E8AF20CA794900E558F8 /* level1ground1.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8AE20CA794900E558F8 /* level1ground1.png */; };
 		F4B8E8B120CA79D300E558F8 /* level1ground2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8B020CA79D300E558F8 /* level1ground2.png */; };
+		F4BA319620E3672900DBD823 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BA319520E3672800DBD823 /* Level2.swift */; };
+		F4BA319820E3679800DBD823 /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BA319720E3679800DBD823 /* Cannon.swift */; };
 		F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */; };
 		F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */; };
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
@@ -178,7 +179,6 @@
 		F438D06D20CE37DB00EC2606 /* level1background3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background3.png; sourceTree = "<group>"; };
 		F438D06E20CE37DB00EC2606 /* level1background5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1background5.png; sourceTree = "<group>"; };
 		F43FE24420E201270012D6E4 /* Level2.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level2.sks; sourceTree = "<group>"; };
-		F43FE24620E203620012D6E4 /* Level2.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		F43FE24920E21A550012D6E4 /* World+Particles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+Particles.swift"; sourceTree = "<group>"; };
 		F442381C20D92CDB00EA4D01 /* Doors.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Doors.sks; sourceTree = "<group>"; };
 		F442381E20DA509600EA4D01 /* story.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = story.wav; sourceTree = "<group>"; };
@@ -252,6 +252,8 @@
 		F4B8E8AA20CA72BF00E558F8 /* level1mountains.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1mountains.png; sourceTree = "<group>"; };
 		F4B8E8AE20CA794900E558F8 /* level1ground1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1ground1.png; sourceTree = "<group>"; };
 		F4B8E8B020CA79D300E558F8 /* level1ground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1ground2.png; sourceTree = "<group>"; };
+		F4BA319520E3672800DBD823 /* Level2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
+		F4BA319720E3679800DBD823 /* Cannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
 		F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
@@ -351,8 +353,9 @@
 		F43FE24320E201140012D6E4 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				F4BA319520E3672800DBD823 /* Level2.swift */,
 				F43FE24420E201270012D6E4 /* Level2.sks */,
-				F43FE24620E203620012D6E4 /* Level2.swift */,
+				F4BA319720E3679800DBD823 /* Cannon.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -892,12 +895,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F43FE24720E203620012D6E4 /* Level2.swift in Sources */,
 				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
+				F4BA319620E3672900DBD823 /* Level2.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
+				F4BA319820E3679800DBD823 /* Cannon.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
