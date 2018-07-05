@@ -16,6 +16,7 @@ enum Sounds: String {
     case JUMP
     case RUN = "FootstepsKey"
     case LANDED
+    case CANNONBLAST
 }
 
 class SoundManager {
@@ -23,12 +24,13 @@ class SoundManager {
     let mineralCrashSound = SKAction.playSoundFileNamed("mineralcrash", waitForCompletion: false)
     let antiGravSound = SKAudioNode(fileNamed: "antigrav")
     let stepsSound = SKAudioNode(fileNamed: "footsteps")
-    let hitGround = SKAction.playSoundFileNamed("hitground", waitForCompletion: true)
+    let hitGround = SKAction.playSoundFileNamed("hitground", waitForCompletion: true)    
     
     let world:World
     
     init(world:World) {
         self.world = world
+        
     }
     
     func stopSoundWithKey (key: String) {
@@ -39,9 +41,9 @@ class SoundManager {
         }
     }
     
-    func playSound (sound: Sounds) {
+    func playSound (sound: Sounds, parent: SKNode? = nil) {
         if sound == .MINERALCRASH {
-            self.world.run(self.mineralCrashSound)
+            self.world.run(self.mineralCrashSound)        
         } else if sound == .ANTIGRAV {
             self.antiGravSound.run(SKAction.changeVolume(to: 0.5, duration: 0))
             self.antiGravSound.run(SKAction.changeVolume(to: 0, duration: 5.0))

@@ -63,29 +63,6 @@ class GameScene: World {
         case IMPULSE
     }
     
-    func changeMineralPhysicsBodies () {
-        for node in self.children {
-            if let name = node.name {
-                if name.contains("getAntiGrav") || name.contains("getImpulse") {
-                    if let _ = node.physicsBody {
-                        if let node = node as? SKSpriteNode {
-                            if let size = node.texture?.size() {
-                                node.physicsBody = SKPhysicsBody(rectangleOf: size)
-                                node.physicsBody?.affectedByGravity = false
-                                node.physicsBody?.restitution = 0
-                                node.physicsBody?.mass = 0
-                                node.physicsBody?.isDynamic = true
-                                node.physicsBody?.collisionBitMask = 0
-                                node.physicsBody?.categoryBitMask = 0b0001
-                                node.physicsBody?.allowsRotation = false
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-    
     override func sceneDidLoad() {
         super.sceneDidLoad()
         self.currentLevel = .LEVEL1
@@ -103,10 +80,11 @@ class GameScene: World {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
+        self.currentLevel = .LEVEL1
         self.showDoorParticles()
         self.physicsWorld.contactDelegate = self
         self.setupPlayer()
-        self.removeCollectedElements()
+        self.removeCollectedElements()        
         self.changeMineralPhysicsBodies()
         
         if self.player.hasAntigrav {

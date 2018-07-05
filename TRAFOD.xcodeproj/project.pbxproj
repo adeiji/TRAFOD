@@ -53,6 +53,13 @@
 		F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */; };
 		F44A9A8D20D3E25D004E389C /* World.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A9A8C20D3E25D004E389C /* World.swift */; };
 		F44A9A9020D4EB16004E389C /* Loading.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44A9A8F20D4EB16004E389C /* Loading.sks */; };
+		F44B9BD120EDFCEA00B874A1 /* Chapters.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BD020EDFCEA00B874A1 /* Chapters.sks */; };
+		F44B9BD420EDFEF700B874A1 /* Doorway.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B9BD320EDFEF700B874A1 /* Doorway.swift */; };
+		F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44B9BD520EDFF8000B874A1 /* Chapters.swift */; };
+		F44B9BD920EE135C00B874A1 /* switch-on.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BD720EE135B00B874A1 /* switch-on.png */; };
+		F44B9BDA20EE135C00B874A1 /* switch-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BD820EE135C00B874A1 /* switch-off.png */; };
+		F44B9BDC20EE1A7D00B874A1 /* grasstuft.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BDB20EE1A7C00B874A1 /* grasstuft.png */; };
+		F44B9BDE20EE1E3300B874A1 /* CaveUnderground.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
 		F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2220CF541800FD026E /* MainMenu.sks */; };
 		F44E1A2520CF543900FD026E /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2420CF543900FD026E /* menu.png */; };
@@ -83,7 +90,23 @@
 		F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */; };
 		F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF7020D8C2710076C1C8 /* Constants.swift */; };
 		F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF7220D8C5E60076C1C8 /* SoundManager.swift */; };
+		F462CDCB20E5C9D7004AF89E /* lv2rocks8.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDCA20E5C9D7004AF89E /* lv2rocks8.png */; };
+		F462CDCD20E5CA8F004AF89E /* lv2rocks9.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDCC20E5CA8F004AF89E /* lv2rocks9.png */; };
+		F462CDCF20E5CBD1004AF89E /* lv2rocks10.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDCE20E5CBD0004AF89E /* lv2rocks10.png */; };
+		F462CDD120E5CF18004AF89E /* lv2rocks11.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDD020E5CF18004AF89E /* lv2rocks11.png */; };
+		F462CDD320E5D052004AF89E /* lv2rocks12.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDD220E5D052004AF89E /* lv2rocks12.png */; };
+		F462CDD520E5D23A004AF89E /* lv2rocks15.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDD420E5D23A004AF89E /* lv2rocks15.png */; };
+		F462CDD820E5D264004AF89E /* lv2rocks14.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDD620E5D263004AF89E /* lv2rocks14.png */; };
+		F462CDD920E5D264004AF89E /* lv2rocks13.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDD720E5D264004AF89E /* lv2rocks13.png */; };
+		F462CDDB20E5D2FC004AF89E /* lv2rocks16.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDDA20E5D2FC004AF89E /* lv2rocks16.png */; };
+		F462CDDD20E5D4A3004AF89E /* lv2rocks17.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDDC20E5D4A3004AF89E /* lv2rocks17.png */; };
+		F462CDDF20E5D543004AF89E /* lv2rocks18.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDDE20E5D543004AF89E /* lv2rocks18.png */; };
+		F462CDE120E5D5D4004AF89E /* lv2rocks19.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDE020E5D5D4004AF89E /* lv2rocks19.png */; };
+		F462CDE420E5D752004AF89E /* lv2rocks20.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDE220E5D752004AF89E /* lv2rocks20.png */; };
+		F462CDE520E5D752004AF89E /* lv2rocks21.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDE320E5D752004AF89E /* lv2rocks21.png */; };
+		F462CDE820E5DE0C004AF89E /* level2_theme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F462CDE720E5DE0C004AF89E /* level2_theme.mp3 */; };
 		F4648F1C20D2679100CE97E1 /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = F4648F1B20D2679100CE97E1 /* platform.png */; };
+		F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4A9036420E64D0C006DCDD4 /* NoWarp.sks */; };
 		F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03CE620C94B8700F0B346 /* AppDelegate.swift */; };
 		F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CE820C94B8700F0B346 /* GameScene.sks */; };
 		F4B03CEB20C94B8700F0B346 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CEA20C94B8700F0B346 /* Actions.sks */; };
@@ -113,6 +136,19 @@
 		F4B8E8B120CA79D300E558F8 /* level1ground2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8B020CA79D300E558F8 /* level1ground2.png */; };
 		F4BA319620E3672900DBD823 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BA319520E3672800DBD823 /* Level2.swift */; };
 		F4BA319820E3679800DBD823 /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BA319720E3679800DBD823 /* Cannon.swift */; };
+		F4BA319D20E4E87400DBD823 /* lv2rocks1.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA319C20E4E87400DBD823 /* lv2rocks1.png */; };
+		F4BA319F20E4EE4300DBD823 /* smallrock.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA319E20E4EE4300DBD823 /* smallrock.png */; };
+		F4BA31A120E4F1DE00DBD823 /* lv2rocks3.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA31A020E4F1DE00DBD823 /* lv2rocks3.png */; };
+		F4BA31A320E53EBD00DBD823 /* lv2rocks4.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA31A220E53EBD00DBD823 /* lv2rocks4.png */; };
+		F4BA31A520E5408900DBD823 /* lv2rocks5.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA31A420E5408900DBD823 /* lv2rocks5.png */; };
+		F4BA31A720E5448100DBD823 /* lv2rocks6.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA31A620E5448000DBD823 /* lv2rocks6.png */; };
+		F4BA31A920E546BF00DBD823 /* lv2rocks7.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA31A820E546BE00DBD823 /* lv2rocks7.png */; };
+		F4C4CA1420EB14F4005CA4D7 /* cannonblast.wav in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1320EB14F3005CA4D7 /* cannonblast.wav */; };
+		F4C4CA1620EB80F6005CA4D7 /* cannon.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1520EB80F5005CA4D7 /* cannon.png */; };
+		F4C4CA1820EC9BC2005CA4D7 /* cannon-ROTATED.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1720EC9BC1005CA4D7 /* cannon-ROTATED.png */; };
+		F4C4CA1A20ECA334005CA4D7 /* speechBubble.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1920ECA334005CA4D7 /* speechBubble.png */; };
+		F4C4CA1C20ECC607005CA4D7 /* cannonball.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1B20ECC607005CA4D7 /* cannonball.png */; };
+		F4C4CA1E20ECD560005CA4D7 /* caveinside.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1D20ECD55F005CA4D7 /* caveinside.png */; };
 		F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */; };
 		F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */; };
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
@@ -188,6 +224,13 @@
 		F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
 		F44A9A8C20D3E25D004E389C /* World.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = World.swift; sourceTree = "<group>"; };
 		F44A9A8F20D4EB16004E389C /* Loading.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Loading.sks; sourceTree = "<group>"; };
+		F44B9BD020EDFCEA00B874A1 /* Chapters.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Chapters.sks; sourceTree = "<group>"; };
+		F44B9BD320EDFEF700B874A1 /* Doorway.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Doorway.swift; sourceTree = "<group>"; };
+		F44B9BD520EDFF8000B874A1 /* Chapters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Chapters.swift; sourceTree = "<group>"; };
+		F44B9BD720EE135B00B874A1 /* switch-on.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "switch-on.png"; sourceTree = "<group>"; };
+		F44B9BD820EE135C00B874A1 /* switch-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "switch-off.png"; sourceTree = "<group>"; };
+		F44B9BDB20EE1A7C00B874A1 /* grasstuft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grasstuft.png; sourceTree = "<group>"; };
+		F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaveUnderground.png; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
 		F44E1A2220CF541800FD026E /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		F44E1A2420CF543900FD026E /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -218,7 +261,23 @@
 		F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
 		F45EDF7020D8C2710076C1C8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F45EDF7220D8C5E60076C1C8 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		F462CDCA20E5C9D7004AF89E /* lv2rocks8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks8.png; sourceTree = "<group>"; };
+		F462CDCC20E5CA8F004AF89E /* lv2rocks9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks9.png; sourceTree = "<group>"; };
+		F462CDCE20E5CBD0004AF89E /* lv2rocks10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks10.png; sourceTree = "<group>"; };
+		F462CDD020E5CF18004AF89E /* lv2rocks11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks11.png; sourceTree = "<group>"; };
+		F462CDD220E5D052004AF89E /* lv2rocks12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks12.png; sourceTree = "<group>"; };
+		F462CDD420E5D23A004AF89E /* lv2rocks15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks15.png; sourceTree = "<group>"; };
+		F462CDD620E5D263004AF89E /* lv2rocks14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks14.png; sourceTree = "<group>"; };
+		F462CDD720E5D264004AF89E /* lv2rocks13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks13.png; sourceTree = "<group>"; };
+		F462CDDA20E5D2FC004AF89E /* lv2rocks16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks16.png; sourceTree = "<group>"; };
+		F462CDDC20E5D4A3004AF89E /* lv2rocks17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks17.png; sourceTree = "<group>"; };
+		F462CDDE20E5D543004AF89E /* lv2rocks18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks18.png; sourceTree = "<group>"; };
+		F462CDE020E5D5D4004AF89E /* lv2rocks19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks19.png; sourceTree = "<group>"; };
+		F462CDE220E5D752004AF89E /* lv2rocks20.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks20.png; sourceTree = "<group>"; };
+		F462CDE320E5D752004AF89E /* lv2rocks21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks21.png; sourceTree = "<group>"; };
+		F462CDE720E5DE0C004AF89E /* level2_theme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = level2_theme.mp3; sourceTree = "<group>"; };
 		F4648F1B20D2679100CE97E1 /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
+		F4A9036420E64D0C006DCDD4 /* NoWarp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoWarp.sks; sourceTree = "<group>"; };
 		F4B03CE320C94B8700F0B346 /* TRAFOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAFOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B03CE620C94B8700F0B346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B03CE820C94B8700F0B346 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -254,6 +313,19 @@
 		F4B8E8B020CA79D300E558F8 /* level1ground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1ground2.png; sourceTree = "<group>"; };
 		F4BA319520E3672800DBD823 /* Level2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
 		F4BA319720E3679800DBD823 /* Cannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
+		F4BA319C20E4E87400DBD823 /* lv2rocks1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks1.png; sourceTree = "<group>"; };
+		F4BA319E20E4EE4300DBD823 /* smallrock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallrock.png; sourceTree = "<group>"; };
+		F4BA31A020E4F1DE00DBD823 /* lv2rocks3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks3.png; sourceTree = "<group>"; };
+		F4BA31A220E53EBD00DBD823 /* lv2rocks4.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks4.png; sourceTree = "<group>"; };
+		F4BA31A420E5408900DBD823 /* lv2rocks5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks5.png; sourceTree = "<group>"; };
+		F4BA31A620E5448000DBD823 /* lv2rocks6.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks6.png; sourceTree = "<group>"; };
+		F4BA31A820E546BE00DBD823 /* lv2rocks7.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks7.png; sourceTree = "<group>"; };
+		F4C4CA1320EB14F3005CA4D7 /* cannonblast.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = cannonblast.wav; sourceTree = "<group>"; };
+		F4C4CA1520EB80F5005CA4D7 /* cannon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cannon.png; sourceTree = "<group>"; };
+		F4C4CA1720EC9BC1005CA4D7 /* cannon-ROTATED.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "cannon-ROTATED.png"; sourceTree = "<group>"; };
+		F4C4CA1920ECA334005CA4D7 /* speechBubble.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = speechBubble.png; sourceTree = "<group>"; };
+		F4C4CA1B20ECC607005CA4D7 /* cannonball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cannonball.png; sourceTree = "<group>"; };
+		F4C4CA1D20ECD55F005CA4D7 /* caveinside.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caveinside.png; sourceTree = "<group>"; };
 		F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
@@ -312,6 +384,8 @@
 		F438D02920CD34BE00EC2606 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F4C4CA1320EB14F3005CA4D7 /* cannonblast.wav */,
+				F462CDE620E5DE0C004AF89E /* level2 */,
 				F442382020DA50AC00EA4D01 /* dawudsong.wav */,
 				F44E1A5420D0B00E00FD026E /* hitground.mp3 */,
 				F44E1A3D20CFC1B600FD026E /* Story */,
@@ -356,6 +430,8 @@
 				F4BA319520E3672800DBD823 /* Level2.swift */,
 				F43FE24420E201270012D6E4 /* Level2.sks */,
 				F4BA319720E3679800DBD823 /* Cannon.swift */,
+				F44B9BD020EDFCEA00B874A1 /* Chapters.sks */,
+				F44B9BD520EDFF8000B874A1 /* Chapters.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -385,6 +461,14 @@
 				F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */,
 			);
 			path = Loading;
+			sourceTree = "<group>";
+		};
+		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
+			isa = PBXGroup;
+			children = (
+				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
+			);
+			path = "World Objects";
 			sourceTree = "<group>";
 		};
 		F44E1A2120CF53FD00FD026E /* Menu */ = {
@@ -442,6 +526,7 @@
 				F44E1A6920D10BCB00FD026E /* Spark.sks */,
 				F4E799FB20D7604900ECE898 /* Fire.sks */,
 				F442381C20D92CDB00EA4D01 /* Doors.sks */,
+				F4A9036420E64D0C006DCDD4 /* NoWarp.sks */,
 			);
 			path = Particles;
 			sourceTree = "<group>";
@@ -461,6 +546,14 @@
 				F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */,
 			);
 			path = Persistance;
+			sourceTree = "<group>";
+		};
+		F462CDE620E5DE0C004AF89E /* level2 */ = {
+			isa = PBXGroup;
+			children = (
+				F462CDE720E5DE0C004AF89E /* level2_theme.mp3 */,
+			);
+			path = level2;
 			sourceTree = "<group>";
 		};
 		F4B03CDA20C94B8700F0B346 = {
@@ -488,6 +581,7 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F44B9BD220EDFEED00B874A1 /* World Objects */,
 				F43FE24820E21A410012D6E4 /* World */,
 				F43FE24320E201140012D6E4 /* Levels */,
 				F44A4D4320DC926900E53841 /* Purchasing */,
@@ -535,6 +629,16 @@
 		F4B8E88C20CA4F4200E558F8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */,
+				F44B9BDB20EE1A7C00B874A1 /* grasstuft.png */,
+				F44B9BD820EE135C00B874A1 /* switch-off.png */,
+				F44B9BD720EE135B00B874A1 /* switch-on.png */,
+				F4C4CA1D20ECD55F005CA4D7 /* caveinside.png */,
+				F4C4CA1B20ECC607005CA4D7 /* cannonball.png */,
+				F4C4CA1920ECA334005CA4D7 /* speechBubble.png */,
+				F4C4CA1720EC9BC1005CA4D7 /* cannon-ROTATED.png */,
+				F4C4CA1520EB80F5005CA4D7 /* cannon.png */,
+				F4BA319920E4E7D600DBD823 /* Level2 */,
 				F4648F1B20D2679100CE97E1 /* platform.png */,
 				F44E1A6C20D116CC00FD026E /* RopeBridge 1.png */,
 				F44E1A6B20D116CC00FD026E /* RopeBridge 2.png */,
@@ -587,6 +691,34 @@
 				F438D06720CE37D900EC2606 /* level1background8.png */,
 			);
 			path = "Level 1";
+			sourceTree = "<group>";
+		};
+		F4BA319920E4E7D600DBD823 /* Level2 */ = {
+			isa = PBXGroup;
+			children = (
+				F462CDE220E5D752004AF89E /* lv2rocks20.png */,
+				F462CDE320E5D752004AF89E /* lv2rocks21.png */,
+				F462CDE020E5D5D4004AF89E /* lv2rocks19.png */,
+				F462CDDE20E5D543004AF89E /* lv2rocks18.png */,
+				F462CDDC20E5D4A3004AF89E /* lv2rocks17.png */,
+				F462CDDA20E5D2FC004AF89E /* lv2rocks16.png */,
+				F462CDD720E5D264004AF89E /* lv2rocks13.png */,
+				F462CDD620E5D263004AF89E /* lv2rocks14.png */,
+				F462CDD420E5D23A004AF89E /* lv2rocks15.png */,
+				F462CDD220E5D052004AF89E /* lv2rocks12.png */,
+				F462CDD020E5CF18004AF89E /* lv2rocks11.png */,
+				F462CDCE20E5CBD0004AF89E /* lv2rocks10.png */,
+				F462CDCC20E5CA8F004AF89E /* lv2rocks9.png */,
+				F462CDCA20E5C9D7004AF89E /* lv2rocks8.png */,
+				F4BA31A820E546BE00DBD823 /* lv2rocks7.png */,
+				F4BA31A620E5448000DBD823 /* lv2rocks6.png */,
+				F4BA31A420E5408900DBD823 /* lv2rocks5.png */,
+				F4BA31A220E53EBD00DBD823 /* lv2rocks4.png */,
+				F4BA31A020E4F1DE00DBD823 /* lv2rocks3.png */,
+				F4BA319E20E4EE4300DBD823 /* smallrock.png */,
+				F4BA319C20E4E87400DBD823 /* lv2rocks1.png */,
+			);
+			path = Level2;
 			sourceTree = "<group>";
 		};
 		FE2E67AC52ACA1E642F75AC1 /* Frameworks */ = {
@@ -710,23 +842,33 @@
 				F4648F1C20D2679100CE97E1 /* platform.png in Resources */,
 				F4B8E8B120CA79D300E558F8 /* level1ground2.png in Resources */,
 				F438D04920CD34E700EC2606 /* footsteps.mp3 in Resources */,
+				F44B9BDC20EE1A7D00B874A1 /* grasstuft.png in Resources */,
 				F442382320DA54B500EA4D01 /* birdschirping.wav in Resources */,
 				F438D04E20CD34E700EC2606 /* random_noise1.mp3 in Resources */,
+				F4BA31A920E546BF00DBD823 /* lv2rocks7.png in Resources */,
+				F4C4CA1C20ECC607005CA4D7 /* cannonball.png in Resources */,
 				F4B03CF220C94B8700F0B346 /* Main.storyboard in Resources */,
 				F438D04620CD34E700EC2606 /* four.mp3 in Resources */,
 				F4B8E8AF20CA794900E558F8 /* level1ground1.png in Resources */,
 				F4B8E89B20CA4FAA00E558F8 /* running_step5.png in Resources */,
+				F4BA31A720E5448100DBD823 /* lv2rocks6.png in Resources */,
 				F438D04D20CD34E700EC2606 /* mineralcrash.mp3 in Resources */,
 				F44E1A4C20CFC4E600FD026E /* watermineral.png in Resources */,
+				F4BA31A520E5408900DBD823 /* lv2rocks5.png in Resources */,
+				F462CDE520E5D752004AF89E /* lv2rocks21.png in Resources */,
 				F438D05420CD4E2300EC2606 /* Level1_Theme.mp3 in Resources */,
+				F462CDDD20E5D4A3004AF89E /* lv2rocks17.png in Resources */,
+				F462CDCD20E5CA8F004AF89E /* lv2rocks9.png in Resources */,
 				F4B8E89D20CA4FAA00E558F8 /* running_step2.png in Resources */,
 				F43FE24520E201270012D6E4 /* Level2.sks in Resources */,
+				F462CDCB20E5C9D7004AF89E /* lv2rocks8.png in Resources */,
 				F438D04F20CD34E700EC2606 /* five.mp3 in Resources */,
 				F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */,
 				F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */,
 				F438D04120CD34E700EC2606 /* breathing.mp3 in Resources */,
 				F44E1A7120D1170700FD026E /* TransferLevel.sks in Resources */,
 				F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */,
+				F44B9BDA20EE135C00B874A1 /* switch-off.png in Resources */,
 				F44E1A6420D0BE4B00FD026E /* GroundParticle.sks in Resources */,
 				F4B8E8AC20CA72BF00E558F8 /* level1Sky.png in Resources */,
 				F4B03CF420C94B8900F0B346 /* Assets.xcassets in Resources */,
@@ -734,49 +876,67 @@
 				F4B8E8A420CA4FAA00E558F8 /* throwing.png in Resources */,
 				F438D04B20CD34E700EC2606 /* eight.mp3 in Resources */,
 				F44E1A4D20CFC4E600FD026E /* prosperity.png in Resources */,
+				F4BA31A120E4F1DE00DBD823 /* lv2rocks3.png in Resources */,
 				F44E1A6D20D116CC00FD026E /* RopeBridge 2.png in Resources */,
 				F44E1A5C20D0B1A000FD026E /* Magic.sks in Resources */,
 				F438D06F20CE37DB00EC2606 /* level1background8.png in Resources */,
 				F438D07320CE37DB00EC2606 /* level1background6.png in Resources */,
 				F438D07620CE37DB00EC2606 /* level1background5.png in Resources */,
 				F44E1A5E20D0B1EC00FD026E /* Smoke.sks in Resources */,
+				F462CDD820E5D264004AF89E /* lv2rocks14.png in Resources */,
 				F44A9A9020D4EB16004E389C /* Loading.sks in Resources */,
 				F438D04220CD34E700EC2606 /* thirteen.mp3 in Resources */,
 				F44E1A4A20CFC4E600FD026E /* antigrav.png in Resources */,
+				F4C4CA1A20ECA334005CA4D7 /* speechBubble.png in Resources */,
 				F442382120DA50AC00EA4D01 /* dawudsong.wav in Resources */,
 				F438D04020CD34E700EC2606 /* fourteen.mp3 in Resources */,
 				F438D05120CD34E700EC2606 /* ten.mp3 in Resources */,
 				F44E1A6A20D10BCB00FD026E /* Spark.sks in Resources */,
 				F4B8E8A320CA4FAA00E558F8 /* spinning.png in Resources */,
 				F44E1A5920D0B0B100FD026E /* FireFlies.sks in Resources */,
+				F462CDE420E5D752004AF89E /* lv2rocks20.png in Resources */,
 				F438D05A20CD518C00EC2606 /* throwbutton.png in Resources */,
 				F4B8E8A520CA4FAA00E558F8 /* standing.png in Resources */,
 				F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */,
+				F4BA319F20E4EE4300DBD823 /* smallrock.png in Resources */,
+				F462CDDB20E5D2FC004AF89E /* lv2rocks16.png in Resources */,
 				F438D05920CD518C00EC2606 /* jumpbutton.png in Resources */,
+				F462CDE820E5DE0C004AF89E /* level2_theme.mp3 in Resources */,
+				F462CDD520E5D23A004AF89E /* lv2rocks15.png in Resources */,
 				F4B8E89F20CA4FAA00E558F8 /* running_step3.png in Resources */,
 				F438D07120CE37DB00EC2606 /* level1background1.png in Resources */,
 				F44E1A5120D0A41D00FD026E /* dawud.png in Resources */,
 				F44E1A4920CFC4E600FD026E /* village.png in Resources */,
+				F462CDCF20E5CBD1004AF89E /* lv2rocks10.png in Resources */,
 				F4E799FC20D7604900ECE898 /* Fire.sks in Resources */,
+				F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */,
 				F44E1A2520CF543900FD026E /* menu.png in Resources */,
 				F438D07020CE37DB00EC2606 /* level1background4.png in Resources */,
 				F438D07220CE37DB00EC2606 /* level1background2.png in Resources */,
 				F438D03F20CD34E700EC2606 /* seven.mp3 in Resources */,
 				F438D04420CD34E700EC2606 /* nine.mp3 in Resources */,
 				F4B8E89C20CA4FAA00E558F8 /* running_step0.png in Resources */,
+				F4C4CA1820EC9BC2005CA4D7 /* cannon-ROTATED.png in Resources */,
+				F44B9BDE20EE1E3300B874A1 /* CaveUnderground.png in Resources */,
 				F438D07520CE37DB00EC2606 /* level1background3.png in Resources */,
 				F44E1A6E20D116CC00FD026E /* RopeBridge 1.png in Resources */,
 				F4B8E8A120CA4FAA00E558F8 /* running_step7.png in Resources */,
 				F44E1A4820CFC4E600FD026E /* minerals.png in Resources */,
+				F4C4CA1E20ECD560005CA4D7 /* caveinside.png in Resources */,
 				F438D03E20CD34E700EC2606 /* antigrav.mp3 in Resources */,
 				F442381D20D92CDB00EA4D01 /* Doors.sks in Resources */,
+				F462CDE120E5D5D4004AF89E /* lv2rocks19.png in Resources */,
 				F438D05020CD34E700EC2606 /* random_noise2.mp3 in Resources */,
 				F4B8E8A720CA684B00E558F8 /* Ground Merged.png in Resources */,
 				F4B03CF720C94B8900F0B346 /* LaunchScreen.storyboard in Resources */,
 				F4B8E89E20CA4FAA00E558F8 /* running_step4.png in Resources */,
 				F4B8E8A220CA4FAA00E558F8 /* running_step1.png in Resources */,
+				F4BA319D20E4E87400DBD823 /* lv2rocks1.png in Resources */,
+				F44B9BD920EE135C00B874A1 /* switch-on.png in Resources */,
+				F44B9BD120EDFCEA00B874A1 /* Chapters.sks in Resources */,
 				F438D04A20CD34E700EC2606 /* one.mp3 in Resources */,
 				F438D07420CE37DB00EC2606 /* level1background7.png in Resources */,
+				F462CDD120E5CF18004AF89E /* lv2rocks11.png in Resources */,
 				F4B03CEB20C94B8700F0B346 /* Actions.sks in Resources */,
 				F4B8E8AD20CA72BF00E558F8 /* level1mountains.png in Resources */,
 				F438D04720CD34E700EC2606 /* two.mp3 in Resources */,
@@ -784,11 +944,17 @@
 				F44E1A6020D0B24800FD026E /* Rain.sks in Resources */,
 				F44E1A2F20CFBC1C00FD026E /* Story.sks in Resources */,
 				F44E1A5520D0B00F00FD026E /* hitground.mp3 in Resources */,
+				F462CDD320E5D052004AF89E /* lv2rocks12.png in Resources */,
 				F44E1A4B20CFC4E600FD026E /* destruction.png in Resources */,
+				F462CDDF20E5D543004AF89E /* lv2rocks18.png in Resources */,
 				F438D04520CD34E700EC2606 /* mineralgrab.mp3 in Resources */,
+				F4C4CA1420EB14F4005CA4D7 /* cannonblast.wav in Resources */,
 				F4B8E8AB20CA72BF00E558F8 /* City Rock.png in Resources */,
 				F4B8E8A020CA4FAA00E558F8 /* running_step6.png in Resources */,
+				F4BA31A320E53EBD00DBD823 /* lv2rocks4.png in Resources */,
+				F462CDD920E5D264004AF89E /* lv2rocks13.png in Resources */,
 				F438D04820CD34E700EC2606 /* warp.mp3 in Resources */,
+				F4C4CA1620EB80F6005CA4D7 /* cannon.png in Resources */,
 				F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */,
 				F44E1A6620D0C33F00FD026E /* RainPatter.sks in Resources */,
 				F44E1A6820D0C69A00FD026E /* Background.sks in Resources */,
@@ -902,7 +1068,9 @@
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
 				F4BA319820E3679800DBD823 /* Cannon.swift in Sources */,
+				F44B9BD420EDFEF700B874A1 /* Doorway.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
+				F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
@@ -1088,7 +1256,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HJPTQ3N75W;
 				INFOPLIST_FILE = TRAFOD/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1108,7 +1276,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HJPTQ3N75W;
 				INFOPLIST_FILE = TRAFOD/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

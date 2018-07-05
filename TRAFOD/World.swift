@@ -18,7 +18,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     private let antiGravCounterThrowNode = SKSpriteNode(imageNamed: "Blue Crystal")
     private let antiGravCounterNode = SKSpriteNode(imageNamed: "Blue Crystal")
     private let antiGravCounterLabel = SKLabelNode(text: "0")
-    private var explanation:SKSpriteNode!
+    private var messageBox:SKSpriteNode!
     private let impulseCounterThrowNode = SKSpriteNode(imageNamed: "Red Crystal")
     private let impulseCounterNode = SKSpriteNode(imageNamed: "Red Crystal")
     private let impulseCounterLabel = SKLabelNode(text: "0")
@@ -26,7 +26,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     var jumpButton:SKNode!
     var throwButton:SKNode!
     var throwImpulseButton:SKNode!
-    var grabButton:SKNode!
+    var grabButton:SKNode?
     
     var playerRunningState:PlayerRunningState = .STANDING
     var playerState:PlayerState = .ONGROUND
@@ -76,9 +76,9 @@ class World: SKScene, SKPhysicsContactDelegate {
     var objectsToReset:[SKSpriteNode] = [SKSpriteNode]()
     
     
-    enum Levels {
-        case LEVEL1
-        case LEVEL2
+    enum Levels:String {
+        case LEVEL1 = "GameScene"
+        case LEVEL2 = "Level2"
     }
     
     enum PlayerAction {
@@ -104,15 +104,15 @@ class World: SKScene, SKPhysicsContactDelegate {
     override func sceneDidLoad() {
         self.lastUpdateTime = 0
     }
-    
+        
     override func didMove(to view: SKView) {        
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
         self.throwButton = self.camera?.childNode(withName: "throwButton")
         self.throwImpulseButton = self.camera?.childNode(withName: "throwImpulseButton")
         self.grabButton = self.camera?.childNode(withName: "grabButton")
         
-        self.grabButton.isUserInteractionEnabled = false
-        self.grabButton.isHidden = true
+        self.grabButton?.isUserInteractionEnabled = false
+        self.grabButton?.isHidden = true
         
         self.sounds = SoundManager(world: self)
         self.previousPlayerRunningState = .RUNNINGRIGHT
@@ -127,6 +127,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.addJumpButton()
+        self.showDoubleGravParticles(color: .yellow)
         self.enumerateChildNodes(withName: "ground") { (node, pointer) in
             node.physicsBody?.friction = 1.0
         }                
@@ -145,11 +146,34 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.restitution = 0
         self.player.physicsBody?.mass = 1
         self.player.physicsBody?.isDynamic = true
-        self.player.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects)
-        self.player.physicsBody?.collisionBitMask = 0b0010 | UInt32(PhysicsCategory.InteractableObjects)
+        self.player.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals)
+        self.player.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.InteractableObjects)
         self.player.physicsBody?.allowsRotation = false
-        
+        self.listener = self.player
         addChild(self.player)
+    }
+    
+    func changeMineralPhysicsBodies () {
+        for node in self.children {
+            if let name = node.name {
+                if name.contains("getAntiGrav") || name.contains("getImpulse") {
+                    if let _ = node.physicsBody {
+                        if let node = node as? SKSpriteNode {
+                            if let size = node.texture?.size() {
+                                node.physicsBody = SKPhysicsBody(rectangleOf: size)
+                                node.physicsBody?.affectedByGravity = false
+                                node.physicsBody?.restitution = 0
+                                node.physicsBody?.mass = 0
+                                node.physicsBody?.isDynamic = true
+                                node.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
+                                node.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+                                node.physicsBody?.allowsRotation = false
+                            }
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func contactContains (strings: [String], contactA: String = "", contactB: String = "", contact: SKPhysicsContact? = nil) -> Bool {
@@ -405,18 +429,20 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchDown(atPoint pos : CGPoint) {
-        if self.explanation != nil && self.nodes(at: pos).contains(self.jumpButton) {
-            self.explanation.removeFromParent()
-            self.explanation = nil
-        } else if self.explanation != nil {
+        if self.messageBox != nil && self.nodes(at: pos).contains(self.jumpButton) {
+            self.messageBox.removeFromParent()
+            self.messageBox = nil
+        } else if self.messageBox != nil {
             return
         }
         
-        if self.grabButton != nil && self.grabButton.isHidden == false && self.nodes(at: pos).contains(self.grabButton) {
-            self.playerState = .GRABBING
-            self.playerRunningState = .STANDING
-            
-            return
+        if let grabButton = self.grabButton {
+            if grabButton.isHidden == false && self.nodes(at: pos).contains(grabButton) {
+                self.playerState = .GRABBING
+                self.playerRunningState = .STANDING
+                
+                return
+            }
         }
         
         if self.jumpButton != nil && self.nodes(at: pos).contains(self.jumpButton) {
@@ -430,25 +456,33 @@ class World: SKScene, SKPhysicsContactDelegate {
             self.playerAction = .THROW
             self.throwingMineral = .IMPULSE
         } else {
-            self.originalTouchPosition = pos
+            if let camera = self.camera {
+                if let originalPos = self.scene?.convert(pos, to: camera) {
+                    self.originalTouchPosition = originalPos
+                }
+            }
+            
         }
     }
     
     func didBegin(_ contact: SKPhysicsContact) {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
-        print("Contact initiated...\(contactAName) & \(contactBName)")
+        
         if (contactAName == "dawud") || (contactBName == "dawud") {
             if contactAName.contains("ground") || contactBName.contains("ground") {
                 if contact.contactNormal.dy > 0.8 {
                     self.player.zRotation = 0.0
                     if let physicsBody = self.player.physicsBody {
                         self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
+                        if physicsBody.velocity.dy < -260 {
+                            self.playSound(sound: .LANDED)
+                        }
                     }
                     
                     self.lastPointOnGround = self.player.position
                     self.playerState = .ONGROUND
-                    self.playSound(sound: .LANDED)
+
                     var point = self.player.position
                     if let node = getContactNode(string: "ground", contact: contact) {
                         point.x = node.position.x
@@ -563,6 +597,14 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
+        if contactContains(strings: ["rock", "ground"], contact: contact) {
+            if let node = getContactNode(string: "rock", contact: contact) {
+                node.physicsBody?.velocity.dy = 0
+            }
+            
+            return 
+        }
+        
         if contactContains(strings: ["dawud", "rock"], contactA: contactAName, contactB: contactBName) {
             if let node = getContactNode(string: "rock", contact: contact) {
                 if let physicsBody = node.physicsBody {
@@ -578,6 +620,13 @@ class World: SKScene, SKPhysicsContactDelegate {
         if contactContains(strings: ["cannonball", "ground"], contact: contact) {
             if contactContains(strings: ["rock"], contact: contact) == false {
                 if let node = getContactNode(string: "cannonball", contact: contact) {
+                    if let parent = node.parent {
+                        // Gets the objects position relative to the scene
+                        if let position = node.scene?.convert(node.position, from: parent) {
+                            self.showParticle(atPosition: position, duration: 0.2)
+                        }
+                    }
+                    
                     node.removeFromParent()
                 }
             }
@@ -585,6 +634,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
     }
+    
     
     /**
      
@@ -595,20 +645,26 @@ class World: SKScene, SKPhysicsContactDelegate {
      
      */
     func objectIsInFront (object: SKNode) -> Bool {
-        if self.player.xScale > 0 { // player facing right
-            
-            if object.position.x > self.player.position.x {
-                return true
-            } else {
-                return false
-            }
-        } else {
-            if object.position.x < self.player.position.x {
-                return true
-            } else {
-                return false
+        if let parent = object.parent {
+            // Gets the objects position relative to the scene
+            if let position = object.scene?.convert(object.position, from: parent) {
+                if self.player.xScale > 0 { // player facing right
+                    if position.x > self.player.position.x {
+                        return true
+                    } else {
+                        return false
+                    }
+                } else {
+                    if position.x < self.player.position.x {
+                        return true
+                    } else {
+                        return false
+                    }
+                }
             }
         }
+        
+        return false
     }
     
     /**
@@ -653,6 +709,11 @@ class World: SKScene, SKPhysicsContactDelegate {
                                self.collectedElements[.LEVEL1] = [String]()
                             }
                             self.collectedElements[.LEVEL1]?.append(node)
+                        } else if element.level == GameLevels.level2 {
+                            if self.collectedElements[.LEVEL2] == nil {
+                                self.collectedElements[.LEVEL2] = [String]()
+                            }
+                            self.collectedElements[.LEVEL2]?.append(node)
                         }
                     }
                 }
@@ -676,7 +737,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             
             if let name = node.name {
                 self.collectedElements[level]?.append(name)
-                ProgressTracker.updateElementsCollected(level: GameLevels.level1, node: name)
+                ProgressTracker.updateElementsCollected(level: self.currentLevel!.rawValue, node: name)
             }
         }
     }
@@ -744,12 +805,14 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func touchMoved(toPoint pos : CGPoint) {
         
-        if self.explanation != nil {
+        if self.messageBox != nil {
             return
         }
         
         if let originalPos = self.originalTouchPosition {
-            let differenceInXPos = originalPos.x - pos.x
+            
+            let position = self.scene?.convert(pos, to: self.camera!)
+            let differenceInXPos = originalPos.x - position!.x
             if abs(differenceInXPos) > 10 {
                 if differenceInXPos < 0 {
                     if self.previousPlayerRunningState == .RUNNINGLEFT {
@@ -834,26 +897,26 @@ class World: SKScene, SKPhysicsContactDelegate {
                     self.stepCounter = 0
                 }
                 
-                if let stepParticlePath = Bundle.main.path(forResource: "GroundParticle", ofType: "sks") {
-                    if let stepParticle = NSKeyedUnarchiver.unarchiveObject(withFile: stepParticlePath) as? SKEmitterNode {                        
-                        stepParticle.position = self.player.position
-                        stepParticle.position.y = stepParticle.position.y - 50
-                        let fade = SKAction.fadeAlpha(to: 0.0, duration: 2)
-                        self.addChild(stepParticle)
-                        stepParticle.run(fade)
-                        let timer = SKAction.wait(forDuration: 2.0)
-                        let block = SKAction.run {
-                            stepParticle.removeFromParent()
-                        }
-                        
-                        if self.forces.contains(.ANTIGRAV) {
-                            stepParticle.particleColor = UIColor.Style.ANTIGRAVMINERAL
-                        }
-                        
-                        let sequence = SKAction.sequence([timer, block])
-                        self.run(sequence)
-                    }
-                }
+//                if let stepParticlePath = Bundle.main.path(forResource: "GroundParticle", ofType: "sks") {
+//                    if let stepParticle = NSKeyedUnarchiver.unarchiveObject(withFile: stepParticlePath) as? SKEmitterNode {
+//                        stepParticle.position = self.player.position
+//                        stepParticle.position.y = stepParticle.position.y - 50
+//                        let fade = SKAction.fadeAlpha(to: 0.0, duration: 2)
+//                        self.addChild(stepParticle)
+//                        stepParticle.run(fade)
+//                        let timer = SKAction.wait(forDuration: 2.0)
+//                        let block = SKAction.run {
+//                            stepParticle.removeFromParent()
+//                        }
+//
+//                        if self.forces.contains(.ANTIGRAV) {
+//                            stepParticle.particleColor = UIColor.Style.ANTIGRAVMINERAL
+//                        }
+//
+//                        let sequence = SKAction.sequence([timer, block])
+//                        self.run(sequence)
+//                    }
+//                }
             }
             
             
@@ -1040,7 +1103,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func showMineralReceivedBox (nodeName: String) {
         self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-        self.explanation = self.childNode(withName: nodeName) as! SKSpriteNode
+        self.messageBox = self.childNode(withName: nodeName) as! SKSpriteNode
         self.childNode(withName: nodeName)?.alpha = 1.0
         let fade = SKAction.fadeAlpha(to: 1.0, duration: 1.0)
         self.childNode(withName: nodeName)?.run(fade)
@@ -1129,18 +1192,20 @@ class World: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 self.player.physicsBody?.velocity.dx = physicsBody.velocity.dx
+            } else {
+                showSpeech(message: "It's too heavy...", relativeToNode: self.player)
             }
         }
     }
     
     func hideGrabButton() {
-        self.grabButton.isHidden = true
-        self.grabButton.alpha = 0.0
+        self.grabButton?.isHidden = true
+        self.grabButton?.alpha = 0.0
     }
     
     func showGrabButton () {
-        self.grabButton.isHidden = false
-        self.grabButton.alpha = 1.0
+        self.grabButton?.isHidden = false
+        self.grabButton?.alpha = 1.0
     }
     
     
@@ -1159,6 +1224,33 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.view?.presentScene(world!, transition: transition)
         
         return world
+    }
+    
+    func showSpeech (message: String, relativeToNode: SKSpriteNode) {
+        
+        if self.messageBox == nil {
+            let node = SKSpriteNode(imageNamed: "speechBubble")
+            let text = SKLabelNode(text: message)
+            
+            text.fontColor = .black
+            text.fontSize = 36.0
+            text.fontName = "HelveticaNeue-Medium"
+            text.position.y = text.position.y - 15
+            if #available(iOS 11.0, *) {
+                text.numberOfLines = 0
+            } else {
+                // Fallback on earlier versions
+            }
+            node.addChild(text)
+            node.zPosition = 15
+            text.zPosition = 5
+            node.position = relativeToNode.position
+            node.position.y = node.position.y + 160
+            node.position.x = node.position.x + 45
+            self.addChild(node)
+            
+            self.messageBox = node
+        }
     }
     
     func removeCollectedElements () {

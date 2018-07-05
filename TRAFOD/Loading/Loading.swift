@@ -76,7 +76,7 @@ class Loading : World {
                 let transition = SKTransition.moveIn(with: .right, duration: 0)
                 nextScene.scaleMode = SKSceneScaleMode.aspectFit
                 self.player.removeFromParent()
-                nextScene.player = self.player
+                nextScene.player = self.player                
                 nextScene.collectedElements = self.collectedElements                
                 self.view?.presentScene(nextScene, transition: transition)
             }
@@ -92,10 +92,12 @@ class Loading : World {
     
     func loadNextScene () {
         DispatchQueue.global().async {
-            let nextScene = World(fileNamed: "GameScene")
-            DispatchQueue.main.async {
-                self.nextScene = nextScene
-                self.playerRunningState = .RUNNINGRIGHT
+            if let sceneName = self.nextSceneName {
+                let nextScene = World(fileNamed: sceneName)
+                DispatchQueue.main.async {
+                    self.nextScene = nextScene
+                    self.playerRunningState = .RUNNINGRIGHT
+                }
             }
         }
         

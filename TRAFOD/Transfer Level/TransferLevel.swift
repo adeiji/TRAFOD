@@ -223,7 +223,17 @@ class TransferLevel : World {
                 }
             }
             
-            sequence = SKAction.sequence([wait, comingSoonBlock])
+            let nextLevelBlock = SKAction.run {
+                let loading = Loading(fileNamed: "Loading")
+                loading?.nextSceneName = "Level2"
+                loading?.player = self.player
+                self.player.removeFromParent()
+                let transition = SKTransition.moveIn(with: .right, duration: 0)
+                loading?.scaleMode = SKSceneScaleMode.aspectFit
+                self.view?.presentScene(loading!, transition: transition)
+            }
+            
+            sequence = SKAction.sequence([wait, nextLevelBlock])
             run(sequence)
         }
     }

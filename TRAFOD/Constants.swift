@@ -11,5 +11,6 @@ import Foundation
 
 public class GameLevels {
     public static let level1 = "GameScene"
+    public static let level2 = "Level2"
     public static let transferLevel = "TransferLevel"
 }
