@@ -267,7 +267,9 @@ class TransferLevel : World {
         let aName = contact.bodyA.node?.name ?? ""
         let bName = contact.bodyB.node?.name ?? ""
         
+        // If the player hits the door to take them to level 1
         if contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
+            // Load the level 1 screen
             if let world = self.transitionToNextScreen(filename: "GameScene") {
                 world.camera?.position = self.previousWorldCameraPosition
                 world.player = self.player

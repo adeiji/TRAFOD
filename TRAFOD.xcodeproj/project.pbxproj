@@ -3,13 +3,14 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		047DA2308D1C268EE4947C47 /* Pods_TRAFOD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6951A9821785757EF497684C /* Pods_TRAFOD.framework */; };
 		7D2C9CF251C8332D810C6A89 /* Pods_TRAFODUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64193BF446C82855668BE830 /* Pods_TRAFODUITests.framework */; };
 		F1D1AB1F54790623E24D64B5 /* Pods_TRAFODTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626FC37E6E0A9D05608A9826 /* Pods_TRAFODTests.framework */; };
+		F43760D022CD257C00939E01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F43760CF22CD257C00939E01 /* dawudsong.wav */; };
 		F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02520CD0C4700EC2606 /* Red Crystal.png */; };
 		F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02620CD0C4900EC2606 /* Blue Crystal.png */; };
 		F438D03E20CD34E700EC2606 /* antigrav.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F438D02A20CD34E200EC2606 /* antigrav.mp3 */; };
@@ -47,7 +48,6 @@
 		F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */ = {isa = PBXBuildFile; fileRef = F43FE24920E21A550012D6E4 /* World+Particles.swift */; };
 		F442381D20D92CDB00EA4D01 /* Doors.sks in Resources */ = {isa = PBXBuildFile; fileRef = F442381C20D92CDB00EA4D01 /* Doors.sks */; };
 		F442381F20DA509600EA4D01 /* story.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442381E20DA509600EA4D01 /* story.wav */; };
-		F442382120DA50AC00EA4D01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442382020DA50AC00EA4D01 /* dawudsong.wav */; };
 		F442382320DA54B500EA4D01 /* birdschirping.wav in Resources */ = {isa = PBXBuildFile; fileRef = F442382220DA54B500EA4D01 /* birdschirping.wav */; };
 		F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A4D4420DC928100E53841 /* PurchaseService.swift */; };
 		F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */; };
@@ -73,7 +73,6 @@
 		F44E1A4C20CFC4E600FD026E /* watermineral.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A4620CFC4E600FD026E /* watermineral.png */; };
 		F44E1A4D20CFC4E600FD026E /* prosperity.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A4720CFC4E600FD026E /* prosperity.png */; };
 		F44E1A5120D0A41D00FD026E /* dawud.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5020D0A41D00FD026E /* dawud.png */; };
-		F44E1A5520D0B00F00FD026E /* hitground.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5420D0B00E00FD026E /* hitground.mp3 */; };
 		F44E1A5920D0B0B100FD026E /* FireFlies.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5720D0B0B100FD026E /* FireFlies.sks */; };
 		F44E1A5A20D0B0B100FD026E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5820D0B0B100FD026E /* Assets.xcassets */; };
 		F44E1A5C20D0B1A000FD026E /* Magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5B20D0B1A000FD026E /* Magic.sks */; };
@@ -106,6 +105,8 @@
 		F462CDE520E5D752004AF89E /* lv2rocks21.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDE320E5D752004AF89E /* lv2rocks21.png */; };
 		F462CDE820E5DE0C004AF89E /* level2_theme.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F462CDE720E5DE0C004AF89E /* level2_theme.mp3 */; };
 		F4648F1C20D2679100CE97E1 /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = F4648F1B20D2679100CE97E1 /* platform.png */; };
+		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
+		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
 		F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4A9036420E64D0C006DCDD4 /* NoWarp.sks */; };
 		F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03CE620C94B8700F0B346 /* AppDelegate.swift */; };
 		F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CE820C94B8700F0B346 /* GameScene.sks */; };
@@ -181,6 +182,7 @@
 		84498558B2EF9D5DC79A2E7D /* Pods-TRAFODTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODTests/Pods-TRAFODTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E860BBC35B9BD0E4CD9ECB09 /* Pods-TRAFOD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFOD.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFOD/Pods-TRAFOD.release.xcconfig"; sourceTree = "<group>"; };
 		EE59AA9465552CDB5CA491CF /* Pods-TRAFODUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODUITests/Pods-TRAFODUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F43760CF22CD257C00939E01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dawudsong.wav; sourceTree = "<group>"; };
 		F438D02520CD0C4700EC2606 /* Red Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Crystal.png"; sourceTree = "<group>"; };
 		F438D02620CD0C4900EC2606 /* Blue Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Crystal.png"; sourceTree = "<group>"; };
 		F438D02A20CD34E200EC2606 /* antigrav.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = antigrav.mp3; sourceTree = "<group>"; };
@@ -218,7 +220,6 @@
 		F43FE24920E21A550012D6E4 /* World+Particles.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+Particles.swift"; sourceTree = "<group>"; };
 		F442381C20D92CDB00EA4D01 /* Doors.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Doors.sks; sourceTree = "<group>"; };
 		F442381E20DA509600EA4D01 /* story.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = story.wav; sourceTree = "<group>"; };
-		F442382020DA50AC00EA4D01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; name = dawudsong.wav; path = ../../../../../../dawudsong.wav; sourceTree = "<group>"; };
 		F442382220DA54B500EA4D01 /* birdschirping.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = birdschirping.wav; sourceTree = "<group>"; };
 		F44A4D4420DC928100E53841 /* PurchaseService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseService.swift; sourceTree = "<group>"; };
 		F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PurchaseViewController.swift; sourceTree = "<group>"; };
@@ -244,7 +245,6 @@
 		F44E1A4620CFC4E600FD026E /* watermineral.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = watermineral.png; sourceTree = "<group>"; };
 		F44E1A4720CFC4E600FD026E /* prosperity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prosperity.png; sourceTree = "<group>"; };
 		F44E1A5020D0A41D00FD026E /* dawud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dawud.png; sourceTree = "<group>"; };
-		F44E1A5420D0B00E00FD026E /* hitground.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = hitground.mp3; path = ../../../../Book1/code/trunk/trafod/media/Sounds/hitground.mp3; sourceTree = "<group>"; };
 		F44E1A5720D0B0B100FD026E /* FireFlies.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFlies.sks; sourceTree = "<group>"; };
 		F44E1A5820D0B0B100FD026E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F44E1A5B20D0B1A000FD026E /* Magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Magic.sks; sourceTree = "<group>"; };
@@ -277,6 +277,8 @@
 		F462CDE320E5D752004AF89E /* lv2rocks21.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks21.png; sourceTree = "<group>"; };
 		F462CDE720E5DE0C004AF89E /* level2_theme.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = level2_theme.mp3; sourceTree = "<group>"; };
 		F4648F1B20D2679100CE97E1 /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
+		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
+		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		F4A9036420E64D0C006DCDD4 /* NoWarp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoWarp.sks; sourceTree = "<group>"; };
 		F4B03CE320C94B8700F0B346 /* TRAFOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAFOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B03CE620C94B8700F0B346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -386,8 +388,7 @@
 			children = (
 				F4C4CA1320EB14F3005CA4D7 /* cannonblast.wav */,
 				F462CDE620E5DE0C004AF89E /* level2 */,
-				F442382020DA50AC00EA4D01 /* dawudsong.wav */,
-				F44E1A5420D0B00E00FD026E /* hitground.mp3 */,
+				F43760CF22CD257C00939E01 /* dawudsong.wav */,
 				F44E1A3D20CFC1B600FD026E /* Story */,
 				F438D05220CD4DE300EC2606 /* Level 1 */,
 				F438D02A20CD34E200EC2606 /* antigrav.mp3 */,
@@ -427,6 +428,7 @@
 		F43FE24320E201140012D6E4 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				F48F7D3022CE5785004D1A3D /* Level 3 */,
 				F4BA319520E3672800DBD823 /* Level2.swift */,
 				F43FE24420E201270012D6E4 /* Level2.sks */,
 				F4BA319720E3679800DBD823 /* Cannon.swift */,
@@ -554,6 +556,15 @@
 				F462CDE720E5DE0C004AF89E /* level2_theme.mp3 */,
 			);
 			path = level2;
+			sourceTree = "<group>";
+		};
+		F48F7D3022CE5785004D1A3D /* Level 3 */ = {
+			isa = PBXGroup;
+			children = (
+				F48F7D2E22CE5243004D1A3D /* Level3.sks */,
+				F48F7D3122CE5798004D1A3D /* Level3.swift */,
+			);
+			path = "Level 3";
 			sourceTree = "<group>";
 		};
 		F4B03CDA20C94B8700F0B346 = {
@@ -874,6 +885,7 @@
 				F4B03CF420C94B8900F0B346 /* Assets.xcassets in Resources */,
 				F438D04320CD34E700EC2606 /* hitground.mp3 in Resources */,
 				F4B8E8A420CA4FAA00E558F8 /* throwing.png in Resources */,
+				F43760D022CD257C00939E01 /* dawudsong.wav in Resources */,
 				F438D04B20CD34E700EC2606 /* eight.mp3 in Resources */,
 				F44E1A4D20CFC4E600FD026E /* prosperity.png in Resources */,
 				F4BA31A120E4F1DE00DBD823 /* lv2rocks3.png in Resources */,
@@ -888,7 +900,6 @@
 				F438D04220CD34E700EC2606 /* thirteen.mp3 in Resources */,
 				F44E1A4A20CFC4E600FD026E /* antigrav.png in Resources */,
 				F4C4CA1A20ECA334005CA4D7 /* speechBubble.png in Resources */,
-				F442382120DA50AC00EA4D01 /* dawudsong.wav in Resources */,
 				F438D04020CD34E700EC2606 /* fourteen.mp3 in Resources */,
 				F438D05120CD34E700EC2606 /* ten.mp3 in Resources */,
 				F44E1A6A20D10BCB00FD026E /* Spark.sks in Resources */,
@@ -943,7 +954,6 @@
 				F442381F20DA509600EA4D01 /* story.wav in Resources */,
 				F44E1A6020D0B24800FD026E /* Rain.sks in Resources */,
 				F44E1A2F20CFBC1C00FD026E /* Story.sks in Resources */,
-				F44E1A5520D0B00F00FD026E /* hitground.mp3 in Resources */,
 				F462CDD320E5D052004AF89E /* lv2rocks12.png in Resources */,
 				F44E1A4B20CFC4E600FD026E /* destruction.png in Resources */,
 				F462CDDF20E5D543004AF89E /* lv2rocks18.png in Resources */,
@@ -960,6 +970,7 @@
 				F44E1A6820D0C69A00FD026E /* Background.sks in Resources */,
 				F44E1A5A20D0B0B100FD026E /* Assets.xcassets in Resources */,
 				F438D04C20CD34E700EC2606 /* three.mp3 in Resources */,
+				F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1003,19 +1014,16 @@
 			buildActionMask = 2147483647;
 			files = (
 			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-TRAFOD/Pods-TRAFOD-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/Realm/Realm.framework",
-				"${BUILT_PRODUCTS_DIR}/RealmSwift/RealmSwift.framework",
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TRAFOD/Pods-TRAFOD-frameworks-${CONFIGURATION}-input-files.xcfilelist",
 			);
 			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Realm.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RealmSwift.framework",
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-TRAFOD/Pods-TRAFOD-frameworks-${CONFIGURATION}-output-files.xcfilelist",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-TRAFOD/Pods-TRAFOD-frameworks.sh\"\n";
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-TRAFOD/Pods-TRAFOD-frameworks.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		BD817E7F62F8A7FA8097F3CE /* [CP] Check Pods Manifest.lock */ = {
@@ -1071,6 +1079,7 @@
 				F44B9BD420EDFEF700B874A1 /* Doorway.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
 				F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */,
+				F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,

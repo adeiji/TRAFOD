@@ -6,6 +6,12 @@
 //  Copyright © 2018 Dephyned. All rights reserved.
 //
 
+/*
+ 
+ The Chapters screen is where a user can select which level they want to go to.
+ 
+ */
+
 import SpriteKit
 import GameKit
 
@@ -23,17 +29,6 @@ class Chapters : World {
         self.showFireFlies()
         self.showBackgroundParticles()
         self.setupPlayer()
-    }
-    
-    func setupPlayer () {
-        if self.player != nil {
-            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            self.player.xScale = -1
-            self.addChild(self.player)
-            if let start = self.childNode(withName: "start") {
-                self.player.position = start.position
-            }
-        }
     }
     
     override func update(_ currentTime: TimeInterval) {

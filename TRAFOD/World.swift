@@ -11,6 +11,11 @@ import SpriteKit
 
 class World: SKScene, SKPhysicsContactDelegate {
     
+    // Cannons
+    // The cannon objects that are in various level
+    var cannons:[Cannon]?
+    var cannonTimes:[TimeInterval] = [ 3.0, 8.0, 3.0, 5.0, 7.0 ]
+    
     var player:Player!
     var lastPointOnGround:CGPoint?
     var entities = [GKEntity]()
@@ -79,6 +84,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     enum Levels:String {
         case LEVEL1 = "GameScene"
         case LEVEL2 = "Level2"
+        case LEVEL3 = "Level3"
     }
     
     enum PlayerAction {
@@ -790,14 +796,14 @@ class World: SKScene, SKPhysicsContactDelegate {
      */
     private func jump() {
         self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: 500))
-        self.player.texture = SKTexture(imageNamed: "spinning")
+        self.player.texture = SKTexture(imageNamed: "running_step2")
         self.playerState = .INAIR
 
     }
     
     func rotateJumpingPlayer (rotation: Double) {
         if self.previousPlayerRunningState == .RUNNINGRIGHT || self.previousPlayerRunningState == .STANDING {
-            self.player.zRotation = self.player.zRotation + CGFloat(Double.pi / rotation)
+            self.player.zRotation   = self.player.zRotation + CGFloat(Double.pi / rotation)
         } else if self.previousPlayerRunningState == .RUNNINGLEFT {
             self.player.zRotation = self.player.zRotation - CGFloat(Double.pi / rotation)
         }
@@ -1037,7 +1043,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func handlePlayerRotation (dt: TimeInterval) {
         if self.playerState == .INAIR {
-            self.rotateJumpingPlayer(rotation: -Double(dt * 500))
+            //self.rotateJumpingPlayer(rotation: -Double(dt * 500))
         } else {
             self.player.zRotation = 0.0
         }
@@ -1208,7 +1214,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.grabButton?.alpha = 1.0
     }
     
-    
     @discardableResult
     func transitionToNextScreen (filename: String, player: Player? = nil) -> World? {
         let world = World(fileNamed: filename)
@@ -1260,6 +1265,52 @@ class World: SKScene, SKPhysicsContactDelegate {
                     if let node = self.childNode(withName: nodeName) {
                         node.removeFromParent()
                     }
+                }
+            }
+        }
+    }
+    
+    // Take the user to the next level of the game
+    func gotoNextLevel (sceneName: String) {
+        let loading = Loading(fileNamed: "Loading")
+        loading?.nextSceneName = sceneName
+        loading?.player = self.player
+        self.player.removeFromParent()
+        let transition = SKTransition.moveIn(with: .right, duration: 0)
+        loading?.scaleMode = SKSceneScaleMode.aspectFit
+        self.view?.presentScene(loading!, transition: transition)
+    }
+    
+    func playBackgroundMusic (fileName: String) {
+        if let musicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
+            self.backgroundMusic = SKAudioNode(url: musicURL)
+            addChild(self.backgroundMusic)
+        }
+        
+        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
+            self.ambiance = SKAudioNode(url: musicURL)
+            self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
+            addChild(self.ambiance)
+        }
+    }
+    
+    func setupPlayer () {
+        if self.player != nil {
+            self.player.xScale = 1
+            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+            self.addChild(self.player)
+            if let start = self.childNode(withName: "start") {
+                self.player.position = start.position
+            }
+        }
+    }
+    
+    func getCannons () {
+        if let cannonsGroup = self.childNode(withName: "cannons") {
+            if let cannons  = cannonsGroup.children as? [Cannon] {
+                self.cannons = cannons
+                for i in 0...(cannons.count - 1) {
+                    self.cannons![i].timeToFire = self.cannonTimes[i]
                 }
             }
         }

@@ -26,7 +26,7 @@ class Loading : World {
         self.addChild(self.player)
     }
     
-    func setupPlayer () {
+    override func setupPlayer () {
         // If we don't set the player before hand than that means that this is a new game
         if self.player == nil {
             self.createPlayer()

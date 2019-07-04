@@ -99,7 +99,7 @@ class CannonBall : SKSpriteNode {
     
     init(cannon: Cannon) {
         let texture = SKTexture(imageNamed: "cannonball")
-        super.init(texture: texture, color: .clear, size: CGSize(width: texture.size().width, height: texture.size().height / 2.0) )
+        super.init(texture: texture, color: .clear, size: CGSize(width: texture.size().width / 5.0, height: texture.size().height / 10.0) )
         
         self.name = "cannonball"
         self.physicsBody = SKPhysicsBody(circleOfRadius: 25 )
@@ -162,7 +162,7 @@ class MovablePlatform : SKSpriteNode {
     }
 }
 
-class AntiGravPlatform : SKSpriteNode, AntiGravPlatformProtocol {
+class MultiDirectionalGravObject : SKSpriteNode, AntiGravPlatformProtocol {
     
     // This is the yPos of where the cannon starts off at.  The cannon
     //will never go higher than this point, or lower than this point
@@ -192,11 +192,10 @@ class AntiGravPlatform : SKSpriteNode, AntiGravPlatformProtocol {
         }
         
         self.physicsBody?.velocity.dx = 0
-        
     }
 }
 
-class AntiGravPlatformHeavy : AntiGravPlatform {
+class AntiGravPlatformHeavy : MultiDirectionalGravObject {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -211,9 +210,7 @@ class AntiGravPlatformHeavy : AntiGravPlatform {
 
 class Level2 : World {
     
-    var launchTime:TimeInterval?
-    var cannons:[Cannon]?
-    var cannonTimes:[TimeInterval] = [ 3.0, 8.0, 3.0, 5.0, 7.0 ]
+    var launchTime:TimeInterval?    
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -241,27 +238,6 @@ class Level2 : World {
         self.playBackgroundMusic()
         self.showBackgroundParticles()
         self.showFireFlies()
-    }
-    
-    func setupPlayer () {
-        if self.player != nil {
-            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            self.addChild(self.player)
-            if let start = self.childNode(withName: "start") {
-                self.player.position = start.position
-            }
-        }
-    }
-    
-    func getCannons () {
-        if let cannonsGroup = self.childNode(withName: "cannons") {
-            if let cannons  = cannonsGroup.children as? [Cannon] {
-                self.cannons = cannons
-                for i in 0...(cannons.count - 1) {
-                    self.cannons![i].timeToFire = self.cannonTimes[i]
-                }
-            }
-        }
     }
     
     func playBackgroundMusic () {
@@ -308,14 +284,18 @@ class Level2 : World {
     override func didBegin(_ contact: SKPhysicsContact) {
         super.didBegin(contact)
         
+        if contactContains(strings: ["dawud", "level3"]) {
+            gotoNextLevel(sceneName: "level3")
+        }
+        
         if contact.bodyA.node as? Reset != nil || contact.bodyB.node as? Reset != nil {
             var resetNode:Reset!
             var nodeHasParent = false
             
             if let _ = contact.bodyA.node as? Reset {
-                resetNode = contact.bodyA.node as! Reset
+                resetNode = contact.bodyA.node as? Reset
             } else {
-                resetNode = contact.bodyB.node as! Reset
+                resetNode = contact.bodyB.node as? Reset
             }
             
             if contactContains(strings: ["dawud"], contact: contact) == false {

@@ -68,16 +68,6 @@ class GameScene: World {
         self.currentLevel = .LEVEL1
     }
     
-    func setupPlayer () {
-        if self.player != nil {
-            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            self.addChild(self.player)
-            if let start = self.childNode(withName: "start") {
-                self.player.position = start.position
-            }
-        }
-    }
-    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.currentLevel = .LEVEL1
