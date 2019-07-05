@@ -19,6 +19,7 @@ class MovablePlatform : SKSpriteNode {
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.InteractableObjects)
         self.physicsBody?.pinned = true
         self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.allowsRotation = false
         let constraint = SKConstraint.positionX(SKRange(constantValue: self.position.x))
         self.constraints = [constraint]
     }

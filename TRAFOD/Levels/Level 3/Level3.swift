@@ -10,6 +10,9 @@ import Foundation
 import GameKit
 
 class Level3 : Level {
+    
+    var temporarySwitches:[FlipSwitch]? = [FlipSwitch]()
+    
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         
@@ -18,6 +21,14 @@ class Level3 : Level {
         self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)
         self.showMineralCount()
         self.setWeightSwitchDefaults()
+        
+        if let tempSwitch = self.childNode(withName: "level3-switch2") as? FlipSwitch {
+            tempSwitch.movablePlatform = self.childNode(withName: "level3-ground-switch2") as? MovablePlatform
+            tempSwitch.movablePlatformOffSetPoint = CGPoint(x: -693, y: 0)
+            tempSwitch.movablePlatformMovementDuration = 3.0
+            
+            self.temporarySwitches?.append(tempSwitch)
+        }
         
     }
     
@@ -29,6 +40,10 @@ class Level3 : Level {
                     weightSwitch.verticalForce = 0
                     weightSwitch.applyUpwardForce()
                 } else if let _ = node.childNode(withName: "weightSwitch2") {
+                    weightSwitch.collisionImpulseRequired = 500
+                    weightSwitch.verticalForce = 10000
+                    weightSwitch.applyUpwardForce()
+                } else if let _ = node.childNode(withName: "weightSwitch3") {
                     weightSwitch.collisionImpulseRequired = 500
                     weightSwitch.verticalForce = 10000
                     weightSwitch.applyUpwardForce()
@@ -64,7 +79,18 @@ class Level3 : Level {
             self.movePlatform(nodeName: "level3-ground-weightSwitch2", xOffset: 0, yOffset: 360, duration: 3.0)
             self.pinSwitch(contact: contact)
         }
+        
+        if self.contactContains(strings: ["ground-weightSwitch", "bottomOfSwitch3"], contact: contact) {
+            self.movePlatform(nodeName: "level3-ground-weightSwitch3", xOffset: 0, yOffset: 250, duration: 3.0)
+            self.pinSwitch(contact: contact)
+        }
+        
+        if self.contactContains(strings: ["level3-switch2", "rock"], contact: contact) {
+            
+        }
     }
+    
+    
     
     func pinSwitch (contact: SKPhysicsContact) {
         if let node = contact.bodyA.node as? WeightSwitch {
@@ -72,5 +98,15 @@ class Level3 : Level {
         } else if let node = contact.bodyB.node as? WeightSwitch {
             node.physicsBody?.pinned = true
         }
+    }
+    
+    override func update(_ currentTime: TimeInterval) {
+        super.update(currentTime)
+        
+        self.temporarySwitches?.forEach({ (flipSwitch) in
+            flipSwitch.flipSwitch()
+        })
+        
+        
     }
 }

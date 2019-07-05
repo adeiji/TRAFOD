@@ -25,7 +25,7 @@ class SoundManager {
     let antiGravSound = SKAudioNode(fileNamed: "antigrav")
     let stepsSound = SKAudioNode(fileNamed: "footsteps")
     let hitGround = SKAction.playSoundFileNamed("hitground", waitForCompletion: true)    
-    var isMuted = true;
+    var isMuted = false;
     let world:World
     
     init(world:World) {

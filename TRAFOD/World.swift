@@ -90,7 +90,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     var objectsToReset:[SKSpriteNode] = [SKSpriteNode]()
     
     var teleportNode:SKNode?
-    var volumeIsMuted:Bool = true
+    var volumeIsMuted:Bool = false
     
     enum Levels:String {
         case LEVEL1 = "GameScene"
