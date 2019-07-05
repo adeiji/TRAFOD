@@ -79,7 +79,7 @@ class Story : World {
         self.lastUpdateTime = currentTime
     }
     
-    func moveCamera() {
+    override func moveCamera() {
         if self.player.position.x > self.camera!.position.x {
             if self.minCameraX == nil {
                 self.minCameraX = self.camera!.position.x

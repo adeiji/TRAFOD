@@ -107,6 +107,19 @@
 		F4648F1C20D2679100CE97E1 /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = F4648F1B20D2679100CE97E1 /* platform.png */; };
 		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
 		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
+		F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3322CE5E3A004D1A3D /* Level.swift */; };
+		F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3522CEF6C5004D1A3D /* Level3+Platforms.swift */; };
+		F48F7D3922CF0031004D1A3D /* PhysicsCategory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3822CF0031004D1A3D /* PhysicsCategory.swift */; };
+		F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3A22CF0058004D1A3D /* AntiGravPlatformProtocol.swift */; };
+		F48F7D3D22CF0075004D1A3D /* Reset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3C22CF0075004D1A3D /* Reset.swift */; };
+		F48F7D3F22CF00AC004D1A3D /* FlipSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3E22CF00AC004D1A3D /* FlipSwitch.swift */; };
+		F48F7D4122CF00D3004D1A3D /* DoubleGravField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4022CF00D3004D1A3D /* DoubleGravField.swift */; };
+		F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4222CF00F0004D1A3D /* Cannon.swift */; };
+		F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4422CF011C004D1A3D /* CannonBall.swift */; };
+		F48F7D4722CF0140004D1A3D /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4622CF0140004D1A3D /* Rock.swift */; };
+		F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4822CF0163004D1A3D /* MovablePlatform.swift */; };
+		F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */; };
+		F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */; };
 		F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4A9036420E64D0C006DCDD4 /* NoWarp.sks */; };
 		F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03CE620C94B8700F0B346 /* AppDelegate.swift */; };
 		F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CE820C94B8700F0B346 /* GameScene.sks */; };
@@ -136,7 +149,6 @@
 		F4B8E8AF20CA794900E558F8 /* level1ground1.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8AE20CA794900E558F8 /* level1ground1.png */; };
 		F4B8E8B120CA79D300E558F8 /* level1ground2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E8B020CA79D300E558F8 /* level1ground2.png */; };
 		F4BA319620E3672900DBD823 /* Level2.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BA319520E3672800DBD823 /* Level2.swift */; };
-		F4BA319820E3679800DBD823 /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4BA319720E3679800DBD823 /* Cannon.swift */; };
 		F4BA319D20E4E87400DBD823 /* lv2rocks1.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA319C20E4E87400DBD823 /* lv2rocks1.png */; };
 		F4BA319F20E4EE4300DBD823 /* smallrock.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA319E20E4EE4300DBD823 /* smallrock.png */; };
 		F4BA31A120E4F1DE00DBD823 /* lv2rocks3.png in Resources */ = {isa = PBXBuildFile; fileRef = F4BA31A020E4F1DE00DBD823 /* lv2rocks3.png */; };
@@ -279,6 +291,19 @@
 		F4648F1B20D2679100CE97E1 /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
 		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
+		F48F7D3322CE5E3A004D1A3D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
+		F48F7D3522CEF6C5004D1A3D /* Level3+Platforms.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Level3+Platforms.swift"; sourceTree = "<group>"; };
+		F48F7D3822CF0031004D1A3D /* PhysicsCategory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsCategory.swift; sourceTree = "<group>"; };
+		F48F7D3A22CF0058004D1A3D /* AntiGravPlatformProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravPlatformProtocol.swift; sourceTree = "<group>"; };
+		F48F7D3C22CF0075004D1A3D /* Reset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reset.swift; sourceTree = "<group>"; };
+		F48F7D3E22CF00AC004D1A3D /* FlipSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipSwitch.swift; sourceTree = "<group>"; };
+		F48F7D4022CF00D3004D1A3D /* DoubleGravField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DoubleGravField.swift; sourceTree = "<group>"; };
+		F48F7D4222CF00F0004D1A3D /* Cannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
+		F48F7D4422CF011C004D1A3D /* CannonBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CannonBall.swift; sourceTree = "<group>"; };
+		F48F7D4622CF0140004D1A3D /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
+		F48F7D4822CF0163004D1A3D /* MovablePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovablePlatform.swift; sourceTree = "<group>"; };
+		F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDirectionalGravObject.swift; sourceTree = "<group>"; };
+		F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravPlatformHeavy.swift; sourceTree = "<group>"; };
 		F4A9036420E64D0C006DCDD4 /* NoWarp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoWarp.sks; sourceTree = "<group>"; };
 		F4B03CE320C94B8700F0B346 /* TRAFOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAFOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B03CE620C94B8700F0B346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -314,7 +339,6 @@
 		F4B8E8AE20CA794900E558F8 /* level1ground1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1ground1.png; sourceTree = "<group>"; };
 		F4B8E8B020CA79D300E558F8 /* level1ground2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = level1ground2.png; sourceTree = "<group>"; };
 		F4BA319520E3672800DBD823 /* Level2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Level2.swift; sourceTree = "<group>"; };
-		F4BA319720E3679800DBD823 /* Cannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
 		F4BA319C20E4E87400DBD823 /* lv2rocks1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks1.png; sourceTree = "<group>"; };
 		F4BA319E20E4EE4300DBD823 /* smallrock.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = smallrock.png; sourceTree = "<group>"; };
 		F4BA31A020E4F1DE00DBD823 /* lv2rocks3.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks3.png; sourceTree = "<group>"; };
@@ -431,9 +455,9 @@
 				F48F7D3022CE5785004D1A3D /* Level 3 */,
 				F4BA319520E3672800DBD823 /* Level2.swift */,
 				F43FE24420E201270012D6E4 /* Level2.sks */,
-				F4BA319720E3679800DBD823 /* Cannon.swift */,
 				F44B9BD020EDFCEA00B874A1 /* Chapters.sks */,
 				F44B9BD520EDFF8000B874A1 /* Chapters.swift */,
+				F48F7D3322CE5E3A004D1A3D /* Level.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -469,6 +493,16 @@
 			isa = PBXGroup;
 			children = (
 				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
+				F48F7D3A22CF0058004D1A3D /* AntiGravPlatformProtocol.swift */,
+				F48F7D3C22CF0075004D1A3D /* Reset.swift */,
+				F48F7D3E22CF00AC004D1A3D /* FlipSwitch.swift */,
+				F48F7D4022CF00D3004D1A3D /* DoubleGravField.swift */,
+				F48F7D4222CF00F0004D1A3D /* Cannon.swift */,
+				F48F7D4422CF011C004D1A3D /* CannonBall.swift */,
+				F48F7D4622CF0140004D1A3D /* Rock.swift */,
+				F48F7D4822CF0163004D1A3D /* MovablePlatform.swift */,
+				F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */,
+				F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */,
 			);
 			path = "World Objects";
 			sourceTree = "<group>";
@@ -563,8 +597,17 @@
 			children = (
 				F48F7D2E22CE5243004D1A3D /* Level3.sks */,
 				F48F7D3122CE5798004D1A3D /* Level3.swift */,
+				F48F7D3522CEF6C5004D1A3D /* Level3+Platforms.swift */,
 			);
 			path = "Level 3";
+			sourceTree = "<group>";
+		};
+		F48F7D3722CF0021004D1A3D /* Physics */ = {
+			isa = PBXGroup;
+			children = (
+				F48F7D3822CF0031004D1A3D /* PhysicsCategory.swift */,
+			);
+			path = Physics;
 			sourceTree = "<group>";
 		};
 		F4B03CDA20C94B8700F0B346 = {
@@ -592,6 +635,7 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F48F7D3722CF0021004D1A3D /* Physics */,
 				F44B9BD220EDFEED00B874A1 /* World Objects */,
 				F43FE24820E21A410012D6E4 /* World */,
 				F43FE24320E201140012D6E4 /* Levels */,
@@ -1069,25 +1113,37 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F48F7D4722CF0140004D1A3D /* Rock.swift in Sources */,
 				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
 				F4BA319620E3672900DBD823 /* Level2.swift in Sources */,
+				F48F7D3F22CF00AC004D1A3D /* FlipSwitch.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
+				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
+				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,
+				F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
-				F4BA319820E3679800DBD823 /* Cannon.swift in Sources */,
 				F44B9BD420EDFEF700B874A1 /* Doorway.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
+				F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */,
+				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
 				F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */,
 				F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
+				F48F7D4122CF00D3004D1A3D /* DoubleGravField.swift in Sources */,
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
+				F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */,
 				F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */,
+				F48F7D3922CF0031004D1A3D /* PhysicsCategory.swift in Sources */,
+				F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */,
+				F48F7D3D22CF0075004D1A3D /* Reset.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,
 				F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */,
+				F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

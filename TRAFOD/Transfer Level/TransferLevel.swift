@@ -18,9 +18,6 @@ class TransferLevel : World {
     private var sceneState:SceneState!
     private var websiteButton:SKLabelNode?
     
-    var previousWorldCameraPosition:CGPoint!
-    var previousWorldPlayerPosition:CGPoint!
-    
     enum SceneState {
         case MOVIE
         case REWIND
@@ -243,7 +240,7 @@ class TransferLevel : World {
         self.view?.window?.rootViewController = subscriptionVC
     }
     
-    func moveCamera () {
+    override func moveCamera () {
         self.camera?.position.y = self.player.position.y
         
         for node in self.children {

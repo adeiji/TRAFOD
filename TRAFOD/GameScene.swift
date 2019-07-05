@@ -12,6 +12,8 @@ import GameplayKit
 enum Minerals: String {
     case ANTIGRAV = "antigrav"
     case IMPULSE = "impulse"
+    case TELEPORT = "teleport"
+    case USED_TELEPORT = "teleport-mineral"
 }
 
 extension UIColor {
@@ -44,13 +46,14 @@ class Player : SKSpriteNode {
     
     public var hasAntigrav = false
     public var hasImpulse = false
+    public var hasTeleport = false
     public var mineralCounts = [Minerals:Int]()
     public var strength:CGFloat = 10.0
     public var grabbedObject:SKNode?
     
 }
 
-class GameScene: World {
+class GameScene: Level {
     
     var graphs = [String : GKGraph]()
     
@@ -73,10 +76,9 @@ class GameScene: World {
         self.currentLevel = .LEVEL1
         self.showDoorParticles()
         self.physicsWorld.contactDelegate = self
-        self.setupPlayer()
         self.removeCollectedElements()        
         self.changeMineralPhysicsBodies()
-        
+        self.setupPlayer()
         if self.player.hasAntigrav {
             self.addThrowButton()
             self.showMineralCount()
@@ -124,7 +126,7 @@ class GameScene: World {
         self.lastUpdateTime = currentTime
     }
     
-    func moveCamera() {
+    override func moveCamera() {
         if ((self.player.position.x >= self.minCameraX)) && self.player.position.x < 31862 {
             self.camera?.position.x = self.player.position.x
         } else if self.player.position.x < self.minCameraX {

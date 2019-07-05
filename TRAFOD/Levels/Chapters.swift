@@ -40,6 +40,8 @@ class Chapters : World {
         } else {
             self.enterInstructions?.alpha = 0.0
         }
+        
+        self.moveCamera()
     }
     
     func canEnterDoorway () -> Bool {
@@ -69,6 +71,9 @@ class Chapters : World {
                 case "door-chapter2":
                     self.loadSavedGame(sceneName: "Level2", level: GameLevels.level2)
                     return
+                case "door-chapter3":
+                    self.loadSavedGame(sceneName: "Level3", level: GameLevels.level3)
+                    return
                 default: break
                 }
             } else {
@@ -84,7 +89,7 @@ class Chapters : World {
      Load a saved game, continue the story
      
      */
-    private func loadSavedGame (sceneName: String, level:String) {
+    override func loadSavedGame (sceneName: String, level:String) {
         self.getMineralCounts()
         let loading = Loading(fileNamed: "Loading")
         loading?.nextSceneName = sceneName
@@ -97,13 +102,15 @@ class Chapters : World {
         self.view?.presentScene(loading!, transition: transition)
     }
     
-    func getMineralCounts () {
+    override func getMineralCounts () {
         if let mineralCounts = ProgressTracker.getMineralCounts() {
             for mineralCount in mineralCounts {
                 if mineralCount.mineral == Minerals.ANTIGRAV.rawValue {
                     self.player.mineralCounts[.ANTIGRAV] = mineralCount.count
                 } else if mineralCount.mineral == Minerals.IMPULSE.rawValue {
                     self.player.mineralCounts[.IMPULSE] = mineralCount.count
+                } else if mineralCount.mineral == Minerals.TELEPORT.rawValue {
+                    self.player.mineralCounts[.TELEPORT] = mineralCount.count
                 }
             }
         }

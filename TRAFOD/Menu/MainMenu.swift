@@ -55,7 +55,10 @@ class MainMenu: World {
         }
     }
     
-    func getProgress () {
+    /*
+     Gets the progress of the current player
+     */
+    override func getProgress () {
         if let progress = ProgressTracker.getProgress() {
             if progress.currentLevel == GameLevels.level1 {
                 if let continueNode = self.childNode(withName: "continue") {
@@ -68,7 +71,7 @@ class MainMenu: World {
             self.player.hasAntigrav = progress.hasAntigrav
             self.player.hasImpulse = progress.hasImpulse
         }
-    }        
+    }
     
     override func didBegin(_ contact: SKPhysicsContact) {
         let aName = contact.bodyA.node?.name ?? ""
