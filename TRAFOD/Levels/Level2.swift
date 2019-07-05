@@ -32,19 +32,7 @@ class Level2 : Level {
     }
     
     override func touchDown(atPoint pos: CGPoint) {
-        super.touchDown(atPoint: pos)
-        
-        if let camera = self.camera, let zoomOut = camera.childNode(withName: "zoomOut") {
-            if self.nodes(at: pos).contains(zoomOut) {
-                if camera.xScale == 1 {
-                    self.camera?.xScale = 2
-                    self.camera?.yScale = 2
-                } else if camera.xScale == 2 {
-                    camera.xScale = 1
-                    camera.yScale = 1
-                }
-            }
-        }
+        super.touchDown(atPoint: pos)                
     }
     
     override func didBegin(_ contact: SKPhysicsContact) {

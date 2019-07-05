@@ -16,7 +16,7 @@ class AntiGravPlatformHeavy : MultiDirectionalGravObject {
         
         self.verticalForce = 8000
     }
-    
+
     override func applyUpwardForce() {
         super.applyUpwardForce()
     }

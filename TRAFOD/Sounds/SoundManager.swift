@@ -25,7 +25,7 @@ class SoundManager {
     let antiGravSound = SKAudioNode(fileNamed: "antigrav")
     let stepsSound = SKAudioNode(fileNamed: "footsteps")
     let hitGround = SKAction.playSoundFileNamed("hitground", waitForCompletion: true)    
-    
+    var isMuted = true;
     let world:World
     
     init(world:World) {
@@ -34,6 +34,9 @@ class SoundManager {
     }
     
     func stopSoundWithKey (key: String) {
+        if self.isMuted {
+            return
+        }
         if key == Sounds.RUN.rawValue {
             self.stepsSound.run(SKAction.changeVolume(to: 0, duration: 0))
         } else {
@@ -42,6 +45,9 @@ class SoundManager {
     }
     
     func playSound (sound: Sounds, parent: SKNode? = nil) {
+        if self.isMuted {
+            return
+        }
         if sound == .MINERALCRASH {
             self.world.run(self.mineralCrashSound)        
         } else if sound == .ANTIGRAV {

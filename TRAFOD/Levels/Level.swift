@@ -140,6 +140,26 @@ class Level : World {
             
             return
         }
+        
+        self.checkForAndHandleWeightSwitchCollision(contact: contact)
+    }
+    
+    /**
+     We check to see if there's been a collision with a weight switch and the player and if so, than check to see if player has hit switch with enough force
+     to activate it
+     
+     - Parameter contact: The physics contact between the weightSwitch and the player
+     */
+    func checkForAndHandleWeightSwitchCollision (contact: SKPhysicsContact) {
+        if contactContains(strings: ["dawud", "weightSwitch"], contact: contact ) {
+            if (contact.collisionImpulse > 1000) {
+                if let weightSwitch = contact.bodyA.node as? WeightSwitch {
+                    weightSwitch.verticalForce = 0
+                } else if let weightSwitch = contact.bodyB.node as? WeightSwitch {
+                    weightSwitch.verticalForce = 0
+                }
+            }
+        }
     }
     
     func flipSwitchOn (node: FlipSwitch?) {
@@ -150,14 +170,40 @@ class Level : World {
         }
     }
     
+    /**
+     Moves a node to a specificied position
+     
+     - Parameter nodeName: The name of the node to move
+     - Parameter xOffset: How far to move in the x direction
+     - Parameter yOffset: How far to move in the y direction
+     - Parameter duration: How long to take to move the node
+     
+     */
     func movePlatform (nodeName: String, xOffset: CGFloat, yOffset: CGFloat, duration: TimeInterval = 0.65) {
         if let node = self.childNode(withName: nodeName) {
+            
+            // If this action has already been activated then don't do it again
+            if let node = self.childNode(withName: nodeName) as? MovablePlatform {
+                if node.finishedMoving == true {
+                    return
+                }
+            }
+            
             let move = SKAction.moveBy(x: xOffset, y: yOffset, duration: duration)
             node.physicsBody?.pinned = false
-            node.run(move)
+            node.run(move) {
+                if let node = node as? MovablePlatform {
+                    node.finishedMoving = true
+                }
+                node.physicsBody?.pinned = true
+                node.physicsBody?.affectedByGravity = false
+            }
         }
     }
     
+    /**
+     Removes a pin from a node and allows it to be affected by gravity allowing it to move freely and be affected by gravity
+     */
     func movePlatform(nodeName: String, duration: TimeInterval = 0.65) {
         if let node = self.childNode(withName: nodeName) {
             node.physicsBody?.pinned = false
@@ -171,11 +217,9 @@ class Level : World {
     }
     
     /**
-     Launch the cannons every 3 seconds
+     Launch the cannons according to each cannons time interval
      
-     - Todo: Need to implement a way where cannons fire at different time periods and at different intervals between launch
-     - Parameters:
-     - currentTime - The current time of the application run loop
+     - Parameter currentTime: - The current time of the application run loop
      */
     func launchCannons (currentTime: TimeInterval) {
         if let cannons = self.cannons {
@@ -194,26 +238,36 @@ class Level : World {
     
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
-        
+    
         enumerateChildNodes(withName: "ground-antigravity") { (node, pointer) in
             if let node = node as? AntiGravPlatformProtocol {
                 node.applyUpwardForce()
             }
         }
         
-        self.enumerateChildNodes(withName: "doubleGravField") { (node, pointer) in
-            if let gravFieldPhysicsBody = node.physicsBody {
-                let objectsInField = gravFieldPhysicsBody.allContactedBodies()
-                for object in objectsInField {
-                    if let node = node as? DoubleGravField {
-                        if object.node?.name?.contains("portal") == false {
-                            object.applyImpulse(node.gravitation(mass: object.mass))
+        enumerateChildNodes(withName: "ground-weightSwitch") { (node, pointer) in
+            if let node = node as? WeightSwitch {
+                node.applyUpwardForce()
+            }
+        }
+        
+        // Applys double the gravitational force to all bodies that are within this node's field
+        func applyDoubleGravFieldsForce () {
+            self.enumerateChildNodes(withName: "doubleGravField") { (node, pointer) in
+                if let gravFieldPhysicsBody = node.physicsBody {
+                    let objectsInField = gravFieldPhysicsBody.allContactedBodies()
+                    for object in objectsInField {
+                        if let node = node as? DoubleGravField {
+                            if object.node?.name?.contains("portal") == false {
+                                object.applyImpulse(node.gravitation(mass: object.mass))
+                            }
                         }
                     }
                 }
             }
         }
         
+        applyDoubleGravFieldsForce()
         self.launchCannons(currentTime: currentTime)
         let dt = currentTime - self.lastUpdateTime
         self.handlePlayerRotation(dt: dt)
@@ -221,8 +275,15 @@ class Level : World {
         self.moveCamera()
     }
     
+    /**
+     
+     When the player collides with a mineral and retrieves it if it's the first time then we display a box that shows player how to use the minerals
+     or it simply adds ten more minerals to the player's mineral count
+     
+     - Parameter type: The type of Mineral that the player is getting
+     
+     */
     func getMineral (type: Minerals) {
-        
         if var mineralCount = self.player.mineralCounts[type] {
             mineralCount = mineralCount + 10
             self.player.mineralCounts[type] = mineralCount
@@ -237,6 +298,9 @@ class Level : World {
         self.showMineralCount()
     }
     
+    
+     
+    // TODO: Needs to be deprecated
     func getImpulse () {
         if self.player.hasImpulse == false {
             self.player.hasImpulse = true
@@ -278,6 +342,13 @@ class Level : World {
         }
     }
     
+    /**
+     Shows instructions to the player of how to use whichever mineral they've just received
+     
+     - TODO: Should probably change this name to simply show MessageBox
+     - Parameter nodeName: - the name of the node to show
+     - Precondition: Make sure that the node with the given nodeName has an alpha set to 0.0
+     */
     func showMineralReceivedBox (nodeName: String) {
         self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.messageBox = self.childNode(withName: nodeName) as? SKSpriteNode

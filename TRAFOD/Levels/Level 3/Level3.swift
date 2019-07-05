@@ -17,6 +17,24 @@ class Level3 : Level {
         self.getProgress()
         self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)
         self.showMineralCount()
+        self.setWeightSwitchDefaults()
+        
+    }
+    
+    func setWeightSwitchDefaults () {
+        enumerateChildNodes(withName: "ground-weightSwitch") { (node, pointer) in
+            if let weightSwitch = node as? WeightSwitch {
+                if let _ = node.childNode(withName: "weightSwitch1") {
+                    weightSwitch.collisionImpulseRequired = 100
+                    weightSwitch.verticalForce = 0
+                    weightSwitch.applyUpwardForce()
+                } else if let _ = node.childNode(withName: "weightSwitch2") {
+                    weightSwitch.collisionImpulseRequired = 500
+                    weightSwitch.verticalForce = 10000
+                    weightSwitch.applyUpwardForce()
+                }
+            }            
+        }
     }
     
     override func didBegin(_ contact: SKPhysicsContact) {
@@ -36,7 +54,23 @@ class Level3 : Level {
             self.movePlatform(nodeName: "level3-ground-switch1", xOffset: 0, yOffset:  330, duration: 3.0)
             self.flipSwitchOn(node: flipSwitch)
         }
+        
+        if self.contactContains(strings: ["ground-weightSwitch", "bottomOfSwitch1"], contact: contact) {
+            self.movePlatform(nodeName: "level3-ground-weightSwitch1", xOffset: 0, yOffset: -490, duration: 3.0)
+            self.pinSwitch(contact: contact)
+        }
+        
+        if self.contactContains(strings: ["ground-weightSwitch", "bottomOfSwitch2"], contact: contact) {
+            self.movePlatform(nodeName: "level3-ground-weightSwitch2", xOffset: 0, yOffset: 360, duration: 3.0)
+            self.pinSwitch(contact: contact)
+        }
     }
-
     
+    func pinSwitch (contact: SKPhysicsContact) {
+        if let node = contact.bodyA.node as? WeightSwitch {
+            node.physicsBody?.pinned = true
+        } else if let node = contact.bodyB.node as? WeightSwitch {
+            node.physicsBody?.pinned = true
+        }
+    }
 }

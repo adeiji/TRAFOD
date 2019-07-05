@@ -90,7 +90,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     var objectsToReset:[SKSpriteNode] = [SKSpriteNode]()
     
     var teleportNode:SKNode?
-    
+    var volumeIsMuted:Bool = true
     
     enum Levels:String {
         case LEVEL1 = "GameScene"
@@ -535,6 +535,19 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     func touchDown(atPoint pos : CGPoint) {
+        
+        if let camera = self.camera, let zoomOut = camera.childNode(withName: "zoomOut") {
+            if self.nodes(at: pos).contains(zoomOut) {
+                if camera.xScale == 1 {
+                    self.camera?.xScale = 2
+                    self.camera?.yScale = 2
+                } else if camera.xScale == 2 {
+                    camera.xScale = 1
+                    camera.yScale = 1
+                }
+            }
+        }
+        
         if self.messageBox != nil && self.nodes(at: pos).contains(self.jumpButton) {
             self.messageBox.removeFromParent()
             self.messageBox = nil
@@ -635,8 +648,11 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         if contactContains(strings: ["ground", "mineral", "gravity"], contactA: contactAName , contactB: contactBName) {
-            self.antiGravUsed()
-            self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact, duration: 2)
+            if !contactContains(strings: ["noantigrav"], contactA: contactAName, contactB: contactBName) {
+                self.antiGravUsed()
+                self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact, duration: 2)
+            }
+            
             if let node = getContactNode(string: "mineral", contact: contact) {
                 node.removeFromParent()
             }
@@ -1338,16 +1354,18 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.view?.presentScene(loading!, transition: transition)
     }
     
-    func playBackgroundMusic (fileName: String) {
-        if let musicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
-            self.backgroundMusic = SKAudioNode(url: musicURL)
-            addChild(self.backgroundMusic)
-        }
-        
-        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
-            self.ambiance = SKAudioNode(url: musicURL)
-            self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
-            addChild(self.ambiance)
+    func playBackgroundMusic (fileName: String) {        
+        if self.volumeIsMuted == false {
+            if let musicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
+                self.backgroundMusic = SKAudioNode(url: musicURL)
+                addChild(self.backgroundMusic)
+            }
+            
+            if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
+                self.ambiance = SKAudioNode(url: musicURL)
+                self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
+                addChild(self.ambiance)
+            }
         }
     }
     

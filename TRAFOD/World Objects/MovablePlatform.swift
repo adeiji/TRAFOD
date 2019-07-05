@@ -10,6 +10,9 @@ import Foundation
 import GameKit
 
 class MovablePlatform : SKSpriteNode {
+    
+    var finishedMoving = false;
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
