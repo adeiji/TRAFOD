@@ -154,9 +154,9 @@ class Level : World {
         if contactContains(strings: ["dawud", "weightSwitch"], contact: contact ) {
             if (contact.collisionImpulse > 1000) {
                 if let weightSwitch = contact.bodyA.node as? WeightSwitch {
-                    weightSwitch.verticalForce = 0
+                    weightSwitch.topOfSwitch?.verticalForce = 0
                 } else if let weightSwitch = contact.bodyB.node as? WeightSwitch {
-                    weightSwitch.verticalForce = 0
+                    weightSwitch.topOfSwitch?.verticalForce = 0
                 }
             }
         }
@@ -247,7 +247,7 @@ class Level : World {
         
         enumerateChildNodes(withName: "ground-weightSwitch") { (node, pointer) in
             if let node = node as? WeightSwitch {
-                node.applyUpwardForce()
+                node.topOfSwitch?.applyUpwardForce()
             }
         }
         

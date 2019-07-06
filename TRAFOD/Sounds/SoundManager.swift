@@ -29,8 +29,7 @@ class SoundManager {
     let world:World
     
     init(world:World) {
-        self.world = world
-        
+        self.world = world        
     }
     
     func stopSoundWithKey (key: String) {

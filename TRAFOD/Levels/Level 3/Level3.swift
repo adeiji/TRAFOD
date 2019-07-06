@@ -12,6 +12,7 @@ import GameKit
 class Level3 : Level {
     
     var temporarySwitches:[FlipSwitch]? = [FlipSwitch]()
+    var weightSwitches:[WeightSwitch]? = [WeightSwitch]()
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
@@ -24,31 +25,29 @@ class Level3 : Level {
         
         if let tempSwitch = self.childNode(withName: "level3-switch2") as? FlipSwitch {
             tempSwitch.movablePlatform = self.childNode(withName: "level3-ground-switch2") as? MovablePlatform
-            tempSwitch.movablePlatformOffSetPoint = CGPoint(x: -693, y: 0)
-            tempSwitch.movablePlatformMovementDuration = 3.0
+            tempSwitch.movablePlatform?.moveToPoint = CGPoint(x: -693, y: 0)
+            tempSwitch.movablePlatform?.moveDuration = 3.0
             
             self.temporarySwitches?.append(tempSwitch)
         }
-        
     }
     
     func setWeightSwitchDefaults () {
-        enumerateChildNodes(withName: "ground-weightSwitch") { (node, pointer) in
+        self.children.forEach { (node) in
             if let weightSwitch = node as? WeightSwitch {
+                weightSwitch.setup();
                 if let _ = node.childNode(withName: "weightSwitch1") {
-                    weightSwitch.collisionImpulseRequired = 100
-                    weightSwitch.verticalForce = 0
-                    weightSwitch.applyUpwardForce()
+                    weightSwitch.topOfSwitch?.verticalForce = 0
                 } else if let _ = node.childNode(withName: "weightSwitch2") {
-                    weightSwitch.collisionImpulseRequired = 500
-                    weightSwitch.verticalForce = 10000
-                    weightSwitch.applyUpwardForce()
+                    weightSwitch.topOfSwitch?.verticalForce = 10000
                 } else if let _ = node.childNode(withName: "weightSwitch3") {
-                    weightSwitch.collisionImpulseRequired = 500
-                    weightSwitch.verticalForce = 10000
-                    weightSwitch.applyUpwardForce()
+                    weightSwitch.topOfSwitch?.verticalForce = 10000
+                } else if let _ = node.childNode(withName: "weightSwitch5") {
+                    weightSwitch.topOfSwitch?.verticalForce = 10000
                 }
-            }            
+                
+                self.weightSwitches?.append(weightSwitch)
+            }
         }
     }
     
@@ -85,8 +84,13 @@ class Level3 : Level {
             self.pinSwitch(contact: contact)
         }
         
-        if self.contactContains(strings: ["level3-switch2", "rock"], contact: contact) {
-            
+        if (contact.bodyA.node is MultiDirectionalGravObject || contact.bodyB.node is MultiDirectionalGravObject) &&
+           (contact.bodyA.node is WeightSwitchBottom || contact.bodyB.node is WeightSwitchBottom) {
+            if let node = contact.bodyA.node?.parent as? WeightSwitch {
+                if node.name == "WeightSwitch1" {
+                    node.platform?.move()
+                }
+            }
         }
     }
     
@@ -106,7 +110,5 @@ class Level3 : Level {
         self.temporarySwitches?.forEach({ (flipSwitch) in
             flipSwitch.flipSwitch()
         })
-        
-        
     }
 }
