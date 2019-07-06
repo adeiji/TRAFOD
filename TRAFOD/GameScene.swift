@@ -35,6 +35,7 @@ class Ground : SKShapeNode {
         self.physicsBody?.restitution  = 0
         self.physicsBody?.categoryBitMask = 1
         self.physicsBody?.contactTestBitMask = 1
+        self.physicsBody?.usesPreciseCollisionDetection = true
     }
     
     required init?(coder aDecoder: NSCoder) {

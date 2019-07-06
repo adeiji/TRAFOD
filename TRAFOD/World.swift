@@ -454,12 +454,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if self.previousPlayerRunningState == .RUNNINGRIGHT {
-            teleportNode.position.x = teleportNode.position.x + 150
-        } else {
-            teleportNode.position.x = teleportNode.position.x - 150
-        }
-        
+        teleportNode.position.x = teleportNode.position.x
         teleportNode.zPosition = -5
         teleportNode.position.y = teleportNode.position.y + teleportNode.size.height / 2.0
         teleportNode.name = mineralNodeName.rawValue
@@ -604,37 +599,40 @@ class World: SKScene, SKPhysicsContactDelegate {
         
         if (contactAName == "dawud") || (contactBName == "dawud") {
             if contactAName.contains("ground") || contactBName.contains("ground") {
-                if contact.contactNormal.dy > 0.8 {
-                    self.player.zRotation = 0.0
-                    if let physicsBody = self.player.physicsBody {
-                        self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
-                        if physicsBody.velocity.dy < -260 {
-                            self.playSound(sound: .LANDED)
-                        }
-                    }
-                    
-                    self.lastPointOnGround = self.player.position
-                    self.playerState = .ONGROUND
-
-                    var point = self.player.position
-                    if let node = getContactNode(string: "ground", contact: contact) {
-                        point.x = node.position.x
-                        
-                        if let node = node as? SKSpriteNode {
-                            let minX = node.position.x - (node.size.width / 2.0)
-                            let maxX = node.position.x + (node.size.width / 2.0)
-                            
-                            if self.player.position.x < minX + (self.player.size.width / 2.0) {
-                                self.lastPointOnGround?.x = minX + (self.player.size.width / 2.0)
-                            } else if self.player.position.x > maxX - (self.player.size.width / 2.0) {
-                                self.lastPointOnGround?.x = maxX - (self.player.size.width / 2.0)
+                
+                    if self.player.position.y - contact.contactPoint.y >= (self.player.size.height / 2.0) - 2 {
+                        self.player.zRotation = 0.0
+                        if let physicsBody = self.player.physicsBody {
+                            self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
+                            if physicsBody.velocity.dy < -260 {
+                                self.playSound(sound: .LANDED)
                             }
                         }
+                        
+                        self.lastPointOnGround = self.player.position
+                        self.playerState = .ONGROUND
+                        
+                        var point = self.player.position
+                        if let node = getContactNode(string: "ground", contact: contact) {
+                            point.x = node.position.x
+                            
+                            if let node = node as? SKSpriteNode {
+                                let minX = node.position.x - (node.size.width / 2.0)
+                                let maxX = node.position.x + (node.size.width / 2.0)
+                                
+                                if self.player.position.x < minX + (self.player.size.width / 2.0) {
+                                    self.lastPointOnGround?.x = minX + (self.player.size.width / 2.0)
+                                } else if self.player.position.x > maxX - (self.player.size.width / 2.0) {
+                                    self.lastPointOnGround?.x = maxX - (self.player.size.width / 2.0)
+                                }
+                            }
+                        }
+                        
+                        self.rewindPoints = [point]
                     }
-                    
-                    self.rewindPoints = [point]
                 }
-            }
+            
+            
         }
         
         if contactContains(strings: ["ground", "mineral", "teleport"], contactA: contactAName , contactB: contactBName) {
