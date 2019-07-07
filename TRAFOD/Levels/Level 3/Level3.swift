@@ -22,26 +22,23 @@ class Level3 : Level {
         self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)
         self.showMineralCount()
         self.setWeightSwitchDefaults()
-        
-        if let tempSwitch = self.childNode(withName: "level3-switch2") as? FlipSwitch {
-            tempSwitch.movablePlatform = self.childNode(withName: "level3-ground-switch2") as? MovablePlatform
-            tempSwitch.movablePlatform?.moveToPoint = CGPoint(x: -693, y: 0)
-            tempSwitch.movablePlatform?.moveDuration = 3.0
-            
-            self.temporarySwitches?.append(tempSwitch)
-        }
+        self.playBackgroundMusic(fileName: "level3")
     }
     
     func setWeightSwitchDefaults () {
         self.children.forEach { (node) in
+            if let node = node as? FlipSwitch {
+                node.setMovablePlatformWithTimeInterval(timeInterval: 3.0)
+                self.temporarySwitches?.append(node)
+            }
             if let weightSwitch = node as? WeightSwitch {
                 weightSwitch.setup();
-                if let _ = node.childNode(withName: "weightSwitch1") {
-                    weightSwitch.topOfSwitch?.verticalForce = 0
-                } else if let _ = node.childNode(withName: "weightSwitch2") {
-                    weightSwitch.topOfSwitch?.verticalForce = 10000
+                if let _ = weightSwitch.childNode(withName: "weightSwitch1") {
+                    weightSwitch.topOfSwitch?.verticalForce = 5
+                } else if let _ = weightSwitch.childNode(withName: "weightSwitch2") {
+                    weightSwitch.topOfSwitch?.verticalForce = 1000
                 } else if let _ = node.childNode(withName: "weightSwitch3") {
-                    weightSwitch.topOfSwitch?.verticalForce = 10000
+                    weightSwitch.topOfSwitch?.verticalForce = 3000
                 } else if let _ = node.childNode(withName: "weightSwitch5") {
                     weightSwitch.topOfSwitch?.verticalForce = 10000
                 }
@@ -54,40 +51,14 @@ class Level3 : Level {
     override func didBegin(_ contact: SKPhysicsContact) {
         super.didBegin(contact)
         
-        var flipSwitch:FlipSwitch?
-        if let mySwitch = contact.bodyA.node as? FlipSwitch {
-            flipSwitch = mySwitch
-        }
-        
-        if let mySwitch = contact.bodyB.node as? FlipSwitch {
-            flipSwitch = mySwitch
-        }
-        
-        // When the player activates the first switch then pull up the first bridge
-        if self.contactContains(strings: ["level3-switch1", "rock"], contact: contact) {
-            self.movePlatform(nodeName: "level3-ground-switch1", xOffset: 0, yOffset:  330, duration: 3.0)
-            self.flipSwitchOn(node: flipSwitch)
-        }
-        
-        if self.contactContains(strings: ["ground-weightSwitch", "bottomOfSwitch1"], contact: contact) {
-            self.movePlatform(nodeName: "level3-ground-weightSwitch1", xOffset: 0, yOffset: -490, duration: 3.0)
-            self.pinSwitch(contact: contact)
-        }
-        
-        if self.contactContains(strings: ["ground-weightSwitch", "bottomOfSwitch2"], contact: contact) {
-            self.movePlatform(nodeName: "level3-ground-weightSwitch2", xOffset: 0, yOffset: 360, duration: 3.0)
-            self.pinSwitch(contact: contact)
-        }
-        
-        if self.contactContains(strings: ["ground-weightSwitch", "bottomOfSwitch3"], contact: contact) {
-            self.movePlatform(nodeName: "level3-ground-weightSwitch3", xOffset: 0, yOffset: 250, duration: 3.0)
-            self.pinSwitch(contact: contact)
+        if PhysicsHandler.shouldSwitch(contact: contact) {
+            FlipSwitch.flipSwitch(contact: contact)
         }
         
         if (contact.bodyA.node is MultiDirectionalGravObject || contact.bodyB.node is MultiDirectionalGravObject) &&
            (contact.bodyA.node is WeightSwitchBottom || contact.bodyB.node is WeightSwitchBottom) {
             if let node = contact.bodyA.node?.parent as? WeightSwitch {
-                if node.name == "WeightSwitch1" {
+                if node.platform?.finishedMoving == false {
                     node.platform?.move()
                 }
             }
@@ -107,8 +78,8 @@ class Level3 : Level {
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
         
-        self.temporarySwitches?.forEach({ (flipSwitch) in
-            flipSwitch.flipSwitch()
+        self.weightSwitches?.forEach({ (weightSwitch) in
+            weightSwitch.topOfSwitch?.applyUpwardForce()
         })
     }
 }

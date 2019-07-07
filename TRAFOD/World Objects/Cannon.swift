@@ -19,7 +19,7 @@ class Cannon : SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.InteractableObjects)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.Cannon)
         self.addChild(self.cannonBlast)
         self.cannonBlast.autoplayLooped = false
         self.cannonBlast.isPositional = true

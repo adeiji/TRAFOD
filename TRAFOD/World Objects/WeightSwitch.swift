@@ -33,7 +33,6 @@ class WeightSwitch : GameSwitch {
                 self.platform?.moveToPoint = self.childNode(withName: "end")?.position
             } else if let node = node as? MultiDirectionalGravObject {
                 self.topOfSwitch = node
-                self.topOfSwitch?.physicsBody?.mass = 250
             }
         }
     }

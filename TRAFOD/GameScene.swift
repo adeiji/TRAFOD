@@ -23,23 +23,18 @@ extension UIColor {
     }
 }
 
-class Ground : SKShapeNode {
+class Ground : SKSpriteNode {
     
-    override init() {
-        super.init()
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
         self.name = "GROUND"
-        self.lineWidth = 5
-        self.physicsBody = SKPhysicsBody(edgeChainFrom: self.path!)
         self.physicsBody?.isDynamic = true
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.restitution  = 0
         self.physicsBody?.categoryBitMask = 1
         self.physicsBody?.contactTestBitMask = 1
         self.physicsBody?.usesPreciseCollisionDetection = true
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
     }
 }
 
@@ -149,7 +144,7 @@ class GameScene: Level {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
-        if contactContains(strings: ["dawud", "endOfGame"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "endOfGame"], contactA: contactAName, contactB: contactBName) {
             if let transferLevel = self.transitionToNextScreen(filename: "TransferLevel") as? TransferLevel {            
                 transferLevel.collectedElements = self.collectedElements
                 transferLevel.previousWorldPlayerPosition = self.player.position

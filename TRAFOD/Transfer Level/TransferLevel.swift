@@ -265,7 +265,7 @@ class TransferLevel : World {
         let bName = contact.bodyB.node?.name ?? ""
         
         // If the player hits the door to take them to level 1
-        if contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
             // Load the level 1 screen
             if let world = self.transitionToNextScreen(filename: "GameScene") {
                 world.camera?.position = self.previousWorldCameraPosition
@@ -284,7 +284,7 @@ class TransferLevel : World {
             }            
         }
         
-        if contactContains(strings: ["ground", "mineralFreeze"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.contactContains(strings: ["ground", "mineralFreeze"], contactA: aName, contactB: bName) {
             self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact)
             self.sounds?.playSound(sound: .MINERALCRASH)            
             self.showRunning = true
@@ -293,12 +293,12 @@ class TransferLevel : World {
             }
         }
         
-        if self.contactContains(strings: ["dawud", "level2"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.self.contactContains(strings: ["dawud", "level2"], contactA: aName, contactB: bName) {
             if contact.contactNormal.dy > 0 {
                 self.sceneState = .MOVIE
                 self.throwMineral = true
             }
-        } else if self.contactContains(strings: ["mineralFreeze", "ground"], contactA: aName, contactB: bName) {
+        } else if PhysicsHandler.self.contactContains(strings: ["mineralFreeze", "ground"], contactA: aName, contactB: bName) {
             self.shouldShowNextLevelAction = true            
         }
     }

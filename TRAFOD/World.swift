@@ -212,57 +212,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func contactContains (strings: [String], contactA: String = "", contactB: String = "", contact: SKPhysicsContact? = nil) -> Bool {
-        var result = true
-        
-        if let contact = contact {
-            for string in strings {
-                var myResult = false
-                if let name = contact.bodyA.node?.name {
-                    if name.contains(string) {
-                        myResult = true
-                    }
-                } else {
-                    return false
-                }
-                
-                if let name = contact.bodyB.node?.name {
-                    if name.contains(string) {
-                        myResult = true
-                    }
-                } else {
-                    return false
-                }
-                
-                if myResult == false {
-                    result = false
-                    break
-                }
-                
-            }
-            
-            return result
-        }
-        
-        for string in strings {
-            var myResult = false
-            if contactA.contains(string) {
-                myResult = true
-            }
-            if contactB.contains(string) {
-                myResult = true
-            }
-            
-            if myResult == false {
-                result = false
-                break
-            }
-            
-        }
-        
-        return result
-    }
-    
     func getContactNode (string: String, contact: SKPhysicsContact) -> SKNode? {
         if (contact.bodyA.node?.name?.contains(string))! {
             return contact.bodyA.node
@@ -457,7 +406,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         teleportNode.position.x = teleportNode.position.x
         teleportNode.zPosition = -5
         teleportNode.position.y = teleportNode.position.y + teleportNode.size.height / 2.0
-        teleportNode.name = mineralNodeName.rawValue
+        teleportNode.name = "mineral-used"
         teleportNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: teleportNode.size.height))
         teleportNode.physicsBody?.allowsRotation = false
         teleportNode.physicsBody?.pinned = false
@@ -635,7 +584,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             
         }
         
-        if contactContains(strings: ["ground", "mineral", "teleport"], contactA: contactAName , contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["ground", "mineral", "teleport"], contactA: contactAName , contactB: contactBName) {
             self.mineralUsed(particleResourceName: "Doors", mineralNodeName: .USED_TELEPORT, crashPosition: contact.contactPoint)
             self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact, duration: 2)
             if let node = getContactNode(string: "mineral", contact: contact) {
@@ -645,8 +594,8 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["ground", "mineral", "gravity"], contactA: contactAName , contactB: contactBName) {
-            if !contactContains(strings: ["noantigrav"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["ground", "mineral", "gravity"], contactA: contactAName , contactB: contactBName) {
+            if !PhysicsHandler.contactContains(strings: ["noantigrav"], contactA: contactAName, contactB: contactBName) {
                 self.antiGravUsed()
                 self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact, duration: 2)
             }
@@ -658,8 +607,8 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["ground", "mineral", "impulse"], contactA: contactAName , contactB: contactBName) {
-            if !contactContains(strings: ["nowarp"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["ground", "mineral", "impulse"], contactA: contactAName , contactB: contactBName) {
+            if !PhysicsHandler.contactContains(strings: ["nowarp"], contactA: contactAName, contactB: contactBName) {
                 self.impulseUsed(crashPosition: contact.contactPoint)
                 self.showMineralCrash(withColor: UIColor.Style.IMPULSEMINERAL, contact: contact, duration: 2)
             }
@@ -670,7 +619,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["dawud", "portal"], contactA: contactAName , contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "portal"], contactA: contactAName , contactB: contactBName) {
             if let node = getContactNode(string: "portal", contact: contact) {
                 self.portalHit(portalNode: node as! SKSpriteNode)
                 node.removeFromParent()
@@ -679,7 +628,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["cannonball", "portal"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["cannonball", "portal"], contactA: contactAName, contactB: contactBName) {
             if let node = getContactNode(string: "portal", contact: contact) {
                 self.portalHit(portalNode: node as! SKSpriteNode)
                 node.removeFromParent()
@@ -692,7 +641,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["rock", "portal"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["rock", "portal"], contactA: contactAName, contactB: contactBName) {
             if let node = getContactNode(string: "portal", contact: contact) {
                 self.portalHit(portalNode: node as! SKSpriteNode)
                 node.removeFromParent()
@@ -705,7 +654,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["rock", self.abyssKey], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["rock", self.abyssKey], contactA: contactAName, contactB: contactBName) {
             if let node = getContactNode(string: "rock", contact: contact) as? Rock {
                 self.objectsToReset.append(node)
             }
@@ -713,12 +662,12 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["dawud", self.abyssKey], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["dawud", self.abyssKey], contactA: contactAName, contactB: contactBName) {
             self.playerState = .DEAD
             return
         }
         
-        if contactContains(strings: ["rock", "ground"], contact: contact) {
+        if PhysicsHandler.contactContains(strings: ["rock", "ground"], contact: contact) {
             if let node = getContactNode(string: "rock", contact: contact) {
                 node.physicsBody?.velocity.dy = 0
             }
@@ -726,7 +675,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             return 
         }
         
-        if contactContains(strings: ["dawud", "rock"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "rock"], contactA: contactAName, contactB: contactBName) {
             if let node = getContactNode(string: "rock", contact: contact) {
                 if let physicsBody = node.physicsBody {
                     if player.strength * 9.8 >= abs(physicsBody.mass * self.physicsWorld.gravity.dy) {
@@ -738,8 +687,8 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if contactContains(strings: ["cannonball", "ground"], contact: contact) {
-            if contactContains(strings: ["rock"], contact: contact) == false {
+        if PhysicsHandler.contactContains(strings: ["cannonball", "ground"], contact: contact) {
+            if PhysicsHandler.contactContains(strings: ["rock"], contact: contact) == false {
                 if let node = getContactNode(string: "cannonball", contact: contact) {
                     if let parent = node.parent {
                         // Gets the objects position relative to the scene

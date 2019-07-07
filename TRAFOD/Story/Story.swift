@@ -97,7 +97,7 @@ class Story : World {
         let aName = contact.bodyA.node?.name ?? ""
         let bName = contact.bodyB.node?.name ?? ""
         
-        if contactContains(strings: ["firstLevel","dawud"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.contactContains(strings: ["firstLevel","dawud"], contactA: aName, contactB: bName) {
             self.showFirstLevel()
         }
     }

@@ -38,7 +38,7 @@ class Level : World {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
-        if contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
             self.getImpulse()
             
             if let node = getContactNode(string: "getImpulse", contact: contact) {
@@ -49,7 +49,7 @@ class Level : World {
             return
         }
         
-        if contactContains(strings: ["dawud", "getAntiGrav"], contactA: contactAName , contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "getAntiGrav"], contactA: contactAName , contactB: contactBName) {
             self.getAntiGrav()
             
             if let node = getContactNode(string: "getAntiGrav", contact: contact) {
@@ -60,7 +60,7 @@ class Level : World {
             return
         }
         
-        if contactContains(strings: ["dawud", "getTeleport"], contactA: contactAName , contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "getTeleport"], contactA: contactAName , contactB: contactBName) {
             self.getMineral(type: .TELEPORT)
             
             if let node = getContactNode(string: "getTeleport", contact: contact) {
@@ -81,7 +81,7 @@ class Level : World {
                 resetNode = contact.bodyB.node as? Reset
             }
             
-            if contactContains(strings: ["dawud"], contact: contact) == false {
+            if PhysicsHandler.contactContains(strings: ["dawud"], contact: contact) == false {
                 if resetNode.parent == nil {
                     nodeHasParent = true
                 }
@@ -118,22 +118,22 @@ class Level : World {
                 flipSwitch = mySwitch
             }
             
-            if self.contactContains(strings: ["level2-switch1", "rock"], contact: contact) {
+            if PhysicsHandler.contactContains(strings: ["level2-switch1", "rock"], contact: contact) {
                 self.movePlatform(nodeName: "ground-nowarp-switch1")
                 self.flipSwitchOn(node: flipSwitch)
-            } else if self.contactContains(strings: ["level2-switch2", "cannonball"], contact: contact) {
+            } else if PhysicsHandler.contactContains(strings: ["level2-switch2", "cannonball"], contact: contact) {
                 let wait = SKAction.wait(forDuration: 1.0)
                 self.run(wait) {
                     self.movePlatform(nodeName: "ground-nowarp-switch2", duration: 1.5)
                     self.flipSwitchOn(node: flipSwitch)
                 }
-            } else if self.contactContains(strings: ["level2-switch3", "rock"], contact: contact) {
+            } else if PhysicsHandler.contactContains(strings: ["level2-switch3", "rock"], contact: contact) {
                 self.movePlatform(nodeName: "ground-switch3", xOffset: 0, yOffset: 250, duration: 3.0)
                 self.flipSwitchOn(node: flipSwitch)
-            } else if self.contactContains(strings: ["level2-switch4", "rock"], contact: contact) {
+            } else if PhysicsHandler.contactContains(strings: ["level2-switch4", "rock"], contact: contact) {
                 self.movePlatform(nodeName: "ground-nowarp-switch4", duration: 6.0)
                 self.flipSwitchOn(node: flipSwitch)
-            } else if self.contactContains(strings: ["level2-switch5", "rock"], contact: contact) {
+            } else if PhysicsHandler.contactContains(strings: ["level2-switch5", "rock"], contact: contact) {
                 self.movePlatform(nodeName: "ground-switch5", xOffset: 750, yOffset: 0, duration: 3.0)
                 self.flipSwitchOn(node: flipSwitch)
             }
@@ -151,7 +151,7 @@ class Level : World {
      - Parameter contact: The physics contact between the weightSwitch and the player
      */
     func checkForAndHandleWeightSwitchCollision (contact: SKPhysicsContact) {
-        if contactContains(strings: ["dawud", "weightSwitch"], contact: contact ) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "weightSwitch"], contact: contact ) {
             if (contact.collisionImpulse > 1000) {
                 if let weightSwitch = contact.bodyA.node as? WeightSwitch {
                     weightSwitch.topOfSwitch?.verticalForce = 0

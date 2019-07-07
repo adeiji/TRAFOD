@@ -39,7 +39,7 @@ class Level2 : Level {
         super.didBegin(contact)
         
         // Player hits the door for level3
-        if contactContains(strings: ["dawud", "level3"], contact: contact) {
+        if PhysicsHandler.contactContains(strings: ["dawud", "level3"], contact: contact) {
             if let level3 = self.transitionToNextScreen(filename: "Level3") as? Level3 {
                 level3.player = self.player
                 level3.collectedElements = self.collectedElements
