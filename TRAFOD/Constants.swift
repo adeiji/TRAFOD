@@ -24,3 +24,14 @@ enum PlayerState {
     case DEAD
     case GRABBING
 }
+
+enum PlayerRunningState {
+    case RUNNINGLEFT
+    case RUNNINGRIGHT
+    case STANDING
+}
+
+enum PlayerAction {
+    case THROW
+    case NONE
+}

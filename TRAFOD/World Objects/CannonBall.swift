@@ -21,7 +21,7 @@ class CannonBall : SKSpriteNode {
         self.physicsBody?.collisionBitMask = 0b0010
         self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.NonInteractableObjects)
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.restitution = 1.0
+        self.physicsBody?.restitution = 0.5
         self.physicsBody?.allowsRotation = false
         self.showResetParticles(node: self)
         

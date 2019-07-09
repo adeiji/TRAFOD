@@ -68,7 +68,7 @@ class TransferLevel : World {
             if self.playerIsFalling(){
                 if (self.player.position.y < point.y) && (abs(self.player.position.y - point.y) > 400) {
                     self.rewindPointCounter = self.rewindPoints.count - 1
-                    self.playerState = .INAIR
+                    self.player.state = .INAIR
                     self.sceneState = .REWIND
                     self.player.texture = SKTexture(imageNamed: "spinning")
                     self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
@@ -123,7 +123,7 @@ class TransferLevel : World {
         }                
         
         if self.showRunning {
-            self.playerState = .INAIR
+            self.player.state = .INAIR
             self.showRunning(currentTime: currentTime)
             self.jumpButton.removeFromParent()
             self.throwButton.removeFromParent()
@@ -141,7 +141,7 @@ class TransferLevel : World {
     }
     
     override func handlePlayerRotation (dt: TimeInterval) {
-        if self.playerState == .INAIR && self.sceneState == .MOVIE {
+        if self.player.state == .INAIR && self.sceneState == .MOVIE {
             self.rotateJumpingPlayer(rotation: -Double(dt * 1000))
         } else {
             super.handlePlayerRotation(dt: dt)
@@ -276,8 +276,7 @@ class TransferLevel : World {
                 
                 if let end = world.childNode(withName: "end") {
                     world.player.position = end.position
-                    world.previousPlayerRunningState = .RUNNINGLEFT
-                    
+                    world.player.previousRunningState = .RUNNINGLEFT                    
                 }
                 
                 return

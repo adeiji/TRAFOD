@@ -21,11 +21,16 @@ class MultiDirectionalGravObject : SKSpriteNode, AntiGravPlatformProtocol {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
         self.startingYPos = self.position.y
         
-        let lockXPos = SKConstraint.positionX(SKRange(constantValue: 0))
+        let lockXPos = SKConstraint.positionX(SKRange(constantValue: 5))
         self.constraints = [lockXPos]
         self.physicsBody?.restitution = 0
+    }
+
+    func setConstraint () {
+
     }
     
     /**

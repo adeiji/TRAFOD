@@ -16,16 +16,22 @@ class Player : SKSpriteNode {
     public var hasTeleport = false
     public var mineralCounts = [Minerals:Int]()
     public var strength:CGFloat = 10.0
-    public var grabbedObject:SKNode?
-    public var objectThatCanBeGrabbed:SKNode?
-    public var playerState:PlayerState?
+    public var grabbedObject:SKSpriteNode?
+    public var objectThatCanBeGrabbed:SKSpriteNode?
     
-    func grabObject (object: SKNode) {
+    public var state:PlayerState = .ONGROUND
+    public var runningState:PlayerRunningState = .STANDING
+    public var previousRunningState:PlayerRunningState = .STANDING
+    public var action:PlayerAction = .NONE
+            
+    func grabObject (object: SKSpriteNode) {
         self.grabbedObject = object
     }
     
     func letGoOfObject () {
         self.grabbedObject = nil
+        self.state = .ONGROUND
+        self.constraints = [];        
     }
     
     func isGrabbingObject () -> Bool {

@@ -36,7 +36,7 @@ class Loading : World {
         self.player.position.x = (self.scene!.size.width / -2.0) + 20
         self.player.position.y = (self.scene!.size.height / -2.0) + 20
         self.player.anchorPoint = CGPoint(x: 0.5, y: 0)
-        self.playerRunningState = .RUNNINGRIGHT
+        self.player.runningState = .RUNNINGRIGHT        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,6 +62,7 @@ class Loading : World {
         
         let dt = currentTime - self.lastUpdateTime
         
+        // Show the loading crystal rotating in the middle of the screen
         if dt > 0 {
             self.loadingCrystal.zRotation = self.loadingCrystal.zRotation + CGFloat(Double.pi / (-Double(dt * 1000)))
         }
@@ -81,7 +82,7 @@ class Loading : World {
                 self.view?.presentScene(nextScene, transition: transition)
             }
         } else if self.player.position.x >= 0 && self.keepRunning == false {
-            self.playerRunningState = .STANDING
+            self.player.runningState = .STANDING
             self.shouldLoadNextScene = true
             self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             self.keepRunning = true
@@ -96,7 +97,7 @@ class Loading : World {
                 let nextScene = World(fileNamed: sceneName)
                 DispatchQueue.main.async {
                     self.nextScene = nextScene
-                    self.playerRunningState = .RUNNINGRIGHT
+                    self.player.runningState = .RUNNINGRIGHT
                 }
             }
         }

@@ -170,6 +170,7 @@
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
 		F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */; };
 		F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D422D3BFB700EC2300 /* Player.swift */; };
+		F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -365,6 +366,7 @@
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+KeyboardControls.swift"; sourceTree = "<group>"; };
 		F4EBE9D422D3BFB700EC2300 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
+		F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+HandleGrabbing.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -478,6 +480,7 @@
 			children = (
 				F43FE24920E21A550012D6E4 /* World+Particles.swift */,
 				F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */,
+				F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */,
 			);
 			path = World;
 			sourceTree = "<group>";
@@ -1158,6 +1161,7 @@
 				F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */,
 				F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
+				F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F48F7D4122CF00D3004D1A3D /* DoubleGravField.swift in Sources */,
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
