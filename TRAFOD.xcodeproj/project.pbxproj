@@ -132,6 +132,8 @@
 		F4B03CF720C94B8900F0B346 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CF520C94B8900F0B346 /* LaunchScreen.storyboard */; };
 		F4B03D0220C94B8900F0B346 /* TRAFODTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03D0120C94B8900F0B346 /* TRAFODTests.swift */; };
 		F4B03D0D20C94B8900F0B346 /* TRAFODUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03D0C20C94B8900F0B346 /* TRAFODUITests.swift */; };
+		F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */; };
+		F4B25DE622D165F200B5E7DD /* level3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4B25DE522D165F200B5E7DD /* level3.mp3 */; };
 		F4B8E89B20CA4FAA00E558F8 /* running_step5.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89020CA4FA900E558F8 /* running_step5.png */; };
 		F4B8E89C20CA4FAA00E558F8 /* running_step0.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89120CA4FA900E558F8 /* running_step0.png */; };
 		F4B8E89D20CA4FAA00E558F8 /* running_step2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89220CA4FA900E558F8 /* running_step2.png */; };
@@ -166,6 +168,8 @@
 		F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */; };
 		F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */; };
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
+		F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */; };
+		F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D422D3BFB700EC2300 /* Player.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -323,6 +327,8 @@
 		F4B03D0820C94B8900F0B346 /* TRAFODUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TRAFODUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B03D0C20C94B8900F0B346 /* TRAFODUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRAFODUITests.swift; sourceTree = "<group>"; };
 		F4B03D0E20C94B8900F0B346 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsHandler.swift; sourceTree = "<group>"; };
+		F4B25DE522D165F200B5E7DD /* level3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = level3.mp3; path = ../../../../../../Downloads/level3.mp3; sourceTree = "<group>"; };
 		F4B8E89020CA4FA900E558F8 /* running_step5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step5.png; sourceTree = "<group>"; };
 		F4B8E89120CA4FA900E558F8 /* running_step0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step0.png; sourceTree = "<group>"; };
 		F4B8E89220CA4FA900E558F8 /* running_step2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step2.png; sourceTree = "<group>"; };
@@ -357,6 +363,8 @@
 		F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
+		F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+KeyboardControls.swift"; sourceTree = "<group>"; };
+		F4EBE9D422D3BFB700EC2300 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -412,6 +420,7 @@
 		F438D02920CD34BE00EC2606 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
+				F4B25DE422D165E300B5E7DD /* Level3 */,
 				F4C4CA1320EB14F3005CA4D7 /* cannonblast.wav */,
 				F462CDE620E5DE0C004AF89E /* level2 */,
 				F43760CF22CD257C00939E01 /* dawudsong.wav */,
@@ -468,6 +477,7 @@
 			isa = PBXGroup;
 			children = (
 				F43FE24920E21A550012D6E4 /* World+Particles.swift */,
+				F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */,
 			);
 			path = World;
 			sourceTree = "<group>";
@@ -506,6 +516,7 @@
 				F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */,
 				F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */,
 				F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */,
+				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
 			);
 			path = "World Objects";
 			sourceTree = "<group>";
@@ -609,6 +620,7 @@
 			isa = PBXGroup;
 			children = (
 				F48F7D3822CF0031004D1A3D /* PhysicsCategory.swift */,
+				F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */,
 			);
 			path = Physics;
 			sourceTree = "<group>";
@@ -682,6 +694,14 @@
 				F4B03D0E20C94B8900F0B346 /* Info.plist */,
 			);
 			path = TRAFODUITests;
+			sourceTree = "<group>";
+		};
+		F4B25DE422D165E300B5E7DD /* Level3 */ = {
+			isa = PBXGroup;
+			children = (
+				F4B25DE522D165F200B5E7DD /* level3.mp3 */,
+			);
+			path = Level3;
 			sourceTree = "<group>";
 		};
 		F4B8E88C20CA4F4200E558F8 /* Images */ = {
@@ -987,6 +1007,7 @@
 				F438D05020CD34E700EC2606 /* random_noise2.mp3 in Resources */,
 				F4B8E8A720CA684B00E558F8 /* Ground Merged.png in Resources */,
 				F4B03CF720C94B8900F0B346 /* LaunchScreen.storyboard in Resources */,
+				F4B25DE622D165F200B5E7DD /* level3.mp3 in Resources */,
 				F4B8E89E20CA4FAA00E558F8 /* running_step4.png in Resources */,
 				F4B8E8A220CA4FAA00E558F8 /* running_step1.png in Resources */,
 				F4BA319D20E4E87400DBD823 /* lv2rocks1.png in Resources */,
@@ -1132,6 +1153,8 @@
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
 				F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */,
 				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
+				F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */,
+				F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */,
 				F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */,
 				F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
@@ -1142,6 +1165,7 @@
 				F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */,
 				F48F7D3922CF0031004D1A3D /* PhysicsCategory.swift in Sources */,
 				F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */,
+				F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */,
 				F48F7D3D22CF0075004D1A3D /* Reset.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,

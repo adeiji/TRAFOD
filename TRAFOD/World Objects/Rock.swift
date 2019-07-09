@@ -22,5 +22,6 @@ class Rock : SKSpriteNode {
         self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Reset)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Cannon)
         self.physicsBody?.allowsRotation = true
+        self.physicsBody?.friction = 0.5
     }
 }

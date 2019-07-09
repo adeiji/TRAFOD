@@ -11,8 +11,17 @@ import GameKit
 
 class MovablePlatform : SKSpriteNode {
     
+    /**
+     Whether the platform is at it's starting position or not.  If it is at it's starting position that means that it's finished moving
+     */
     var finishedMoving = false;
+    /**
+     The point which to move the platform to
+     */
     var moveToPoint:CGPoint?
+    /**
+     The length of time it should take in seconds from when the movement starts to when it finishes
+     */
     var moveDuration:TimeInterval = 3.0
     
     required init?(coder aDecoder: NSCoder) {
@@ -26,14 +35,8 @@ class MovablePlatform : SKSpriteNode {
         self.constraints = [constraint]
     }
     
-    /**
-     Moves a node to a specificied position
-     
-     - Parameter nodeName: The name of the node to move
-     - Parameter xOffset: How far to move in the x direction
-     - Parameter yOffset: How far to move in the y direction
-     - Parameter duration: How long to take to move the node
-     
+    /*
+     Moves the platform from it's starting position to the moveToPoint position or to it's original starting position
      */
     func move () {
         if var offset = self.moveToPoint {
@@ -44,6 +47,7 @@ class MovablePlatform : SKSpriteNode {
             } else {
                 self.finishedMoving = true
             }
+                
             let move = SKAction.move(to: CGPoint(x: offset.x, y: offset.y), duration: self.moveDuration)
             self.physicsBody?.pinned = false
             self.removeAllActions()

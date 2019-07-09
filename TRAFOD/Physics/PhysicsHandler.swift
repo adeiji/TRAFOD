@@ -11,6 +11,11 @@ import GameKit
 
 class PhysicsHandler {
     
+    static let kRunVelocity:CGFloat = 400
+    static let kRunInAirImpulse:CGFloat = 10
+    static let kJumpImpulse:CGFloat = 600
+    static let kGrabbedObjectMoveVelocity:CGFloat = 3200
+    
     class func contactContains (strings: [String], contactA: String = "", contactB: String = "", contact: SKPhysicsContact? = nil) -> Bool {
         var result = true
         

@@ -15,3 +15,12 @@ public class GameLevels {
     public static let transferLevel = "TransferLevel"
     public static let level3 = "Level3"
 }
+
+enum PlayerState {
+    case INAIR
+    case JUMP
+    case ONGROUND
+    case HITPORTAL
+    case DEAD
+    case GRABBING
+}

@@ -15,20 +15,8 @@ class Level2 : Level {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.currentLevel = .LEVEL2
+        self.playBackgroundMusic(fileName: "level3")
         self.setupPlayer()
-    }
-    
-    func playBackgroundMusic () {
-        if let musicURL = Bundle.main.url(forResource: "level2_theme", withExtension: "mp3") {
-            self.backgroundMusic = SKAudioNode(url: musicURL)
-            addChild(self.backgroundMusic)
-        }
-        
-        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
-            self.ambiance = SKAudioNode(url: musicURL)
-            self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
-            addChild(self.ambiance)
-        }
     }
     
     override func touchDown(atPoint pos: CGPoint) {

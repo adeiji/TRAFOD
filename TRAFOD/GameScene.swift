@@ -38,17 +38,6 @@ class Ground : SKSpriteNode {
     }
 }
 
-class Player : SKSpriteNode {
-    
-    public var hasAntigrav = false
-    public var hasImpulse = false
-    public var hasTeleport = false
-    public var mineralCounts = [Minerals:Int]()
-    public var strength:CGFloat = 10.0
-    public var grabbedObject:SKNode?
-    
-}
-
 class GameScene: Level {
     
     var graphs = [String : GKGraph]()

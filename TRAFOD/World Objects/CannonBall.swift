@@ -17,7 +17,7 @@ class CannonBall : SKSpriteNode {
         
         self.name = "cannonball"
         self.physicsBody = SKPhysicsBody(circleOfRadius: 25 )
-        self.physicsBody?.mass = 3
+        self.physicsBody?.mass = 25
         self.physicsBody?.collisionBitMask = 0b0010
         self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.NonInteractableObjects)
         self.physicsBody?.isDynamic = true

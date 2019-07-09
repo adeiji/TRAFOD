@@ -74,6 +74,9 @@ class FlipSwitch : GameSwitch {
         }
     }
     
+    /**
+     Flips the switch from on to off
+     */
     class func flipSwitch(contact: SKPhysicsContact) {
         if let node = contact.bodyA.node as? FlipSwitch {
             node.flipSwitch()
