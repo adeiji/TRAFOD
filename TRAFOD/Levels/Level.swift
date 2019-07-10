@@ -15,7 +15,10 @@ class Level : World {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        self.physicsWorld.contactDelegate = self
+        self.physicsWorld.contactDelegate = self        
+        self.getProgress()
+        self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)
+        self.showMineralCount()
         
         if self.player == nil {
             self.createPlayer()
@@ -37,6 +40,10 @@ class Level : World {
         super.didBegin(contact);
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
+        
+        if PhysicsHandler.shouldSwitch(contact: contact) {
+            FlipSwitch.flipSwitch(contact: contact)
+        }
         
         if PhysicsHandler.contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
             self.getImpulse()
@@ -132,9 +139,6 @@ class Level : World {
                 self.flipSwitchOn(node: flipSwitch)
             } else if PhysicsHandler.contactContains(strings: ["level2-switch4", "rock"], contact: contact) {
                 self.movePlatform(nodeName: "ground-nowarp-switch4", duration: 6.0)
-                self.flipSwitchOn(node: flipSwitch)
-            } else if PhysicsHandler.contactContains(strings: ["level2-switch5", "rock"], contact: contact) {
-                self.movePlatform(nodeName: "ground-switch5", xOffset: 750, yOffset: 0, duration: 3.0)
                 self.flipSwitchOn(node: flipSwitch)
             }
             
@@ -274,31 +278,6 @@ class Level : World {
         self.lastUpdateTime = currentTime
         self.moveCamera()
     }
-    
-    /**
-     
-     When the player collides with a mineral and retrieves it if it's the first time then we display a box that shows player how to use the minerals
-     or it simply adds ten more minerals to the player's mineral count
-     
-     - Parameter type: The type of Mineral that the player is getting
-     
-     */
-    func getMineral (type: Minerals) {
-        if var mineralCount = self.player.mineralCounts[type] {
-            mineralCount = mineralCount + 10
-            self.player.mineralCounts[type] = mineralCount
-            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: mineralCount)
-        } else {
-            self.player.mineralCounts[type] = 10;
-            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: 10)
-            self.showMineralReceivedBox(nodeName: "\(type.rawValue)RecievedBox");
-        }
-        
-        self.playMineralSound()
-        self.showMineralCount()
-    }
-    
-    
      
     // TODO: Needs to be deprecated
     func getImpulse () {

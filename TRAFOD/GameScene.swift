@@ -14,6 +14,7 @@ enum Minerals: String {
     case IMPULSE = "impulse"
     case TELEPORT = "teleport"
     case USED_TELEPORT = "teleport-mineral"
+    case FLIPGRAVITY = "flipgravity"
 }
 
 extension UIColor {

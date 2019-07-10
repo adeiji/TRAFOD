@@ -171,6 +171,11 @@
 		F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */; };
 		F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D422D3BFB700EC2300 /* Player.swift */; };
 		F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */; };
+		F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9DB22D63A3A00EC2300 /* FlipGravity.swift */; };
+		F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9DE22D6404C00EC2300 /* Level4.swift */; };
+		F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4EBE9E222D6407E00EC2300 /* Level4.sks */; };
+		F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */; };
+		F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -367,6 +372,11 @@
 		F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+KeyboardControls.swift"; sourceTree = "<group>"; };
 		F4EBE9D422D3BFB700EC2300 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+HandleGrabbing.swift"; sourceTree = "<group>"; };
+		F4EBE9DB22D63A3A00EC2300 /* FlipGravity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravity.swift; sourceTree = "<group>"; };
+		F4EBE9DE22D6404C00EC2300 /* Level4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level4.swift; sourceTree = "<group>"; };
+		F4EBE9E222D6407E00EC2300 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
+		F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravityMineral.swift; sourceTree = "<group>"; };
+		F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldErrors.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -465,6 +475,7 @@
 		F43FE24320E201140012D6E4 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				F4EBE9DD22D6403D00EC2300 /* Level 4 */,
 				F48F7D3022CE5785004D1A3D /* Level 3 */,
 				F4BA319520E3672800DBD823 /* Level2.swift */,
 				F43FE24420E201270012D6E4 /* Level2.sks */,
@@ -507,6 +518,7 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F4EBE9E422D6435700EC2300 /* Minerals */,
 				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
 				F48F7D3A22CF0058004D1A3D /* AntiGravPlatformProtocol.swift */,
 				F48F7D3C22CF0075004D1A3D /* Reset.swift */,
@@ -622,6 +634,7 @@
 		F48F7D3722CF0021004D1A3D /* Physics */ = {
 			isa = PBXGroup;
 			children = (
+				F4EBE9DA22D63A2000EC2300 /* Physics Objects */,
 				F48F7D3822CF0031004D1A3D /* PhysicsCategory.swift */,
 				F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */,
 			);
@@ -653,6 +666,7 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F4EBE9E722D64B0700EC2300 /* Errors */,
 				F48F7D3722CF0021004D1A3D /* Physics */,
 				F44B9BD220EDFEED00B874A1 /* World Objects */,
 				F43FE24820E21A410012D6E4 /* World */,
@@ -800,6 +814,39 @@
 				F4BA319C20E4E87400DBD823 /* lv2rocks1.png */,
 			);
 			path = Level2;
+			sourceTree = "<group>";
+		};
+		F4EBE9DA22D63A2000EC2300 /* Physics Objects */ = {
+			isa = PBXGroup;
+			children = (
+				F4EBE9DB22D63A3A00EC2300 /* FlipGravity.swift */,
+			);
+			path = "Physics Objects";
+			sourceTree = "<group>";
+		};
+		F4EBE9DD22D6403D00EC2300 /* Level 4 */ = {
+			isa = PBXGroup;
+			children = (
+				F4EBE9DE22D6404C00EC2300 /* Level4.swift */,
+				F4EBE9E222D6407E00EC2300 /* Level4.sks */,
+			);
+			path = "Level 4";
+			sourceTree = "<group>";
+		};
+		F4EBE9E422D6435700EC2300 /* Minerals */ = {
+			isa = PBXGroup;
+			children = (
+				F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */,
+			);
+			path = Minerals;
+			sourceTree = "<group>";
+		};
+		F4EBE9E722D64B0700EC2300 /* Errors */ = {
+			isa = PBXGroup;
+			children = (
+				F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */,
+			);
+			path = Errors;
 			sourceTree = "<group>";
 		};
 		FE2E67AC52ACA1E642F75AC1 /* Frameworks */ = {
@@ -976,6 +1023,7 @@
 				F4B8E8A320CA4FAA00E558F8 /* spinning.png in Resources */,
 				F44E1A5920D0B0B100FD026E /* FireFlies.sks in Resources */,
 				F462CDE420E5D752004AF89E /* lv2rocks20.png in Resources */,
+				F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */,
 				F438D05A20CD518C00EC2606 /* throwbutton.png in Resources */,
 				F4B8E8A520CA4FAA00E558F8 /* standing.png in Resources */,
 				F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */,
@@ -1147,13 +1195,17 @@
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
 				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
+				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,
+				F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */,
 				F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */,
 				F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */,
+				F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
 				F44B9BD420EDFEF700B874A1 /* Doorway.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
+				F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */,
 				F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */,
 				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
 				F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */,

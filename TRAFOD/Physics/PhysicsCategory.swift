@@ -17,6 +17,7 @@ struct PhysicsCategory {
     static let Ground:Int32 = 0x1 << 8
     static let Cannon:Int32 = 0x1 << 9
     static let Nothing:Int32 = 0x1 << 16
+    static let Player:Int32 = 0x1 << 10
     static let WeightSwitch:Int32 = 0x1 << 32
     
 }

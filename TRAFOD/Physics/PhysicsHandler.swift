@@ -76,4 +76,19 @@ class PhysicsHandler {
         
         return false
     }
+    
+    /**
+     If a player hits a mineral that can be grabbed
+     */
+    class func playerIsGrabbingMineral (contact: SKPhysicsContact) -> RetrieveMineralNode? {
+        if let _  = contact.bodyA.node as? Player != nil ? contact.bodyA.node : contact.bodyB.node
+        {
+            if let mineral = contact.bodyA.node as? RetrieveMineralNode != nil ? contact.bodyA.node as? RetrieveMineralNode : contact.bodyB.node as? RetrieveMineralNode {
+                mineral.removeFromParent()
+                return mineral
+            }
+        }
+        
+        return nil
+    }
 }

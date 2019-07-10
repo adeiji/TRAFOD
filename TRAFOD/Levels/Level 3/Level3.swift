@@ -16,11 +16,6 @@ class Level3 : Level {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        
-        self.setupPlayer()
-        self.getProgress()
-        self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)
-        self.showMineralCount()
         self.setWeightSwitchDefaults()
         self.playBackgroundMusic(fileName: "level3")
     }
@@ -50,10 +45,6 @@ class Level3 : Level {
     
     override func didBegin(_ contact: SKPhysicsContact) {
         super.didBegin(contact)
-        
-        if PhysicsHandler.shouldSwitch(contact: contact) {
-            FlipSwitch.flipSwitch(contact: contact)
-        }
         
         if (contact.bodyA.node is MultiDirectionalGravObject || contact.bodyB.node is MultiDirectionalGravObject) &&
            (contact.bodyA.node is WeightSwitchBottom || contact.bodyB.node is WeightSwitchBottom) {

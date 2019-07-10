@@ -35,11 +35,18 @@ class World: SKScene, SKPhysicsContactDelegate {
     private let teleportCounterNode = SKSpriteNode(imageNamed: "Blue Crystal")
     private let teleportCounterLabel = SKLabelNode(text: "0")
     
+    private var counterNodes = [String:SKNode]()
+    
     var messageBox:SKSpriteNode!
     var jumpButton:SKNode!
+    
+    
     var throwButton:SKNode!
     var throwImpulseButton:SKNode!
     var throwTeleportButton:SKNode?
+    
+    var throwButtons:[String:SKNode] = [String:SKNode]()
+    
     var grabButton:SKNode?
     
     var forces:[Minerals] = [Minerals]()
@@ -96,8 +103,40 @@ class World: SKScene, SKPhysicsContactDelegate {
     override func sceneDidLoad() {
         self.lastUpdateTime = 0
     }
+    
+    func setupCounterNodes () {
+        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
         
-    override func didMove(to view: SKView) {        
+        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
+        
+        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
+        
+        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
+        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
+    }
+    
+    func setupThrowButton (crystalImageName: ImageNames, mineralType: CounterNodes, pos: CGPoint) {
+        if self.throwButtons["\(mineralType)"] == nil
+        {
+            let throwOutline = SKTexture(imageNamed: "throwbutton")
+            let button = SKSpriteNode(texture: throwOutline, color: .clear, size: throwOutline.size())
+            button.position = pos
+            button.addChild(SKSpriteNode(imageNamed: crystalImageName.rawValue))
+            self.camera?.addChild(button)
+            self.throwButtons["\(mineralType)"] = button
+        }
+    }
+    
+    override func didMove(to view: SKView) {
+        self.setupPlayer()
+        self.setupCounterNodes()
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
         self.throwButton = self.camera?.childNode(withName: "throwButton")
         self.throwImpulseButton = self.camera?.childNode(withName: "throwImpulseButton")
@@ -160,12 +199,27 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals)
         self.player.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.InteractableObjects)
         self.player.physicsBody?.allowsRotation = false
+        self.player.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
         self.listener = self.player
         addChild(self.player)
     }
     
     func changeMineralPhysicsBodies () {
         for node in self.children {
+            func addAllMinerals (mineralGroup: MineralGroup) {
+                mineralGroup.children.forEach { (mineral) in
+                    if mineral.name == "FLIP_GRAVITY" {
+                        let flipGravityMineral = FlipGravityRetrieveMineral(texture: SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue))
+                        mineral.addChild(flipGravityMineral)
+                    }
+                }
+            }
+            
+            if let node = node as? MineralGroup {
+                addAllMinerals(mineralGroup: node)
+            }
+            
+            
             if let name = node.name {
                 if name.contains("getAntiGrav") || name.contains("getImpulse") {
                     if let _ = node.physicsBody {
@@ -249,10 +303,32 @@ class World: SKScene, SKPhysicsContactDelegate {
                     }
                     
                     self.teleportCounterLabel.text = "\(count)"
+                } else if key == .FLIPGRAVITY {
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .FlipGravity, pos: CGPoint(x: 762, y: -127                                                    ))
+                    self.setupMineralCounterAndUseNodes(mineralType: .FlipGravity, counterMineralNodePos: CGPoint(x: -60, y: 390), count: count)
                 }
-                
             }
         }
+    }
+    
+    func setupMineralCounterAndUseNodes (mineralType: CounterNodes, counterMineralNodePos: CGPoint, count: Int) {
+        let mineralThrowNode = self.counterNodes["\(mineralType)\(CounterNodes.ThrowButtonNode)"]
+        let mineralCounterNode = self.counterNodes["\(mineralType)\(CounterNodes.CounterNode )"]
+        let mineralCounterLabel = self.counterNodes["\(mineralType)\(CounterNodes.Label )"] as? SKLabelNode
+        
+        mineralThrowNode?.isHidden = false
+        mineralCounterLabel?.fontSize = 50
+        mineralCounterLabel?.fontName = "HelveticaNeue-Bold"
+        mineralCounterNode?.position = counterMineralNodePos
+        mineralCounterLabel?.position = counterMineralNodePos
+        mineralCounterLabel?.position.x = counterMineralNodePos.x + 75
+        
+        if mineralCounterNode?.parent == nil {
+            self.camera?.addChild(mineralCounterNode!)
+            self.camera?.addChild(mineralCounterLabel!)
+        }
+        
+        mineralCounterLabel?.text = "\(count)"
     }
     
     func addJumpButton () {
@@ -518,9 +594,37 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.handleGrabbedObjectContactEnded(contact: contact)
     }
     
+    /**
+     
+     When the player collides with a mineral and retrieves it if it's the first time then we display a box that shows player how to use the minerals
+     or it simply adds ten more minerals to the player's mineral count
+     
+     - Parameter type: The type of Mineral that the player is getting
+     
+     */
+    func getMineral (type: Minerals) {
+        if var mineralCount = self.player.mineralCounts[type] {
+            mineralCount = mineralCount + 10
+            self.player.mineralCounts[type] = mineralCount
+            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: mineralCount)
+        } else {
+            self.player.mineralCounts[type] = 10;
+            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: 10)
+        }
+        
+        self.playMineralSound()
+        self.showMineralCount()
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
+        
+        if let mineral = PhysicsHandler.playerIsGrabbingMineral(contact: contact) {
+            self.getMineral(type: mineral.mineralType)
+            self.addToCollectedElements(node: mineral)
+            return
+        }
         
         if (contactAName == "dawud") || (contactBName == "dawud") {
             if contactAName.contains("ground") || contactBName.contains("ground") {
@@ -1182,15 +1286,14 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     func setupPlayer () {
-        if self.player != nil {
-            self.player.xScale = 1
-            self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-            if self.player.parent == nil {
-                self.addChild(self.player)
-            }
-            if let start = self.childNode(withName: "start") {
-                self.player.position = start.position
-            }
+        if self.player == nil {
+            self.createPlayer()
+        }
+        
+        self.player.xScale = 1
+        self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        if let start = self.childNode(withName: "start") {
+            self.player.position = start.position
         }
     }
     
