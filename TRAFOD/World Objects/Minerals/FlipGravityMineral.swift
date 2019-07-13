@@ -90,9 +90,35 @@ class FlipGravityRetrieveMineral : RetrieveMineralNode {
 }
 
 class Mineral: SKSpriteNode {
+    
+    class func throwMineral (imageName: String, player: Player, world: World, mineralNode: Mineral) {
+        mineralNode.position = player.position
+        let width = mineralNode.texture?.size().width
+        let height = mineralNode.texture?.size().height
+        
+        mineralNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width! / 2.0 , height: height! / 2.0))
+        mineralNode.physicsBody?.affectedByGravity = true
+        mineralNode.physicsBody?.categoryBitMask = 2
+        mineralNode.physicsBody?.isDynamic = true
+        mineralNode.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects)
+        mineralNode.physicsBody?.categoryBitMask = 0b0001
+        mineralNode.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects)
+        mineralNode.physicsBody?.allowsRotation = false
+        world.addChild(mineralNode)
+        
+        if player.previousRunningState == .RUNNINGRIGHT {
+            mineralNode.position.x = player.position.x + mineralNode.size.width
+            mineralNode.physicsBody?.applyImpulse(CGVector(dx: 50, dy: -30))
+        } else {
+            mineralNode.position.x = player.position.x - mineralNode.size.width
+            mineralNode.physicsBody?.applyImpulse(CGVector(dx: -50, dy: -30))
+        }
+        
+    }
+    
     init(texture: SKTexture) {
-        let width = texture.size().width * 0.3
-        let height = texture.size().height * 0.3
+        let width = texture.size().width * 0.5
+        let height = texture.size().height * 0.5
         super.init(texture: texture , color: .clear, size:CGSize(width: width, height: height))
         
         self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width, height: height))
@@ -139,22 +165,16 @@ class FlipGravityMineral : Mineral, SKPhysicsContactDelegate {
         super.init(texture: texture)
     }
     
+    class func throwMineral (imageName: String, player: Player, world: World) {
+        let mineralNode = FlipGravityMineral()
+        super.throwMineral(imageName: imageName, player: player, world: world, mineralNode: mineralNode)
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
-    func didBegin(_ contact: SKPhysicsContact) {
-        if contact.bodyA.node?.name == "ground" || contact.bodyB.node?.name == "ground" {
-            if !PhysicsHandler.contactContains(strings: ["noflipgrav"], contact: contact) {
-                self.showMineralCrash(withColor: self.mineralCrashColor, contact: contact, duration: 2)
-                try? self.mineralUsed(contactPosition: contact.contactPoint)
-            }
-            
-            self.removeFromParent()
-        }
-    }
-    
-    func mineralUsed (contactPosition: CGPoint) throws {
+    func mineralUsed (contactPosition: CGPoint) throws -> FlipGravity {
         guard let world = self.parent as? World else {
             throw WorldError.worldDoesNotExist
         }
@@ -165,6 +185,6 @@ class FlipGravityMineral : Mineral, SKPhysicsContactDelegate {
         }
         
         flipGravity.zPosition = -5
-        world.addChild(flipGravity)
+        return flipGravity
     }
 }

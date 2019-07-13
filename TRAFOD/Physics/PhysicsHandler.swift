@@ -16,6 +16,11 @@ class PhysicsHandler {
     static let kJumpImpulse:CGFloat = 600
     static let kGrabbedObjectMoveVelocity:CGFloat = 3200
     
+    /**
+     This is the Flip Gravity node, when an object makes contact with this node than flip grav is activated
+     */
+    var flipGravArea:FlipGravity?
+    
     class func contactContains (strings: [String], contactA: String = "", contactB: String = "", contact: SKPhysicsContact? = nil) -> Bool {
         var result = true
         
@@ -78,6 +83,26 @@ class PhysicsHandler {
     }
     
     /**
+     Taking two types of node objects, check to see if the physics contact contains both of those nodes
+     
+     if nodesAreOfType(contact: contact, nodeAType: FlipGravityMineral.self, nodeBType: Player.type) {
+        // Do Something
+     }
+     
+     - returns:
+     Whether or not the physics contacts contains both types of objects
+     */
+    class func nodesAreOfType<T, U>(contact: SKPhysicsContact, nodeAType: T.Type, nodeBType: U.Type) -> Bool {
+        if contact.bodyA.node is T || contact.bodyA.node is U {
+            if contact.bodyB.node is T || contact.bodyB.node is U {
+                return true
+            }
+        }
+        
+        return false
+    }
+    
+    /**
      If a player hits a mineral that can be grabbed
      */
     class func playerIsGrabbingMineral (contact: SKPhysicsContact) -> RetrieveMineralNode? {
@@ -86,6 +111,19 @@ class PhysicsHandler {
             if let mineral = contact.bodyA.node as? RetrieveMineralNode != nil ? contact.bodyA.node as? RetrieveMineralNode : contact.bodyB.node as? RetrieveMineralNode {
                 mineral.removeFromParent()
                 return mineral
+            }
+        }
+        
+        return nil
+    }
+    
+    class func playerUsedFlipGrav (contact: SKPhysicsContact) -> FlipGravityMineral? {
+        if let _ =  contact.bodyA.node?.name == "ground" ? contact.bodyA.node : contact.bodyB.node {
+            if !PhysicsHandler.contactContains(strings: ["noflipgrav"], contact: contact) {
+                if let mineral = contact.bodyA.node as? FlipGravityMineral != nil ? contact.bodyA.node as? FlipGravityMineral : contact.bodyB.node as? FlipGravityMineral {
+                    mineral.showMineralCrash(withColor: mineral.mineralCrashColor, contact: contact, duration: 2)                    
+                    return mineral
+                }
             }
         }
         

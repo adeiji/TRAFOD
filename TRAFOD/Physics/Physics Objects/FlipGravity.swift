@@ -13,12 +13,7 @@ class ForcePhysicsBody : SKPhysicsBody {
 
     init(size: CGSize) {
         super.init()        
-        self.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
-        self.allowsRotation = false
-        self.pinned = false
-        self.affectedByGravity = false
-        self.isDynamic = true
-        self.collisionBitMask = 0
+
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -35,9 +30,15 @@ class FlipGravity : SKSpriteNode {
     
     init(contactPosition: CGPoint) {
         super.init(texture: nil, color: .purple, size: CGSize(width: 200, height: 2000))
-        self.anchorPoint = CGPoint(x: 0, y: 0)
         self.position = contactPosition
-        self.physicsBody = ForcePhysicsBody(size: CGSize(width: self.size.width, height: self.size.height))
+        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
+        self.physicsBody?.contactTestBitMask = 1
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.pinned = true
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.isDynamic = true
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -51,11 +52,20 @@ class FlipGravity : SKSpriteNode {
         - forceOfGravity: CGFloat The current force applied to all objects within the physics world
         - camera: The camera node that is currently showing on the screen.  We need this to check if the physics body that is in contact with this node is actually on the screen
      */
-    
-    func applyFlipGravityToContactedBodies (forceOfGravity: CGFloat, camera: SKCameraNode) {
+    func applyFlipGravityToContactedBodies (forceOfGravity: CGFloat, camera: SKCameraNode?) {
         self.physicsBody?.allContactedBodies().forEach({ (body) in
-            if camera.intersects(body.node!) {
-                body.applyForce(CGVector(dx: 0, dy: (forceOfGravity * -1) * 2))
+            if let camera = camera?.parent {
+                if let node = body.node {
+                    if camera.contains(node.position) {
+                        body.applyImpulse(CGVector(dx: 0, dy: (forceOfGravity * -1) * 4))
+                        
+                        if let player = node as? Player {
+                            if let world = World.getMainWorldFromNode(node: player) {
+                                world.player.flipPlayer(flipUpsideDown: true)
+                            }
+                        }
+                    }
+                }
             }
         })
     }

@@ -93,6 +93,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     var teleportNode:SKNode?
     var volumeIsMuted:Bool = false
+    let physicsHandler = PhysicsHandler()
     
     enum Levels:String {
         case LEVEL1 = "GameScene"
@@ -576,6 +577,8 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.throwingMineral = .TELEPORT
             }
         
+        } else if let throwButton = self.throwButtons["\(CounterNodes.FlipGravity)"], self.nodes(at: pos).contains(throwButton) {
+            FlipGravityMineral.throwMineral(imageName: ImageNames.RedCrystal.rawValue, player: self.player, world: self)            
         } else {
             if let camera = self.camera {
                 if let originalPos = self.scene?.convert(pos, to: camera) {
@@ -592,6 +595,10 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func didEnd(_ contact: SKPhysicsContact) {
         self.handleGrabbedObjectContactEnded(contact: contact)
+        
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: FlipGravity.self, nodeBType: Player.self) {
+            self.player.flipPlayer(flipUpsideDown: false)
+        }
     }
     
     /**
@@ -624,6 +631,12 @@ class World: SKScene, SKPhysicsContactDelegate {
             self.getMineral(type: mineral.mineralType)
             self.addToCollectedElements(node: mineral)
             return
+        }
+        
+        if let mineral = PhysicsHandler.playerUsedFlipGrav(contact: contact) {
+            self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
+            self.addChild(self.physicsHandler.flipGravArea!)
+            mineral.removeFromParent()
         }
         
         if (contactAName == "dawud") || (contactBName == "dawud") {
@@ -883,7 +896,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func rotateJumpingPlayer (rotation: Double) {
         if self.player.previousRunningState == .RUNNINGRIGHT || self.player.previousRunningState == .STANDING {
-            self.player.zRotation   = self.player.zRotation + CGFloat(Double.pi / rotation)
+            self.player.zRotation = self.player.zRotation + CGFloat(Double.pi / rotation)
         } else if self.player.previousRunningState == .RUNNINGLEFT {
             self.player.zRotation = self.player.zRotation - CGFloat(Double.pi / rotation)
         }
@@ -899,22 +912,9 @@ class World: SKScene, SKPhysicsContactDelegate {
             
             let position = self.scene?.convert(pos, to: self.camera!)
             let differenceInXPos = originalPos.x - position!.x
-            if abs(differenceInXPos) > 10 {
-                if differenceInXPos < 0 {
-                    if self.player.previousRunningState == .RUNNINGLEFT {
-                        self.player.xScale = self.player.xScale * -1
-                    }
-                    self.player.runningState = .RUNNINGRIGHT
-                    self.player.previousRunningState = .RUNNINGRIGHT
-                } else {
-                    if self.player.previousRunningState == .RUNNINGRIGHT {
-                        self.player.xScale = self.player.xScale * -1
-                    }
-                    self.player.runningState = .RUNNINGLEFT
-                    self.player.previousRunningState = .RUNNINGLEFT
-                }
-            } else {
-                self.player.runningState = .STANDING
+            self.player.changeDirection(differenceInXPos: differenceInXPos)
+            
+            if self.player.runningState == .STANDING {
                 self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
             }
         }
@@ -1106,7 +1106,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         if self.player.state == .INAIR {
             //self.rotateJumpingPlayer(rotation: -Double(dt * 500))
         } else {
-            self.player.zRotation = 0.0
+//            self.player.zRotation = 0.0
         }
     }
     
@@ -1179,6 +1179,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.resetObjectsToOriginalPosition()
+        self.physicsHandler.flipGravArea?.applyFlipGravityToContactedBodies(forceOfGravity: self.physicsWorld.gravity.dy, camera: self.camera)
     }
     
     func stopPlayer () {
@@ -1342,5 +1343,26 @@ class World: SKScene, SKPhysicsContactDelegate {
     func loadSavedGame (sceneName: String, level:String) {
         self.getMineralCounts()
         self.getCollectedElements(level: level)
+    }
+    
+    /**
+     
+     Traverses through the node hierarchy until it finds the world object and returns it
+     
+     - Parameters:
+     - node: The node to get find the parent world of
+     
+     */
+    @discardableResult class func getMainWorldFromNode (node: SKNode) -> World? {
+        
+        if let parentNode = node.parent {
+            if let world = parentNode as? World {
+                return world
+            } else {
+                self.getMainWorldFromNode(node: parentNode)
+            }
+        }
+        
+        return nil
     }
 }

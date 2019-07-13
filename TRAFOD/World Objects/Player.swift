@@ -23,17 +23,91 @@ class Player : SKSpriteNode {
     public var runningState:PlayerRunningState = .STANDING
     public var previousRunningState:PlayerRunningState = .STANDING
     public var action:PlayerAction = .NONE
-            
+    private var playerIsFlipped = false
+    
     func grabObject (object: SKSpriteNode) {
         self.grabbedObject = object
     }
     
+    /**
+     
+     Changes the direction that the player is facing
+     
+     - Parameters:
+     - differenceInXPos: This is the distance that the user has dragged his finger along the screen.  We use this to determine whether we should worry about actually detecting this drag as intentional and worry about changing the players direction
+     
+     */
+    func changeDirection (differenceInXPos: CGFloat) {
+        if abs(differenceInXPos) > 10 {
+            if differenceInXPos < 0 {
+                if self.previousRunningState == .RUNNINGLEFT {
+                    self.xScale = self.xScale * -1
+                }
+                self.runningState = .RUNNINGRIGHT
+                self.previousRunningState = .RUNNINGRIGHT
+            } else {
+                if self.previousRunningState == .RUNNINGRIGHT {
+                    self.xScale = self.xScale * -1
+                }
+                self.runningState = .RUNNINGLEFT
+                self.previousRunningState = .RUNNINGLEFT
+            }
+        } else {
+            self.runningState = .STANDING
+        }
+    }
+    
+    /**
+     Handles the actual flipping of the player by creating an action in which he is flipped
+     
+     - Parameters:
+     - byAngle: The angle in which to rotate the player
+     - duration: The time it should take for the action of flipping the player
+     
+     Note: Keep in mind that if the angle in which to rotate the player is not divisible by Pi he will not be standing erect which can cause major problems with the physics of the player and his interactions with other objects in the game
+     
+     */
+    private func flipPlayer (byAngle: Double, duration: TimeInterval) {
+        self.previousRunningState = self.previousRunningState == .RUNNINGLEFT ? .RUNNINGRIGHT : .RUNNINGLEFT
+        let flipPlayerAction = SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 0.5)
+        self.removeAllActions()
+        self.run(flipPlayerAction)
+    }
+    
+    /**
+     
+     Flips the player upside down or to his original position.
+     
+     - Parameters:
+     - flipUpsideDown: A boolean value indicating whether the player should be flipped upside down (true), or if he should be flipped back to his original position (false)
+     */
+    public func flipPlayer (flipUpsideDown: Bool) {
+        if flipUpsideDown && !self.playerIsFlipped {
+            self.flipPlayer(byAngle: Double.pi, duration: 0.5)
+            self.playerIsFlipped = true
+        } else if flipUpsideDown == false && self.playerIsFlipped {
+            self.flipPlayer(byAngle:-Double.pi , duration: 0.5)
+            self.playerIsFlipped = false
+        }
+    }
+    
+    /**
+     
+     The player is able to pick up objects.  If the player has an object that he has picked up, than this is where we let go of that object.  If this method is called and the player is not holding an object, nothing will happen.
+     
+     */
     func letGoOfObject () {
         self.grabbedObject = nil
         self.state = .ONGROUND
         self.constraints = [];        
     }
     
+    /**
+     Check to see if the player is currently holding/grabbing an object
+     
+     - Returns:
+     Whether or not the player is currently holding (true) an object or not (false)
+     */
     func isGrabbingObject () -> Bool {
         if self.grabbedObject == nil {
             return false
@@ -42,6 +116,9 @@ class Player : SKSpriteNode {
         return true
      }
     
+    /**
+     Stops the players velocity
+     */
     func stop () {
         self.physicsBody?.velocity = CGVector(dx: 0, dy: self.physicsBody?.velocity.dy ?? 0)
     }
