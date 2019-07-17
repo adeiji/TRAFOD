@@ -17,13 +17,9 @@ class Level : World {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self        
         self.getProgress()
-        self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)
+        self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)        
+        self.getMineralCounts()
         self.showMineralCount()
-        
-        if self.player == nil {
-            self.createPlayer()
-            self.getMineralCounts()
-        }
         
         if self.player.hasAntigrav {
             self.addThrowButton()

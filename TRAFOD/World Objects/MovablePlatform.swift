@@ -26,13 +26,11 @@ class MovablePlatform : SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.InteractableObjects)
-        self.physicsBody?.pinned = true
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.allowsRotation = false
-        let constraint = SKConstraint.positionX(SKRange(constantValue: self.position.x))
-        self.constraints = [constraint]
+//        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.Player)
+//        self.physicsBody?.categoryBitMask =  UInt32(PhysicsCategory.Ground)
+//        self.physicsBody?.pinned = true
+//        self.physicsBody?.affectedByGravity = false
+//        self.physicsBody?.allowsRotation = false
     }
     
     /*

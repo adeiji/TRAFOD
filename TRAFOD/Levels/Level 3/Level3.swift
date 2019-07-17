@@ -31,7 +31,7 @@ class Level3 : Level {
                 if let _ = weightSwitch.childNode(withName: "weightSwitch1") {
                     weightSwitch.topOfSwitch?.verticalForce = 5
                 } else if let _ = weightSwitch.childNode(withName: "weightSwitch2") {
-                    weightSwitch.topOfSwitch?.verticalForce = 1000
+                    weightSwitch.topOfSwitch?.verticalForce = 3000
                 } else if let _ = node.childNode(withName: "weightSwitch3") {
                     weightSwitch.topOfSwitch?.verticalForce = 3000
                 } else if let _ = node.childNode(withName: "weightSwitch5") {

@@ -60,27 +60,8 @@ class GameScene: Level {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.currentLevel = .LEVEL1
-        self.showDoorParticles()
-        self.physicsWorld.contactDelegate = self
-        self.removeCollectedElements()        
-        self.changeMineralPhysicsBodies()
-        self.setupPlayer()
-        if self.player.hasAntigrav {
-            self.addThrowButton()
-            self.showMineralCount()
-        }
         
-        if self.player.hasImpulse {
-            self.addThrowImpulseButton()
-            self.showMineralCount()
-        }
-        
-        self.showFireFlies()
-        self.showMineralParticles()
-        self.showBackgroundParticles()
-                        
         self.playBackgroundMusic()
-        
         let antiGravNode = self.camera?.childNode(withName: self.antiGravViewKey)
         antiGravNode?.isHidden = true
         
@@ -101,7 +82,7 @@ class GameScene: Level {
     }
     
     func updateProgressLevel () {
-        ProgressTracker.updateProgress(currentLevel: GameLevels.level1, player: self.player)
+        ProgressTracker.updateProgress(currentLevel: GameLevels.Level1, player: self.player)
     }
     
     override func update(_ currentTime: TimeInterval) {

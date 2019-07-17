@@ -66,10 +66,10 @@ class Chapters : World {
                 {
                 case "door-chapter1":
                     // show level 1
-                    self.loadSavedGame(sceneName: "GameScene", level: GameLevels.level1)
+                    self.loadSavedGame(sceneName: "GameScene", level: GameLevels.Level1)
                     return
                 case "door-chapter2":
-                    self.loadSavedGame(sceneName: "Level2", level: GameLevels.level2)
+                    self.loadSavedGame(sceneName: "Level2", level: GameLevels.Level2)
                     return
                 case "door-chapter3":
                     self.loadSavedGame(sceneName: "Level3", level: GameLevels.level3)

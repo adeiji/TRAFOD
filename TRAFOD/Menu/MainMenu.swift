@@ -59,7 +59,7 @@ class MainMenu: World {
      */
     override func getProgress () {
         if let progress = ProgressTracker.getProgress() {
-            if progress.currentLevel == GameLevels.level1 {
+            if progress.currentLevel == GameLevels.Level1 {
                 if let continueNode = self.childNode(withName: "continue") {
                     continueNode.alpha = 1.0
                 }

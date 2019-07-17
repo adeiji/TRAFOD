@@ -10,10 +10,11 @@ import Foundation
 import GameKit
 
 public class GameLevels {
-    public static let level1 = "GameScene"
-    public static let level2 = "Level2"
-    public static let transferLevel = "TransferLevel"
+    public static let Level1 = "GameScene"
+    public static let Level2 = "Level2"
+    public static let TransferLevel = "TransferLevel"
     public static let level3 = "Level3"
+    public static let Level4 = "Level4"
 }
 
 enum PlayerState {

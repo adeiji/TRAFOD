@@ -19,7 +19,11 @@ class World: SKScene, SKPhysicsContactDelegate {
     var cannons:[Cannon]?
     var cannonTimes:[TimeInterval] = [ 3.0, 8.0, 3.0, 5.0, 7.0 ]
     
-    var player:Player!
+    var player:Player! {
+        didSet {
+            self.addChild(self.player)
+        }
+    }
     var lastPointOnGround:CGPoint?
     var entities = [GKEntity]()
     
@@ -99,6 +103,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         case LEVEL1 = "GameScene"
         case LEVEL2 = "Level2"
         case LEVEL3 = "Level3"
+        case LEVEL4 = "Level4"
     }
     
     override func sceneDidLoad() {
@@ -135,9 +140,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    override func didMove(to view: SKView) {
-        self.setupPlayer()
-        self.setupCounterNodes()
+    func setupButtonsOnScreen () {
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
         self.throwButton = self.camera?.childNode(withName: "throwButton")
         self.throwImpulseButton = self.camera?.childNode(withName: "throwImpulseButton")
@@ -147,8 +150,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.grabButton?.isUserInteractionEnabled = false
         self.grabButton?.isHidden = true
         
-        self.sounds = SoundManager(world: self)
-        self.player.previousRunningState = .RUNNINGRIGHT
         if self.throwButton != nil {
             self.throwButton.isHidden = true
         }
@@ -160,23 +161,54 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.addJumpButton()
-        self.showDoubleGravParticles(color: .yellow)
-        self.enumerateChildNodes(withName: "ground") { (node, pointer) in
-            node.physicsBody?.friction = 1.0
-        }
-        
+    }
+    
+    override func didMove(to view: SKView) {
+        self.setupPlayer()
+        self.setupCounterNodes()
+        self.sounds = SoundManager(world: self)
+        self.setupAllObjectNodes()
+        self.setupButtonsOnScreen()
         self.getCannons()
         self.removeCollectedElements()
-        self.showDoorParticles()
+        self.showParticles()
         self.changeMineralPhysicsBodies()
+        self.playBackgroundMusic(fileName: "Level2")
+    }
+    
+    func gotoNextLevel<T: Level> (fileName: String, levelType: T.Type) {
+        if let level = self.transitionToNextScreen(filename: fileName) as? T {
+            level.collectedElements = self.collectedElements
+            level.previousWorldPlayerPosition = self.player.position
+            level.previousWorldCameraPosition = self.camera?.position
+            return
+        }
+    }
+    
+    func setupAllObjectNodes () {
+        self.children.forEach { (node) in
+            if node.name == "ground" {
+                node.physicsBody?.friction = 1.0
+                return
+            }
+            
+            if node is FlipSwitchComponent {
+                node.children.forEach({ (flipSwitchChildNode) in
+
+                })
+            }
+        }
+    }
+    
+    func showParticles () {
+        self.showDoorParticles()
         self.showResetParticles()
         self.showResetParticles(nodeName: "rocks")
         self.showNoWarpParticles()
-        self.playBackgroundMusic(fileName: "Level2")
+        self.showDoubleGravParticles(color: .yellow)
         self.showBackgroundParticles()
-        self.showFireFlies()        
+        self.showFireFlies()
     }
-    
     func getProgress () {
         if let progress = ProgressTracker.getProgress() {
             self.player.hasAntigrav = progress.hasAntigrav
@@ -202,7 +234,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player.physicsBody?.allowsRotation = false
         self.player.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
         self.listener = self.player
-        addChild(self.player)
     }
     
     func changeMineralPhysicsBodies () {
@@ -623,9 +654,25 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.showMineralCount()
     }
     
+    func handlePlayerGotoNextLevel (contact: SKPhysicsContact) {
+        // Player hits the door for level3
+        if PhysicsHandler.contactContains(strings: ["dawud", GameLevels.level3.uppercased()], contact: contact) {
+            self.gotoNextLevel(fileName: GameLevels.level3, levelType: Level3.self)
+            return
+        } else if PhysicsHandler.contactContains(strings: ["dawud", GameLevels.Level4.uppercased()], contact: contact) {
+            self.gotoNextLevel(fileName: GameLevels.Level4, levelType: Level4.self)
+            return
+        }
+    }
+    
+    
+    
     func didBegin(_ contact: SKPhysicsContact) {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
+        
+        // Check to see if the playe has hit the door to go to another level
+        self.handlePlayerGotoNextLevel(contact: contact)
         
         if let mineral = PhysicsHandler.playerIsGrabbingMineral(contact: contact) {
             self.getMineral(type: mineral.mineralType)
@@ -634,6 +681,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         if let mineral = PhysicsHandler.playerUsedFlipGrav(contact: contact) {
+            self.physicsHandler.flipGravArea?.removeFromParent()
             self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
             self.addChild(self.physicsHandler.flipGravArea!)
             mineral.removeFromParent()
@@ -641,13 +689,11 @@ class World: SKScene, SKPhysicsContactDelegate {
         
         if (contactAName == "dawud") || (contactBName == "dawud") {
             if contactAName.contains("ground") || contactBName.contains("ground") {
-                if self.player.position.y - contact.contactPoint.y >= (self.player.size.height / 2.0) - 10 {
+                
+                if self.player.hasLanded(contact: contact) {
                     self.player.zRotation = 0.0
                     if let physicsBody = self.player.physicsBody {
                         self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
-                        if physicsBody.velocity.dy == -260 {
-                            self.playSound(sound: .LANDED)
-                        }
                     }
                     
                     self.lastPointOnGround = self.player.position
@@ -804,12 +850,12 @@ class World: SKScene, SKPhysicsContactDelegate {
             for element in elements {
                 if element.level == level {
                     for node in element.nodes {
-                        if element.level == GameLevels.level1 {
+                        if element.level == GameLevels.Level1 {
                             if self.collectedElements[.LEVEL1] == nil {
                                self.collectedElements[.LEVEL1] = [String]()
                             }
                             self.collectedElements[.LEVEL1]?.append(node)
-                        } else if element.level == GameLevels.level2 {
+                        } else if element.level == GameLevels.Level2 {
                             if self.collectedElements[.LEVEL2] == nil {
                                 self.collectedElements[.LEVEL2] = [String]()
                             }
@@ -889,7 +935,7 @@ class World: SKScene, SKPhysicsContactDelegate {
      
      */
     private func jump() {
-        self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: PhysicsHandler.kJumpImpulse))
+        self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: self.player.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse))
         self.player.texture = SKTexture(imageNamed: "running_step2")
         self.player.state = .INAIR
     }
@@ -1205,19 +1251,21 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     @discardableResult
     func transitionToNextScreen (filename: String, player: Player? = nil) -> World? {
-        let world = World(fileNamed: filename)
-        if let player = player {
-            world?.player = player
-        } else {
-            world?.player = self.player
+        if let world = World(fileNamed: filename) {
+            self.player.removeFromParent()
+            if let player = player {
+                world.player = player
+            } else {
+                world.player = self.player
+            }
+            
+            let transition = SKTransition.moveIn(with: .right, duration: 1)
+            world.scaleMode = SKSceneScaleMode.aspectFit
+            self.view?.presentScene(world, transition: transition)
+            return world
         }
         
-        let transition = SKTransition.moveIn(with: .right, duration: 1)
-        world?.scaleMode = SKSceneScaleMode.aspectFit
-        self.player.removeFromParent()
-        self.view?.presentScene(world!, transition: transition)
-        
-        return world
+        return nil
     }
     
     func showSpeech (message: String, relativeToNode: SKSpriteNode) {
@@ -1259,18 +1307,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    // Take the user to the next level of the game
-    func gotoNextLevel (sceneName: String) {
-        
-        let loading = Loading(fileNamed: "Loading")
-        loading?.nextSceneName = sceneName
-        loading?.player = self.player
-        self.player.removeFromParent()
-        let transition = SKTransition.moveIn(with: .right, duration: 0)
-        loading?.scaleMode = SKSceneScaleMode.aspectFit
-        self.view?.presentScene(loading!, transition: transition)
-    }
-    
     func playBackgroundMusic (fileName: String) {        
         if self.volumeIsMuted == false {
             if let musicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
@@ -1296,6 +1332,8 @@ class World: SKScene, SKPhysicsContactDelegate {
         if let start = self.childNode(withName: "start") {
             self.player.position = start.position
         }
+        
+        self.player.previousRunningState = .RUNNINGRIGHT
     }
     
     func getCannons () {

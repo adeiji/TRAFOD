@@ -23,10 +23,22 @@ class Player : SKSpriteNode {
     public var runningState:PlayerRunningState = .STANDING
     public var previousRunningState:PlayerRunningState = .STANDING
     public var action:PlayerAction = .NONE
-    private var playerIsFlipped = false
+    private var isFlipped = false
+    
+    func getIsFlipped () -> Bool {
+        return isFlipped
+    }
     
     func grabObject (object: SKSpriteNode) {
         self.grabbedObject = object
+    }
+    
+    func hasLanded (contact: SKPhysicsContact) -> Bool {
+        if (self.isFlipped == false && self.position.y - contact.contactPoint.y >= (self.size.height / 2.0) - 10) || (self.isFlipped && self.position.y - contact.contactPoint.y <= (self.size.height / 2.0) + 10) {
+            return true
+        }
+        
+        return false
     }
     
     /**
@@ -82,12 +94,12 @@ class Player : SKSpriteNode {
      - flipUpsideDown: A boolean value indicating whether the player should be flipped upside down (true), or if he should be flipped back to his original position (false)
      */
     public func flipPlayer (flipUpsideDown: Bool) {
-        if flipUpsideDown && !self.playerIsFlipped {
+        if flipUpsideDown && !self.isFlipped {
             self.flipPlayer(byAngle: Double.pi, duration: 0.5)
-            self.playerIsFlipped = true
-        } else if flipUpsideDown == false && self.playerIsFlipped {
+            self.isFlipped = true
+        } else if flipUpsideDown == false && self.isFlipped {
             self.flipPlayer(byAngle:-Double.pi , duration: 0.5)
-            self.playerIsFlipped = false
+            self.isFlipped = false
         }
     }
     

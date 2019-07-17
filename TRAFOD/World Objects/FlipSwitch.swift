@@ -50,11 +50,13 @@ class GameSwitch : SKSpriteNode, GameSwitchProtocol {
     }
 }
 
+class FlipSwitchComponent : SKSpriteNode { }
+
 class FlipSwitch : GameSwitch {
     
     var movablePlatform:MovablePlatform? {
         didSet {
-            let constraint = SKConstraint.positionY(SKRange(constantValue: self.movablePlatform?.position.y ?? 0))
+            let constraint = SKConstraint.zRotation(SKRange(constantValue: self.movablePlatform?.zRotation ?? 0))
             self.movablePlatform?.constraints = [constraint]
         }
     }

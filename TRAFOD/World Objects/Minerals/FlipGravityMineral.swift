@@ -53,8 +53,7 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
     
     /**
      
-     When the player collides with a mineral and retrieves it if it's the first time then we display a box that shows player how to use the minerals
-     or it simply adds ten more minerals to the player's mineral count
+     When the player collides with a mineral and retrieves it if it's the first time then we display a box that shows player how to use the mineral or it simply adds ten more minerals to the player's mineral count
      
      - Parameter type: The type of Mineral that the player is getting
      

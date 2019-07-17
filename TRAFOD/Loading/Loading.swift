@@ -23,7 +23,6 @@ class Loading : World {
         self.showMineralParticles()
         self.showFireFlies()
         self.showBackgroundParticles()
-        self.addChild(self.player)
     }
     
     override func setupPlayer () {

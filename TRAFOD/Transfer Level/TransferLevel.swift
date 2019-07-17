@@ -60,7 +60,6 @@ class TransferLevel : World {
             addChild(self.backgroundMusic)
         }
         
-        self.addChild(self.player)
     }
     
     func checkIfFalling () {
