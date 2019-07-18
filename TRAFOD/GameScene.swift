@@ -118,12 +118,7 @@ class GameScene: Level {
         let contactBName = contact.bodyB.node?.name ?? ""
         
         if PhysicsHandler.contactContains(strings: ["dawud", "endOfGame"], contactA: contactAName, contactB: contactBName) {
-            if let transferLevel = self.transitionToNextScreen(filename: "TransferLevel") as? TransferLevel {            
-                transferLevel.collectedElements = self.collectedElements
-                transferLevel.previousWorldPlayerPosition = self.player.position
-                transferLevel.previousWorldCameraPosition = self.camera?.position
-                return
-            }
+            self.loadAndGotoNextLevel(sceneName: "TransferLevel", level: GameLevels.TransferLevel)
         }                
     }
 }

@@ -9,18 +9,18 @@
 import SpriteKit
 import GameKit
 
-class Doorway : SKSpriteNode {
+class Doorway : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-            self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
-            self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
-            self.physicsBody?.collisionBitMask = 0
-            self.physicsBody?.allowsRotation = false
-            self.physicsBody?.affectedByGravity = false
-            self.physicsBody?.pinned = true
-        }
+    }
+    
+    func setupPhysicsBody () {
+        self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Doorway)
+        self.physicsBody?.collisionBitMask = 0
+        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.pinned = true
     }
 }

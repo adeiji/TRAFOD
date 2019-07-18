@@ -59,21 +59,26 @@ class Chapters : World {
     
     override func touchDown(atPoint pos: CGPoint) {
         if let doorway = self.doorway {
-            if self.jumpButton != nil && self.nodes(at: pos).contains(self.jumpButton) {
-                // Goto level
-                switch doorway.name
-                {
-                case "door-chapter1":
-                    // show level 1
-                    self.loadSavedGame(sceneName: "GameScene", level: GameLevels.Level1)
-                    return
-                case "door-chapter2":
-                    self.loadSavedGame(sceneName: "Level2", level: GameLevels.Level2)
-                    return
-                case "door-chapter3":
-                    self.loadSavedGame(sceneName: "Level3", level: GameLevels.level3)
-                    return
-                default: break
+            if let jumpButton = self.jumpButton {
+                if self.nodes(at: pos).contains(jumpButton) {
+                    // Goto level
+                    switch doorway.name
+                    {
+                    case "door-chapter1":
+                        // show level 1
+                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level1, level: GameLevels.Level1)
+                        return
+                    case "door-chapter2":
+                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level2, level: GameLevels.Level1)
+                        return
+                    case "door-chapter3":
+                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level3, level: GameLevels.Level1)
+                        return
+                    case "door-chapter4":
+                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level4, level: GameLevels.Level4)
+                        return
+                    default: break
+                    }
                 }
             } else {
                 super.touchDown(atPoint: pos)
@@ -83,23 +88,7 @@ class Chapters : World {
         }
     }
     
-    /*
-     
-     Load a saved game, continue the story
-     
-     */
-    override func loadSavedGame (sceneName: String, level:String) {
-        self.getMineralCounts()
-        let loading = Loading(fileNamed: "Loading")
-        loading?.nextSceneName = sceneName
-        self.getCollectedElements(level: level)
-        loading?.collectedElements = self.collectedElements
-        loading?.player = self.player
-        self.player.removeFromParent()
-        let transition = SKTransition.moveIn(with: .right, duration: 0)
-        loading?.scaleMode = SKSceneScaleMode.aspectFit
-        self.view?.presentScene(loading!, transition: transition)
-    }
+
     
     override func getMineralCounts () {
         if let mineralCounts = ProgressTracker.getMineralCounts() {

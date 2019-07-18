@@ -13,16 +13,12 @@ class Loading : World {
     var nextSceneName:String?
     var nextScene:World?
     var keepRunning = false
-    var shouldLoadNextScene = false
+    var shouldLoadNextScene = true
     var loadingCrystal:SKNode!
             
     override func didMove(to view: SKView) {
-        self.showDoorParticles()        
-        self.setupPlayer()
+        super.didMove(to: view)
         self.loadingCrystal = self.childNode(withName: "getAntiGrav")
-        self.showMineralParticles()
-        self.showFireFlies()
-        self.showBackgroundParticles()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -37,11 +33,9 @@ class Loading : World {
         // DO NOTHING
     }
     
-    
-    
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
-        
+        self.player.runningState = .RUNNINGRIGHT
         if self.lastUpdateTime == 0 {
             self.lastUpdateTime = currentTime
         }

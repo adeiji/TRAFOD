@@ -23,17 +23,36 @@ extension World {
             if let parent = object.parent {
                 // Gets the objects position relative to the scene
                 if let position = object.scene?.convert(object.position, from: parent) {
-                    if self.player.xScale > 0 { // player facing right
-                        if position.x > self.player.position.x {
-                            return true
+                    
+                    let playerIsFlipped = self.player.getIsFlipped()
+                    
+                    if playerIsFlipped == false {
+                        if self.player.xScale > 0 { // player facing right
+                            if position.x > self.player.position.x {
+                                return true
+                            } else {
+                                return false
+                            }
                         } else {
-                            return false
+                            if position.x < self.player.position.x {
+                                return true
+                            } else {
+                                return false
+                            }
                         }
                     } else {
-                        if position.x < self.player.position.x {
-                            return true
+                        if self.player.xScale > 0 { // player facing right
+                            if position.x < self.player.position.x {
+                                return true
+                            } else {
+                                return false
+                            }
                         } else {
-                            return false
+                            if position.x > self.player.position.x {
+                                return true
+                            } else {
+                                return false
+                            }
                         }
                     }
                 }

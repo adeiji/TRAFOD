@@ -13,7 +13,7 @@ public class GameLevels {
     public static let Level1 = "GameScene"
     public static let Level2 = "Level2"
     public static let TransferLevel = "TransferLevel"
-    public static let level3 = "Level3"
+    public static let Level3 = "Level3"
     public static let Level4 = "Level4"
     public static let Chapters = "Chapters"
 }

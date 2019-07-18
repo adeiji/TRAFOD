@@ -42,11 +42,9 @@ class World: SKScene, SKPhysicsContactDelegate {
     var counterNodes = [String:SKNode]()
     
     var messageBox:SKSpriteNode!
-    var jumpButton:SKNode!
-    
-    
-    var throwButton:SKNode!
-    var throwImpulseButton:SKNode!
+    var jumpButton:SKNode?
+    var throwButton:SKNode?
+    var throwImpulseButton:SKNode?
     var throwTeleportButton:SKNode?
     
     var throwButtons:[String:SKNode] = [String:SKNode]()
@@ -122,20 +120,15 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.playBackgroundMusic(fileName: "Level2")
     }
     
-    func gotoNextLevel<T: World> (fileName: String, levelType: T.Type) {
-        if let level = self.transitionToNextScreen(filename: fileName) as? T {
-            level.collectedElements = self.collectedElements
-            level.previousWorldPlayerPosition = self.player.position
-            level.previousWorldCameraPosition = self.camera?.position
-            return
-        }
-    }
-    
     func setupAllObjectNodes () {
         self.children.forEach { (node) in
             if node.name == "ground" {
                 node.physicsBody?.friction = 1.0
                 return
+            }
+            
+            if let node = node as? ObjectWithManuallyGeneratedPhysicsBody {
+                node.setupPhysicsBody()
             }
             
             if let ground = node as? Ground {
@@ -236,10 +229,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         for key in self.player.mineralCounts.keys {
             if let count = self.player.mineralCounts[key] {
                 if key == .ANTIGRAV {
-                    if self.throwButton.isHidden == true {
-                        self.addThrowButton()
-                    }
-                    
+                    self.addThrowButton()
                     self.antiGravCounterNode.position = CGPoint(x: -570, y: 400)
                     self.antiGravCounterLabel.position = CGPoint(x: -500,  y: 390)
                     self.antiGravCounterLabel.fontSize = 50
@@ -252,10 +242,7 @@ class World: SKScene, SKPhysicsContactDelegate {
                     
                     self.antiGravCounterLabel.text = "\(count)"
                 } else if key == .IMPULSE {
-                    if self.throwImpulseButton.isHidden == true {
-                        self.addThrowImpulseButton()
-                    }
-                    
+                    self.addThrowImpulseButton()
                     self.impulseCounterNode.position = CGPoint(x: -400, y: 400)
                     self.impulseCounterLabel.position = CGPoint(x: -330,  y: 390)
                     self.impulseCounterLabel.fontSize = 50
@@ -476,7 +463,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if self.messageBox != nil && self.nodes(at: pos).contains(self.jumpButton) {
+        if let jumpButton = self.jumpButton, self.messageBox != nil && self.nodes(at: pos).contains(jumpButton) {
             self.messageBox.removeFromParent()
             self.messageBox = nil
         } else if self.messageBox != nil {
@@ -485,14 +472,14 @@ class World: SKScene, SKPhysicsContactDelegate {
         
         self.handleGrabButtonActions(atPoint: pos)
         
-        if self.jumpButton != nil && self.nodes(at: pos).contains(self.jumpButton) {
+        if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
             if self.player.state == .ONGROUND {
                 self.player.state = .JUMP
             }
-        } else if self.throwButton != nil && self.nodes(at: pos).contains(self.throwButton) {
+        } else if let throwButton = self.throwButton, self.nodes(at: pos).contains(throwButton) {
             self.player.action = .THROW
             self.throwingMineral = .ANTIGRAV
-        } else if self.throwImpulseButton != nil && self.nodes(at: pos).contains(self.throwImpulseButton) {
+        } else if let throwImpulseButton =  self.throwImpulseButton, self.nodes(at: pos).contains(throwImpulseButton) {
             self.player.action = .THROW
             self.throwingMineral = .IMPULSE
         } else if let throwButton = self.throwTeleportButton, self.nodes(at: pos).contains(throwButton) {
@@ -553,17 +540,15 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func handlePlayerGotoNextLevel (contact: SKPhysicsContact) {
         // Player hits the door for level3
-        if PhysicsHandler.contactContains(strings: ["dawud", GameLevels.level3.uppercased()], contact: contact) {
-            self.gotoNextLevel(fileName: GameLevels.level3, levelType: Level3.self)
+        if PhysicsHandler.contactContains(strings: ["dawud", GameLevels.Level3.uppercased()], contact: contact) {
+            self.loadAndGotoNextLevel(sceneName: GameLevels.Level3, level: GameLevels.Level3)
             return
         } else if PhysicsHandler.contactContains(strings: ["dawud", GameLevels.Level4.uppercased()], contact: contact) {
-            self.gotoNextLevel(fileName: GameLevels.Level4, levelType: Level4.self)
+            self.loadAndGotoNextLevel(sceneName: GameLevels.Level4, level: GameLevels.Level4)
             return
         }
     }
-    
-    
-    
+
     func didBegin(_ contact: SKPhysicsContact) {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
@@ -1045,26 +1030,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.objectsToReset = [SKSpriteNode]()
-    }
-    
-    @discardableResult
-    func transitionToNextScreen (filename: String, player: Player? = nil) -> World? {
-        if let world = World(fileNamed: filename) {
-            self.player.removeFromParent()
-            if let player = player {
-                world.player = player
-            } else {
-                world.player = self.player
-            }
-            
-            let transition = SKTransition.moveIn(with: .right, duration: 1)
-            world.scaleMode = SKSceneScaleMode.aspectFit
-            self.view?.presentScene(world, transition: transition)
-            return world
-        }
-        
-        return nil
-    }
+    }        
     
     func showSpeech (message: String, relativeToNode: SKSpriteNode) {
         
@@ -1186,5 +1152,22 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         return nil
+    }
+    
+    /*
+     
+     Load a saved game, continue the story
+     
+     */
+    func loadAndGotoNextLevel (sceneName: String, level:String) {
+        guard let loading = Loading(fileNamed: "Loading") else {
+            fatalError("The loading screen must exist")
+        }
+        
+        self.getMineralCounts()
+        loading.nextSceneName = sceneName
+        self.getCollectedElements(level: level)
+        loading.collectedElements = self.collectedElements
+        self.gotoNextLevel(fileName: sceneName, levelType: Loading.self, loadingScreen: loading)
     }
 }

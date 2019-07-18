@@ -89,6 +89,8 @@
 		F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */; };
 		F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF7020D8C2710076C1C8 /* Constants.swift */; };
 		F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF7220D8C5E60076C1C8 /* SoundManager.swift */; };
+		F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46115CC22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift */; };
+		F46115CF22E0F5380035E059 /* World+LevelTransfers.swift in Sources */ = {isa = PBXBuildFile; fileRef = F46115CE22E0F5380035E059 /* World+LevelTransfers.swift */; };
 		F462CDCB20E5C9D7004AF89E /* lv2rocks8.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDCA20E5C9D7004AF89E /* lv2rocks8.png */; };
 		F462CDCD20E5CA8F004AF89E /* lv2rocks9.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDCC20E5CA8F004AF89E /* lv2rocks9.png */; };
 		F462CDCF20E5CBD1004AF89E /* lv2rocks10.png in Resources */ = {isa = PBXBuildFile; fileRef = F462CDCE20E5CBD0004AF89E /* lv2rocks10.png */; };
@@ -286,6 +288,8 @@
 		F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
 		F45EDF7020D8C2710076C1C8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F45EDF7220D8C5E60076C1C8 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
+		F46115CC22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectWithManuallyGeneratedPhysicsBody.swift; sourceTree = "<group>"; };
+		F46115CE22E0F5380035E059 /* World+LevelTransfers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+LevelTransfers.swift"; sourceTree = "<group>"; };
 		F462CDCA20E5C9D7004AF89E /* lv2rocks8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks8.png; sourceTree = "<group>"; };
 		F462CDCC20E5CA8F004AF89E /* lv2rocks9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks9.png; sourceTree = "<group>"; };
 		F462CDCE20E5CBD0004AF89E /* lv2rocks10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = lv2rocks10.png; sourceTree = "<group>"; };
@@ -498,6 +502,7 @@
 				F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */,
 				F472CABC22E0A35A001A4949 /* World+StaticScreenNodes.swift */,
 				F472CABE22E0A449001A4949 /* World+PlayerActions.swift */,
+				F46115CE22E0F5380035E059 /* World+LevelTransfers.swift */,
 			);
 			path = World;
 			sourceTree = "<group>";
@@ -524,6 +529,7 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F46115CB22E0E5340035E059 /* Protocols */,
 				F4EBE9E422D6435700EC2300 /* Minerals */,
 				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
 				F48F7D3A22CF0058004D1A3D /* AntiGravPlatformProtocol.swift */,
@@ -617,6 +623,14 @@
 				F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */,
 			);
 			path = Persistance;
+			sourceTree = "<group>";
+		};
+		F46115CB22E0E5340035E059 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F46115CC22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		F462CDE620E5DE0C004AF89E /* level2 */ = {
@@ -1203,6 +1217,7 @@
 				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
 				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,
+				F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */,
 				F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */,
 				F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */,
 				F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */,
@@ -1225,6 +1240,7 @@
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
 				F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */,
 				F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */,
+				F46115CF22E0F5380035E059 /* World+LevelTransfers.swift in Sources */,
 				F472CABF22E0A449001A4949 /* World+PlayerActions.swift in Sources */,
 				F48F7D3922CF0031004D1A3D /* PhysicsCategory.swift in Sources */,
 				F472CABD22E0A35A001A4949 /* World+StaticScreenNodes.swift in Sources */,

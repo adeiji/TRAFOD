@@ -51,16 +51,9 @@ extension World {
         
         self.grabButton?.isUserInteractionEnabled = false
         self.grabButton?.isHidden = true
+        self.throwButton?.isHidden = true
+        self.throwImpulseButton?.isHidden = true
         
-        if self.throwButton != nil {
-            self.throwButton.isHidden = true
-        }
-        
-        self.jumpButton.isHidden = true
-        
-        if self.throwImpulseButton != nil {
-            self.throwImpulseButton.isHidden = true
-        }
         
         self.addJumpButton()
     }
@@ -86,27 +79,27 @@ extension World {
     }
     
     func addJumpButton () {
-        self.jumpButton.isHidden = false
+        self.jumpButton?.isHidden = false
     }
     
     func addThrowButton () {
-        self.throwButton.isHidden = false
+        self.throwButton?.isHidden = false
     }
     
     func addThrowImpulseButton () {
-        self.throwImpulseButton.isHidden = false
+        self.throwImpulseButton?.isHidden = false
     }
     
     func addThrowMineralButton (type: Minerals) {
         switch type {
         case .ANTIGRAV:
-            self.throwButton.isHidden = false
+            self.throwButton?.isHidden = false
             break;
         case .IMPULSE:
-            self.throwImpulseButton.isHidden = false
+            self.throwImpulseButton?.isHidden = false
             break;
         case .TELEPORT:
-            self.throwImpulseButton.isHidden = false
+            self.throwImpulseButton?.isHidden = false
             break;
         default:
             break;

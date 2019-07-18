@@ -123,9 +123,9 @@ class TransferLevel : World {
         if self.showRunning {
             self.player.state = .INAIR
             self.showRunning(currentTime: currentTime)
-            self.jumpButton.removeFromParent()
-            self.throwButton.removeFromParent()
-            self.throwImpulseButton.removeFromParent()
+            self.jumpButton?.removeFromParent()
+            self.throwButton?.removeFromParent()
+            self.throwImpulseButton?.removeFromParent()
 
             if self.shouldShowNextLevelAction == true {
                 self.showNextLevelAction()
@@ -211,13 +211,7 @@ class TransferLevel : World {
             }
             
             let nextLevelBlock = SKAction.run {
-                let loading = Loading(fileNamed: "Loading")
-                loading?.nextSceneName = "Level2"
-                loading?.player = self.player
-                self.player.removeFromParent()
-                let transition = SKTransition.moveIn(with: .right, duration: 0)
-                loading?.scaleMode = SKSceneScaleMode.aspectFit
-                self.view?.presentScene(loading!, transition: transition)
+                self.loadAndGotoNextLevel(sceneName: GameLevels.Level2, level: GameLevels.Level2)
             }
             
             sequence = SKAction.sequence([wait, nextLevelBlock])
@@ -257,20 +251,8 @@ class TransferLevel : World {
         // If the player hits the door to take them to level 1
         if PhysicsHandler.contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
             // Load the level 1 screen
-            if let world = self.transitionToNextScreen(filename: "GameScene") {
-                world.camera?.position = self.previousWorldCameraPosition
-                world.player = self.player
-                world.player.xScale = -1
-                world.collectedElements = self.collectedElements
-                world.removeCollectedElements()
-                
-                if let end = world.childNode(withName: "end") {
-                    world.player.position = end.position
-                    world.player.previousRunningState = .RUNNINGLEFT                    
-                }
-                
-                return
-            }            
+            
+            self.loadAndGotoNextLevel(sceneName: GameLevels.Level1, level: GameLevels.Level1)                       
         }
         
         if PhysicsHandler.contactContains(strings: ["ground", "mineralFreeze"], contactA: aName, contactB: bName) {

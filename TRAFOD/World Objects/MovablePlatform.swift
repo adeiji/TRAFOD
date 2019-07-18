@@ -9,7 +9,7 @@
 import Foundation
 import GameKit
 
-class MovablePlatform : SKSpriteNode {
+class MovablePlatform : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     
     /**
      Whether the platform is at it's starting position or not.  If it is at it's starting position that means that it's finished moving
@@ -26,11 +26,14 @@ class MovablePlatform : SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-//        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.Player)
-//        self.physicsBody?.categoryBitMask =  UInt32(PhysicsCategory.Ground)
-//        self.physicsBody?.pinned = true
-//        self.physicsBody?.affectedByGravity = false
-//        self.physicsBody?.allowsRotation = false
+    }
+    
+    func setupPhysicsBody() {
+        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Ground)
+        self.physicsBody?.pinned = true
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.allowsRotation = false
     }
     
     /*

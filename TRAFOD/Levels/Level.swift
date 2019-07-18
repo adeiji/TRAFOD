@@ -17,7 +17,7 @@ class Level : World {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self        
         self.getProgress()
-        self.loadSavedGame(sceneName: GameLevels.level3, level: GameLevels.level3)        
+        self.loadSavedGame(sceneName: GameLevels.Level3, level: GameLevels.Level3)
         self.getMineralCounts()
         self.showMineralCount()
         
@@ -37,9 +37,7 @@ class Level : World {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
-//        if PhysicsHandler.shouldSwitch(contact: contact) {
-            FlipSwitch.flipSwitch(contact: contact)
-//        }
+        FlipSwitch.flipSwitch(contact: contact)
         
         if PhysicsHandler.contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
             self.getImpulse()

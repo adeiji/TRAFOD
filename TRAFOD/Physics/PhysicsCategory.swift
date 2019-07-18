@@ -20,6 +20,7 @@ struct PhysicsCategory {
     static let Rock:Int32 = 0x1 << 11
     static let GetMineralObject:Int32 = 0x1 << 12
     static let FlipSwitch:Int32 = 0x1 << 13
+    static let Doorway:Int32 = 0x1 << 14
     static let Nothing:Int32 = 0x1 << 16
     static let WeightSwitch:Int32 = 0x1 << 32
     
