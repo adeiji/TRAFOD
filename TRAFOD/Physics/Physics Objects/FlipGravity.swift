@@ -57,8 +57,7 @@ class FlipGravity : SKSpriteNode {
             if let camera = camera?.parent {
                 if let node = body.node {
                     if camera.contains(node.position) {
-                        body.applyImpulse(CGVector(dx: 0, dy: (forceOfGravity * -1) * 5))
-                        
+                        body.applyImpulse(CGVector(dx: 0, dy: (forceOfGravity * -1) * 5 * body.mass))
                         if let player = node as? Player {
                             if let world = World.getMainWorldFromNode(node: player) {
                                 world.player.flipPlayer(flipUpsideDown: true)

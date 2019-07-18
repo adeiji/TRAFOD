@@ -28,13 +28,15 @@ class Ground : SKSpriteNode {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        self.name = "GROUND"
+    }
+    
+    func setupPhysicsBody () {
         self.physicsBody?.isDynamic = true
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.restitution  = 0
-        self.physicsBody?.categoryBitMask = 1
-        self.physicsBody?.contactTestBitMask = 1
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Ground) 
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Player)
+        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.Player) 
         self.physicsBody?.usesPreciseCollisionDetection = true
     }
 }

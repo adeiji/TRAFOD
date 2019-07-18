@@ -24,29 +24,13 @@ class GameSwitch : SKSpriteNode, GameSwitchProtocol {
     }
     
     func flipSwitchAndMovePlatform() -> Bool {
-        // Check to see if there is currently a rock in contact with the switch
-        if let contactedBodies = self.physicsBody?.allContactedBodies() {
-            for body in contactedBodies {
-                if let _ = body.node as? Rock {
-                    // If this switch was just off and now is being turned on
-                    if self.isOn == false {
-                        self.isOn = true
-                        return true; // Move the platform from it's original position
-                    }
-                    
-                    return false
-                }
-            }
-            
-            // If this switch was just on and now is being turned off
-            if self.isOn == true {
-                self.isOn = false
-                return true // Move the platform back to its original position
-            }
-            return false
+        // If this switch was just off and now is being turned on
+        if self.isOn == false {
+            self.isOn = true
+            return true; // Move the platform from it's original position
         }
-        
-        return false;
+       
+        return false
     }
 }
 
@@ -63,8 +47,12 @@ class FlipSwitch : GameSwitch {
         
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        self.physicsBody?.categoryBitMask = 0b0001
+    }
+    
+    func setupPhysicsBody () {
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.FlipSwitch)
+        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.CannonBall) | UInt32(PhysicsCategory.Rock)
     }
     
     /**

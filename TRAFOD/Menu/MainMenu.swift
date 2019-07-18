@@ -84,7 +84,7 @@ class MainMenu: World {
         
         if PhysicsHandler.contactContains(strings: ["dawud", "gotoLevel"], contactA: aName, contactB: bName) {
             if self.canContinue {
-                self.showSelectChapters()
+                self.gotoNextLevel(fileName: GameLevels.Chapters, levelType: Chapters.self)
             }
         }
     }

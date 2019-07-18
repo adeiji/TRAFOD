@@ -19,7 +19,9 @@ class CannonBall : SKSpriteNode {
         self.physicsBody = SKPhysicsBody(circleOfRadius: 25 )
         self.physicsBody?.mass = 25
         self.physicsBody?.collisionBitMask = 0b0010
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.NonInteractableObjects)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Ground)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.CannonBall)
+        self.physicsBody?.collisionBitMask =  UInt32(PhysicsCategory.Rock) |  UInt32(PhysicsCategory.Player) 
         self.physicsBody?.isDynamic = true
         self.physicsBody?.restitution = 0.5
         self.physicsBody?.allowsRotation = false

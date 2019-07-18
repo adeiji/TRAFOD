@@ -28,7 +28,6 @@ class Chapters : World {
         self.showDoorParticles()
         self.showFireFlies()
         self.showBackgroundParticles()
-        self.setupPlayer()
     }
     
     override func update(_ currentTime: TimeInterval) {

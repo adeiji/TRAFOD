@@ -39,7 +39,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     private let teleportCounterNode = SKSpriteNode(imageNamed: "Blue Crystal")
     private let teleportCounterLabel = SKLabelNode(text: "0")
     
-    private var counterNodes = [String:SKNode]()
+    var counterNodes = [String:SKNode]()
     
     var messageBox:SKSpriteNode!
     var jumpButton:SKNode!
@@ -59,10 +59,9 @@ class World: SKScene, SKPhysicsContactDelegate {
     var gravityTimeLeft:Int = 0
     let antiGravViewKey = "antiGravView"
     
-    private var originalTouchPosition:CGPoint?
-    private var throwingMineral:Minerals!
-    
-    private var ground:SKShapeNode?
+    private var originalTouchPosition:CGPoint?    
+    var throwingMineral:Minerals!
+    var ground:SKShapeNode?
     
     private var runTime:TimeInterval = TimeInterval()
     private var stepCounter = 0
@@ -110,59 +109,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.lastUpdateTime = 0
     }
     
-    func setupCounterNodes () {
-        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
-        
-        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
-        
-        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
-        
-        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
-    }
-    
-    func setupThrowButton (crystalImageName: ImageNames, mineralType: CounterNodes, pos: CGPoint) {
-        if self.throwButtons["\(mineralType)"] == nil
-        {
-            let throwOutline = SKTexture(imageNamed: "throwbutton")
-            let button = SKSpriteNode(texture: throwOutline, color: .clear, size: throwOutline.size())
-            button.position = pos
-            button.addChild(SKSpriteNode(imageNamed: crystalImageName.rawValue))
-            self.camera?.addChild(button)
-            self.throwButtons["\(mineralType)"] = button
-        }
-    }
-    
-    func setupButtonsOnScreen () {
-        self.jumpButton = self.camera?.childNode(withName: "jumpButton")
-        self.throwButton = self.camera?.childNode(withName: "throwButton")
-        self.throwImpulseButton = self.camera?.childNode(withName: "throwImpulseButton")
-        self.throwTeleportButton = self.camera?.childNode(withName: "throwTeleportButton")
-        self.grabButton = self.camera?.childNode(withName: "grabButton")
-        
-        self.grabButton?.isUserInteractionEnabled = false
-        self.grabButton?.isHidden = true
-        
-        if self.throwButton != nil {
-            self.throwButton.isHidden = true
-        }
-        
-        self.jumpButton.isHidden = true
-        
-        if self.throwImpulseButton != nil {
-            self.throwImpulseButton.isHidden = true
-        }
-        
-        self.addJumpButton()
-    }
-    
     override func didMove(to view: SKView) {
         self.setupPlayer()
         self.setupCounterNodes()
@@ -176,7 +122,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.playBackgroundMusic(fileName: "Level2")
     }
     
-    func gotoNextLevel<T: Level> (fileName: String, levelType: T.Type) {
+    func gotoNextLevel<T: World> (fileName: String, levelType: T.Type) {
         if let level = self.transitionToNextScreen(filename: fileName) as? T {
             level.collectedElements = self.collectedElements
             level.previousWorldPlayerPosition = self.player.position
@@ -192,10 +138,28 @@ class World: SKScene, SKPhysicsContactDelegate {
                 return
             }
             
-            if node is FlipSwitchComponent {
-                node.children.forEach({ (flipSwitchChildNode) in
-
-                })
+            if let ground = node as? Ground {
+                ground.setupPhysicsBody()
+                ground.physicsBody?.mass = 1000000000000
+                return
+            }
+            
+            switch node {
+            case is Cannon:
+                let cannon = node as! Cannon
+                if self.cannons == nil {
+                    self.cannons = [Cannon]()
+                }
+                self.cannons?.append(cannon)
+            case is Rock:
+                let rock = node as! Rock
+                rock.setupPhysicsBody()
+            case is FlipSwitch:
+                let flipSwitch = node as! FlipSwitch
+                flipSwitch.setMovablePlatformWithTimeInterval(timeInterval: 3.0)
+                flipSwitch.setupPhysicsBody()            
+            default:
+                return
             }
         }
     }
@@ -218,31 +182,17 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func createPlayer () {
         self.player = Player(imageNamed: "standing")
-        self.player.previousRunningState = .RUNNINGRIGHT
-        self.player.position = CGPoint(x: 116, y: 86.7)
-        self.player.name = "dawud"
-        self.player.xScale = 1
-        self.player.yScale = 0.90
-        self.player.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.player.size.width, height: self.player.size.height))
-        self.player.physicsBody?.usesPreciseCollisionDetection = true
-        self.player.physicsBody?.affectedByGravity = true
-        self.player.physicsBody?.restitution = 0
-        self.player.physicsBody?.mass = 1
-        self.player.physicsBody?.isDynamic = true
-        self.player.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals)
-        self.player.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.InteractableObjects)
-        self.player.physicsBody?.allowsRotation = false
-        self.player.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
+        self.player.setupPhysicsBody()
         self.listener = self.player
     }
     
     func changeMineralPhysicsBodies () {
         for node in self.children {
+            
             func addAllMinerals (mineralGroup: MineralGroup) {
                 mineralGroup.children.forEach { (mineral) in
-                    if mineral.name == "FLIP_GRAVITY" {
-                        let flipGravityMineral = FlipGravityRetrieveMineral(texture: SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue))
-                        mineral.addChild(flipGravityMineral)
+                     if let mineral = mineral as? RetrieveMineralNode {
+                        mineral.setup()
                     }
                 }
             }
@@ -250,7 +200,6 @@ class World: SKScene, SKPhysicsContactDelegate {
             if let node = node as? MineralGroup {
                 addAllMinerals(mineralGroup: node)
             }
-            
             
             if let name = node.name {
                 if name.contains("getAntiGrav") || name.contains("getImpulse") {
@@ -336,58 +285,10 @@ class World: SKScene, SKPhysicsContactDelegate {
                     
                     self.teleportCounterLabel.text = "\(count)"
                 } else if key == .FLIPGRAVITY {
-                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .FlipGravity, pos: CGPoint(x: 762, y: -127                                                    ))
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .FlipGravity, pos: CGPoint(x: 159, y: -365))
                     self.setupMineralCounterAndUseNodes(mineralType: .FlipGravity, counterMineralNodePos: CGPoint(x: -60, y: 390), count: count)
                 }
             }
-        }
-    }
-    
-    func setupMineralCounterAndUseNodes (mineralType: CounterNodes, counterMineralNodePos: CGPoint, count: Int) {
-        let mineralThrowNode = self.counterNodes["\(mineralType)\(CounterNodes.ThrowButtonNode)"]
-        let mineralCounterNode = self.counterNodes["\(mineralType)\(CounterNodes.CounterNode )"]
-        let mineralCounterLabel = self.counterNodes["\(mineralType)\(CounterNodes.Label )"] as? SKLabelNode
-        
-        mineralThrowNode?.isHidden = false
-        mineralCounterLabel?.fontSize = 50
-        mineralCounterLabel?.fontName = "HelveticaNeue-Bold"
-        mineralCounterNode?.position = counterMineralNodePos
-        mineralCounterLabel?.position = counterMineralNodePos
-        mineralCounterLabel?.position.x = counterMineralNodePos.x + 75
-        
-        if mineralCounterNode?.parent == nil {
-            self.camera?.addChild(mineralCounterNode!)
-            self.camera?.addChild(mineralCounterLabel!)
-        }
-        
-        mineralCounterLabel?.text = "\(count)"
-    }
-    
-    func addJumpButton () {
-        self.jumpButton.isHidden = false
-    }
-    
-    func addThrowButton () {
-        self.throwButton.isHidden = false
-    }
-    
-    func addThrowImpulseButton () {
-        self.throwImpulseButton.isHidden = false
-    }
-    
-    func addThrowMineralButton (type: Minerals) {
-        switch type {
-        case .ANTIGRAV:
-            self.throwButton.isHidden = false
-            break;
-        case .IMPULSE:
-            self.throwImpulseButton.isHidden = false
-            break;
-        case .TELEPORT:
-            self.throwImpulseButton.isHidden = false
-            break;
-        default:
-            break;
         }
     }
     
@@ -620,10 +521,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    func grabObject () {
-        
-    }
-    
     func didEnd(_ contact: SKPhysicsContact) {
         self.handleGrabbedObjectContactEnded(contact: contact)
         
@@ -681,9 +578,18 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         if let mineral = PhysicsHandler.playerUsedFlipGrav(contact: contact) {
-            self.physicsHandler.flipGravArea?.removeFromParent()
-            self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
-            self.addChild(self.physicsHandler.flipGravArea!)
+            // If the player has already used flip grav and the flip grav node is on the screen then simply remove it, otherwise create a flip grav area
+            if let flipGravArea = self.physicsHandler.flipGravArea {
+                flipGravArea.removeFromParent()
+                self.physicsHandler.flipGravArea = nil
+                if self.player.getIsFlipped() {
+                    self.player.flipPlayer(flipUpsideDown: false)
+                }
+            } else {
+                self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
+                self.addChild(self.physicsHandler.flipGravArea!)
+            }
+            
             mineral.removeFromParent()
         }
         
@@ -888,65 +794,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
     
-    /**
-     
-     Checks to see if the player has fallen below the last time he was on the ground
-     
-     - returns: A boolean value indicating whether the player is falling
-     
-     */
-    func playerIsFalling () -> Bool {
-        
-        if let point = self.lastPointOnGround {
-            if self.player.position.y < point.y {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
-    private func throwMineral (type: Minerals) {
-        if type == .ANTIGRAV {
-            
-        }
-    }
-    /**
-     
-     Checks to see if the player is on the ground
-     
-     - todo: Only return true if the player is standing on the ground
-     - returns: Bool If the player is on the ground or not
-     
-     */
-    private func isGrounded () -> Bool {
-        if let bodies = self.player.physicsBody?.allContactedBodies(), let groundPhysicsBody = self.ground?.physicsBody {
-            if bodies.contains(groundPhysicsBody) {
-                return true
-            }
-        }
-        
-        return false
-    }
-    
-    /**
-     
-     Adds an impulse to the character to cuase him to jump and shows him as jumping
-     
-     */
-    private func jump() {
-        self.player.physicsBody?.applyImpulse(CGVector(dx: 0, dy: self.player.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse))
-        self.player.texture = SKTexture(imageNamed: "running_step2")
-        self.player.state = .INAIR
-    }
-    
-    func rotateJumpingPlayer (rotation: Double) {
-        if self.player.previousRunningState == .RUNNINGRIGHT || self.player.previousRunningState == .STANDING {
-            self.player.zRotation = self.player.zRotation + CGFloat(Double.pi / rotation)
-        } else if self.player.previousRunningState == .RUNNINGLEFT {
-            self.player.zRotation = self.player.zRotation - CGFloat(Double.pi / rotation)
-        }
-    }
+ 
     
     func touchMoved(toPoint pos : CGPoint) {
         
@@ -1028,17 +876,6 @@ class World: SKScene, SKPhysicsContactDelegate {
                 }
             }
         }
-    }
-    
-    func handlePlayerDied () {
-        if let point = self.lastPointOnGround {
-            self.player.position = point
-        }
-        
-        self.player.zRotation = 0.0
-        self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-        self.player.runningState = .STANDING
-        self.player.state = .ONGROUND
     }
     
     func handleImpulse () {
@@ -1128,41 +965,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         
     }
     
-    func handleThrow () {
-        if self.player.action == .THROW {
-            if self.throwingMineral == .ANTIGRAV && self.player.hasAntigrav {
-                let mineralNode = SKSpriteNode(imageNamed: "Blue Crystal")
-                mineralNode.name = "mineral-gravity"
-                self.showThrowMineral(mineralNode: mineralNode)
-            } else if self.throwingMineral == .IMPULSE {
-                let mineralNode = SKSpriteNode(imageNamed: "Red Crystal")
-                mineralNode.name = "mineral-impulse"
-                self.showThrowMineral(mineralNode: mineralNode)
-            } else if self.throwingMineral == .TELEPORT {
-                let mineralNode = SKSpriteNode(imageNamed: "Blue Crystal")
-                mineralNode.name = "mineral-teleport"
-                self.showThrowMineral(mineralNode: mineralNode)
-            }
-        }
-        
-        self.player.action = .NONE
-    }
-    
-    func handlePlayerRotation (dt: TimeInterval) {
-        if self.player.state == .INAIR {
-            //self.rotateJumpingPlayer(rotation: -Double(dt * 500))
-        } else {
-//            self.player.zRotation = 0.0
-        }
-    }
-    
-    func handleJump () {
-        if self.player.state == .JUMP {
-            self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
-            self.jump()
-        }
-    }
-    
     func playMineralSound () {
         let getMineralSound = SKAction.playSoundFileNamed("mineralgrab", waitForCompletion: false)
         run(getMineralSound)
@@ -1226,10 +1028,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         
         self.resetObjectsToOriginalPosition()
         self.physicsHandler.flipGravArea?.applyFlipGravityToContactedBodies(forceOfGravity: self.physicsWorld.gravity.dy, camera: self.camera)
-    }
-    
-    func stopPlayer () {
-        self.player.physicsBody?.velocity = CGVector(dx: 0, dy: self.player.physicsBody?.velocity.dy ?? 0)
     }
     
     func resetObjectsToOriginalPosition () {
@@ -1320,20 +1118,6 @@ class World: SKScene, SKPhysicsContactDelegate {
                 addChild(self.ambiance)
             }
         }
-    }
-    
-    func setupPlayer () {
-        if self.player == nil {
-            self.createPlayer()
-        }
-        
-        self.player.xScale = 1
-        self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
-        if let start = self.childNode(withName: "start") {
-            self.player.position = start.position
-        }
-        
-        self.player.previousRunningState = .RUNNINGRIGHT
     }
     
     func getCannons () {

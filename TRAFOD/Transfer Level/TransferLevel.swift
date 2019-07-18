@@ -93,7 +93,6 @@ class TransferLevel : World {
         
         if self.sceneState == .REWIND {
             let dt = currentTime - self.lastUpdateTime
-            self.handlePlayerRotation(dt: dt)
             rewind()
             self.lastUpdateTime = currentTime
             return
@@ -135,17 +134,9 @@ class TransferLevel : World {
         }
         
         let dt = currentTime - self.lastUpdateTime
-        self.handlePlayerRotation(dt: dt)
         self.lastUpdateTime = currentTime
     }
     
-    override func handlePlayerRotation (dt: TimeInterval) {
-        if self.player.state == .INAIR && self.sceneState == .MOVIE {
-            self.rotateJumpingPlayer(rotation: -Double(dt * 1000))
-        } else {
-            super.handlePlayerRotation(dt: dt)
-        }
-    }
     
     override func touchDown(atPoint pos: CGPoint) {
         super.touchDown(atPoint: pos)

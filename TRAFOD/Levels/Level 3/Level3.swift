@@ -21,11 +21,7 @@ class Level3 : Level {
     }
     
     func setWeightSwitchDefaults () {
-        self.children.forEach { (node) in
-            if let node = node as? FlipSwitch {
-                node.setMovablePlatformWithTimeInterval(timeInterval: 3.0)
-                self.temporarySwitches?.append(node)
-            }
+        self.children.forEach { (node) in            
             if let weightSwitch = node as? WeightSwitch {
                 weightSwitch.setup();
                 if let _ = weightSwitch.childNode(withName: "weightSwitch1") {

@@ -15,6 +15,7 @@ public class GameLevels {
     public static let TransferLevel = "TransferLevel"
     public static let level3 = "Level3"
     public static let Level4 = "Level4"
+    public static let Chapters = "Chapters"
 }
 
 enum PlayerState {
@@ -40,6 +41,11 @@ enum PlayerAction {
 enum ImageNames: String {
     case BlueCrystal = "Blue Crystal"
     case RedCrystal = "Red Crystal"
+}
+
+public class MineralImageNames {
+    public static let FlipGravity:String = ImageNames.BlueCrystal.rawValue
+    public static let AntiGravity:String = ImageNames.BlueCrystal.rawValue
 }
 
 enum CounterNodes: CustomStringConvertible {

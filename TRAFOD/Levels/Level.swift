@@ -37,9 +37,9 @@ class Level : World {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
-        if PhysicsHandler.shouldSwitch(contact: contact) {
+//        if PhysicsHandler.shouldSwitch(contact: contact) {
             FlipSwitch.flipSwitch(contact: contact)
-        }
+//        }
         
         if PhysicsHandler.contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
             self.getImpulse()

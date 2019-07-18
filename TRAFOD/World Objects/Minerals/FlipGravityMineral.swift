@@ -14,16 +14,6 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
     var world:World?
     var mineralType:Minerals!
 
-    init(texture: SKTexture) {
-        super.init(texture: texture, color: .clear, size: texture.size())
-        self.physicsBody = SKPhysicsBody(rectangleOf: self.texture?.size() ?? CGSize(width: 50, height: 50))
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.allowsRotation = false
-        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
-        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player)
-        self.physicsBody?.isDynamic = true
-    }
-    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -71,21 +61,54 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
         self.world?.playMineralSound()
         self.world?.showMineralCount()
     }
+    
+    func setupPhysicsBody (size: CGSize) {
+        self.physicsBody = SKPhysicsBody(rectangleOf: size)
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.restitution = 0
+        self.physicsBody?.mass = 0
+        self.physicsBody?.isDynamic = true
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.GetMineralObject)
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player)
+        self.physicsBody?.allowsRotation = false
+    }
+    
+    func setup() {
+        self.setupPhysicsBody(size: self.size)
+    }
 }
 
 class MineralGroup : SKNode { }
 
 class FlipGravityRetrieveMineral : RetrieveMineralNode {
-    override init(texture: SKTexture) {
-        super.init(texture: texture)
-        
-        self.mineralType = .FLIPGRAVITY
-    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
     
+    override func setup () {
+        self.mineralType = .FLIPGRAVITY
+        let texture = SKTexture(imageNamed: MineralImageNames.FlipGravity)
+        let action = SKAction.setTexture(texture, resize: true)
+        self.run(action)
+        self.setupPhysicsBody(size: texture.size())
+    }
+}
+
+class AntiGravityRetrieveMineral : RetrieveMineralNode {
+
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func setup () {
+        self.mineralType = .ANTIGRAV
+        let texture = SKTexture(imageNamed: MineralImageNames.AntiGravity)
+        let action = SKAction.setTexture(texture, resize: true)
+        self.run(action)
+        self.setupPhysicsBody(size: texture.size())
+    }
 }
 
 class Mineral: SKSpriteNode {

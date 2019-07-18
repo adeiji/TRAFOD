@@ -17,25 +17,12 @@ class Loading : World {
     var loadingCrystal:SKNode!
             
     override func didMove(to view: SKView) {
-        self.showDoorParticles()
+        self.showDoorParticles()        
         self.setupPlayer()
         self.loadingCrystal = self.childNode(withName: "getAntiGrav")
         self.showMineralParticles()
         self.showFireFlies()
         self.showBackgroundParticles()
-    }
-    
-    override func setupPlayer () {
-        // If we don't set the player before hand than that means that this is a new game
-        if self.player == nil {
-            self.createPlayer()
-        }
-        
-        self.player.xScale = 1
-        self.player.position.x = (self.scene!.size.width / -2.0) + 20
-        self.player.position.y = (self.scene!.size.height / -2.0) + 20
-        self.player.anchorPoint = CGPoint(x: 0.5, y: 0)
-        self.player.runningState = .RUNNINGRIGHT        
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
