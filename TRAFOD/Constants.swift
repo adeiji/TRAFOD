@@ -18,6 +18,12 @@ public class GameLevels {
     public static let Chapters = "Chapters"
 }
 
+public class ScreenButtonPositions {
+    public static let AntiGravCounterNode = CGPoint(x: -570, y: 400)
+    public static let AntiGravCounterLabel = CGPoint(x: -500,  y: 390)
+    public static let AntiGravThrowButton = CGPoint(x: 453, y: -374)    
+}
+
 enum PlayerState {
     case INAIR
     case JUMP

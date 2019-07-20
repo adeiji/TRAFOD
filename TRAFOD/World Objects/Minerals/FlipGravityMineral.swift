@@ -201,11 +201,7 @@ class FlipGravityMineral : Mineral, SKPhysicsContactDelegate {
             throw WorldError.worldDoesNotExist
         }
         
-        let flipGravity = FlipGravity(contactPosition: contactPosition)
-        if world.player.previousRunningState == .RUNNINGLEFT {
-            flipGravity.position.x = flipGravity.position.x - flipGravity.size.width
-        }
-        
+        let flipGravity = FlipGravity(contactPosition: contactPosition)        
         flipGravity.zPosition = -5
         return flipGravity
     }

@@ -31,16 +31,12 @@ class PhysicsHandler {
                     if name.contains(string) {
                         myResult = true
                     }
-                } else {
-                    return false
                 }
                 
                 if let name = contact.bodyB.node?.name {
                     if name.contains(string) {
                         myResult = true
                     }
-                } else {
-                    return false
                 }
                 
                 if myResult == false {
@@ -118,11 +114,14 @@ class PhysicsHandler {
     }
     
     class func playerUsedFlipGrav (contact: SKPhysicsContact) -> FlipGravityMineral? {
-        if let _ =  contact.bodyA.node?.name == "ground" ? contact.bodyA.node : contact.bodyB.node {
-            if !PhysicsHandler.contactContains(strings: ["noflipgrav"], contact: contact) {
-                if let mineral = contact.bodyA.node as? FlipGravityMineral != nil ? contact.bodyA.node as? FlipGravityMineral : contact.bodyB.node as? FlipGravityMineral {
+        if nodesAreOfType(contact: contact, nodeAType: Ground.self, nodeBType: FlipGravityMineral.self) {
+            
+            if let mineral = contact.bodyA.node as? FlipGravityMineral != nil ? contact.bodyA.node as? FlipGravityMineral : contact.bodyB.node as? FlipGravityMineral {
+                if !PhysicsHandler.contactContains(strings: ["noflipgrav"], contact: contact) {
                     mineral.showMineralCrash(withColor: mineral.mineralCrashColor, contact: contact, duration: 2)                    
                     return mineral
+                } else {
+                    mineral.removeFromParent()
                 }
             }
         }

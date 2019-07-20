@@ -125,6 +125,7 @@
 		F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */; };
 		F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */; };
 		F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */; };
+		F49ADDD322E3485900388C49 /* Fire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49ADDD222E3485900388C49 /* Fire.swift */; };
 		F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4A9036420E64D0C006DCDD4 /* NoWarp.sks */; };
 		F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03CE620C94B8700F0B346 /* AppDelegate.swift */; };
 		F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CE820C94B8700F0B346 /* GameScene.sks */; };
@@ -324,6 +325,7 @@
 		F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDirectionalGravObject.swift; sourceTree = "<group>"; };
 		F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravPlatformHeavy.swift; sourceTree = "<group>"; };
 		F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSwitch.swift; sourceTree = "<group>"; };
+		F49ADDD222E3485900388C49 /* Fire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fire.swift; sourceTree = "<group>"; };
 		F4A9036420E64D0C006DCDD4 /* NoWarp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoWarp.sks; sourceTree = "<group>"; };
 		F4B03CE320C94B8700F0B346 /* TRAFOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAFOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B03CE620C94B8700F0B346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -529,6 +531,7 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F49ADDD122E3483D00388C49 /* Matter */,
 				F46115CB22E0E5340035E059 /* Protocols */,
 				F4EBE9E422D6435700EC2300 /* Minerals */,
 				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
@@ -659,6 +662,14 @@
 				F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */,
 			);
 			path = Physics;
+			sourceTree = "<group>";
+		};
+		F49ADDD122E3483D00388C49 /* Matter */ = {
+			isa = PBXGroup;
+			children = (
+				F49ADDD222E3485900388C49 /* Fire.swift */,
+			);
+			path = Matter;
 			sourceTree = "<group>";
 		};
 		F4B03CDA20C94B8700F0B346 = {
@@ -1251,6 +1262,7 @@
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,
 				F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */,
+				F49ADDD322E3485900388C49 /* Fire.swift in Sources */,
 				F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 			);

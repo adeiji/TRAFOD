@@ -229,18 +229,8 @@ class World: SKScene, SKPhysicsContactDelegate {
         for key in self.player.mineralCounts.keys {
             if let count = self.player.mineralCounts[key] {
                 if key == .ANTIGRAV {
-                    self.addThrowButton()
-                    self.antiGravCounterNode.position = CGPoint(x: -570, y: 400)
-                    self.antiGravCounterLabel.position = CGPoint(x: -500,  y: 390)
-                    self.antiGravCounterLabel.fontSize = 50
-                    self.antiGravCounterLabel.fontName = "HelveticaNeue-Bold"
-                    
-                    if self.antiGravCounterNode.parent == nil {
-                        self.camera?.addChild(self.antiGravCounterNode)
-                        self.camera?.addChild(self.antiGravCounterLabel)
-                    }
-                    
-                    self.antiGravCounterLabel.text = "\(count)"
+                    self.setupThrowButton(crystalImageName: .BlueCrystal, mineralType: .AntiGrav, pos: ScreenButtonPositions.AntiGravThrowButton)
+                    self.setupMineralCounterAndUseNodes(mineralType: .AntiGrav, counterMineralNodePos: ScreenButtonPositions.AntiGravCounterNode, count: count)
                 } else if key == .IMPULSE {
                     self.addThrowImpulseButton()
                     self.impulseCounterNode.position = CGPoint(x: -400, y: 400)
@@ -312,7 +302,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             impulseNode.physicsBody?.affectedByGravity = false
             impulseNode.physicsBody?.isDynamic = true
             impulseNode.physicsBody?.collisionBitMask = 0
-            impulseNode.physicsBody?.categoryBitMask = 0b0001
+            impulseNode.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Portals)
             
             let warpTime = SKAction.wait(forDuration: 10.0)
             let timeNode = SKLabelNode()
@@ -384,7 +374,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         teleportNode.physicsBody?.affectedByGravity = false
         teleportNode.physicsBody?.isDynamic = true
         teleportNode.physicsBody?.collisionBitMask = 0
-        teleportNode.physicsBody?.categoryBitMask = 0b0001
+        teleportNode.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Portals)
         
         self.teleportNode = teleportNode
         self.addChild(teleportNode)
@@ -476,7 +466,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             if self.player.state == .ONGROUND {
                 self.player.state = .JUMP
             }
-        } else if let throwButton = self.throwButton, self.nodes(at: pos).contains(throwButton) {
+        } else if let throwButton = self.throwButtons["\(CounterNodes.AntiGrav)"], self.nodes(at: pos).contains(throwButton) {            
             self.player.action = .THROW
             self.throwingMineral = .ANTIGRAV
         } else if let throwImpulseButton =  self.throwImpulseButton, self.nodes(at: pos).contains(throwImpulseButton) {
@@ -491,13 +481,20 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.player.position = teleportNode.position
                 self.teleportNode?.removeFromParent()
                 self.teleportNode = nil
+                self.player.flipPlayerUpright()
             } else { // Throw a Teleportation mineral
                 self.player.action = .THROW
                 self.throwingMineral = .TELEPORT
             }
         
         } else if let throwButton = self.throwButtons["\(CounterNodes.FlipGravity)"], self.nodes(at: pos).contains(throwButton) {
-            FlipGravityMineral.throwMineral(imageName: ImageNames.RedCrystal.rawValue, player: self.player, world: self)            
+            if let _ =  self.physicsHandler.flipGravArea {
+                self.physicsHandler.flipGravArea?.removeFromParent()
+                self.physicsHandler.flipGravArea = nil
+                self.player.flipPlayerUpright()
+            } else {
+                FlipGravityMineral.throwMineral(imageName: ImageNames.RedCrystal.rawValue, player: self.player, world: self)
+            }
         } else {
             if let camera = self.camera {
                 if let originalPos = self.scene?.convert(pos, to: camera) {
@@ -512,7 +509,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.handleGrabbedObjectContactEnded(contact: contact)
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: FlipGravity.self, nodeBType: Player.self) {
-            self.player.flipPlayer(flipUpsideDown: false)
+            self.player.flipPlayerUpright()
         }
     }
     
@@ -556,24 +553,22 @@ class World: SKScene, SKPhysicsContactDelegate {
         // Check to see if the playe has hit the door to go to another level
         self.handlePlayerGotoNextLevel(contact: contact)
         
+        // If the player hits fire than he dies
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Fire.self, nodeBType: Player.self) {
+            self.player.state = .DEAD
+        }
         if let mineral = PhysicsHandler.playerIsGrabbingMineral(contact: contact) {
-            self.getMineral(type: mineral.mineralType)
+            mineral.world = self
+            mineral.getMineral(type: mineral.mineralType)
             self.addToCollectedElements(node: mineral)
             return
         }
         
         if let mineral = PhysicsHandler.playerUsedFlipGrav(contact: contact) {
-            // If the player has already used flip grav and the flip grav node is on the screen then simply remove it, otherwise create a flip grav area
-            if let flipGravArea = self.physicsHandler.flipGravArea {
-                flipGravArea.removeFromParent()
-                self.physicsHandler.flipGravArea = nil
-                if self.player.getIsFlipped() {
-                    self.player.flipPlayer(flipUpsideDown: false)
-                }
-            } else {
-                self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
-                self.addChild(self.physicsHandler.flipGravArea!)
-            }
+            // If the player has already used flip grav and the flip grav node is on the screen then simply remove it, otherwise create a flip grav area            
+            self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
+            self.addChild(self.physicsHandler.flipGravArea!)
+        
             
             mineral.removeFromParent()
         }
