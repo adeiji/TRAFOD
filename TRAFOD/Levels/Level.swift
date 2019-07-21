@@ -271,6 +271,10 @@ class Level : World {
         self.handlePlayerRotation(dt: dt)
         self.lastUpdateTime = currentTime
         self.moveCamera()
+        
+        self.weightSwitches?.forEach({ (weightSwitch) in
+            weightSwitch.topOfSwitch?.applyUpwardForce()
+        })
     }
      
     // TODO: Needs to be deprecated

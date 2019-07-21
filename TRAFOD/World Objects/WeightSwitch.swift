@@ -46,3 +46,26 @@ class WeightSwitchBottom : SKSpriteNode {
     }
 }
 class WeightSwitchPlatformFinalPosition : SKNode { }
+
+
+class WeightSwitch5 : WeightSwitch {
+    override func setup() {
+        super.setup()
+        self.topOfSwitch?.verticalForce = 5
+    }
+}
+
+class WeightSwitch3000 : WeightSwitch {
+    override func setup() {
+        super.setup()
+        self.topOfSwitch?.verticalForce = 3000
+    }
+}
+
+
+class WeightSwitch10000 : WeightSwitch {
+    override func setup() {
+        super.setup()
+        self.topOfSwitch?.verticalForce = 10000
+    }
+}

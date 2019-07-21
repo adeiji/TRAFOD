@@ -113,9 +113,14 @@ class PhysicsHandler {
         return nil
     }
     
+    /**
+     Check to see if the player has used the flip grav mineral right now.  This method is only called from within the contact didBegin methods
+     
+     - Parameters:
+     - contact: SKPhysicsContact - The contact made that called the execution of the didBegin that called this method
+     */
     class func playerUsedFlipGrav (contact: SKPhysicsContact) -> FlipGravityMineral? {
         if nodesAreOfType(contact: contact, nodeAType: Ground.self, nodeBType: FlipGravityMineral.self) {
-            
             if let mineral = contact.bodyA.node as? FlipGravityMineral != nil ? contact.bodyA.node as? FlipGravityMineral : contact.bodyB.node as? FlipGravityMineral {
                 if !PhysicsHandler.contactContains(strings: ["noflipgrav"], contact: contact) {
                     mineral.showMineralCrash(withColor: mineral.mineralCrashColor, contact: contact, duration: 2)                    
@@ -127,5 +132,21 @@ class PhysicsHandler {
         }
         
         return nil
+    }
+    
+    /**
+     Check to see if the user has switched a weight switch, and if so, move it's designated platform
+     
+     - Parameters:
+     - contact: SKPhysicsContact - The contact made that called the execution of the didBegin that called this method
+     */
+    class func handlePlayerSwitchedWeightSwitch (contact: SKPhysicsContact) {
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: MultiDirectionalGravObject.self, nodeBType: WeightSwitchBottom.self) {
+            if let node = contact.bodyA.node?.parent as? WeightSwitch {
+                if node.platform?.finishedMoving == false {
+                    node.platform?.move()
+                }
+            }
+        }
     }
 }

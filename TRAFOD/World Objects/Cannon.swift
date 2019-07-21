@@ -41,3 +41,11 @@ class Cannon : SKSpriteNode {
         self.cannonBlast.run(SKAction.play())
     }
 }
+
+class Cannon5 : Cannon {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.timeToFire = 5.0
+    }
+}

@@ -9,6 +9,9 @@
 import Foundation
 import GameKit
 
+/**
+ A player cannot go through a fire object, however other items can go through just fine
+ */
 class Fire : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {    
     func setupPhysicsBody() {
         self.physicsBody?.affectedByGravity = false

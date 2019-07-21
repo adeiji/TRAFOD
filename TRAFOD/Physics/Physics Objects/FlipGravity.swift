@@ -30,9 +30,10 @@ class FlipGravity : SKSpriteNode {
     
     init(contactPosition: CGPoint) {
         super.init(texture: nil, color: .purple, size: CGSize(width: 200, height: 2000))
+        self.anchorPoint = CGPoint(x: 0.5, y: 0)
         self.position = contactPosition
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
-        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.FlipGravity) 
         self.physicsBody?.contactTestBitMask = 1
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.allowsRotation = false

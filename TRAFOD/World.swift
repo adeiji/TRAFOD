@@ -103,6 +103,12 @@ class World: SKScene, SKPhysicsContactDelegate {
         case LEVEL4 = "Level4"
     }
     
+    
+    /**
+     Stores all of the weight switches in the current world
+     */
+    var weightSwitches:[WeightSwitch]? = [WeightSwitch]()
+    
     override func sceneDidLoad() {
         self.lastUpdateTime = 0
     }
@@ -150,7 +156,11 @@ class World: SKScene, SKPhysicsContactDelegate {
             case is FlipSwitch:
                 let flipSwitch = node as! FlipSwitch
                 flipSwitch.setMovablePlatformWithTimeInterval(timeInterval: 3.0)
-                flipSwitch.setupPhysicsBody()            
+                flipSwitch.setupPhysicsBody()
+            case is WeightSwitch:
+                let weightSwitch = node as! WeightSwitch
+                weightSwitch.setup()
+                self.weightSwitches?.append(weightSwitch)
             default:
                 return
             }
@@ -550,9 +560,10 @@ class World: SKScene, SKPhysicsContactDelegate {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
+        // Check to see if the player has just switched a weight switch, if so then handle the process after that
+        PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)
         // Check to see if the playe has hit the door to go to another level
         self.handlePlayerGotoNextLevel(contact: contact)
-        
         // If the player hits fire than he dies
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Fire.self, nodeBType: Player.self) {
             self.player.state = .DEAD
