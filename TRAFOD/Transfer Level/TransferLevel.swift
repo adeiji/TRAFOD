@@ -259,7 +259,7 @@ class TransferLevel : World {
             self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact)
             self.sounds?.playSound(sound: .MINERALCRASH)            
             self.showRunning = true
-            if let node = getContactNode(string: "mineralFreeze", contact: contact) {
+            if let node = getContactNode(name: "mineralFreeze", contact: contact) {
                 node.removeFromParent()
             }
         }

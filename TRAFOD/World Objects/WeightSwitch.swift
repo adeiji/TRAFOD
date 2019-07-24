@@ -12,7 +12,9 @@ import GameKit
 class WeightSwitch : GameSwitch {
     var collisionImpulseRequired = 10
     var bottomSwitch:WeightSwitchBottom?
+    /** - TODO: In the future this will be deprecated and we'll inherit this from GameSwitch */
     var platformMoveToPos:WeightSwitchPlatformFinalPosition?
+    /** - TODO: In the future this will be deprecated and we'll inherit this from GameSwitch */
     var platform:MovablePlatform?
     var topOfSwitch:MultiDirectionalGravObject?
     

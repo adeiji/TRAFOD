@@ -53,7 +53,7 @@ class Player : SKSpriteNode {
         self.physicsBody?.restitution = 0
         self.physicsBody?.mass = 1
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals) | UInt32(PhysicsCategory.GetMineralObject) | UInt32(PhysicsCategory.Doorway) | UInt32(PhysicsCategory.Portals) | UInt32(PhysicsCategory.Fire) | UInt32(PhysicsCategory.FlipGravity)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals) | UInt32(PhysicsCategory.GetMineralObject) | UInt32(PhysicsCategory.Doorway) | UInt32(PhysicsCategory.Portals) | UInt32(PhysicsCategory.Fire) | UInt32(PhysicsCategory.FlipGravity) | UInt32(PhysicsCategory.Magnetic)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.CannonBall) | UInt32(PhysicsCategory.Rock) | UInt32(PhysicsCategory.Ground)
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)

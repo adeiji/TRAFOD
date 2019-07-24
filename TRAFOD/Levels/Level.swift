@@ -42,7 +42,7 @@ class Level : World {
         if PhysicsHandler.contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
             self.getImpulse()
             
-            if let node = getContactNode(string: "getImpulse", contact: contact) {
+            if let node = getContactNode(name: "getImpulse", contact: contact) {
                 self.addToCollectedElements(node: node)
                 node.removeFromParent()
             }
@@ -53,7 +53,7 @@ class Level : World {
         if PhysicsHandler.contactContains(strings: ["dawud", "getAntiGrav"], contactA: contactAName , contactB: contactBName) {
             self.getAntiGrav()
             
-            if let node = getContactNode(string: "getAntiGrav", contact: contact) {
+            if let node = getContactNode(name: "getAntiGrav", contact: contact) {
                 self.addToCollectedElements(node: node)
                 node.removeFromParent()
             }
@@ -64,7 +64,7 @@ class Level : World {
         if PhysicsHandler.contactContains(strings: ["dawud", "getTeleport"], contactA: contactAName , contactB: contactBName) {
             self.getMineral(type: .TELEPORT)
             
-            if let node = getContactNode(string: "getTeleport", contact: contact) {
+            if let node = getContactNode(name: "getTeleport", contact: contact) {
                 self.addToCollectedElements(node: node)
                 node.removeFromParent()
             }

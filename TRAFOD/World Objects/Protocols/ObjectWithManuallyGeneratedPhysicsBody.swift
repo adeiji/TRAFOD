@@ -7,7 +7,14 @@
 //
 
 import Foundation
+import GameKit
 
 protocol ObjectWithManuallyGeneratedPhysicsBody {
     func setupPhysicsBody ()
+}
+
+protocol PortalPortocol {
+    init(contactPosition: CGPoint, size: CGSize?, color: UIColor?, anchorPoint: CGPoint)
+    func applyForceToPhysicsBodies (forceOfGravity: CGFloat, camera: SKCameraNode?)
+    func setCategoryBitmask ()
 }

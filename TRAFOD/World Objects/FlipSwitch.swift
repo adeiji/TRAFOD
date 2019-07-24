@@ -9,31 +9,6 @@
 import Foundation
 import GameKit
 
-protocol GameSwitchProtocol {
-    var isOn:Bool { get set }
-    
-    func flipSwitchAndMovePlatform () -> Bool
-}
-
-class GameSwitch : SKSpriteNode, GameSwitchProtocol {
-    
-    var isOn:Bool = false
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    func flipSwitchAndMovePlatform() -> Bool {
-        // If this switch was just off and now is being turned on
-        if self.isOn == false {
-            self.isOn = true
-            return true; // Move the platform from it's original position
-        }
-       
-        return false
-    }
-}
-
 class FlipSwitchComponent : SKSpriteNode { }
 
 class FlipSwitch : GameSwitch {

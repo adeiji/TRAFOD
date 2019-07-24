@@ -60,6 +60,9 @@
 		F44B9BDA20EE135C00B874A1 /* switch-off.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BD820EE135C00B874A1 /* switch-off.png */; };
 		F44B9BDC20EE1A7D00B874A1 /* grasstuft.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BDB20EE1A7C00B874A1 /* grasstuft.png */; };
 		F44B9BDE20EE1E3300B874A1 /* CaveUnderground.png in Resources */ = {isa = PBXBuildFile; fileRef = F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */; };
+		F44C31F922E8C87600443335 /* GotoLevelNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44C31F822E8C87600443335 /* GotoLevelNode.swift */; };
+		F44C31FE22E8CB7E00443335 /* Level5.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44C31FD22E8CB7E00443335 /* Level5.swift */; };
+		F44C320022E8CB9000443335 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44C31FF22E8CB9000443335 /* Level5.sks */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
 		F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2220CF541800FD026E /* MainMenu.sks */; };
 		F44E1A2520CF543900FD026E /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2420CF543900FD026E /* menu.png */; };
@@ -125,8 +128,18 @@
 		F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */; };
 		F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */; };
 		F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */; };
+		F490A68222E6062400840F91 /* Mineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68122E6062400840F91 /* Mineral.swift */; };
+		F490A68422E6066800840F91 /* RetrieveMineralNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68322E6066800840F91 /* RetrieveMineralNode.swift */; };
+		F490A68622E606A600840F91 /* AntiGravRetrievalMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68522E606A600840F91 /* AntiGravRetrievalMineral.swift */; };
+		F490A68822E606F300840F91 /* FlipGravityRetrieveMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68722E606F300840F91 /* FlipGravityRetrieveMineral.swift */; };
+		F490A68A22E60F3D00840F91 /* MineralSubclasses.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68922E60F3D00840F91 /* MineralSubclasses.swift */; };
+		F490A68D22E60F8400840F91 /* RockNoFipGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68C22E60F8400840F91 /* RockNoFipGravity.swift */; };
+		F490A69022E60FD500840F91 /* GameSwitchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68F22E60FD500840F91 /* GameSwitchProtocol.swift */; };
+		F490A69222E61CF800840F91 /* GameSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A69122E61CF800840F91 /* GameSwitch.swift */; };
+		F490A69422E61E8A00840F91 /* MagneticMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A69322E61E8A00840F91 /* MagneticMineral.swift */; };
 		F49ADDD322E3485900388C49 /* Fire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49ADDD222E3485900388C49 /* Fire.swift */; };
 		F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4A9036420E64D0C006DCDD4 /* NoWarp.sks */; };
+		F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */; };
 		F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03CE620C94B8700F0B346 /* AppDelegate.swift */; };
 		F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CE820C94B8700F0B346 /* GameScene.sks */; };
 		F4B03CEB20C94B8700F0B346 /* Actions.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B03CEA20C94B8700F0B346 /* Actions.sks */; };
@@ -260,6 +273,9 @@
 		F44B9BD820EE135C00B874A1 /* switch-off.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "switch-off.png"; sourceTree = "<group>"; };
 		F44B9BDB20EE1A7C00B874A1 /* grasstuft.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grasstuft.png; sourceTree = "<group>"; };
 		F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = CaveUnderground.png; sourceTree = "<group>"; };
+		F44C31F822E8C87600443335 /* GotoLevelNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GotoLevelNode.swift; sourceTree = "<group>"; };
+		F44C31FD22E8CB7E00443335 /* Level5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level5.swift; sourceTree = "<group>"; };
+		F44C31FF22E8CB9000443335 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
 		F44E1A2220CF541800FD026E /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		F44E1A2420CF543900FD026E /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -325,8 +341,18 @@
 		F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDirectionalGravObject.swift; sourceTree = "<group>"; };
 		F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravPlatformHeavy.swift; sourceTree = "<group>"; };
 		F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSwitch.swift; sourceTree = "<group>"; };
+		F490A68122E6062400840F91 /* Mineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Mineral.swift; sourceTree = "<group>"; };
+		F490A68322E6066800840F91 /* RetrieveMineralNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RetrieveMineralNode.swift; sourceTree = "<group>"; };
+		F490A68522E606A600840F91 /* AntiGravRetrievalMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravRetrievalMineral.swift; sourceTree = "<group>"; };
+		F490A68722E606F300840F91 /* FlipGravityRetrieveMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravityRetrieveMineral.swift; sourceTree = "<group>"; };
+		F490A68922E60F3D00840F91 /* MineralSubclasses.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineralSubclasses.swift; sourceTree = "<group>"; };
+		F490A68C22E60F8400840F91 /* RockNoFipGravity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockNoFipGravity.swift; sourceTree = "<group>"; };
+		F490A68F22E60FD500840F91 /* GameSwitchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSwitchProtocol.swift; sourceTree = "<group>"; };
+		F490A69122E61CF800840F91 /* GameSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSwitch.swift; sourceTree = "<group>"; };
+		F490A69322E61E8A00840F91 /* MagneticMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticMineral.swift; sourceTree = "<group>"; };
 		F49ADDD222E3485900388C49 /* Fire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fire.swift; sourceTree = "<group>"; };
 		F4A9036420E64D0C006DCDD4 /* NoWarp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoWarp.sks; sourceTree = "<group>"; };
+		F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		F4B03CE320C94B8700F0B346 /* TRAFOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAFOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		F4B03CE620C94B8700F0B346 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		F4B03CE820C94B8700F0B346 /* GameScene.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GameScene.sks; sourceTree = "<group>"; };
@@ -485,13 +511,13 @@
 		F43FE24320E201140012D6E4 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				F44C31FC22E8CB6300443335 /* Chapters */,
+				F44C31FA22E8CB4D00443335 /* Level 5 */,
 				F4EBE9DD22D6403D00EC2300 /* Level 4 */,
 				F48F7D3022CE5785004D1A3D /* Level 3 */,
-				F4BA319520E3672800DBD823 /* Level2.swift */,
-				F43FE24420E201270012D6E4 /* Level2.sks */,
-				F44B9BD020EDFCEA00B874A1 /* Chapters.sks */,
-				F44B9BD520EDFF8000B874A1 /* Chapters.swift */,
+				F44C31FB22E8CB5700443335 /* Level 2 */,
 				F48F7D3322CE5E3A004D1A3D /* Level.swift */,
+				F44C31F822E8C87600443335 /* GotoLevelNode.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -531,6 +557,8 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F490A68E22E60FC500840F91 /* Switches */,
+				F490A68B22E60F7500840F91 /* Rock */,
 				F49ADDD122E3483D00388C49 /* Matter */,
 				F46115CB22E0E5340035E059 /* Protocols */,
 				F4EBE9E422D6435700EC2300 /* Minerals */,
@@ -549,6 +577,33 @@
 				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
 			);
 			path = "World Objects";
+			sourceTree = "<group>";
+		};
+		F44C31FA22E8CB4D00443335 /* Level 5 */ = {
+			isa = PBXGroup;
+			children = (
+				F44C31FD22E8CB7E00443335 /* Level5.swift */,
+				F44C31FF22E8CB9000443335 /* Level5.sks */,
+			);
+			path = "Level 5";
+			sourceTree = "<group>";
+		};
+		F44C31FB22E8CB5700443335 /* Level 2 */ = {
+			isa = PBXGroup;
+			children = (
+				F4BA319520E3672800DBD823 /* Level2.swift */,
+				F43FE24420E201270012D6E4 /* Level2.sks */,
+			);
+			path = "Level 2";
+			sourceTree = "<group>";
+		};
+		F44C31FC22E8CB6300443335 /* Chapters */ = {
+			isa = PBXGroup;
+			children = (
+				F44B9BD020EDFCEA00B874A1 /* Chapters.sks */,
+				F44B9BD520EDFF8000B874A1 /* Chapters.swift */,
+			);
+			path = Chapters;
 			sourceTree = "<group>";
 		};
 		F44E1A2120CF53FD00FD026E /* Menu */ = {
@@ -664,6 +719,23 @@
 			path = Physics;
 			sourceTree = "<group>";
 		};
+		F490A68B22E60F7500840F91 /* Rock */ = {
+			isa = PBXGroup;
+			children = (
+				F490A68C22E60F8400840F91 /* RockNoFipGravity.swift */,
+			);
+			path = Rock;
+			sourceTree = "<group>";
+		};
+		F490A68E22E60FC500840F91 /* Switches */ = {
+			isa = PBXGroup;
+			children = (
+				F490A68F22E60FD500840F91 /* GameSwitchProtocol.swift */,
+				F490A69122E61CF800840F91 /* GameSwitch.swift */,
+			);
+			path = Switches;
+			sourceTree = "<group>";
+		};
 		F49ADDD122E3483D00388C49 /* Matter */ = {
 			isa = PBXGroup;
 			children = (
@@ -722,6 +794,7 @@
 				F4B03CF820C94B8900F0B346 /* Info.plist */,
 				F44A9A8C20D3E25D004E389C /* World.swift */,
 				F45EDF7020D8C2710076C1C8 /* Constants.swift */,
+				F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */,
 			);
 			path = TRAFOD;
 			sourceTree = "<group>";
@@ -868,6 +941,12 @@
 			isa = PBXGroup;
 			children = (
 				F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */,
+				F490A68122E6062400840F91 /* Mineral.swift */,
+				F490A68322E6066800840F91 /* RetrieveMineralNode.swift */,
+				F490A68522E606A600840F91 /* AntiGravRetrievalMineral.swift */,
+				F490A68722E606F300840F91 /* FlipGravityRetrieveMineral.swift */,
+				F490A68922E60F3D00840F91 /* MineralSubclasses.swift */,
+				F490A69322E61E8A00840F91 /* MagneticMineral.swift */,
 			);
 			path = Minerals;
 			sourceTree = "<group>";
@@ -1076,6 +1155,7 @@
 				F438D03F20CD34E700EC2606 /* seven.mp3 in Resources */,
 				F438D04420CD34E700EC2606 /* nine.mp3 in Resources */,
 				F4B8E89C20CA4FAA00E558F8 /* running_step0.png in Resources */,
+				F44C320022E8CB9000443335 /* Level5.sks in Resources */,
 				F4C4CA1820EC9BC2005CA4D7 /* cannon-ROTATED.png in Resources */,
 				F44B9BDE20EE1E3300B874A1 /* CaveUnderground.png in Resources */,
 				F438D07520CE37DB00EC2606 /* level1background3.png in Resources */,
@@ -1223,17 +1303,22 @@
 				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
 				F4BA319620E3672900DBD823 /* Level2.swift in Sources */,
 				F48F7D3F22CF00AC004D1A3D /* FlipSwitch.swift in Sources */,
+				F490A69022E60FD500840F91 /* GameSwitchProtocol.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
 				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
 				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,
 				F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */,
+				F490A68A22E60F3D00840F91 /* MineralSubclasses.swift in Sources */,
 				F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */,
 				F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */,
 				F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */,
 				F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */,
+				F490A68822E606F300840F91 /* FlipGravityRetrieveMineral.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
+				F490A68222E6062400840F91 /* Mineral.swift in Sources */,
+				F490A68D22E60F8400840F91 /* RockNoFipGravity.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
 				F44B9BD420EDFEF700B874A1 /* Doorway.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
@@ -1242,9 +1327,11 @@
 				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
 				F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */,
 				F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */,
+				F490A68422E6066800840F91 /* RetrieveMineralNode.swift in Sources */,
 				F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */,
 				F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
+				F44C31FE22E8CB7E00443335 /* Level5.swift in Sources */,
 				F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F48F7D4122CF00D3004D1A3D /* DoubleGravField.swift in Sources */,
@@ -1259,12 +1346,17 @@
 				F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */,
 				F48F7D3D22CF0075004D1A3D /* Reset.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
+				F490A68622E606A600840F91 /* AntiGravRetrievalMineral.swift in Sources */,
+				F490A69222E61CF800840F91 /* GameSwitch.swift in Sources */,
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,
+				F44C31F922E8C87600443335 /* GotoLevelNode.swift in Sources */,
 				F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */,
 				F49ADDD322E3485900388C49 /* Fire.swift in Sources */,
 				F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
+				F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */,
+				F490A69422E61E8A00840F91 /* MagneticMineral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
