@@ -9,12 +9,13 @@
 import SpriteKit
 import GameplayKit
 
-enum Minerals: String {
+enum Minerals: String, CaseIterable {
     case ANTIGRAV = "antigrav"
     case IMPULSE = "impulse"
     case TELEPORT = "teleport"
     case USED_TELEPORT = "teleport-mineral"
     case FLIPGRAVITY = "flipgravity"
+    case MAGNETIC = "magnetic"
 }
 
 extension UIColor {

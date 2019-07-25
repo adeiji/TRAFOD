@@ -14,13 +14,7 @@ class FlipGravityMineral : Mineral, SKPhysicsContactDelegate {
     var mineralCrashColor: UIColor = .purple
     
     init() {
-        let texture = SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue)
-        super.init(texture: texture)
-    }
-    
-    class func throwMineral (player: Player, world: World) {
-        let mineralNode = FlipGravityMineral()
-        super.throwMineral(imageName: MineralImageNames.FlipGravity, player: player, world: world, mineralNode: mineralNode)
+        super.init(mineralType: .FLIPGRAVITY)
     }
     
     required init?(coder aDecoder: NSCoder) {

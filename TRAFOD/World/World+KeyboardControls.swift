@@ -13,7 +13,7 @@ extension World {
     
     override var keyCommands: [UIKeyCommand]? {
         return [
-            UIKeyCommand(input: UIKeyInputLeftArrow, modifierFlags: .command, action: "")
+            UIKeyCommand(input: UIKeyCommand.inputLeftArrow, modifierFlags: .command, action: "")
         ]
     }
     

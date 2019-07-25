@@ -258,26 +258,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         return nil
     }
     
-    func showMineralCount () {
-        for key in self.player.mineralCounts.keys {
-            if let count = self.player.mineralCounts[key] {
-                if key == .ANTIGRAV {
-                    self.setupThrowButton(crystalImageName: .BlueCrystal, mineralType: .AntiGrav, pos: ScreenButtonPositions.AntiGravThrowButton)
-                    self.setupMineralCounterAndUseNodes(mineralType: .AntiGrav, counterMineralNodePos: ScreenButtonPositions.AntiGravCounterNode, count: count)
-                } else if key == .IMPULSE {
-                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Impulse, pos: CGPoint(x: 613, y: -189))
-                    self.setupMineralCounterAndUseNodes(mineralType: .Impulse, counterMineralNodePos: CGPoint(x: -230, y: 400), count: count)
-                } else if key == .TELEPORT {
-                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Teleport, pos: CGPoint(x: 352, y: -115))
-                    self.setupMineralCounterAndUseNodes(mineralType: .Teleport, counterMineralNodePos: CGPoint(x: -370, y: 400), count: count)
-                } else if key == .FLIPGRAVITY {
-                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .FlipGravity, pos: CGPoint(x: 159, y: -365))
-                    self.setupMineralCounterAndUseNodes(mineralType: .FlipGravity, counterMineralNodePos: CGPoint(x: -60, y: 390), count: count)
-                }
-            }
-        }
-    }
-    
     /**
      - Todo: This needs to be moved to the object that handles impulse which has not been created yet
      */
@@ -490,42 +470,67 @@ class World: SKScene, SKPhysicsContactDelegate {
             if self.player.state == .ONGROUND {
                 self.player.state = .JUMP
             }
-        } else if let throwButton = self.throwButtons["\(CounterNodes.AntiGrav)"], self.nodes(at: pos).contains(throwButton) {            
-            self.player.action = .THROW
-            self.throwingMineral = .ANTIGRAV
-        } else if let throwImpulseButton =  self.throwButtons["\(CounterNodes.Impulse)"], self.nodes(at: pos).contains(throwImpulseButton) {
-            self.player.action = .THROW
-            self.throwingMineral = .IMPULSE
-        } else if let throwButton = self.throwButtons["\(CounterNodes.Teleport)"], self.nodes(at: pos).contains(throwButton) {
-            // User presses the teleport button
-            // The way that the teleport button works is that they press it once and it activates a teleportation portal at the player's current position
-            // When they press the button again, the player is automatically transported back to that position of the teleportation portal
-            if let teleportNode = self.teleportNode {
-                // Bring the player back to where they actived the teleport node
-                self.player.position = teleportNode.position
-                self.teleportNode?.removeFromParent()
-                self.teleportNode = nil
-                self.player.flipPlayerUpright()
-            } else { // Throw a Teleportation mineral
-                self.player.action = .THROW
-                self.throwingMineral = .TELEPORT
-            }
-        
-        } else if let throwButton = self.throwButtons["\(CounterNodes.FlipGravity)"], self.nodes(at: pos).contains(throwButton) {
-            if let _ =  self.physicsHandler.flipGravArea {
-                self.physicsHandler.flipGravArea?.removeFromParent()
-                self.physicsHandler.flipGravArea = nil
-                self.player.flipPlayerUpright()
-            } else {
-                FlipGravityMineral.throwMineral(player: self.player, world: self)
-            }
+            
+            return
         } else {
-            if let camera = self.camera {
-                if let originalPos = self.scene?.convert(pos, to: camera) {
-                    self.originalTouchPosition = originalPos
+            for type in Minerals.allCases {
+                switch type {
+                case .USED_TELEPORT:
+                    break;
+                case .ANTIGRAV:
+                    if let throwButton = self.throwButtons["\(CounterNodes.AntiGrav)"], self.nodes(at: pos).contains(throwButton) {
+                        self.player.action = .THROW
+                        self.throwingMineral = .ANTIGRAV
+                        return
+                    }
+                    
+                case .IMPULSE:
+                     if let throwImpulseButton =  self.throwButtons["\(CounterNodes.Impulse)"], self.nodes(at: pos).contains(throwImpulseButton) {
+                        self.player.action = .THROW
+                        self.throwingMineral = .IMPULSE
+                        return
+                    }
+                case .TELEPORT:
+                    if let throwButton = self.throwButtons["\(CounterNodes.Teleport)"], self.nodes(at: pos).contains(throwButton) {
+                        // User presses the teleport button
+                        // The way that the teleport button works is that they press it once and it activates a teleportation portal at the player's current position
+                        // When they press the button again, the player is automatically transported back to that position of the teleportation portal
+                        if let teleportNode = self.teleportNode {
+                            // Bring the player back to where they actived the teleport node
+                            self.player.position = teleportNode.position
+                            self.teleportNode?.removeFromParent()
+                            self.teleportNode = nil
+                            self.player.flipPlayerUpright()
+                        } else { // Throw a Teleportation mineral
+                            self.player.action = .THROW
+                            self.throwingMineral = .TELEPORT
+                        }
+                        return
+                    }
+                case .FLIPGRAVITY:
+                    if let throwButton = self.throwButtons["\(CounterNodes.FlipGravity)"], self.nodes(at: pos).contains(throwButton) {
+                        if let _ =  self.physicsHandler.flipGravArea {
+                            self.physicsHandler.flipGravArea?.removeFromParent()
+                            self.physicsHandler.flipGravArea = nil
+                            self.player.flipPlayerUpright()
+                        } else {
+                            FlipGravityMineral().throwMineral(player: self.player, world: self)
+                        }
+                        return
+                    }
+                case .MAGNETIC:
+                    if let throwButton = self.throwButtons["\(CounterNodes.Magnetic)"], self.nodes(at: pos).contains(throwButton) {
+                        MagneticMineral().throwMineral(player: self.player, world: self)
+                        return
+                    }
                 }
             }
-            
+        }
+        
+        if let camera = self.camera {
+            if let originalPos = self.scene?.convert(pos, to: camera) {
+                self.originalTouchPosition = originalPos
+            }
         }
     }
     
@@ -595,11 +600,9 @@ class World: SKScene, SKPhysicsContactDelegate {
             // If the player has already used flip grav and the flip grav node is on the screen then simply remove it, otherwise create a flip grav area            
             self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
             self.addChild(self.physicsHandler.flipGravArea!)
-        
-            
             mineral.removeFromParent()
         }
-        
+
         if (contactAName == "dawud") || (contactBName == "dawud") {
             if contactAName.contains("ground") || contactBName.contains("ground") {
                 
@@ -1194,6 +1197,8 @@ class World: SKScene, SKPhysicsContactDelegate {
                     self.player.mineralCounts[.TELEPORT] = mineralCount.count
                 } else if mineralCount.mineral == Minerals.FLIPGRAVITY.rawValue {
                     self.player.mineralCounts[.FLIPGRAVITY] = mineralCount.count
+                } else if mineralCount.mineral == Minerals.MAGNETIC.rawValue {
+                    self.player.mineralCounts[.MAGNETIC] = mineralCount.count
                 }
             }
         }

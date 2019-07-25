@@ -10,7 +10,6 @@ import Foundation
 import GameKit
 
 protocol MineralProtocol {
-    static func throwIt(player: Player, world: World) 
 }
 
 /**
@@ -20,44 +19,21 @@ protocol MineralProtocol {
  
  - Note: The functions that can be called within this object are the following
     ```
-    class func throwMineral (imageName: String, player: Player, world: World, mineralNode: Mineral)
+    class func throwMineral (imageName: String, player: Player, world: World, self: Mineral)
     func showMineralCrash (withColor color: UIColor, contact: SKPhysicsContact, duration: TimeInterval = 5)
     ```
  
  */
 class Mineral: SKSpriteNode {
     
-    class func throwMineral (imageName: String, player: Player, world: World, mineralNode: Mineral) {
-        mineralNode.position = player.position
-        let width = mineralNode.texture?.size().width
-        let height = mineralNode.texture?.size().height
-        
-        mineralNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width! / 2.0 , height: height! / 2.0))
-        mineralNode.physicsBody?.affectedByGravity = true
-        mineralNode.physicsBody?.categoryBitMask = 2
-        mineralNode.physicsBody?.isDynamic = true
-        mineralNode.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects)
-        mineralNode.physicsBody?.categoryBitMask = 0b0001
-        mineralNode.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects)
-        mineralNode.physicsBody?.allowsRotation = false
-        world.addChild(mineralNode)
-        
-        if player.previousRunningState == .RUNNINGRIGHT {
-            mineralNode.position.x = player.position.x + mineralNode.size.width
-            mineralNode.physicsBody?.applyImpulse(CGVector(dx: 50, dy: -30))
-        } else {
-            mineralNode.position.x = player.position.x - mineralNode.size.width
-            mineralNode.physicsBody?.applyImpulse(CGVector(dx: -50, dy: -30))
-        }
-        
-    }
+    var type:Minerals = .ANTIGRAV
     
-    init(texture: SKTexture) {
-        let width = texture.size().width * 0.5
-        let height = texture.size().height * 0.5
-        super.init(texture: texture , color: .clear, size:CGSize(width: width, height: height))
+    func throwMineral (player: Player, world: World) {
+        self.position = player.position
+        let width = self.texture?.size().width
+        let height = self.texture?.size().height
         
-        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width, height: height))
+        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width! / 2.0 , height: height! / 2.0))
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.categoryBitMask = 2
         self.physicsBody?.isDynamic = true
@@ -65,6 +41,39 @@ class Mineral: SKSpriteNode {
         self.physicsBody?.categoryBitMask = 0b0001
         self.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects)
         self.physicsBody?.allowsRotation = false
+        world.addChild(self)
+        
+        if player.previousRunningState == .RUNNINGRIGHT {
+            self.position.x = player.position.x + self.size.width
+            self.physicsBody?.applyImpulse(CGVector(dx: 50, dy: -30))
+        } else {
+            self.position.x = player.position.x - self.size.width
+            self.physicsBody?.applyImpulse(CGVector(dx: -50, dy: -30))
+        }
+        
+    }
+    
+    init(mineralType: Minerals) {
+        var texture:SKTexture?
+        
+        switch mineralType {
+        case .ANTIGRAV:
+            texture = SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue)
+        case .IMPULSE:
+            texture = SKTexture(imageNamed: ImageNames.RedCrystal.rawValue)
+        case .TELEPORT:
+            texture = SKTexture(imageNamed: ImageNames.RedCrystal.rawValue)
+        case .USED_TELEPORT:
+            break
+        case .FLIPGRAVITY:
+            texture = SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue)
+        case .MAGNETIC:
+            texture = SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue)
+        }
+        
+        let width = texture!.size().width * 0.5
+        let height = texture!.size().height * 0.5
+        super.init(texture: texture , color: .clear, size:CGSize(width: width, height: height))
     }
     
     required init?(coder aDecoder: NSCoder) {

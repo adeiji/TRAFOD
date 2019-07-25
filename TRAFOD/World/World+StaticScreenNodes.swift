@@ -11,21 +11,58 @@ import GameKit
 
 extension World {
     func setupCounterNodes () {
-        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.AntiGrav)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
-        
-        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.BlueCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Impulse)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
-        
-        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.Teleport)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
-        
-        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: ImageNames.RedCrystal.rawValue)
-        self.counterNodes["\(CounterNodes.FlipGravity)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
+        for type in CounterNodes.allCases {
+            switch type {
+            case .AntiGrav:
+                self.addCounterNodeToCounterNodes(counterNode: .AntiGrav, imageName: .BlueCrystal)
+            case .Impulse:
+                self.addCounterNodeToCounterNodes(counterNode: .Impulse, imageName: .RedCrystal)
+            case .Teleport:
+                self.addCounterNodeToCounterNodes(counterNode: .Teleport, imageName: .RedCrystal)
+            case .FlipGravity:
+                self.addCounterNodeToCounterNodes(counterNode: .FlipGravity, imageName: .BlueCrystal)
+            case .Magnetic:
+                self.addCounterNodeToCounterNodes(counterNode: .Magnetic, imageName: .BlueCrystal)
+            case .CounterNode:
+                break;
+            case .Label:
+                break;
+            case .ThrowButtonNode:
+                break;
+            }
+        }
+    }
+    
+    func addCounterNodeToCounterNodes (counterNode: CounterNodes, imageName: ImageNames) {
+        self.counterNodes["\(counterNode)\(CounterNodes.CounterNode)"] = SKSpriteNode(imageNamed: imageName.rawValue)
+        self.counterNodes["\(counterNode)\(CounterNodes.ThrowButtonNode)"] = SKSpriteNode(imageNamed: imageName.rawValue)
+        self.counterNodes["\(counterNode)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
+    }
+    
+    func showMineralCount () {
+        for type in Minerals.allCases {
+            if let count = self.player.mineralCounts[type] {
+                switch type {
+                case .ANTIGRAV:
+                    self.setupThrowButton(crystalImageName: .BlueCrystal, mineralType: .AntiGrav, pos: ScreenButtonPositions.AntiGravThrowButton)
+                    self.setupMineralCounterAndUseNodes(mineralType: .AntiGrav, counterMineralNodePos: ScreenButtonPositions.AntiGravCounterNode, count: count)
+                case .IMPULSE:
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Impulse, pos: CGPoint(x: 613, y: -189))
+                    self.setupMineralCounterAndUseNodes(mineralType: .Impulse, counterMineralNodePos: CGPoint(x: -470, y: 400), count: count)
+                case .TELEPORT:
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Teleport, pos: CGPoint(x: 352, y: -115))
+                    self.setupMineralCounterAndUseNodes(mineralType: .Teleport, counterMineralNodePos: CGPoint(x: -670, y: 400), count: count)
+                case .USED_TELEPORT:
+                    break
+                case .FLIPGRAVITY:
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .FlipGravity, pos: CGPoint(x: 160, y: -365))
+                    self.setupMineralCounterAndUseNodes(mineralType: .FlipGravity, counterMineralNodePos: CGPoint(x: -270, y: 400), count: count)
+                case .MAGNETIC:
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Magnetic, pos: CGPoint(x: -100, y: -365))
+                    self.setupMineralCounterAndUseNodes(mineralType: .Magnetic, counterMineralNodePos: CGPoint(x: -70, y: 400), count: count)
+                }
+            }
+        }
     }
     
     func setupThrowButton (crystalImageName: ImageNames, mineralType: CounterNodes, pos: CGPoint) {
@@ -88,21 +125,5 @@ extension World {
     
     func addThrowImpulseButton () {
         self.throwImpulseButton?.isHidden = false
-    }
-    
-    func addThrowMineralButton (type: Minerals) {
-        switch type {
-        case .ANTIGRAV:
-            self.throwButton?.isHidden = false
-            break;
-        case .IMPULSE:
-            self.throwImpulseButton?.isHidden = false
-            break;
-        case .TELEPORT:
-            self.throwImpulseButton?.isHidden = false
-            break;
-        default:
-            break;
-        }
     }
 }

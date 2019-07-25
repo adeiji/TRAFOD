@@ -12,16 +12,11 @@ import GameKit
 class MagneticMineral : Mineral, MineralProtocol {
     
     init() {
-        let texture = SKTexture(imageNamed: MineralImageNames.Magnetic)
-        super.init(texture: texture)
+        super.init(mineralType: .MAGNETIC)
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-    }
-    
-    class func throwIt(player: Player, world: World) {
-        super.throwMineral(imageName: MineralImageNames.Magnetic , player: player, world: world, mineralNode: MagneticMineral() )
     }
 }
 

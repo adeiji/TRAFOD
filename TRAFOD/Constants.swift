@@ -21,8 +21,8 @@ public class GameLevels {
 }
 
 public class ScreenButtonPositions {
-    public static let AntiGravCounterNode = CGPoint(x: -570, y: 400)
-    public static let AntiGravCounterLabel = CGPoint(x: -500,  y: 390)
+    public static let AntiGravCounterNode = CGPoint(x: -870, y: 400)
+    public static let AntiGravCounterLabel = CGPoint(x: -800,  y: 390)
     public static let AntiGravThrowButton = CGPoint(x: 453, y: -374)    
 }
 
@@ -80,7 +80,7 @@ public class MineralImageNames {
 }
 
 /// The nodes that are used to display the number of minerals that the player currently has
-enum CounterNodes: CustomStringConvertible {
+enum CounterNodes: CaseIterable, CustomStringConvertible {
     case CounterNode
     case Label
     case ThrowButtonNode
@@ -88,6 +88,7 @@ enum CounterNodes: CustomStringConvertible {
     case Impulse
     case Teleport
     case FlipGravity
+    case Magnetic
     
     var description: String {
         switch self {
@@ -98,6 +99,7 @@ enum CounterNodes: CustomStringConvertible {
         case .Impulse: return "Impulse"
         case .Teleport: return "Teleport"
         case .FlipGravity: return "FlipGravity"
+        case .Magnetic: return "Magnetic"
         }
     }
 }
