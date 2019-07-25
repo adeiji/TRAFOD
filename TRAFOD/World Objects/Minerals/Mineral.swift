@@ -27,6 +27,7 @@ protocol MineralProtocol {
 class Mineral: SKSpriteNode {
     
     var type:Minerals = .ANTIGRAV
+    var mineralCrashColor: UIColor = .purple
     
     func throwMineral (player: Player, world: World) {
         self.position = player.position
@@ -55,6 +56,7 @@ class Mineral: SKSpriteNode {
     
     init(mineralType: Minerals) {
         var texture:SKTexture?
+        self.type = mineralType
         
         switch mineralType {
         case .ANTIGRAV:

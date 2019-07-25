@@ -137,6 +137,7 @@
 		F490A69022E60FD500840F91 /* GameSwitchProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A68F22E60FD500840F91 /* GameSwitchProtocol.swift */; };
 		F490A69222E61CF800840F91 /* GameSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A69122E61CF800840F91 /* GameSwitch.swift */; };
 		F490A69422E61E8A00840F91 /* MagneticMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A69322E61E8A00840F91 /* MagneticMineral.swift */; };
+		F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49326F522E98F8B007B9B16 /* UseMinerals.swift */; };
 		F49ADDD322E3485900388C49 /* Fire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49ADDD222E3485900388C49 /* Fire.swift */; };
 		F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4A9036420E64D0C006DCDD4 /* NoWarp.sks */; };
 		F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */; };
@@ -350,6 +351,7 @@
 		F490A68F22E60FD500840F91 /* GameSwitchProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSwitchProtocol.swift; sourceTree = "<group>"; };
 		F490A69122E61CF800840F91 /* GameSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameSwitch.swift; sourceTree = "<group>"; };
 		F490A69322E61E8A00840F91 /* MagneticMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticMineral.swift; sourceTree = "<group>"; };
+		F49326F522E98F8B007B9B16 /* UseMinerals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseMinerals.swift; sourceTree = "<group>"; };
 		F49ADDD222E3485900388C49 /* Fire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fire.swift; sourceTree = "<group>"; };
 		F4A9036420E64D0C006DCDD4 /* NoWarp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoWarp.sks; sourceTree = "<group>"; };
 		F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
@@ -687,6 +689,7 @@
 			isa = PBXGroup;
 			children = (
 				F46115CC22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift */,
+				F49326F522E98F8B007B9B16 /* UseMinerals.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1306,6 +1309,7 @@
 				F490A69022E60FD500840F91 /* GameSwitchProtocol.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
+				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
 				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
 				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,

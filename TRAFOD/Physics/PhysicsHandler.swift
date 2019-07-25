@@ -19,7 +19,7 @@ class PhysicsHandler {
     /**
      This is the Flip Gravity node, when an object makes contact with this node than flip grav is activated
      */
-    var flipGravArea:FlipGravity?
+    var physicsAlteringAreas:[Minerals: PhysicsAlteringObject] = [Minerals: PhysicsAlteringObject]()
     
     class func contactContains (strings: [String], contactA: String = "", contactB: String = "", contact: SKPhysicsContact? = nil) -> Bool {
         var result = true
@@ -128,6 +128,23 @@ class PhysicsHandler {
                 } else {
                     mineral.removeFromParent()
                 }
+            }
+        }
+        
+        return nil
+    }
+    
+    /**
+     Checks to see if a thrown mineral has made contact with Ground.  If it has, then we show the mineral crash on the ground
+     
+     - Parameters:
+     - contact: SKPhysicsContact - The contact made that called the execution of the didBegin that called this method
+     */
+    class func playerUsedMineral (contact: SKPhysicsContact) -> Mineral? {
+        if nodesAreOfType(contact: contact, nodeAType: Ground.self, nodeBType: Mineral.self) {
+            if let mineral = contact.bodyA.node as? Mineral != nil ? contact.bodyA.node as? Mineral : contact.bodyB.node as? Mineral {
+                mineral.showMineralCrash(withColor: mineral.mineralCrashColor, contact: contact, duration: 2)
+                return mineral
             }
         }
         

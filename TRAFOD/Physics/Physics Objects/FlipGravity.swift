@@ -9,7 +9,11 @@
 import Foundation
 import GameKit
 
-class PhysicsAlteringObject : SKSpriteNode {
+class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
+    
+    func applyForceToPhysicsBodies(forceOfGravity: CGFloat, camera: SKCameraNode?) {}
+    
+    func setCategoryBitmask() {}
     
     required init(contactPosition: CGPoint, size: CGSize?, color: UIColor?, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0)) {
         super.init(texture: nil, color: color ?? .purple, size: size ?? CGSize(width: 500, height: 500)    )
@@ -34,7 +38,7 @@ class PhysicsAlteringObject : SKSpriteNode {
  FlipGravity does not affect the gravity of the entire world, but only to objects in contact with it, and the FlipGravity node does not have a width of the full screen
  but instead it's a fixed width of x
  */
-class FlipGravity : PhysicsAlteringObject, PortalPortocol {
+class FlipGravity : PhysicsAlteringObject {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -45,7 +49,7 @@ class FlipGravity : PhysicsAlteringObject, PortalPortocol {
         self.setCategoryBitmask()
     }
     
-    internal func setCategoryBitmask() {
+    internal override func setCategoryBitmask() {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.FlipGravity)
     }
     
@@ -56,7 +60,7 @@ class FlipGravity : PhysicsAlteringObject, PortalPortocol {
         - forceOfGravity: CGFloat The current force applied to all objects within the physics world
         - camera: The camera node that is currently showing on the screen.  We need this to check if the physics body that is in contact with this node is actually on the screen
      */
-    func applyForceToPhysicsBodies (forceOfGravity: CGFloat, camera: SKCameraNode?) {
+    override func applyForceToPhysicsBodies (forceOfGravity: CGFloat, camera: SKCameraNode?) {
         self.physicsBody?.allContactedBodies().forEach({ (body) in
             if let camera = camera?.parent {
                 if let node = body.node {

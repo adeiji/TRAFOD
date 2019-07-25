@@ -71,6 +71,7 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.GetMineralObject)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player)
+        self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.allowsRotation = false
     }
     

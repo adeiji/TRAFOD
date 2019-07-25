@@ -124,6 +124,8 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.showParticles()
         self.changeMineralPhysicsBodies()
         self.playBackgroundMusic(fileName: "Level2")
+        
+        view.showsFields = true
     }
     
     
@@ -509,9 +511,9 @@ class World: SKScene, SKPhysicsContactDelegate {
                     }
                 case .FLIPGRAVITY:
                     if let throwButton = self.throwButtons["\(CounterNodes.FlipGravity)"], self.nodes(at: pos).contains(throwButton) {
-                        if let _ =  self.physicsHandler.flipGravArea {
-                            self.physicsHandler.flipGravArea?.removeFromParent()
-                            self.physicsHandler.flipGravArea = nil
+                        if let flipGravArea =  self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] {
+                            flipGravArea.removeFromParent()
+                            self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] = nil
                             self.player.flipPlayerUpright()
                         } else {
                             FlipGravityMineral().throwMineral(player: self.player, world: self)
@@ -520,7 +522,13 @@ class World: SKScene, SKPhysicsContactDelegate {
                     }
                 case .MAGNETIC:
                     if let throwButton = self.throwButtons["\(CounterNodes.Magnetic)"], self.nodes(at: pos).contains(throwButton) {
-                        MagneticMineral().throwMineral(player: self.player, world: self)
+                        if let magneticArea = self.physicsHandler.physicsAlteringAreas[.MAGNETIC] {
+                            magneticArea.removeFromParent()
+                            self.physicsHandler.physicsAlteringAreas[.MAGNETIC] = nil
+                        } else {
+                            MagneticMineral().throwMineral(player: self.player, world: self)
+                        }
+                        
                         return
                     }
                 }
@@ -596,11 +604,13 @@ class World: SKScene, SKPhysicsContactDelegate {
             return
         }
         
-        if let mineral = PhysicsHandler.playerUsedFlipGrav(contact: contact) {
-            // If the player has already used flip grav and the flip grav node is on the screen then simply remove it, otherwise create a flip grav area            
-            self.physicsHandler.flipGravArea = try? mineral.mineralUsed(contactPosition: contact.contactPoint)
-            self.addChild(self.physicsHandler.flipGravArea!)
-            mineral.removeFromParent()
+        if let mineral = PhysicsHandler.playerUsedMineral(contact: contact) {
+            if let useMineral = mineral as? UseMinerals {
+                let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint)
+                self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
+                self.addChild(physicsAlteringArea)
+                mineral.removeFromParent()
+            }    
         }
 
         if (contactAName == "dawud") || (contactBName == "dawud") {
@@ -1062,7 +1072,12 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.resetObjectsToOriginalPosition()
-        self.physicsHandler.flipGravArea?.applyForceToPhysicsBodies(forceOfGravity: self.physicsWorld.gravity.dy, camera: self.camera)
+        
+        for key in self.physicsHandler.physicsAlteringAreas.keys {
+            if let physicsAlteringArea = self.physicsHandler.physicsAlteringAreas[key] {
+                physicsAlteringArea.applyForceToPhysicsBodies(forceOfGravity:  self.physicsWorld.gravity.dy, camera: self.camera)
+            }
+        }
     }
     
     // This needs to be moved to it's own object
