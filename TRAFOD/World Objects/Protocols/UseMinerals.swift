@@ -9,8 +9,7 @@
 import Foundation
 import GameKit
 
+/// This is the protocol for minerals that can be thrown and upon collision create physics bodies
 protocol UseMinerals {
-
-    func mineralUsed(contactPosition: CGPoint) -> PhysicsAlteringObject
-
+    func mineralUsed(contactPosition: CGPoint, world:World) throws -> PhysicsAlteringObject?
 }

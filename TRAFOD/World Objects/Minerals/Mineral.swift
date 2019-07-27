@@ -38,18 +38,19 @@ class Mineral: SKSpriteNode {
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.categoryBitMask = 2
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects)
-        self.physicsBody?.categoryBitMask = 0b0001
-        self.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.FlipGravity)
+        self.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.Ground)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Minerals)
         self.physicsBody?.allowsRotation = false
+        
         world.addChild(self)
         
         if player.previousRunningState == .RUNNINGRIGHT {
             self.position.x = player.position.x + self.size.width
-            self.physicsBody?.applyImpulse(CGVector(dx: 50, dy: -30))
+            self.physicsBody?.applyImpulse(CGVector(dx: 10, dy: -30))
         } else {
             self.position.x = player.position.x - self.size.width
-            self.physicsBody?.applyImpulse(CGVector(dx: -50, dy: -30))
+            self.physicsBody?.applyImpulse(CGVector(dx: -10, dy: -30))
         }
         
     }

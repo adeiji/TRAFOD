@@ -26,6 +26,8 @@ struct PhysicsCategory {
     static let Fire:Int32 = 0x1 << 17
     static let FlipGravity:Int32 = 0x1 << 18
     static let Magnetic:Int32 = 0x1 << 19
+    static let NegateForceField:Int32 = 0x1 << 20
+    static let Impulse:Int32 = 0x1 << 21
     static let WeightSwitch:Int32 = 0x1 << 32
     
     

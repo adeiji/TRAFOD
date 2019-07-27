@@ -47,10 +47,10 @@ extension World {
                     self.setupThrowButton(crystalImageName: .BlueCrystal, mineralType: .AntiGrav, pos: ScreenButtonPositions.AntiGravThrowButton)
                     self.setupMineralCounterAndUseNodes(mineralType: .AntiGrav, counterMineralNodePos: ScreenButtonPositions.AntiGravCounterNode, count: count)
                 case .IMPULSE:
-                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Impulse, pos: CGPoint(x: 613, y: -189))
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Impulse, pos: CGPoint(x: 613, y: -139))
                     self.setupMineralCounterAndUseNodes(mineralType: .Impulse, counterMineralNodePos: CGPoint(x: -470, y: 400), count: count)
                 case .TELEPORT:
-                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Teleport, pos: CGPoint(x: 352, y: -115))
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Teleport, pos: CGPoint(x: 332, y: -115))
                     self.setupMineralCounterAndUseNodes(mineralType: .Teleport, counterMineralNodePos: CGPoint(x: -670, y: 400), count: count)
                 case .USED_TELEPORT:
                     break
@@ -58,7 +58,7 @@ extension World {
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .FlipGravity, pos: CGPoint(x: 160, y: -365))
                     self.setupMineralCounterAndUseNodes(mineralType: .FlipGravity, counterMineralNodePos: CGPoint(x: -270, y: 400), count: count)
                 case .MAGNETIC:
-                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Magnetic, pos: CGPoint(x: -100, y: -365))
+                    self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Magnetic, pos: CGPoint(x: -120, y: -365))
                     self.setupMineralCounterAndUseNodes(mineralType: .Magnetic, counterMineralNodePos: CGPoint(x: -70, y: 400), count: count)
                 }
             }
@@ -81,17 +81,20 @@ extension World {
     
     func setupButtonsOnScreen () {
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
-        self.throwButton = self.camera?.childNode(withName: "throwButton")
-        self.throwImpulseButton = self.camera?.childNode(withName: "throwImpulseButton")
-        self.throwTeleportButton = self.camera?.childNode(withName: "throwTeleportButton")
         self.grabButton = self.camera?.childNode(withName: "grabButton")
         
+        let zoomButton = SKSpriteNode(texture: SKTexture(imageNamed: "throwbutton"))
+        zoomButton.position = CGPoint(x: 761, y: 320)
+        zoomButton.name = "zoomOut"
+        self.camera?.addChild(zoomButton)
+        
+        let grabButton = SKSpriteNode(texture: SKTexture(imageNamed: "throwbutton"))
+        grabButton.position = CGPoint(x: 792, y: -139)
+        grabButton.name = "grabButton"
+        self.camera?.addChild(grabButton)
+        self.grabButton = grabButton
         self.grabButton?.isUserInteractionEnabled = false
         self.grabButton?.isHidden = true
-        self.throwButton?.isHidden = true
-        self.throwImpulseButton?.isHidden = true
-        
-        
         self.addJumpButton()
     }
     
@@ -117,13 +120,5 @@ extension World {
     
     func addJumpButton () {
         self.jumpButton?.isHidden = false
-    }
-    
-    func addThrowButton () {
-        self.throwButton?.isHidden = false
-    }
-    
-    func addThrowImpulseButton () {
-        self.throwImpulseButton?.isHidden = false
-    }
+    }        
 }

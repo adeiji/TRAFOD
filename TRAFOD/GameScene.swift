@@ -25,10 +25,17 @@ extension UIColor {
     }
 }
 
-class Ground : SKSpriteNode {
+protocol GroundProtocol {    
+    var isImmovableGround:Bool { get set }
+}
+
+class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsBody {
+    
+    var isImmovableGround = false
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        self.isImmovableGround = true
     }
     
     func setupPhysicsBody () {
@@ -36,9 +43,13 @@ class Ground : SKSpriteNode {
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.restitution  = 0
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Ground) 
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Player)
-        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.Player) 
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
+        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
         self.physicsBody?.usesPreciseCollisionDetection = true
+        
+        if self.isImmovableGround {
+            self.physicsBody?.mass = 1000000000000
+        }
     }
 }
 

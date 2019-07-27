@@ -41,8 +41,6 @@ class TransferLevel : World {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.showDoorParticles()
-        self.addThrowButton()
-        self.addThrowImpulseButton()
         
         self.showBackgroundParticles()
         self.showFireFlies()
@@ -124,8 +122,6 @@ class TransferLevel : World {
             self.player.state = .INAIR
             self.showRunning(currentTime: currentTime)
             self.jumpButton?.removeFromParent()
-            self.throwButton?.removeFromParent()
-            self.throwImpulseButton?.removeFromParent()
 
             if self.shouldShowNextLevelAction == true {
                 self.showNextLevelAction()
@@ -256,7 +252,6 @@ class TransferLevel : World {
         }
         
         if PhysicsHandler.contactContains(strings: ["ground", "mineralFreeze"], contactA: aName, contactB: bName) {
-            self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact)
             self.sounds?.playSound(sound: .MINERALCRASH)            
             self.showRunning = true
             if let node = getContactNode(name: "mineralFreeze", contact: contact) {

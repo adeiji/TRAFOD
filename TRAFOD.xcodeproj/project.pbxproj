@@ -195,6 +195,8 @@
 		F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4EBE9E222D6407E00EC2300 /* Level4.sks */; };
 		F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */; };
 		F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */; };
+		F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */; };
+		F4F5D90E22EB2C1E00CFB2A6 /* NegateFlipGravField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -415,6 +417,8 @@
 		F4EBE9E222D6407E00EC2300 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravityMineral.swift; sourceTree = "<group>"; };
 		F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldErrors.swift; sourceTree = "<group>"; };
+		F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffectedByNegationField.swift; sourceTree = "<group>"; };
+		F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegateFlipGravField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -577,6 +581,7 @@
 				F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */,
 				F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */,
 				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
+				F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */,
 			);
 			path = "World Objects";
 			sourceTree = "<group>";
@@ -688,6 +693,7 @@
 		F46115CB22E0E5340035E059 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */,
 				F46115CC22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift */,
 				F49326F522E98F8B007B9B16 /* UseMinerals.swift */,
 			);
@@ -1312,6 +1318,7 @@
 				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
 				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
 				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
+				F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,
 				F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */,
 				F490A68A22E60F3D00840F91 /* MineralSubclasses.swift in Sources */,
@@ -1360,6 +1367,7 @@
 				F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 				F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */,
+				F4F5D90E22EB2C1E00CFB2A6 /* NegateFlipGravField.swift in Sources */,
 				F490A69422E61E8A00840F91 /* MagneticMineral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

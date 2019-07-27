@@ -9,7 +9,7 @@
 import Foundation
 import GameKit
 
-class Player : SKSpriteNode {
+class Player : SKSpriteNode, AffectedByNegationField {
     
     public var hasAntigrav = false
     public var hasImpulse = false
@@ -24,6 +24,7 @@ class Player : SKSpriteNode {
     public var previousRunningState:PlayerRunningState = .STANDING
     public var action:PlayerAction = .NONE
     private var isFlipped = false
+    public var negatedForces:[Minerals:Bool] = [Minerals:Bool]()
     
     func getIsFlipped () -> Bool {
         return isFlipped
@@ -53,7 +54,7 @@ class Player : SKSpriteNode {
         self.physicsBody?.restitution = 0
         self.physicsBody?.mass = 1
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals) | UInt32(PhysicsCategory.GetMineralObject) | UInt32(PhysicsCategory.Doorway) | UInt32(PhysicsCategory.Portals) | UInt32(PhysicsCategory.Fire) | UInt32(PhysicsCategory.FlipGravity) | UInt32(PhysicsCategory.Magnetic)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals) | UInt32(PhysicsCategory.GetMineralObject) | UInt32(PhysicsCategory.Doorway) | UInt32(PhysicsCategory.Portals) | UInt32(PhysicsCategory.Fire) | UInt32(PhysicsCategory.FlipGravity) | UInt32(PhysicsCategory.NegateForceField) | UInt32(PhysicsCategory.Impulse)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.CannonBall) | UInt32(PhysicsCategory.Rock) | UInt32(PhysicsCategory.Ground)
         self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Magnetic)
         self.physicsBody?.allowsRotation = false

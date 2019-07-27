@@ -9,76 +9,94 @@
 import GameKit
 import SpriteKit
 
+extension SKSpriteNode {
+    
+    open override var physicsBody: SKPhysicsBody? {
+        didSet {
+            self.physicsBody?.fieldBitMask = UInt32(Int32(PhysicsCategory.Nothing))
+        }
+    }
+}
+
+protocol BaseWorldObject {
+    
+    var allowExternalForces:Bool { get set }
+    
+}
+
 class World: SKScene, SKPhysicsContactDelegate {
     
     var previousWorldCameraPosition:CGPoint!
     var previousWorldPlayerPosition:CGPoint!
     
     // Cannons
-    // The cannon objects that are in various level
+    /// All the cannon objects in the world
     var cannons:[Cannon]?
     var cannonTimes:[TimeInterval] = [ 3.0, 8.0, 3.0, 5.0, 7.0 ]
     
+    /**
+     The most important object in the game.  This is the Dawud player within everywhere world and level
+     */
     var player:Player! {
         didSet {
             self.addChild(self.player)
         }
     }
+    
+    /**
+     When the player leaves the ground, this point is stored containing the point of his last contact with the ground
+     - Bug: Right now there is an issue with sometimes the last point is on the side of a mountain or the edge of a cliff.  This needs to be fixed
+     */
     var lastPointOnGround:CGPoint?
+    
     var entities = [GKEntity]()
     
-    private let antiGravCounterThrowNode = SKSpriteNode(imageNamed: "Blue Crystal")
-    private let antiGravCounterNode = SKSpriteNode(imageNamed: "Blue Crystal")
-    private let antiGravCounterLabel = SKLabelNode(text: "0")
-    
-    private let impulseCounterThrowNode = SKSpriteNode(imageNamed: "Red Crystal")
-    private let impulseCounterNode = SKSpriteNode(imageNamed: "Red Crystal")
-    private let impulseCounterLabel = SKLabelNode(text: "0")
-    
-    private let teleportCounterThrowNode = SKSpriteNode(imageNamed: "Blue Crystal")
-    private let teleportCounterNode = SKSpriteNode(imageNamed: "Blue Crystal")
-    private let teleportCounterLabel = SKLabelNode(text: "0")
-    
+    /// These nodes are the nodes that handle the displaying of the number of minerals that the user currently has.  Look at the World+StaticScreenNodes to see the implementation
     var counterNodes = [String:SKNode]()
     
+    /**
+     
+     When messages are displayed to the player, a message box is used
+     
+     - Todo: Stop using the message box and start to use another means of displaying messages to the user
+     */
     var messageBox:SKSpriteNode!
+    
     var jumpButton:SKNode?
     var throwButton:SKNode?
-    var throwImpulseButton:SKNode?
-    var throwTeleportButton:SKNode?
     
+    /// All the buttons that are used to throw a mineral.  These buttons are generated at runtime programatically.
     var throwButtons:[String:SKNode] = [String:SKNode]()
     
+    ///The button uused to grab grabble objects
     var grabButton:SKNode?
     
+    /// The forces that are currently being applied within the world
     var forces:[Minerals] = [Minerals]()
+    /// The impulses that are currently being applied within the world.  There can only be a maximum of three at one time
     var impulses:[Minerals] = [Minerals]()
-    
+    /// THe amount of time left that antiGrav will be applied to the world
     var gravityTimeLeft:Int = 0
     let antiGravViewKey = "antiGravView"
     
+    // The original position where the user touched the screen
     private var originalTouchPosition:CGPoint?    
     var throwingMineral:Minerals!
-    var ground:SKShapeNode?
+    var lastGroundObjectPlayerStoodOn:SKShapeNode?
     
+    /// This property is used to get the length of time the player has been running for, and we use this to show the proper running image
     private var runTime:TimeInterval = TimeInterval()
     private var stepCounter = 0
-        
-    var cameraYPosition:CGFloat = 0
     
     var backgroundMusic:SKAudioNode!
     var ambiance:SKAudioNode!
     
     private let abyssKey = "abyss"
     
-    private let playerNodeType:UInt32 = 2
-    private let portalNodeType:UInt32 = 5
-    
     var rain:SKEmitterNode!
     var lastUpdateTime : TimeInterval = 0
     var gravityTimeLeftLabel:SKLabelNode!
     
-    var isFalling = false
     var rewindPoints = [CGPoint]()
     var rewindPointCounter = 0
     
@@ -87,8 +105,9 @@ class World: SKScene, SKPhysicsContactDelegate {
     var currentLevel:Levels?
     
     var impulseObjects:[SKNode] = [SKNode]()
+    
     /**
-     - todo: Make sure that this is not a Rock object but instead use a protocol for all objects that can be reset when hitting another object
+     - Todo: Make sure that this is not a Rock object but instead use a protocol for all objects that can be reset when hitting another object
      */
     var objectsToReset:[SKSpriteNode] = [SKSpriteNode]()
     
@@ -101,6 +120,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         case LEVEL2 = "Level2"
         case LEVEL3 = "Level3"
         case LEVEL4 = "Level4"
+        case LEVEL5 = "Level5"
     }
     
     
@@ -115,15 +135,20 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     override func didMove(to view: SKView) {
         self.setupPlayer()
+        self.getMineralCounts()
         self.setupCounterNodes()
         self.sounds = SoundManager(world: self)
-        self.setupAllObjectNodes()
+        self.setupAllObjectNodes(nodes: self.children)
         self.setupButtonsOnScreen()
         self.getCannons()
         self.removeCollectedElements()
         self.showParticles()
         self.changeMineralPhysicsBodies()
-        self.playBackgroundMusic(fileName: "Level2")
+        self.playBackgroundMusic(fileName: "level3")
+
+        
+        try? AVAudioSession.sharedInstance().setCategory(.ambient)
+        try? AVAudioSession.sharedInstance().setActive(true)
         
         view.showsFields = true
     }
@@ -136,21 +161,14 @@ class World: SKScene, SKPhysicsContactDelegate {
      
      - Todo: Make sure that all objects in the game adhere to a custom object and we move away from the use of string names to determine node type
      */
-    func setupAllObjectNodes () {
-        self.children.forEach { (node) in
+    func setupAllObjectNodes (nodes: [SKNode]) {
+        nodes.forEach { (node) in
             if node.name == "ground" {
-                node.physicsBody?.friction = 1.0
-                return
+                node.physicsBody?.friction = 1.0                
             }
-            
+                        
             if let node = node as? ObjectWithManuallyGeneratedPhysicsBody {
                 node.setupPhysicsBody()
-            }
-            
-            if let ground = node as? Ground {
-                ground.setupPhysicsBody()
-                ground.physicsBody?.mass = 1000000000000
-                return
             }
             
             switch node {
@@ -173,6 +191,10 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.weightSwitches?.append(weightSwitch)
             default:
                 return
+            }
+            
+            if node.children.count > 0 {
+                self.setupAllObjectNodes(nodes: node.children)
             }
         }
     }
@@ -251,77 +273,17 @@ class World: SKScene, SKPhysicsContactDelegate {
      - Note: This method is called from within the contact didBegin method
     */
     func getContactNode (name: String, contact: SKPhysicsContact) -> SKNode? {
-        if (contact.bodyA.node?.name?.contains(name))! {
+        guard let nodeNameA = contact.bodyA.node?.name, let nodeNameB = contact.bodyB.node?.name else {
+            return nil
+        }
+        
+        if nodeNameA.contains(name) {
             return contact.bodyA.node
-        } else if (contact.bodyB.node?.name?.contains(name))! {
+        } else if nodeNameB.contains(name) {
             return contact.bodyB.node
         }
         
         return nil
-    }
-    
-    /**
-     - Todo: This needs to be moved to the object that handles impulse which has not been created yet
-     */
-    func impulseUsed (crashPosition: CGPoint) {
-        // Add an impulse node to the screen
-        self.playSound(sound: .MINERALCRASH)
-        
-        if self.impulses.count < 3 {
-            let impulseNode = SKSpriteNode(color: .clear, size: CGSize(width: 200, height: 200))
-            impulseNode.position = crashPosition
-            
-            if let portalPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
-                if let portal = NSKeyedUnarchiver.unarchiveObject(withFile: portalPath) as? SKEmitterNode {
-                    portal.particleBirthRate = portal.particleBirthRate * 2.0
-
-                    portal.particlePositionRange.dx = portal.particlePositionRange.dx * 2.0
-                    portal.particleColor = .orange
-                    impulseNode.addChild(portal)
-                }
-            }
-            
-            if self.player.previousRunningState == .RUNNINGRIGHT {
-                impulseNode.position.x = impulseNode.position.x + 150
-            } else {
-                impulseNode.position.x = impulseNode.position.x - 150
-            }
-            
-            impulseNode.zPosition = -5
-            impulseNode.position.y = impulseNode.position.y + impulseNode.size.height / 2.0
-            impulseNode.name = "portal"
-            impulseNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: impulseNode.size.height))
-            impulseNode.physicsBody?.allowsRotation = false
-            impulseNode.physicsBody?.pinned = false
-            impulseNode.physicsBody?.affectedByGravity = false
-            impulseNode.physicsBody?.isDynamic = true
-            impulseNode.physicsBody?.collisionBitMask = 0
-            impulseNode.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Portals)
-            
-            let warpTime = SKAction.wait(forDuration: 10.0)
-            let timeNode = SKLabelNode()
-            timeNode.fontSize = 40
-            timeNode.zPosition = 5
-            impulseNode.addChild(timeNode)
-            
-            self.showImpulseTimeLeft(timeNode: timeNode)
-            let impulseBlock = SKAction.run {
-                
-                if let _ = impulseNode.parent {
-                    if let _ = self.impulses.last {
-                        self.impulses.removeLast()
-                    }
-                }
-                
-                impulseNode.removeFromParent()
-            }
-            
-            let sequence = SKAction.sequence([warpTime, impulseBlock])
-            run(sequence)
-            
-            self.addChild(impulseNode)
-            self.impulses.append(.IMPULSE)
-        }
     }
     
     /**
@@ -345,79 +307,11 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     /**
-     - Todo: This needs to be moved to the Mineral object
-     */
-    func mineralUsed (particleResourceName: String, mineralNodeName: Minerals, crashPosition: CGPoint) {
-        // Add an impulse node to the screen
-        self.playSound(sound: .MINERALCRASH)
-        
-        let teleportNode = SKSpriteNode(color: .clear, size: CGSize(width: 200, height: 200))
-        teleportNode.position = crashPosition
-        
-        if let portalPath = Bundle.main.path(forResource: particleResourceName, ofType: "sks") {
-            if let portal = NSKeyedUnarchiver.unarchiveObject(withFile: portalPath) as? SKEmitterNode {
-                portal.particleBirthRate = portal.particleBirthRate * 2.0
-                
-                portal.particlePositionRange.dx = portal.particlePositionRange.dx * 2.0
-                portal.particleColor = .orange
-                teleportNode.addChild(portal)
-            }
-        }
-        
-        teleportNode.position.x = teleportNode.position.x
-        teleportNode.zPosition = -5
-        teleportNode.position.y = teleportNode.position.y + teleportNode.size.height / 2.0
-        teleportNode.name = "mineral-used"
-        teleportNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: 50, height: teleportNode.size.height))
-        teleportNode.physicsBody?.allowsRotation = false
-        teleportNode.physicsBody?.pinned = false
-        teleportNode.physicsBody?.affectedByGravity = false
-        teleportNode.physicsBody?.isDynamic = true
-        teleportNode.physicsBody?.collisionBitMask = 0
-        teleportNode.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Portals)
-        
-        self.teleportNode = teleportNode
-        self.addChild(teleportNode)
-    }
-    
-    /**
      This needs to be moved to the SoundManager
      */
     func playSound (sound: Sounds) {
         if let sounds = self.sounds {
             sounds.playSound(sound: sound)
-        }
-    }
-    
-    /**
-     An object needs to be created to handle this
-     */
-    func antiGravUsed () {
-        self.playSound(sound: .MINERALCRASH)
-        self.playSound(sound: .ANTIGRAV)
-        
-        if !self.forces.contains(.ANTIGRAV) {
-            self.physicsWorld.gravity.dy = self.physicsWorld.gravity.dy / 2.2
-            self.forces.append(.ANTIGRAV)
-            
-            let antiGravView = self.camera?.childNode(withName: self.antiGravViewKey)
-            antiGravView?.isHidden = false
-            
-            let timeNode = SKLabelNode()
-            timeNode.fontSize = 100
-            timeNode.position = CGPoint(x: 0, y: 0)
-            self.camera?.addChild(timeNode)
-            self.gravityTimeLeft = 5
-            let timeLabel = SKLabelNode()
-            timeLabel.fontSize = 120
-            timeLabel.fontName = "HelveticaNeue-Bold"
-            timeLabel.position = CGPoint(x: 0, y: 0)
-            timeLabel.zPosition = 5
-            self.gravityTimeLeftLabel = timeLabel
-            self.camera?.addChild(timeLabel)
-            self.changeGravityWithTime(antiGravView: antiGravView, timeLabel: timeLabel)
-        } else {
-            self.gravityTimeLeft = 5
         }
     }
     
@@ -481,15 +375,14 @@ class World: SKScene, SKPhysicsContactDelegate {
                     break;
                 case .ANTIGRAV:
                     if let throwButton = self.throwButtons["\(CounterNodes.AntiGrav)"], self.nodes(at: pos).contains(throwButton) {
-                        self.player.action = .THROW
-                        self.throwingMineral = .ANTIGRAV
+                        AntiGravityMineral().throwMineral(player: self.player, world: self)
+                        
                         return
                     }
-                    
                 case .IMPULSE:
-                     if let throwImpulseButton =  self.throwButtons["\(CounterNodes.Impulse)"], self.nodes(at: pos).contains(throwImpulseButton) {
-                        self.player.action = .THROW
-                        self.throwingMineral = .IMPULSE
+                    if let throwButton = self.throwButtons["\(CounterNodes.Impulse)"], self.nodes(at: pos).contains(throwButton) {
+                        ImpulseMineral().throwMineral(player: self.player, world: self)
+                        
                         return
                     }
                 case .TELEPORT:
@@ -504,8 +397,7 @@ class World: SKScene, SKPhysicsContactDelegate {
                             self.teleportNode = nil
                             self.player.flipPlayerUpright()
                         } else { // Throw a Teleportation mineral
-                            self.player.action = .THROW
-                            self.throwingMineral = .TELEPORT
+                            TeleportMineral().throwMineral(player: self.player, world: self)
                         }
                         return
                     }
@@ -585,6 +477,38 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
     }
 
+    func handlePlayerHitGround (contact: SKPhysicsContact) {
+        if self.player.hasLanded(contact: contact) {
+            self.player.zRotation = 0.0
+            if let physicsBody = self.player.physicsBody {
+                self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
+            }
+            
+            self.lastPointOnGround = self.player.position
+            if self.player.state != .GRABBING {
+                self.player.state = .ONGROUND
+            }
+            
+            var point = self.player.position
+            if let node = getContactNode(name: "ground", contact: contact) {
+                point.x = node.position.x
+                
+                if let node = node as? SKSpriteNode {
+                    let minX = node.position.x - (node.size.width / 2.0)
+                    let maxX = node.position.x + (node.size.width / 2.0)
+                    
+                    if self.player.position.x < minX + (self.player.size.width / 2.0) {
+                        self.lastPointOnGround?.x = minX + (self.player.size.width / 2.0)
+                    } else if self.player.position.x > maxX - (self.player.size.width / 2.0) {
+                        self.lastPointOnGround?.x = maxX - (self.player.size.width / 2.0)
+                    }
+                }
+            }
+            
+            self.rewindPoints = [point]
+        }
+    }
+    
     func didBegin(_ contact: SKPhysicsContact) {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
@@ -597,6 +521,17 @@ class World: SKScene, SKPhysicsContactDelegate {
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Fire.self, nodeBType: Player.self) {
             self.player.state = .DEAD
         }
+        
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Impulse.self, nodeBType: SKSpriteNode.self) {
+            Impulse.applyImpulseToNodeInContact(contact: contact)
+            if let impulse = contact.bodyA.node as? Impulse != nil ? contact.bodyA.node : contact.bodyB.node {
+                impulse.removeFromParent()
+                if let index = self.impulses.firstIndex(of: .IMPULSE) {
+                    self.impulses.remove(at: index)
+                }
+            }
+        }
+        
         if let mineral = PhysicsHandler.playerIsGrabbingMineral(contact: contact) {
             mineral.world = self
             mineral.getMineral(type: mineral.mineralType)
@@ -606,113 +541,31 @@ class World: SKScene, SKPhysicsContactDelegate {
         
         if let mineral = PhysicsHandler.playerUsedMineral(contact: contact) {
             if let useMineral = mineral as? UseMinerals {
-                let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint)
-                self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
-                self.addChild(physicsAlteringArea)
+                self.playSound(fileName: "mineralcrash")
+                if let physicsAlteringArea = try? useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self) {
+                    self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
+                    if let physicsAlteringArea = physicsAlteringArea {
+                        self.addChild(physicsAlteringArea)
+                    }
+                }
+                
                 mineral.removeFromParent()
             }    
         }
 
-        if (contactAName == "dawud") || (contactBName == "dawud") {
-            if contactAName.contains("ground") || contactBName.contains("ground") {
-                
-                if self.player.hasLanded(contact: contact) {
-                    self.player.zRotation = 0.0
-                    if let physicsBody = self.player.physicsBody {
-                        self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
-                    }
-                    
-                    self.lastPointOnGround = self.player.position
-                    if self.player.state != .GRABBING {
-                        self.player.state = .ONGROUND
-                    }
-                    
-                    var point = self.player.position
-                    if let node = getContactNode(name: "ground", contact: contact) {
-                        point.x = node.position.x
-                        
-                        if let node = node as? SKSpriteNode {
-                            let minX = node.position.x - (node.size.width / 2.0)
-                            let maxX = node.position.x + (node.size.width / 2.0)
-                            
-                            if self.player.position.x < minX + (self.player.size.width / 2.0) {
-                                self.lastPointOnGround?.x = minX + (self.player.size.width / 2.0)
-                            } else if self.player.position.x > maxX - (self.player.size.width / 2.0) {
-                                self.lastPointOnGround?.x = maxX - (self.player.size.width / 2.0)
-                            }
-                        }
-                    }
-                    
-                    self.rewindPoints = [point]
-                }
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: GroundProtocol.self) {
+            self.handlePlayerHitGround(contact: contact)
+        }
+        else if (contactAName == "dawud") || (contactBName == "dawud") {
+            if contactAName.contains("ground") || contactBName.contains("ground")  {
+                self.handlePlayerHitGround(contact: contact)
             }
         }
-        
-        if PhysicsHandler.contactContains(strings: ["ground", "mineral", "teleport"], contactA: contactAName , contactB: contactBName) {
-            self.mineralUsed(particleResourceName: "Doors", mineralNodeName: .USED_TELEPORT, crashPosition: contact.contactPoint)
-            self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact, duration: 2)
-            if let node = getContactNode(name: "mineral", contact: contact) {
-                node.removeFromParent()
-            }
-            
-            return
-        }
-        
-        if PhysicsHandler.contactContains(strings: ["ground", "mineral", "gravity"], contactA: contactAName , contactB: contactBName) {
-            if !PhysicsHandler.contactContains(strings: ["noantigrav"], contactA: contactAName, contactB: contactBName) {
-                self.antiGravUsed()
-                self.showMineralCrash(withColor: UIColor.Style.ANTIGRAVMINERAL, contact: contact, duration: 2)
-            }
-            
-            if let node = getContactNode(name: "mineral", contact: contact) {
-                node.removeFromParent()
-            }
-            
-            return
-        }
-        
-        if PhysicsHandler.contactContains(strings: ["ground", "mineral", "impulse"], contactA: contactAName , contactB: contactBName) {
-            if !PhysicsHandler.contactContains(strings: ["nowarp"], contactA: contactAName, contactB: contactBName) {
-                self.impulseUsed(crashPosition: contact.contactPoint)
-                self.showMineralCrash(withColor: UIColor.Style.IMPULSEMINERAL, contact: contact, duration: 2)
-            }
-            if let node = getContactNode(name: "mineral", contact: contact) {
-                node.removeFromParent()
-            }
-            
-            return
-        }
-        
+    
         if PhysicsHandler.contactContains(strings: ["dawud", "portal"], contactA: contactAName , contactB: contactBName) {
             if let node = getContactNode(name: "portal", contact: contact) {
                 self.portalHit(portalNode: node as! SKSpriteNode)
                 node.removeFromParent()
-            }
-            
-            return
-        }
-        
-        if PhysicsHandler.contactContains(strings: ["cannonball", "portal"], contactA: contactAName, contactB: contactBName) {
-            if let node = getContactNode(name: "portal", contact: contact) {
-                self.portalHit(portalNode: node as! SKSpriteNode)
-                node.removeFromParent()
-            }
-            
-            if let node = getContactNode(name: "cannonball", contact: contact) {
-                self.impulseObjects.append(node)
-            }
-            
-            return
-        }
-        
-        if PhysicsHandler.contactContains(strings: ["rock", "portal"], contactA: contactAName, contactB: contactBName) {
-            if let node = getContactNode(name: "portal", contact: contact) {
-                self.portalHit(portalNode: node as! SKSpriteNode)
-                node.removeFromParent()
-            }
-            
-            if let node = getContactNode(name: "rock", contact: contact) {
-                self.impulseObjects.append(node)
             }
             
             return
@@ -912,99 +765,12 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     /**
-     When the player hits an impulse portal, this method is called and all the necessary physics adjustments are made to the player to show that he has hit the impulse portal.
-    */
-    func handleImpulse () {
-        if let index = self.forces.index(of: .IMPULSE) {
-            self.forces.remove(at: index)
-            
-            if let _ = self.impulses.last {
-                self.impulses.removeLast()
-            }
-            if self.impulseObjects.count == 0 {
-                if self.player.physicsBody!.velocity.dx > 0.0 {
-                    self.player.physicsBody?.applyImpulse(CGVector(dx: 600, dy: 250))
-                } else {
-                    self.player.physicsBody?.applyImpulse(CGVector(dx: -600, dy: 250))
-                }
-            } else {
-                for object in self.impulseObjects {
-                    if object.physicsBody!.velocity.dx > 0.0 {
-                        object.physicsBody?.applyImpulse(CGVector(dx: 600 * (object.physicsBody?.mass ?? 1), dy: 250))
-                    } else {
-                        object.physicsBody?.applyImpulse(CGVector(dx: -600 * (object.physicsBody?.mass ?? 1), dy: 250))
-                    }
-                }
-                
-                self.impulseObjects.removeAll()
-            }
-            
-            self.player.state = .INAIR
-        }
-    }
-    
-    /**
      
      Adds the Impulse force to our forces object.  See forces array object above
      
      */
     func portalHit (portalNode: SKSpriteNode) {
         self.forces.append(.IMPULSE)
-    }
-    
-    /**
-     - Todo: This needs to be moved to its own object
-     */
-    func showMineralCrash (withColor color: UIColor, contact: SKPhysicsContact, duration: TimeInterval = 5) {
-        if let crashPath = Bundle.main.path(forResource: "GroundParticle", ofType: "sks") {
-            if let crash = NSKeyedUnarchiver.unarchiveObject(withFile: crashPath) as? SKEmitterNode {
-                crash.position = contact.contactPoint
-                crash.position.y = crash.position.y + 10
-                crash.particleColor = color
-                crash.particleColorSequence = nil
-                self.addChild(crash)
-                
-                let timeToShowSpark = SKAction.wait(forDuration: duration)
-                let removeSparkBlock = SKAction.run {
-                    crash.removeFromParent()
-                }
-                
-                let sequence = SKAction.sequence([timeToShowSpark, removeSparkBlock])
-                self.run(sequence)
-            }
-        }
-    }
-    
-    /**
-     - Todo: This needs to be moved to its own object
-     */
-    func showThrowMineral (mineralNode: SKSpriteNode) {
-        mineralNode.position = self.player.position
-        
-        mineralNode.xScale = 0.3
-        mineralNode.yScale = 0.3
-        
-        let width = (mineralNode.texture?.size().width)! * 0.3
-        let height = (mineralNode.texture?.size().height)! * 0.3
-        
-        mineralNode.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: width, height: height))
-        mineralNode.physicsBody?.affectedByGravity = true
-        mineralNode.physicsBody?.categoryBitMask = 2
-        mineralNode.physicsBody?.isDynamic = true
-        mineralNode.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects)
-        mineralNode.physicsBody?.categoryBitMask = 0b0001
-        mineralNode.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects)
-        mineralNode.physicsBody?.allowsRotation = false
-        addChild(mineralNode)
-        
-        if self.player.previousRunningState == .RUNNINGRIGHT {
-            mineralNode.position.x = self.player.position.x + mineralNode.size.width
-            mineralNode.physicsBody?.applyImpulse(CGVector(dx: 10, dy: -30))
-        } else {
-            mineralNode.position.x = self.player.position.x - mineralNode.size.width
-            mineralNode.physicsBody?.applyImpulse(CGVector(dx: -10, dy: -30))
-        }
-        
     }
     
     /**
@@ -1017,7 +783,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     
     func playSound (fileName: String) {
         let sound = SKAction.playSoundFileNamed(fileName, waitForCompletion: false)
-        run(sound)
+        self.run(sound)
     }
     
     override func update(_ currentTime: TimeInterval) {
@@ -1038,8 +804,6 @@ class World: SKScene, SKPhysicsContactDelegate {
             entity.update(deltaTime: dt)
         }
         
-        self.handleImpulse()
-        
         if self.player.state == .DEAD {
             self.handlePlayerDied()
         } else {
@@ -1059,7 +823,6 @@ class World: SKScene, SKPhysicsContactDelegate {
                 }
                 
                 self.handleJump()
-                self.handleThrow()
             }
             
             if self.player.state == .GRABBING {
@@ -1235,7 +998,6 @@ class World: SKScene, SKPhysicsContactDelegate {
      
      - Parameters:
      - node: The node to get find the parent world of
-     
      */
     @discardableResult class func getMainWorldFromNode (node: SKNode) -> World? {
         
@@ -1260,7 +1022,6 @@ class World: SKScene, SKPhysicsContactDelegate {
      - level: The name of the level to load
      
      - Note: Make sure that for the scene name and the level you use the constants in the GameLevel Object
-     
      - Todo: We're going to need to change the parameter types for sceneName and level to type GameLevel
      
      */

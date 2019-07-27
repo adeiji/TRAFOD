@@ -17,18 +17,15 @@ class Level : World {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self        
         self.getProgress()
-        self.loadSavedGame(sceneName: GameLevels.Level3, level: GameLevels.Level3)
-        self.getMineralCounts()
-        self.showMineralCount()
+    }
+    
+    override func didEnd(_ contact: SKPhysicsContact) {
+        super.didEnd(contact)
         
-        if self.player.hasAntigrav {
-            self.addThrowButton()
-            self.showMineralCount()
-        }
-        
-        if self.player.hasImpulse {
-            self.addThrowImpulseButton()
-            self.showMineralCount()
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: NegateFlipGravField.self, nodeBType: AffectedByNegationField.self) {
+            NegateFlipGravField.removeNegatedForcesFromObjectInContact(contact: contact)
+        } else if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: NegateAllForcesField.self, nodeBType: BaseWorldObject.self) {
+            NegateAllForcesField.removeNegatedForcesFromObjectInContact(contact: contact)
         }
     }
     
@@ -38,6 +35,13 @@ class Level : World {
         let contactBName = contact.bodyB.node?.name ?? ""
         
         FlipSwitch.flipSwitch(contact: contact)
+        
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: NegateFlipGravField.self, nodeBType: AffectedByNegationField.self) {
+            NegateFlipGravField.negateForceForObjectInContact(contact: contact)
+        } else if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: NegateAllForcesField.self, nodeBType: BaseWorldObject.self) {
+            NegateAllForcesField.negateForceForObjectInContact(contact: contact)
+        }
+        
         
         if PhysicsHandler.contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
             self.getImpulse()
@@ -243,12 +247,6 @@ class Level : World {
             }
         }
         
-        enumerateChildNodes(withName: "ground-weightSwitch") { (node, pointer) in
-            if let node = node as? WeightSwitch {
-                node.topOfSwitch?.applyUpwardForce()
-            }
-        }
-        
         // Applys double the gravitational force to all bodies that are within this node's field
         func applyDoubleGravFieldsForce () {
             self.enumerateChildNodes(withName: "doubleGravField") { (node, pointer) in
@@ -333,5 +331,4 @@ class Level : World {
         let fade = SKAction.fadeAlpha(to: 1.0, duration: 1.0)
         self.childNode(withName: nodeName)?.run(fade)
     }
-    
 }

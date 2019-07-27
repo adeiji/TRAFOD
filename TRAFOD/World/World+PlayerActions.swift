@@ -37,12 +37,12 @@ extension World {
      
      Checks to see if the player is on the ground
      
-     - todo: Only return true if the player is standing on the ground
-     - returns: Bool If the player is on the ground or not
+     - Todo: Only return true if the player is standing on the ground
+     - Returns: Bool If the player is on the ground or not
      
      */
     private func isGrounded () -> Bool {
-        if let bodies = self.player.physicsBody?.allContactedBodies(), let groundPhysicsBody = self.ground?.physicsBody {
+        if let bodies = self.player.physicsBody?.allContactedBodies(), let groundPhysicsBody = self.lastGroundObjectPlayerStoodOn?.physicsBody {
             if bodies.contains(groundPhysicsBody) {
                 return true
             }
@@ -93,27 +93,7 @@ extension World {
     
     func stopPlayer () {
         self.player.physicsBody?.velocity = CGVector(dx: 0, dy: self.player.physicsBody?.velocity.dy ?? 0)
-    }
-    
-    func handleThrow () {
-        if self.player.action == .THROW {
-            if self.throwingMineral == .ANTIGRAV && self.player.hasAntigrav {
-                let mineralNode = SKSpriteNode(imageNamed: "Blue Crystal")
-                mineralNode.name = "mineral-gravity"
-                self.showThrowMineral(mineralNode: mineralNode)
-            } else if self.throwingMineral == .IMPULSE {
-                let mineralNode = SKSpriteNode(imageNamed: "Red Crystal")
-                mineralNode.name = "mineral-impulse"
-                self.showThrowMineral(mineralNode: mineralNode)
-            } else if self.throwingMineral == .TELEPORT {
-                let mineralNode = SKSpriteNode(imageNamed: "Blue Crystal")
-                mineralNode.name = "mineral-teleport"
-                self.showThrowMineral(mineralNode: mineralNode)
-            }
-        }
-        
-        self.player.action = .NONE
-    }
+    }       
     
     func handlePlayerRotation (dt: TimeInterval) {
         if self.player.state == .INAIR {

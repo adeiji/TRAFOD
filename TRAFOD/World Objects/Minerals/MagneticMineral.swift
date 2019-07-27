@@ -19,35 +19,41 @@ class MagneticMineral : Mineral, MineralProtocol, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed(contactPosition: CGPoint) -> PhysicsAlteringObject {
-        let magnetic = Magnetic(contactPosition: contactPosition)
+    func mineralUsed(contactPosition: CGPoint, world:World) throws -> PhysicsAlteringObject? {
+        let magnetic = MagneticForce(contactPosition: contactPosition)
         return magnetic
     }
 }
 
-class Magnetic : PhysicsAlteringObject {
+class MagneticForce : PhysicsAlteringObject {
     
     internal override func setCategoryBitmask() {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Magnetic)
     }
     
-    override func applyForceToPhysicsBodies(forceOfGravity: CGFloat, camera: SKCameraNode?) {
-        
-    }
+    override func applyForceToPhysicsBodies(forceOfGravity: CGFloat, camera: SKCameraNode?) {}
     
     required init(contactPosition: CGPoint, size: CGSize? = nil, color: UIColor? = nil, anchorPoint: CGPoint = CGPoint(x: 0.5, y: 0.5)) {
         super.init(contactPosition: contactPosition, size: size ?? UIScreen.main.bounds.size, color: .clear)
+        self.addRadialGravField()
+        self.setCategoryBitmask()
+    }
+    
+    /**
+     Adds a radial gravitational field to this object that will attract objects within the game towards it
+     */
+    func addRadialGravField () {
         let radialGravField = SKFieldNode.radialGravityField()
-        radialGravField.strength = 10
+        radialGravField.strength = 25
         let size = UIScreen.main.bounds.size
-        radialGravField.region = SKRegion(size: CGSize(width: size.width * 3, height: size.height * 3))
+        radialGravField.region = SKRegion(size: CGSize(width: size.width, height: size.height))
         radialGravField.categoryBitMask = UInt32(PhysicsCategory.Magnetic)
-        radialGravField.falloff = 1
+        radialGravField.falloff = 0.5
+        radialGravField.minimumRadius = 50
         self.addChild(radialGravField)
         
         radialGravField.addChild(SKSpriteNode(color:SKColor.red, size:CGSize(width: 50.0, height: 50.0)))
         
-        self.setCategoryBitmask()
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -9,7 +9,7 @@
 import Foundation
 import GameKit
 
-class RockNoFlipGravity : Rock, ObjectWithManuallyGeneratedPhysicsBody {
+class RockNoFlipGravity : Rock {
     
     override func setupPhysicsBody() {
         super.setupPhysicsBody()

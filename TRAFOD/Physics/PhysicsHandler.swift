@@ -89,12 +89,10 @@ class PhysicsHandler {
      Whether or not the physics contacts contains both types of objects
      */
     class func nodesAreOfType<T, U>(contact: SKPhysicsContact, nodeAType: T.Type, nodeBType: U.Type) -> Bool {
-        if contact.bodyA.node is T || contact.bodyA.node is U {
-            if contact.bodyB.node is T || contact.bodyB.node is U {
-                return true
-            }
+        if let _ = contact.bodyA.node as? T != nil ? contact.bodyA.node as? T : contact.bodyB.node as? T,
+            let _ = contact.bodyB.node as? U != nil ? contact.bodyB.node as? U : contact.bodyA.node as? U {
+            return true
         }
-        
         return false
     }
     
@@ -144,6 +142,14 @@ class PhysicsHandler {
         if nodesAreOfType(contact: contact, nodeAType: Ground.self, nodeBType: Mineral.self) {
             if let mineral = contact.bodyA.node as? Mineral != nil ? contact.bodyA.node as? Mineral : contact.bodyB.node as? Mineral {
                 mineral.showMineralCrash(withColor: mineral.mineralCrashColor, contact: contact, duration: 2)
+                switch mineral {
+                case is FlipGravityMineral:
+                    if contactContains(strings: ["noflipgrav"], contact: contact) {
+                        return nil
+                    }
+                default:
+                    break;
+                }
                 return mineral
             }
         }
