@@ -31,10 +31,23 @@ class Rock : Ground, BaseWorldObject {
     
     override func setupPhysicsBody () {
         self.physicsBody?.restitution = 0
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Reset) | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Portals) | UInt32(PhysicsCategory.FlipGravity) | UInt32(PhysicsCategory.Rock) | UInt32(PhysicsCategory.Minerals) | UInt32(PhysicsCategory.Magnetic) | UInt32(PhysicsCategory.Impulse) | UInt32(PhysicsCategory.NegateForceField)
+        self.physicsBody?.contactTestBitMask =
+            UInt32(PhysicsCategory.FlipSwitch) |
+            UInt32(PhysicsCategory.Reset) |
+            UInt32(PhysicsCategory.Player) |
+            UInt32(PhysicsCategory.Portals) |
+            UInt32(PhysicsCategory.FlipGravity) |
+            UInt32(PhysicsCategory.Rock) |
+            UInt32(PhysicsCategory.Minerals) |
+            UInt32(PhysicsCategory.Magnetic) |
+            UInt32(PhysicsCategory.Impulse) |
+            UInt32(PhysicsCategory.NegateForceField) |
+            UInt32(PhysicsCategory.ForceField)
         self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Magnetic)
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Rock)
-        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) | UInt32(PhysicsCategory.Ground) | UInt32(PhysicsCategory.Rock) | UInt32(PhysicsCategory.Minerals)
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |
+            UInt32(PhysicsCategory.Ground) |
+            UInt32(PhysicsCategory.Rock)
         self.physicsBody?.allowsRotation = true
         self.physicsBody?.friction = 0.5
     }

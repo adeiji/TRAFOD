@@ -16,24 +16,5 @@ class Level2 : Level {
         super.didMove(to: view)
         self.currentLevel = .LEVEL2
         self.playBackgroundMusic(fileName: "level3")
-        self.setupPlayer()
-        self.children.forEach { (node) in
-            if let node = node as? FlipSwitch {
-                node.setMovablePlatformWithTimeInterval(timeInterval: 3.0)
-            }
-        }
-    }
-    
-    override func touchDown(atPoint pos: CGPoint) {
-        super.touchDown(atPoint: pos)                
-    }
-    
-    override func didBegin(_ contact: SKPhysicsContact) {
-        super.didBegin(contact)                
-    }
-    
-    
-    override func update(_ currentTime: TimeInterval) {
-        super.update(currentTime)                
     }
 }

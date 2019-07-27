@@ -167,8 +167,8 @@ extension World {
     
     func handleGrabbedObjectContactEnded (contact: SKPhysicsContact) {
         if PhysicsHandler.contactContains(strings: ["dawud", "rock"], contact: contact) {
-            self.player.objectThatCanBeGrabbed = nil
             if self.player.state != .GRABBING {
+                self.player.objectThatCanBeGrabbed = nil
                 self.stopGrabbing()
             }
 

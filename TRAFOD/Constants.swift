@@ -43,6 +43,7 @@ enum PlayerState {
     case HITPORTAL
     case DEAD
     case GRABBING
+    case SLIDINGONWALL
 }
 
 /**

@@ -21,7 +21,7 @@ class WeightSwitch : GameSwitch {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Minerals)
     }
     
     func setup() {
@@ -44,7 +44,7 @@ class WeightSwitchBottom : SKSpriteNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Minerals)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Minerals)
     }
 }
 class WeightSwitchPlatformFinalPosition : SKNode { }

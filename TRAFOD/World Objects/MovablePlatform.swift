@@ -24,17 +24,21 @@ class MovablePlatform : Ground {
      */
     var moveDuration:TimeInterval = 3.0
     
+    var originalPosition:CGPoint!
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
+        
+        self.originalPosition = self.position
     }
     
     override func setupPhysicsBody() {
-        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals) | UInt32(PhysicsCategory.Rock)
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals) | UInt32(PhysicsCategory.Rock)
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Ground)
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
+        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
         self.physicsBody?.pinned = true
         self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.allowsRotation = true
         self.physicsBody?.usesPreciseCollisionDetection = true
     }
     
@@ -42,21 +46,16 @@ class MovablePlatform : Ground {
      Moves the platform from it's starting position to the moveToPoint position or to it's original starting position
      */
     func move () {
-        if var offset = self.moveToPoint {
-            if self.finishedMoving {
-                offset.x = offset.x * -1
-                offset.y = offset.y * -1
-                self.finishedMoving = false
-            } else {
-                self.finishedMoving = true
-            }
-                
-            let move = SKAction.move(to: CGPoint(x: offset.x, y: offset.y), duration: self.moveDuration)
-            self.physicsBody?.pinned = false
-            self.removeAllActions()
-            self.run(move) {
-                self.physicsBody?.pinned = true
-            }
+        guard let moveToPoint = self.finishedMoving == false ? self.moveToPoint : self.originalPosition else {
+            return
+        }
+        
+        let move = SKAction.move(to: CGPoint(x: moveToPoint.x, y: moveToPoint.y), duration: self.moveDuration)
+        self.physicsBody?.pinned = false
+        self.removeAllActions()
+        self.run(move) {
+            self.physicsBody?.pinned = true            
+            self.finishedMoving = !self.finishedMoving
         }
     }
 }

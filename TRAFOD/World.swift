@@ -144,8 +144,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.removeCollectedElements()
         self.showParticles()
         self.changeMineralPhysicsBodies()
-        self.playBackgroundMusic(fileName: "level3")
-
         
         try? AVAudioSession.sharedInstance().setCategory(.ambient)
         try? AVAudioSession.sharedInstance().setActive(true)
@@ -162,11 +160,7 @@ class World: SKScene, SKPhysicsContactDelegate {
      - Todo: Make sure that all objects in the game adhere to a custom object and we move away from the use of string names to determine node type
      */
     func setupAllObjectNodes (nodes: [SKNode]) {
-        nodes.forEach { (node) in
-            if node.name == "ground" {
-                node.physicsBody?.friction = 1.0                
-            }
-                        
+        for node in nodes {
             if let node = node as? ObjectWithManuallyGeneratedPhysicsBody {
                 node.setupPhysicsBody()
             }
@@ -179,18 +173,16 @@ class World: SKScene, SKPhysicsContactDelegate {
                 }
                 self.cannons?.append(cannon)
             case is Rock:
-                let rock = node as! Rock
-                rock.setupPhysicsBody()
+                break;
             case is FlipSwitch:
                 let flipSwitch = node as! FlipSwitch
                 flipSwitch.setMovablePlatformWithTimeInterval(timeInterval: 3.0)
-                flipSwitch.setupPhysicsBody()
             case is WeightSwitch:
                 let weightSwitch = node as! WeightSwitch
                 weightSwitch.setup()
                 self.weightSwitches?.append(weightSwitch)
             default:
-                return
+                break;
             }
             
             if node.children.count > 0 {
@@ -253,8 +245,8 @@ class World: SKScene, SKPhysicsContactDelegate {
                                 node.physicsBody?.restitution = 0
                                 node.physicsBody?.mass = 0
                                 node.physicsBody?.isDynamic = true
-                                node.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
                                 node.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+                                node.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Minerals)
                                 node.physicsBody?.allowsRotation = false
                             }
                         }
@@ -363,8 +355,8 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.handleGrabButtonActions(atPoint: pos)
         
         if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
-            if self.player.state == .ONGROUND {
-                self.player.state = .JUMP
+            if self.player.state == .ONGROUND  || self.player.state == .SLIDINGONWALL {
+                self.handleJump()
             }
             
             return
@@ -479,33 +471,15 @@ class World: SKScene, SKPhysicsContactDelegate {
 
     func handlePlayerHitGround (contact: SKPhysicsContact) {
         if self.player.hasLanded(contact: contact) {
-            self.player.zRotation = 0.0
             if let physicsBody = self.player.physicsBody {
                 self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
             }
-            
             self.lastPointOnGround = self.player.position
             if self.player.state != .GRABBING {
                 self.player.state = .ONGROUND
             }
-            
-            var point = self.player.position
-            if let node = getContactNode(name: "ground", contact: contact) {
-                point.x = node.position.x
-                
-                if let node = node as? SKSpriteNode {
-                    let minX = node.position.x - (node.size.width / 2.0)
-                    let maxX = node.position.x + (node.size.width / 2.0)
-                    
-                    if self.player.position.x < minX + (self.player.size.width / 2.0) {
-                        self.lastPointOnGround?.x = minX + (self.player.size.width / 2.0)
-                    } else if self.player.position.x > maxX - (self.player.size.width / 2.0) {
-                        self.lastPointOnGround?.x = maxX - (self.player.size.width / 2.0)
-                    }
-                }
-            }
-            
-            self.rewindPoints = [point]
+        } else if self.player.isSlidingOnWall(contact: contact) {
+            self.player.slidOnWall()
         }
     }
     
@@ -590,12 +564,10 @@ class World: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if PhysicsHandler.contactContains(strings: ["dawud", "rock"], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: Rock.self) {
             if self.handleContactWithGrabbableObject(contact: contact) {
                 self.showGrabButton()
             }
-            
-            return
         }
         
         if PhysicsHandler.contactContains(strings: ["cannonball", "ground"], contact: contact) {
@@ -716,28 +688,31 @@ class World: SKScene, SKPhysicsContactDelegate {
     /**
      This method is called when the player is running.  If the player is in the air, then we don't want the player to move as freely as when he's on the ground obviously.
      */
-    func run () {
-        if self.player.state != .INAIR {
+    func handlePlayerMovement () {
+        guard let dx = self.player.physicsBody?.velocity.dx else { return }
+        let multiplier:CGFloat = self.player.runningState == .RUNNINGLEFT ? 1 : -1
+        
+        switch self.player.state {
+        case .ONGROUND:
+            self.player.physicsBody?.velocity = CGVector(dx: -PhysicsHandler.kRunVelocity * multiplier, dy: self.player.physicsBody?.velocity.dy ?? 0)
+        case .INAIR:
             if self.player.runningState == .RUNNINGLEFT {
-                self.player.physicsBody?.velocity = CGVector(dx: -PhysicsHandler.kRunVelocity, dy: self.player.physicsBody?.velocity.dy ?? 0)
-            } else if self.player.runningState == .RUNNINGRIGHT {
-                self.player.physicsBody?.velocity = CGVector(dx: PhysicsHandler.kRunVelocity, dy: self.player.physicsBody?.velocity.dy ?? 0)
-            }
-        } else if self.player.state == .INAIR {
-            if self.player.runningState == .RUNNINGLEFT {
-                if let dx = self.player.physicsBody?.velocity.dx {
-                    if dx > -PhysicsHandler.kRunVelocity {
-                        self.player.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse, dy: 0))
-                    }
+                if dx > -PhysicsHandler.kRunVelocity {
+                    self.player.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
                 }
-            } else if self.player.runningState == .RUNNINGRIGHT {
-                if let dx = self.player.physicsBody?.velocity.dx {
-                    if dx < PhysicsHandler.kRunVelocity {
-                        self.player.physicsBody?.applyImpulse(CGVector(dx: PhysicsHandler.kRunInAirImpulse, dy: 0))
-                    }
+            } else {
+                if dx < PhysicsHandler.kRunVelocity {
+                    self.player.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
                 }
             }
+        case .SLIDINGONWALL:
+            if self.player.runningState != .STANDING {
+                self.player.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * 2.0 * multiplier, dy: 0))
+            }
+        default:
+            break;
         }
+        
     }
     
     /**
@@ -760,6 +735,8 @@ class World: SKScene, SKPhysicsContactDelegate {
                 if self.stepCounter == 7 {
                     self.stepCounter = 0
                 }
+                
+                self.playSound(sound: .RUN)
             }
         }
     }
@@ -807,22 +784,20 @@ class World: SKScene, SKPhysicsContactDelegate {
         if self.player.state == .DEAD {
             self.handlePlayerDied()
         } else {
-            if self.player.state != .GRABBING { // User can only move left to right when grabbing something
+            if self.player.state == .SLIDINGONWALL {
+                self.player.texture = SKTexture(imageNamed: "standing")
+                self.handlePlayerMovement()
+                
+            } else if self.player.state != .GRABBING { // User can only move left to right when grabbing something
                 if self.player.runningState != .STANDING {
                     self.showRunning(currentTime: currentTime)
-                    self.run()
-                    
-                    if self.player.state != .INAIR {
-                        self.playSound(sound: .RUN)
-                    }
+                    self.handlePlayerMovement()
                 } else {
                     if self.player.state != .INAIR {
                         self.player.texture = SKTexture(imageNamed: "standing")
                         self.stopPlayer()
                     }
                 }
-                
-                self.handleJump()
             }
             
             if self.player.state == .GRABBING {

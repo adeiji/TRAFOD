@@ -38,8 +38,8 @@ class Mineral: SKSpriteNode {
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.categoryBitMask = 2
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.FlipGravity)
-        self.physicsBody?.collisionBitMask = 0 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.Ground)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.FlipGravity) | UInt32(PhysicsCategory.Cannon)
+        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.Ground) | UInt32(PhysicsCategory.Cannon)
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Minerals)
         self.physicsBody?.allowsRotation = false
         

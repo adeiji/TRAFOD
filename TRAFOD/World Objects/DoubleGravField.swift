@@ -9,15 +9,18 @@
 import Foundation
 import GameKit
 
-class DoubleGravField : SKSpriteNode {
+class DoubleGravField : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonInteractableObjects)
     }
     
     func gravitation (mass: CGFloat) -> CGVector {
         return CGVector(dx: 0, dy: (-9.8 * 4) * mass)
+    }
+    
+    func setupPhysicsBody() {
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.ForceField)
+        self.physicsBody?.collisionBitMask = 0
     }
 }

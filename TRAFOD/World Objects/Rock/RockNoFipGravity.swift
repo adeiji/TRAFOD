@@ -14,7 +14,7 @@ class RockNoFlipGravity : Rock {
     override func setupPhysicsBody() {
         super.setupPhysicsBody()
         
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.InteractableObjects) | UInt32(PhysicsCategory.NonInteractableObjects) | UInt32(PhysicsCategory.Reset) | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Portals)
+        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Reset) | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Portals)
     }    
 }
 

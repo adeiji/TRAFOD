@@ -29,10 +29,6 @@ class MainMenu: World {
         }
     }
     
-    func isSubscribed () {
-        
-    }
-    
     override func showDoorParticles () {
         self.enumerateChildNodes(withName: "door") { (door, pointer) in
             if let fireFliesParticlesPath = Bundle.main.path(forResource: "Doors", ofType: "sks") {
@@ -101,8 +97,8 @@ class MainMenu: World {
     private func beginNewGame () {
         ProgressTracker.reset()
         let story = Story(fileNamed: "Story")
-        story?.player = self.player
         self.player.removeFromParent()
+        story?.player = self.player
         let transition = SKTransition.moveIn(with: .right, duration: 1)
         story?.scaleMode = SKSceneScaleMode.aspectFit
         self.view?.presentScene(story!, transition: transition)

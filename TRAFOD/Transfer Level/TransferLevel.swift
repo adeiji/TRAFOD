@@ -10,7 +10,7 @@ import Foundation
 import SpriteKit
 import GameKit
 
-class TransferLevel : World {
+class TransferLevel : Level {
     
     private var showRunning = false
     private var shouldShowNextLevelAction = false
@@ -40,15 +40,7 @@ class TransferLevel : World {
     
     override func didMove(to view: SKView) {
         super.didMove(to: view)
-        self.showDoorParticles()
-        
-        self.showBackgroundParticles()
-        self.showFireFlies()
-        self.physicsWorld.contactDelegate = self
-        
         self.player.position = CGPoint(x: -(self.scene!.size.width / 2.0) + 100 , y: 0)
-        self.player.hasAntigrav = true
-        self.player.xScale = 1
         self.showMineralsReceived()
         
         if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
@@ -57,46 +49,10 @@ class TransferLevel : World {
             self.backgroundMusic.run(volume)
             addChild(self.backgroundMusic)
         }
-        
-    }
-    
-    func checkIfFalling () {
-        if let point = self.lastPointOnGround {
-            if self.playerIsFalling(){
-                if (self.player.position.y < point.y) && (abs(self.player.position.y - point.y) > 400) {
-                    self.rewindPointCounter = self.rewindPoints.count - 1
-                    self.player.state = .INAIR
-                    self.sceneState = .REWIND
-                    self.player.texture = SKTexture(imageNamed: "spinning")
-                    self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
-                }
-            }
-        }
-    }
-    
-    func rewind () {
-        if self.rewindPointCounter >= 0 && self.rewindPointCounter < self.rewindPoints.count {
-            self.player.position = self.rewindPoints[self.rewindPointCounter]
-            self.rewindPointCounter = self.rewindPointCounter - 1
-        } else {
-            self.sceneState = .NORMAL
-            self.rewindPointCounter = 0
-            self.lastPointOnGround = self.rewindPoints[0]
-        }
     }
     
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
-        self.moveCamera()
-        
-        if self.sceneState == .REWIND {
-            let dt = currentTime - self.lastUpdateTime
-            rewind()
-            self.lastUpdateTime = currentTime
-            return
-        }
-        
-        self.checkIfFalling()
         
         if self.throwMineral == true {
             if let freezeMineral = self.childNode(withName: "mineralFreeze") as? SKSpriteNode {
@@ -129,7 +85,6 @@ class TransferLevel : World {
             }
         }
         
-        let dt = currentTime - self.lastUpdateTime
         self.lastUpdateTime = currentTime
     }
     
@@ -179,33 +134,6 @@ class TransferLevel : World {
             
             wait = SKAction.wait(forDuration: 10.0)
             
-            let comingSoonBlock = SKAction.run {
-                
-                if PurchaseService.shared.isSubscriptionExpired == false && PurchaseService.shared.hasReceiptData {
-                    let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
-                    self.player.run(fade)
-                    speech.run(fade, completion: {
-                        
-                        if let node = self.camera?.childNode(withName: "comingsoon") {
-                            if let website = node.childNode(withName: "website") as? SKLabelNode {
-                                self.websiteButton = website
-                            }
-                        }
-                        
-                        let fade = SKAction.fadeAlpha(to: 1.0, duration: 2.0)
-                        let comingSoon = self.camera?.childNode(withName: "comingsoon")
-                        comingSoon?.run(fade)
-                    })
-                    
-                } else {
-                    let fade = SKAction.fadeAlpha(to: 0.0, duration: 2.0)
-                    self.player.run(fade)
-                    speech.run(fade, completion: {
-                        self.showSubscriptionPage()
-                    })
-                }
-            }
-            
             let nextLevelBlock = SKAction.run {
                 self.loadAndGotoNextLevel(sceneName: GameLevels.Level2, level: GameLevels.Level2)
             }
@@ -247,7 +175,6 @@ class TransferLevel : World {
         // If the player hits the door to take them to level 1
         if PhysicsHandler.contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
             // Load the level 1 screen
-            
             self.loadAndGotoNextLevel(sceneName: GameLevels.Level1, level: GameLevels.Level1)                       
         }
         

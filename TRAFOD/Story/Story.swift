@@ -22,13 +22,6 @@ class Story : World {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self
-        self.createPlayer()
-        self.showFireFlies()
-        self.showBackgroundParticles()
-        self.showDoorParticles()        
-        if let start = self.childNode(withName: "start") {
-            self.player.position = start.position
-        }
         
         self.showCityFire()
         
@@ -73,9 +66,7 @@ class Story : World {
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
         
-        let dt = currentTime - self.lastUpdateTime
         self.moveCamera()
-        self.handlePlayerRotation(dt: dt)
         self.lastUpdateTime = currentTime
     }
     
@@ -103,15 +94,6 @@ class Story : World {
     }
     
     func showFirstLevel () {                
-        DispatchQueue.main.async {            
-            let loading = Loading(fileNamed: "Loading")
-            loading?.nextSceneName = "GameScene"
-            loading?.player = self.player
-            self.player.removeFromParent()
-            let transition = SKTransition.moveIn(with: .right, duration: 0)
-            loading?.scaleMode = SKSceneScaleMode.aspectFit
-            self.view?.presentScene(loading!, transition: transition)
-            
-        }
+        self.loadAndGotoNextLevel(sceneName: "GameScene", level: GameLevels.Level1)
     }
 }

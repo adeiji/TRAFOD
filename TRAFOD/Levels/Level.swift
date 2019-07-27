@@ -9,6 +9,11 @@
 import Foundation
 import GameKit
 
+/**
+ 
+ This class is a subclass of World and should contain only objects and properties that are level specific but not world specific.  For example, the number of minerals that the player currently has will only be viewed within levels, so we would put any objects and properties pertaining to mineral counts, mineral numbers, within this class
+ 
+ */
 class Level : World {
     
     var launchTime:TimeInterval?
@@ -17,6 +22,7 @@ class Level : World {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self        
         self.getProgress()
+        self.showMineralCount()
     }
     
     override func didEnd(_ contact: SKPhysicsContact) {
@@ -113,36 +119,6 @@ class Level : World {
             return
         }
         
-        if contact.bodyA.node as? FlipSwitch != nil || contact.bodyB.node as? FlipSwitch != nil {
-            var flipSwitch:FlipSwitch?
-            if let mySwitch = contact.bodyA.node as? FlipSwitch {
-                flipSwitch = mySwitch
-            }
-            
-            if let mySwitch = contact.bodyB.node as? FlipSwitch {
-                flipSwitch = mySwitch
-            }
-            
-            if PhysicsHandler.contactContains(strings: ["level2-switch1", "rock"], contact: contact) {
-                self.movePlatform(nodeName: "ground-nowarp-switch1")
-                self.flipSwitchOn(node: flipSwitch)
-            } else if PhysicsHandler.contactContains(strings: ["level2-switch2", "cannonball"], contact: contact) {
-                let wait = SKAction.wait(forDuration: 1.0)
-                self.run(wait) {
-                    self.movePlatform(nodeName: "ground-nowarp-switch2", duration: 1.5)
-                    self.flipSwitchOn(node: flipSwitch)
-                }
-            } else if PhysicsHandler.contactContains(strings: ["level2-switch3", "rock"], contact: contact) {
-                self.movePlatform(nodeName: "ground-switch3", xOffset: 0, yOffset: 250, duration: 3.0)
-                self.flipSwitchOn(node: flipSwitch)
-            } else if PhysicsHandler.contactContains(strings: ["level2-switch4", "rock"], contact: contact) {
-                self.movePlatform(nodeName: "ground-nowarp-switch4", duration: 6.0)
-                self.flipSwitchOn(node: flipSwitch)
-            }
-            
-            return
-        }
-        
         self.checkForAndHandleWeightSwitchCollision(contact: contact)
     }
     
@@ -168,52 +144,6 @@ class Level : World {
         if let node = node {
             if let node = node.childNode(withName: "switch") as? SKSpriteNode {
                 node.texture = SKTexture(imageNamed: "switch-on")
-            }
-        }
-    }
-    
-    /**
-     Moves a node to a specificied position
-     
-     - Parameter nodeName: The name of the node to move
-     - Parameter xOffset: How far to move in the x direction
-     - Parameter yOffset: How far to move in the y direction
-     - Parameter duration: How long to take to move the node
-     
-     */
-    func movePlatform (nodeName: String, xOffset: CGFloat, yOffset: CGFloat, duration: TimeInterval = 0.65) {
-        if let node = self.childNode(withName: nodeName) {
-            
-            // If this action has already been activated then don't do it again
-            if let node = self.childNode(withName: nodeName) as? MovablePlatform {
-                if node.finishedMoving == true {
-                    return
-                }
-            }
-            
-            let move = SKAction.moveBy(x: xOffset, y: yOffset, duration: duration)
-            node.physicsBody?.pinned = false
-            node.run(move) {
-                if let node = node as? MovablePlatform {
-                    node.finishedMoving = true
-                }
-                node.physicsBody?.pinned = true
-                node.physicsBody?.affectedByGravity = false
-            }
-        }
-    }
-    
-    /**
-     Removes a pin from a node and allows it to be affected by gravity allowing it to move freely and be affected by gravity
-     */
-    func movePlatform(nodeName: String, duration: TimeInterval = 0.65) {
-        if let node = self.childNode(withName: nodeName) {
-            node.physicsBody?.pinned = false
-            node.physicsBody?.affectedByGravity = true
-            let action = SKAction.wait(forDuration: duration)
-            node.run(action) {
-                node.physicsBody?.pinned = true
-                node.physicsBody?.affectedByGravity = false
             }
         }
     }
@@ -254,6 +184,10 @@ class Level : World {
                     let objectsInField = gravFieldPhysicsBody.allContactedBodies()
                     for object in objectsInField {
                         if let node = node as? DoubleGravField {
+                            if let _ = object.node as? MovablePlatform, let _ = object.node as? PortalPortocol {
+                                continue;
+                            }
+                            
                             if object.node?.name?.contains("portal") == false {
                                 object.applyImpulse(node.gravitation(mass: object.mass))
                             }

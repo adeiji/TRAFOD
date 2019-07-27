@@ -28,6 +28,9 @@ class Chapters : World {
         self.showDoorParticles()
         self.showFireFlies()
         self.showBackgroundParticles()
+        
+        self.player.previousRunningState = .RUNNINGRIGHT
+        self.player.runningState = .STANDING
     }
     
     override func update(_ currentTime: TimeInterval) {

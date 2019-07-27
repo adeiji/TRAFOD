@@ -11,7 +11,7 @@ import GameKit
 
 class FlipSwitchComponent : SKSpriteNode { }
 
-class FlipSwitch : GameSwitch {
+class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
     
     var movablePlatform:MovablePlatform? {
         didSet {
@@ -25,9 +25,12 @@ class FlipSwitch : GameSwitch {
     }
     
     func setupPhysicsBody () {
-        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        self.physicsBody?.collisionBitMask = 0
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.FlipSwitch)
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.CannonBall) | UInt32(PhysicsCategory.Rock)
+        self.physicsBody?.pinned = true
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.isDynamic = true
     }
     
     /**

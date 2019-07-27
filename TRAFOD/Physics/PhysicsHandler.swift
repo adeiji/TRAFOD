@@ -97,7 +97,10 @@ class PhysicsHandler {
     }
     
     /**
-     If a player hits a mineral that can be grabbed
+     If a player makes contact with a mineral that can be grabbed than we return the mineral that the user just made contact with/grabbed
+     
+     - Parameter contact: The SKPhysicsContact object that containes the nodes for this specific contact
+     - Returns: RetrieveMineralNode? - The Mineral that the user just grabbed/made contact with
      */
     class func playerIsGrabbingMineral (contact: SKPhysicsContact) -> RetrieveMineralNode? {
         if let _  = contact.bodyA.node as? Player != nil ? contact.bodyA.node : contact.bodyB.node
@@ -139,7 +142,7 @@ class PhysicsHandler {
      - contact: SKPhysicsContact - The contact made that called the execution of the didBegin that called this method
      */
     class func playerUsedMineral (contact: SKPhysicsContact) -> Mineral? {
-        if nodesAreOfType(contact: contact, nodeAType: Ground.self, nodeBType: Mineral.self) {
+        if nodesAreOfType(contact: contact, nodeAType: Ground.self, nodeBType: Mineral.self) || nodesAreOfType(contact: contact, nodeAType: Cannon.self, nodeBType: Mineral.self)  {
             if let mineral = contact.bodyA.node as? Mineral != nil ? contact.bodyA.node as? Mineral : contact.bodyB.node as? Mineral {
                 mineral.showMineralCrash(withColor: mineral.mineralCrashColor, contact: contact, duration: 2)
                 switch mineral {
@@ -166,9 +169,7 @@ class PhysicsHandler {
     class func handlePlayerSwitchedWeightSwitch (contact: SKPhysicsContact) {
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: MultiDirectionalGravObject.self, nodeBType: WeightSwitchBottom.self) {
             if let node = contact.bodyA.node?.parent as? WeightSwitch {
-                if node.platform?.finishedMoving == false {
-                    node.platform?.move()
-                }
+                node.platform?.move()                
             }
         }
     }

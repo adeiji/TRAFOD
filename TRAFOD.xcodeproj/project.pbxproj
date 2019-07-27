@@ -195,6 +195,7 @@
 		F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4EBE9E222D6407E00EC2300 /* Level4.sks */; };
 		F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */; };
 		F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */; };
+		F4F48F2A22EC8873002A59A5 /* Barley.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F48F2922EC8873002A59A5 /* Barley.swift */; };
 		F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */; };
 		F4F5D90E22EB2C1E00CFB2A6 /* NegateFlipGravField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */; };
 /* End PBXBuildFile section */
@@ -417,6 +418,7 @@
 		F4EBE9E222D6407E00EC2300 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravityMineral.swift; sourceTree = "<group>"; };
 		F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldErrors.swift; sourceTree = "<group>"; };
+		F4F48F2922EC8873002A59A5 /* Barley.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barley.swift; sourceTree = "<group>"; };
 		F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffectedByNegationField.swift; sourceTree = "<group>"; };
 		F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegateFlipGravField.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -563,6 +565,7 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F4F48F2822EC8866002A59A5 /* Beer */,
 				F490A68E22E60FC500840F91 /* Switches */,
 				F490A68B22E60F7500840F91 /* Rock */,
 				F49ADDD122E3483D00388C49 /* Matter */,
@@ -968,6 +971,14 @@
 			path = Errors;
 			sourceTree = "<group>";
 		};
+		F4F48F2822EC8866002A59A5 /* Beer */ = {
+			isa = PBXGroup;
+			children = (
+				F4F48F2922EC8873002A59A5 /* Barley.swift */,
+			);
+			path = Beer;
+			sourceTree = "<group>";
+		};
 		FE2E67AC52ACA1E642F75AC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -1332,6 +1343,7 @@
 				F490A68D22E60F8400840F91 /* RockNoFipGravity.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
 				F44B9BD420EDFEF700B874A1 /* Doorway.swift in Sources */,
+				F4F48F2A22EC8873002A59A5 /* Barley.swift in Sources */,
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
 				F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */,
 				F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */,
