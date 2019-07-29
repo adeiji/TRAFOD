@@ -26,9 +26,38 @@ class GotoLevelNode : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     }
 }
 
+class GotoLevel2 : GotoLevelNode {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.nextLevel = GameLevels.Level2
+    }
+}
+
+class GotoLevel3 : GotoLevelNode {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.nextLevel = GameLevels.Level3
+    }
+}
+
+class GotoLevel4 : GotoLevelNode {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.nextLevel = GameLevels.Level4
+    }
+}
+
+
 class GotoLevel5 : GotoLevelNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)        
         self.nextLevel = GameLevels.Level5
+    }
+}
+
+class GotoTransferLevel : GotoLevelNode {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.nextLevel = GameLevels.TransferLevel
     }
 }

@@ -98,6 +98,20 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
     }
     
+    /// Checks to see if the player is  contacted with FlipGravity and update the player's rotation
+    func handleIsContactedWithFlipGravity () {
+        guard let physicsBody = self.physicsBody else { return }
+        
+        for body in physicsBody.allContactedBodies() {
+            if body.node is FlipGravity && self.negatedForces[.FLIPGRAVITY] == nil {
+                self.flipPlayer(flipUpsideDown: true)
+                return
+            }
+        }
+        
+        self.flipPlayerUpright()
+    }
+    
     /**
      
      Changes the direction that the player is facing

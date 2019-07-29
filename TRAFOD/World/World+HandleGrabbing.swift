@@ -150,7 +150,7 @@ extension World {
                     }
                 }
             } else {
-                showSpeech(message: "It's too heavy...", relativeToNode: self.player)
+                self.showSpeech(message: "It's too heavy...", relativeToNode: self.player)
             }
         }
     }

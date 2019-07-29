@@ -30,6 +30,10 @@ class Mineral: SKSpriteNode {
     var mineralCrashColor: UIColor = .purple
     
     func throwMineral (player: Player, world: World) {
+        if world.thrownMineral != nil {
+            return
+        }
+        
         self.position = player.position
         let width = self.texture?.size().width
         let height = self.texture?.size().height
@@ -44,6 +48,7 @@ class Mineral: SKSpriteNode {
         self.physicsBody?.allowsRotation = false
         
         world.addChild(self)
+        world.thrownMineral = self
         
         if player.previousRunningState == .RUNNINGRIGHT {
             self.position.x = player.position.x + self.size.width
@@ -78,6 +83,7 @@ class Mineral: SKSpriteNode {
         let height = texture!.size().height * 0.5
         super.init(texture: texture , color: .clear, size:CGSize(width: width, height: height))
     }
+    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

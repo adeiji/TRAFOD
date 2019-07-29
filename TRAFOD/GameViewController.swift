@@ -17,10 +17,10 @@ class GameViewController: UIViewController {
         
         // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
         // including entities and graphs.
-        if let scene = GKScene(fileNamed: "Level2") {
+        if let scene = GKScene(fileNamed: "Level5") {
             
             // Get the SKScene from the loaded GKScene
-            if let sceneNode = scene.rootNode as? Level2
+            if let sceneNode = scene.rootNode as? Level5
             {
                 // Copy gameplay related content over to the scene
 //                sceneNode.entities = scene.entities
@@ -32,7 +32,6 @@ class GameViewController: UIViewController {
                 // Present the scene
                 if let view = self.view as! SKView? {
                     view.presentScene(sceneNode)
-                    
                     view.ignoresSiblingOrder = true
                     
                     view.showsFPS = true

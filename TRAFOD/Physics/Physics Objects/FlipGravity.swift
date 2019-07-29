@@ -52,6 +52,43 @@ class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
     }
 }
 
+class RemoveRotation : PhysicsAlteringObject, SpecialField {
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        self.setCategoryBitmask()
+    }
+    
+    required init(contactPosition: CGPoint, size: CGSize?, color: UIColor?, anchorPoint: CGPoint) {
+        super.init(contactPosition: contactPosition, size: size ?? CGSize(width: 200, height: 200), color: color ?? .purple, anchorPoint: anchorPoint)
+        self.setCategoryBitmask()
+    }
+    
+    func setupPhysicsBody() {
+        self.physicsBody?.contactTestBitMask = 1
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        self.physicsBody?.allowsRotation = false
+        self.physicsBody?.pinned = true
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.isDynamic = true
+    }
+    
+    internal override func setCategoryBitmask() {
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.ForceField)
+    }
+    
+    func applyChange() {
+        guard let physicsBody = self.physicsBody else { return }
+        
+        for body in physicsBody.allContactedBodies() {
+            if let rock = body.node as? Rock {
+                rock.zRotation = 0
+            }
+        }
+    }
+    
+}
+
 /**
  FlipGravity is a SpriteNode which applies a force equal to the oppositive of gravity * 2 to whatever object affected by gravity that is in contact with it
  FlipGravity does not affect the gravity of the entire world, but only to objects in contact with it, and the FlipGravity node does not have a width of the full screen
@@ -111,11 +148,6 @@ class FlipGravity : PhysicsAlteringObject {
                             fallthrough
                         default:
                             body.applyImpulse(CGVector(dx: 0, dy: (forceOfGravity * -1) * 5 * body.mass))
-                            if let player = node as? Player {
-                                if let world = World.getMainWorldFromNode(node: player) {
-                                    world.player.flipPlayer(flipUpsideDown: true)
-                                }
-                            }
                         }
                         
                     }

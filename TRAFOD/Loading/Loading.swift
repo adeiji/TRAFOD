@@ -19,6 +19,7 @@ class Loading : World {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.loadingCrystal = self.childNode(withName: "getAntiGrav")
+        self.loadNextScene()
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -36,6 +37,7 @@ class Loading : World {
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
         self.player.runningState = .RUNNINGRIGHT
+        
         if self.lastUpdateTime == 0 {
             self.lastUpdateTime = currentTime
         }
@@ -47,23 +49,19 @@ class Loading : World {
             self.loadingCrystal.zRotation = self.loadingCrystal.zRotation + CGFloat(Double.pi / (-Double(dt * 1000)))
         }
         
-        if self.shouldLoadNextScene == true {
-            self.loadNextScene()
-            self.shouldLoadNextScene = false
-        }
-        
         if self.player.position.x >= (self.scene!.size.width / 2.0) {
             if let nextScene = self.nextScene {
                 let transition = SKTransition.moveIn(with: .right, duration: 0)
                 nextScene.scaleMode = SKSceneScaleMode.aspectFit
+                self.player.runningState = .STANDING
                 self.player.removeFromParent()
                 nextScene.player = self.player                
-                nextScene.collectedElements = self.collectedElements                
+                nextScene.collectedElements = self.collectedElements
+                
                 self.view?.presentScene(nextScene, transition: transition)
             }
         } else if self.player.position.x >= 0 && self.keepRunning == false {
             self.player.runningState = .STANDING
-            self.shouldLoadNextScene = true
             self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             self.keepRunning = true
         }

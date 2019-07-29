@@ -47,7 +47,8 @@ class Rock : Ground, BaseWorldObject {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Rock)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |
             UInt32(PhysicsCategory.Ground) |
-            UInt32(PhysicsCategory.Rock)
+            UInt32(PhysicsCategory.Rock) |
+            UInt32(PhysicsCategory.Cannon)
         self.physicsBody?.allowsRotation = true
         self.physicsBody?.friction = 0.5
     }

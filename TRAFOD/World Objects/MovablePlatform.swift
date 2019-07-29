@@ -54,7 +54,11 @@ class MovablePlatform : Ground {
         self.physicsBody?.pinned = false
         self.removeAllActions()
         self.run(move) {
-            self.physicsBody?.pinned = true            
+            if let name = self.name {
+                if name.contains("pin") {
+                    self.physicsBody?.pinned = true
+                }
+            }
             self.finishedMoving = !self.finishedMoving
         }
     }

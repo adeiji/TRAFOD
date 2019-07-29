@@ -9,15 +9,6 @@
 import SpriteKit
 import GameplayKit
 
-enum Minerals: String, CaseIterable {
-    case ANTIGRAV = "antigrav"
-    case IMPULSE = "impulse"
-    case TELEPORT = "teleport"
-    case USED_TELEPORT = "teleport-mineral"
-    case FLIPGRAVITY = "flipgravity"
-    case MAGNETIC = "magnetic"
-}
-
 extension UIColor {
     struct Style {
         static var ANTIGRAVMINERAL:UIColor  { return UIColor(red: 14.0/255.0, green: 210.0/255, blue: 241.0/255, alpha: 1) }
@@ -50,6 +41,13 @@ class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsB
         if self.isImmovableGround {
             self.physicsBody?.mass = 1000000000000
         }
+    }
+}
+
+class Ice : Ground {
+    override func setupPhysicsBody() {
+        super.setupPhysicsBody()
+        self.physicsBody?.friction = 0
     }
 }
 

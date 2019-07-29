@@ -9,6 +9,11 @@
 import Foundation
 import GameKit
 
+/// Special fields are fields within the game that apply different changes to nodes within the game
+protocol SpecialField  {
+    func applyChange ()
+}
+
 class DoubleGravField : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     
     required init?(coder aDecoder: NSCoder) {

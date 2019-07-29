@@ -145,9 +145,19 @@ class PhysicsHandler {
         if nodesAreOfType(contact: contact, nodeAType: Ground.self, nodeBType: Mineral.self) || nodesAreOfType(contact: contact, nodeAType: Cannon.self, nodeBType: Mineral.self)  {
             if let mineral = contact.bodyA.node as? Mineral != nil ? contact.bodyA.node as? Mineral : contact.bodyB.node as? Mineral {
                 mineral.showMineralCrash(withColor: mineral.mineralCrashColor, contact: contact, duration: 2)
+                mineral.removeFromParent()                
+                
                 switch mineral {
                 case is FlipGravityMineral:
                     if contactContains(strings: ["noflipgrav"], contact: contact) {
+                        return nil
+                    }
+                case is ImpulseMineral:
+                    if contactContains(strings: ["nowarp"], contact: contact) {
+                        return nil
+                    }
+                case is AntiGravityMineral:
+                    if contactContains(strings: ["noantigrav"], contact: contact) {
                         return nil
                     }
                 default:
@@ -169,7 +179,13 @@ class PhysicsHandler {
     class func handlePlayerSwitchedWeightSwitch (contact: SKPhysicsContact) {
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: MultiDirectionalGravObject.self, nodeBType: WeightSwitchBottom.self) {
             if let node = contact.bodyA.node?.parent as? WeightSwitch {
-                node.platform?.move()                
+                node.platform?.move()
+                if let name = node.name {
+                    if name.contains("pin") {
+                        node.topOfSwitch?.verticalForce = 0
+                        node.topOfSwitch?.physicsBody?.pinned = true
+                    }
+                }
             }
         }
     }

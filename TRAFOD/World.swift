@@ -60,7 +60,7 @@ class World: SKScene, SKPhysicsContactDelegate {
      
      - Todo: Stop using the message box and start to use another means of displaying messages to the user
      */
-    var messageBox:SKSpriteNode!
+    var messageBox:SKSpriteNode?
     
     var jumpButton:SKNode?
     var throwButton:SKNode?
@@ -115,6 +115,10 @@ class World: SKScene, SKPhysicsContactDelegate {
     var volumeIsMuted:Bool = false
     let physicsHandler = PhysicsHandler()
     
+    weak var thrownMineral:Mineral?
+    /// Contains all the special fields within this level
+    var specialFields:[SpecialField] = [SpecialField]()
+    
     enum Levels:String {
         case LEVEL1 = "GameScene"
         case LEVEL2 = "Level2"
@@ -140,10 +144,8 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.sounds = SoundManager(world: self)
         self.setupAllObjectNodes(nodes: self.children)
         self.setupButtonsOnScreen()
-        self.getCannons()
         self.removeCollectedElements()
         self.showParticles()
-        self.changeMineralPhysicsBodies()
         
         try? AVAudioSession.sharedInstance().setCategory(.ambient)
         try? AVAudioSession.sharedInstance().setActive(true)
@@ -181,6 +183,14 @@ class World: SKScene, SKPhysicsContactDelegate {
                 let weightSwitch = node as! WeightSwitch
                 weightSwitch.setup()
                 self.weightSwitches?.append(weightSwitch)
+            case is RetrieveMineralNode:
+                if let mineralNode = node as? RetrieveMineralNode {
+                    mineralNode.setup()
+                }
+            case is SpecialField:
+                if let specialField = node as? SpecialField {
+                    self.specialFields.append(specialField)
+                }
             default:
                 break;
             }
@@ -218,42 +228,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         self.player = Player(imageNamed: "standing")
         self.player.setupPhysicsBody()
         self.listener = self.player
-    }
-    
-    func changeMineralPhysicsBodies () {
-        for node in self.children {
-            
-            func addAllMinerals (mineralGroup: MineralGroup) {
-                mineralGroup.children.forEach { (mineral) in
-                     if let mineral = mineral as? RetrieveMineralNode {
-                        mineral.setup()
-                    }
-                }
-            }
-            
-            if let node = node as? MineralGroup {
-                addAllMinerals(mineralGroup: node)
-            }
-            
-            if let name = node.name {
-                if name.contains("getAntiGrav") || name.contains("getImpulse") {
-                    if let _ = node.physicsBody {
-                        if let node = node as? SKSpriteNode {
-                            if let size = node.texture?.size() {
-                                node.physicsBody = SKPhysicsBody(rectangleOf: size)
-                                node.physicsBody?.affectedByGravity = false
-                                node.physicsBody?.restitution = 0
-                                node.physicsBody?.mass = 0
-                                node.physicsBody?.isDynamic = true
-                                node.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
-                                node.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Minerals)
-                                node.physicsBody?.allowsRotation = false
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
     
     /**
@@ -345,11 +319,11 @@ class World: SKScene, SKPhysicsContactDelegate {
             }
         }
         
-        if let jumpButton = self.jumpButton, self.messageBox != nil && self.nodes(at: pos).contains(jumpButton) {
-            self.messageBox.removeFromParent()
-            self.messageBox = nil
-        } else if self.messageBox != nil {
-            return
+        if let messageBox = self.messageBox {
+            if messageBox.parent != nil {
+                messageBox.removeFromParent()
+                self.messageBox = nil
+            }
         }
         
         self.handleGrabButtonActions(atPoint: pos)
@@ -457,16 +431,13 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     func handlePlayerGotoNextLevel (contact: SKPhysicsContact) {
-        if PhysicsHandler.contactContains(strings: ["dawud", GameLevels.Level3.uppercased()], contact: contact) {
-            self.loadAndGotoNextLevel(sceneName: GameLevels.Level3, level: GameLevels.Level3)
+        
+        guard let levelNode = contact.bodyA.node as? GotoLevelNode != nil ? contact.bodyA.node as? GotoLevelNode : contact.bodyB.node as? GotoLevelNode else {
             return
-        } else if PhysicsHandler.contactContains(strings: ["dawud", GameLevels.Level4.uppercased()], contact: contact) {
-            self.loadAndGotoNextLevel(sceneName: GameLevels.Level4, level: GameLevels.Level4)
-            return
-        } else if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: GotoLevelNode.self, nodeBType: Player.self) {
-            let levelNode = contact.bodyA.node as? GotoLevelNode != nil ? contact.bodyA.node as! GotoLevelNode : contact.bodyB.node as! GotoLevelNode
-            self.loadAndGotoNextLevel(sceneName: levelNode.nextLevel, level: levelNode.nextLevel)
         }
+
+        self.loadAndGotoNextLevel(sceneName: levelNode.nextLevel, level: levelNode.nextLevel)
+
     }
 
     func handlePlayerHitGround (contact: SKPhysicsContact) {
@@ -490,10 +461,14 @@ class World: SKScene, SKPhysicsContactDelegate {
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
         PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)
         // Check to see if the playe has hit the door to go to another level
-        self.handlePlayerGotoNextLevel(contact: contact)
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: GotoLevelNode.self, nodeBType: Player.self) {
+            self.handlePlayerGotoNextLevel(contact: contact)
+            return
+        }
         // If the player hits fire than he dies
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Fire.self, nodeBType: Player.self) {
             self.player.state = .DEAD
+            return
         }
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Impulse.self, nodeBType: SKSpriteNode.self) {
@@ -504,6 +479,8 @@ class World: SKScene, SKPhysicsContactDelegate {
                     self.impulses.remove(at: index)
                 }
             }
+            
+            return
         }
         
         if let mineral = PhysicsHandler.playerIsGrabbingMineral(contact: contact) {
@@ -522,18 +499,13 @@ class World: SKScene, SKPhysicsContactDelegate {
                         self.addChild(physicsAlteringArea)
                     }
                 }
-                
-                mineral.removeFromParent()
-            }    
+            }
+            
+            return
         }
 
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: GroundProtocol.self) {
-            self.handlePlayerHitGround(contact: contact)
-        }
-        else if (contactAName == "dawud") || (contactBName == "dawud") {
-            if contactAName.contains("ground") || contactBName.contains("ground")  {
-                self.handlePlayerHitGround(contact: contact)
-            }
+            self.handlePlayerHitGround(contact: contact)            
         }
     
         if PhysicsHandler.contactContains(strings: ["dawud", "portal"], contactA: contactAName , contactB: contactBName) {
@@ -781,6 +753,11 @@ class World: SKScene, SKPhysicsContactDelegate {
             entity.update(deltaTime: dt)
         }
         
+        self.player.handleIsContactedWithFlipGravity()
+        self.specialFields.forEach { (field) in
+            field.applyChange()
+        }
+        
         if self.player.state == .DEAD {
             self.handlePlayerDied()
         } else {
@@ -859,7 +836,7 @@ class World: SKScene, SKPhysicsContactDelegate {
             text.zPosition = 5
             node.position = relativeToNode.position
             node.position.y = node.position.y + 160
-            node.position.x = node.position.x + 45
+            node.position.x = node.position.x - 45
             self.addChild(node)
             
             self.messageBox = node
@@ -901,20 +878,6 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.ambiance = SKAudioNode(url: musicURL)
                 self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
                 addChild(self.ambiance)
-            }
-        }
-    }
-    
-    /**
-     - TODO: Change the way that we do cannons within the levels and instead of naming them cannons assign their object to Cannons and then remove this method
-     */
-    func getCannons () {
-        if let cannonsGroup = self.childNode(withName: "cannons") {
-            if let cannons  = cannonsGroup.children as? [Cannon] {
-                self.cannons = cannons
-                for i in 0...(cannons.count - 1) {
-                    self.cannons![i].timeToFire = self.cannonTimes[i]
-                }
             }
         }
     }

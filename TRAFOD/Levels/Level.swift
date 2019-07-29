@@ -37,49 +37,13 @@ class Level : World {
     
     override func didBegin(_ contact: SKPhysicsContact) {
         super.didBegin(contact);
-        let contactAName = contact.bodyA.node?.name ?? ""
-        let contactBName = contact.bodyB.node?.name ?? ""
-        
+
         FlipSwitch.flipSwitch(contact: contact)
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: NegateFlipGravField.self, nodeBType: AffectedByNegationField.self) {
             NegateFlipGravField.negateForceForObjectInContact(contact: contact)
         } else if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: NegateAllForcesField.self, nodeBType: BaseWorldObject.self) {
             NegateAllForcesField.negateForceForObjectInContact(contact: contact)
-        }
-        
-        
-        if PhysicsHandler.contactContains(strings: ["dawud", "getImpulse"], contactA: contactAName, contactB: contactBName) {
-            self.getImpulse()
-            
-            if let node = getContactNode(name: "getImpulse", contact: contact) {
-                self.addToCollectedElements(node: node)
-                node.removeFromParent()
-            }
-            
-            return
-        }
-        
-        if PhysicsHandler.contactContains(strings: ["dawud", "getAntiGrav"], contactA: contactAName , contactB: contactBName) {
-            self.getAntiGrav()
-            
-            if let node = getContactNode(name: "getAntiGrav", contact: contact) {
-                self.addToCollectedElements(node: node)
-                node.removeFromParent()
-            }
-            
-            return
-        }
-        
-        if PhysicsHandler.contactContains(strings: ["dawud", "getTeleport"], contactA: contactAName , contactB: contactBName) {
-            self.getMineral(type: .TELEPORT)
-            
-            if let node = getContactNode(name: "getTeleport", contact: contact) {
-                self.addToCollectedElements(node: node)
-                node.removeFromParent()
-            }
-            
-            return
         }
         
         if contact.bodyA.node as? Reset != nil || contact.bodyB.node as? Reset != nil {
@@ -207,48 +171,6 @@ class Level : World {
         self.weightSwitches?.forEach({ (weightSwitch) in
             weightSwitch.topOfSwitch?.applyUpwardForce()
         })
-    }
-     
-    // TODO: Needs to be deprecated
-    func getImpulse () {
-        if self.player.hasImpulse == false {
-            self.player.hasImpulse = true
-            ProgressTracker.updateProgress(currentLevel: nil, player: self.player)
-            self.showMineralReceivedBox(nodeName: "impulseRecievedBox")
-        }
-        
-        if var count = self.player.mineralCounts[.IMPULSE] {
-            count = count + 10
-            self.player.mineralCounts[.IMPULSE] = count
-        } else {
-            self.player.mineralCounts[.IMPULSE] = 10
-        }
-        
-        ProgressTracker.updateMineralCount(myMineral: Minerals.IMPULSE.rawValue, count: self.player.mineralCounts[.IMPULSE]!)
-        
-        self.playMineralSound()
-        self.showMineralCount()
-    }
-    
-    func getAntiGrav () {
-        
-        if var count = self.player.mineralCounts[.ANTIGRAV] {
-            count = count + 10
-            self.player.mineralCounts[.ANTIGRAV] = count
-        } else {
-            self.player.mineralCounts[.ANTIGRAV] = 10
-        }
-        
-        ProgressTracker.updateMineralCount(myMineral: Minerals.ANTIGRAV.rawValue, count: self.player.mineralCounts[.ANTIGRAV]!)
-        
-        self.playMineralSound()
-        self.showMineralCount()
-        
-        if self.player.hasAntigrav == false {
-            self.player.hasAntigrav = true
-            ProgressTracker.updateProgress(currentLevel: nil, player: self.player)
-            self.showMineralReceivedBox(nodeName: "antigravRecievedBox")
-        }
     }
     
     /**

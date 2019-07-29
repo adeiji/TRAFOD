@@ -50,3 +50,11 @@ class Cannon5 : Cannon {
         self.timeToFire = 5.0
     }
 }
+
+class Cannon10 : Cannon {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.timeToFire = 10.0
+    }
+}

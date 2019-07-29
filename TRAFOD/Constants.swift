@@ -9,6 +9,21 @@
 import Foundation
 import GameKit
 
+enum Minerals: String, CaseIterable {
+    case ANTIGRAV = "antigrav"
+    case IMPULSE = "impulse"
+    case TELEPORT = "teleport"
+    case USED_TELEPORT = "teleport-mineral"
+    case FLIPGRAVITY = "flipgravity"
+    case MAGNETIC = "magnetic"
+}
+
+enum PhysicsAlteringObjectTypes {
+    case FLIPGRAVITY
+    case MAGNETIC
+    case REMOVEROTATION
+}
+
 /// The GameLevel names, these should match the name of the sks files for each level
 public class GameLevels {
     public static let Level1 = "GameScene"

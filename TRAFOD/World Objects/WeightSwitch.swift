@@ -78,6 +78,13 @@ class WeightSwitch3000 : WeightSwitch {
     }
 }
 
+class WeightSwitch5000 : WeightSwitch {
+    override func setup() {
+        super.setup()
+        self.topOfSwitch?.verticalForce = 5000
+    }
+}
+
 
 class WeightSwitch10000 : WeightSwitch {
     override func setup() {
