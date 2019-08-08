@@ -16,34 +16,6 @@ extension UIColor {
     }
 }
 
-protocol GroundProtocol {    
-    var isImmovableGround:Bool { get set }
-}
-
-class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsBody {
-    
-    var isImmovableGround = false
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        self.isImmovableGround = true
-    }
-    
-    func setupPhysicsBody () {
-        self.physicsBody?.isDynamic = true
-        self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.restitution  = 0
-        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Ground) 
-        self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
-        self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
-        self.physicsBody?.usesPreciseCollisionDetection = true
-        self.physicsBody?.friction = 1.0
-        if self.isImmovableGround {
-            self.physicsBody?.mass = 1000000000000
-        }
-    }
-}
-
 class Ice : Ground {
     override func setupPhysicsBody() {
         super.setupPhysicsBody()
@@ -66,12 +38,12 @@ class GameScene: Level {
     
     override func sceneDidLoad() {
         super.sceneDidLoad()
-        self.currentLevel = .LEVEL1
     }
     
     override func didMove(to view: SKView) {
-        super.didMove(to: view)
         self.currentLevel = .LEVEL1
+        self.physicsWorld.contactDelegate = self
+        super.didMove(to: view)        
         
         self.playBackgroundMusic()
         let antiGravNode = self.camera?.childNode(withName: self.antiGravViewKey)
@@ -99,13 +71,13 @@ class GameScene: Level {
     
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
-        self.moveCamera()
+        self.moveCameraWithPlayer()
         let dt = currentTime - self.lastUpdateTime
         self.handlePlayerRotation(dt: dt)
         self.lastUpdateTime = currentTime
     }
     
-    override func moveCamera() {
+    override func moveCameraWithPlayer() {
         if ((self.player.position.x >= self.minCameraX)) && self.player.position.x < 31862 {
             self.camera?.position.x = self.player.position.x
         } else if self.player.position.x < self.minCameraX {
@@ -119,16 +91,5 @@ class GameScene: Level {
         } else {
             self.camera?.position.y = -159
         }
-    }
-    
-    override func didBegin(_ contact: SKPhysicsContact) {
-        super.didBegin(contact)
-
-        let contactAName = contact.bodyA.node?.name ?? ""
-        let contactBName = contact.bodyB.node?.name ?? ""
-        
-        if PhysicsHandler.contactContains(strings: ["dawud", "endOfGame"], contactA: contactAName, contactB: contactBName) {
-            self.loadAndGotoNextLevel(sceneName: "TransferLevel", level: GameLevels.TransferLevel)
-        }                
-    }
+    }       
 }

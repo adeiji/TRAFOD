@@ -16,6 +16,4 @@ extension World {
             UIKeyCommand(input: UIKeyCommand.inputLeftArrow, modifierFlags: .command, action: "")
         ]
     }
-    
-    
 }

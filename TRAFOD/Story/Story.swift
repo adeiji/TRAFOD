@@ -11,7 +11,6 @@ import SpriteKit
 import GameplayKit
 
 class Story : World {
-    
     private var cameraPositions = [CGPoint(x: 0, y: 0),CGPoint(x: 1334, y: 0),
                                    CGPoint(x: 2512, y: 0), CGPoint(x: 3718, y: 0),
                                    CGPoint(x: 5280, y: 0), CGPoint(x: 6769, y: 0),
@@ -22,7 +21,6 @@ class Story : World {
     override func didMove(to view: SKView) {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self
-        
         self.showCityFire()
         
         if let node = self.childNode(withName: "Page1Text") {
@@ -66,11 +64,11 @@ class Story : World {
     override func update(_ currentTime: TimeInterval) {
         super.update(currentTime)
         
-        self.moveCamera()
+        self.moveCameraWithPlayer()
         self.lastUpdateTime = currentTime
     }
     
-    override func moveCamera() {
+    override func moveCameraWithPlayer() {
         if self.player.position.x > self.camera!.position.x {
             if self.minCameraX == nil {
                 self.minCameraX = self.camera!.position.x
@@ -94,6 +92,6 @@ class Story : World {
     }
     
     func showFirstLevel () {                
-        self.loadAndGotoNextLevel(sceneName: "GameScene", level: GameLevels.Level1)
+        self.loadAndGotoNextLevel(level: .Level1)
     }
 }

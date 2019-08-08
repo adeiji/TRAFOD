@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14109" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14490.70" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="BV1-FR-VrT">
     <device id="retina4_7" orientation="landscape">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14490.49"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -41,10 +41,10 @@
             </objects>
             <point key="canvasLocation" x="878" y="-20"/>
         </scene>
-        <!--Purchase View Controller-->
+        <!--purchaseMineralsViewController-->
         <scene sceneID="doq-6O-udi">
             <objects>
-                <viewController useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zam-PA-v13" customClass="PurchaseViewController" customModule="TRAFOD" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="purchaseMineralsViewController" title="purchaseMineralsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="Zam-PA-v13" customClass="PurchaseMineralsViewController" customModule="TRAFOD" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="Z6b-8K-zvg">
                         <rect key="frame" x="0.0" y="0.0" width="667" height="375"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -54,105 +54,95 @@
                             </imageView>
                             <view alpha="0.59999999999999998" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QT4-gp-Y7q">
                                 <rect key="frame" x="0.0" y="-1" width="667" height="376"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="9kG-q6-OJ5">
+                                        <rect key="frame" x="32" y="254" width="179" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="selectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Buy 40 for $5.99">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="purchase40MineralsPressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="O3y-nS-fzF"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rDD-ki-9Qm">
+                                        <rect key="frame" x="244" y="313" width="179" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="systemRedColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Cancel">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="cancelButtonPressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="Qfn-mc-VT9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FLt-Qp-xGn">
+                                        <rect key="frame" x="458" y="254" width="179" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="selectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Buy 1000 for $99.99">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="purchase1000MineralsPressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="vRb-Py-gL9"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lxS-rm-Otd">
+                                        <rect key="frame" x="458" y="143" width="179" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="selectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Buy 100 for $99.99">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="purchase100MineralsPressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="oug-tJ-LB6"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUE-Iz-bRr">
+                                        <rect key="frame" x="32" y="143" width="179" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="selectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Buy 5 for $0.99">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="purchase5MineralsPressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="gQB-0z-sn1"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="90j-9T-0ID">
+                                        <rect key="frame" x="244" y="199" width="179" height="38"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <color key="backgroundColor" name="selectedContentBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                        <state key="normal" title="Buy 5000 for $99.99">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="purchase5000MineralsPressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="WU3-iD-O7i"/>
+                                        </connections>
+                                    </button>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Blue Crystal.png" translatesAutoresizingMaskIntoConstraints="NO" id="JK1-AQ-PWa">
+                                        <rect key="frame" x="304" y="3" width="58" height="103"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                    </imageView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Buy Anti-Gravity Minerals" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sdv-sG-Ch4">
+                                        <rect key="frame" x="175" y="92" width="351" height="39"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribe now to keep playing and see how Dawud's story will end.  Level 2 coming July 16th." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7E-hM-zbX">
-                                <rect key="frame" x="37" y="90" width="593.5" height="36.5"/>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subscribe before July 1, 2018 and get 30% off. $3.49 a month instead of $4.99 a month." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Mjo-CS-gq0">
-                                <rect key="frame" x="37" y="158.5" width="610" height="36.5"/>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For more information, visit:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ESk-kk-DkP">
-                                <rect key="frame" x="37" y="218" width="610" height="36.5"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36.5" id="Zkw-fm-3a7"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level 2 coming July 16th." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="WBM-6v-VDe">
-                                <rect key="frame" x="37" y="38" width="592" height="25"/>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="XLy-A6-bQc">
-                                <rect key="frame" x="101" y="314" width="225" height="38"/>
-                                <color key="backgroundColor" red="0.0" green="0.415962114760274" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <state key="normal" title="Subscribe now for 3.49/month">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="subscribePressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="y43-Rj-YP3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Qil-VC-bkb">
-                                <rect key="frame" x="349" y="314" width="225" height="38"/>
-                                <color key="backgroundColor" red="0.0" green="0.41527543534845446" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="225" id="6bU-pW-Rbp"/>
-                                    <constraint firstAttribute="height" constant="38" id="DBO-x1-NGK"/>
-                                </constraints>
-                                <state key="normal" title="Restore Purchase">
-                                    <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                </state>
-                                <connections>
-                                    <action selector="restorePurchases:" destination="Zam-PA-v13" eventType="touchUpInside" id="Rbj-hh-1E7"/>
-                                    <action selector="subscribePressed:" destination="Zam-PA-v13" eventType="touchUpInside" id="LTD-3j-dB5"/>
-                                </connections>
-                            </button>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Blue Crystal.png" translatesAutoresizingMaskIntoConstraints="NO" id="JK1-AQ-PWa">
-                                <rect key="frame" x="158" y="380" width="58" height="103"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                            </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gee-eN-Koy">
-                                <rect key="frame" x="289" y="247" width="106" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="30" id="Wn5-Xz-dyZ"/>
-                                    <constraint firstAttribute="width" constant="106" id="nSw-NF-g3l"/>
-                                </constraints>
-                                <state key="normal" title="trafodgame.net">
-                                    <color key="titleColor" red="1" green="0.60461258559999997" blue="0.1076626712" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="websiteButtonClicked:" destination="Zam-PA-v13" eventType="touchUpInside" id="8vs-1I-S7Q"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
                             <constraint firstItem="6Tg-tI-cpB" firstAttribute="top" secondItem="7yb-0X-KR5" secondAttribute="top" id="0Hb-Jj-pzc"/>
-                            <constraint firstItem="XLy-A6-bQc" firstAttribute="width" secondItem="Qil-VC-bkb" secondAttribute="width" id="0N7-dM-Y2Q"/>
-                            <constraint firstItem="b7E-hM-zbX" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="3ip-MY-juo"/>
-                            <constraint firstItem="WBM-6v-VDe" firstAttribute="top" secondItem="7yb-0X-KR5" secondAttribute="top" constant="38" id="89h-be-fOY"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="bottom" secondItem="QT4-gp-Y7q" secondAttribute="bottom" id="8YS-no-nDQ"/>
                             <constraint firstItem="6Tg-tI-cpB" firstAttribute="centerX" secondItem="7yb-0X-KR5" secondAttribute="centerX" id="9A6-nM-Feu"/>
-                            <constraint firstItem="Mjo-CS-gq0" firstAttribute="top" secondItem="b7E-hM-zbX" secondAttribute="bottom" constant="32" id="9GA-LH-poX"/>
-                            <constraint firstItem="b7E-hM-zbX" firstAttribute="top" secondItem="WBM-6v-VDe" secondAttribute="bottom" constant="27" id="9Oi-Vk-RCT"/>
-                            <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="ESk-kk-DkP" secondAttribute="trailing" constant="20" id="9oh-Be-JFU"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="QT4-gp-Y7q" secondAttribute="trailing" id="D3E-Fq-gOO"/>
-                            <constraint firstItem="XLy-A6-bQc" firstAttribute="height" secondItem="Qil-VC-bkb" secondAttribute="height" id="IX2-cg-ISk"/>
-                            <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="b7E-hM-zbX" secondAttribute="trailing" constant="36.5" id="NLZ-6m-7Ok"/>
-                            <constraint firstItem="Qil-VC-bkb" firstAttribute="centerX" secondItem="7yb-0X-KR5" secondAttribute="centerX" constant="128" id="SHt-cD-0gz"/>
-                            <constraint firstItem="gee-eN-Koy" firstAttribute="centerX" secondItem="ESk-kk-DkP" secondAttribute="centerX" id="Snh-50-u8O"/>
-                            <constraint firstItem="XLy-A6-bQc" firstAttribute="centerX" secondItem="7yb-0X-KR5" secondAttribute="centerX" constant="-120" id="TFp-XA-bz8"/>
-                            <constraint firstItem="gee-eN-Koy" firstAttribute="top" secondItem="ESk-kk-DkP" secondAttribute="bottom" constant="-7.5" id="TNt-5B-zXB"/>
-                            <constraint firstItem="WBM-6v-VDe" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="Unl-Aa-9FS"/>
-                            <constraint firstItem="XLy-A6-bQc" firstAttribute="centerY" secondItem="Qil-VC-bkb" secondAttribute="centerY" id="YH2-HS-L0J"/>
-                            <constraint firstItem="ESk-kk-DkP" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="Ypa-ez-jJx"/>
-                            <constraint firstItem="Mjo-CS-gq0" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" constant="37" id="cPN-Df-5O1"/>
-                            <constraint firstItem="7yb-0X-KR5" firstAttribute="bottom" secondItem="Qil-VC-bkb" secondAttribute="bottom" constant="23" id="gRu-nJ-alR"/>
                             <constraint firstItem="7yb-0X-KR5" firstAttribute="top" secondItem="QT4-gp-Y7q" secondAttribute="top" constant="1" id="k91-TL-b4c"/>
-                            <constraint firstItem="7yb-0X-KR5" firstAttribute="trailing" secondItem="WBM-6v-VDe" secondAttribute="trailing" constant="38" id="khZ-nQ-cHi"/>
-                            <constraint firstItem="Mjo-CS-gq0" firstAttribute="trailing" secondItem="Z6b-8K-zvg" secondAttribute="trailingMargin" id="nHV-mi-iIO"/>
-                            <constraint firstItem="ESk-kk-DkP" firstAttribute="top" secondItem="Mjo-CS-gq0" secondAttribute="bottom" constant="23" id="u2l-Cw-Lhf"/>
                             <constraint firstItem="QT4-gp-Y7q" firstAttribute="leading" secondItem="7yb-0X-KR5" secondAttribute="leading" id="zlj-bw-jig"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="7yb-0X-KR5"/>
@@ -160,18 +150,10 @@
                     <navigationItem key="navigationItem" id="KL2-tf-dfy"/>
                     <nil key="simulatedTopBarMetrics"/>
                     <nil key="simulatedBottomBarMetrics"/>
-                    <connections>
-                        <outlet property="button" destination="XLy-A6-bQc" id="pPs-Wm-qOC"/>
-                        <outlet property="myTitle" destination="WBM-6v-VDe" id="0Ts-ag-ZSo"/>
-                        <outlet property="restorePurchaseButton" destination="Qil-VC-bkb" id="8xF-vR-VJj"/>
-                        <outlet property="section1" destination="b7E-hM-zbX" id="1Mt-c4-37l"/>
-                        <outlet property="section2" destination="Mjo-CS-gq0" id="YGF-eY-nfF"/>
-                        <outlet property="websitePitch" destination="ESk-kk-DkP" id="2hi-uA-TXx"/>
-                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ldb-k0-vud" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="877.51124437781118" y="933.60000000000002"/>
+            <point key="canvasLocation" x="900" y="873"/>
         </scene>
         <!--Confirmation View Controller-->
         <scene sceneID="YVC-Ix-xj5">
@@ -185,62 +167,17 @@
                                 <rect key="frame" x="0.0" y="-1" width="667" height="376"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="For more information, visit:" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="5" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="H1q-EZ-nUb">
-                                <rect key="frame" x="37" y="169" width="592" height="37"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="36.5" id="0b4-78-Tkf"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="18"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Level 2 coming July 16th." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mQ2-bN-RDR">
-                                <rect key="frame" x="37" y="123" width="592" height="25"/>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="24"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Thank You For Subscribing!" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lel-8L-THu">
-                                <rect key="frame" x="37" y="75.5" width="592" height="29.5"/>
-                                <fontDescription key="fontDescription" name="Copperplate" family="Copperplate" pointSize="29"/>
-                                <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="Blue Crystal.png" translatesAutoresizingMaskIntoConstraints="NO" id="kZV-nZ-1cj">
                                 <rect key="frame" x="158" y="380" width="58" height="103"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="prD-kF-LO7">
-                                <rect key="frame" x="280.5" y="198" width="106" height="30"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="106" id="0o1-jx-dcd"/>
-                                    <constraint firstAttribute="height" constant="30" id="Gx2-Is-a38"/>
-                                </constraints>
-                                <state key="normal" title="trafodgame.net">
-                                    <color key="titleColor" red="1" green="0.60461258559999997" blue="0.1076626712" alpha="1" colorSpace="deviceRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="websiteButtonClicked:" destination="0nI-SI-K6w" eventType="touchUpInside" id="5Tx-IT-VJY"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="darkTextColor"/>
                         <constraints>
-                            <constraint firstItem="prD-kF-LO7" firstAttribute="centerX" secondItem="G13-U7-6uF" secondAttribute="centerX" id="2TW-ny-ZpL"/>
-                            <constraint firstItem="G13-U7-6uF" firstAttribute="trailing" secondItem="H1q-EZ-nUb" secondAttribute="trailing" constant="38" id="4Lp-Xn-m44"/>
                             <constraint firstItem="G13-U7-6uF" firstAttribute="top" secondItem="Lgh-zb-uWi" secondAttribute="top" constant="1" id="C15-GT-gaa"/>
                             <constraint firstItem="G13-U7-6uF" firstAttribute="bottom" secondItem="Lgh-zb-uWi" secondAttribute="bottom" id="H3k-EC-BZf"/>
                             <constraint firstItem="Lgh-zb-uWi" firstAttribute="leading" secondItem="G13-U7-6uF" secondAttribute="leading" id="OKg-Fd-ShQ"/>
-                            <constraint firstItem="H1q-EZ-nUb" firstAttribute="leading" secondItem="G13-U7-6uF" secondAttribute="leading" constant="37" id="QKj-Si-zFd"/>
                             <constraint firstItem="G13-U7-6uF" firstAttribute="trailing" secondItem="Lgh-zb-uWi" secondAttribute="trailing" id="W8r-n5-gDy"/>
-                            <constraint firstItem="G13-U7-6uF" firstAttribute="trailing" secondItem="mQ2-bN-RDR" secondAttribute="trailing" constant="38" id="dOX-Nj-3g8"/>
-                            <constraint firstItem="prD-kF-LO7" firstAttribute="top" secondItem="H1q-EZ-nUb" secondAttribute="bottom" constant="-7.5" id="gp7-dJ-FNa"/>
-                            <constraint firstItem="mQ2-bN-RDR" firstAttribute="top" secondItem="lel-8L-THu" secondAttribute="bottom" constant="18" id="hVC-4f-PHO"/>
-                            <constraint firstItem="mQ2-bN-RDR" firstAttribute="leading" secondItem="G13-U7-6uF" secondAttribute="leading" constant="37" id="kVe-TF-tHI"/>
-                            <constraint firstItem="lel-8L-THu" firstAttribute="leading" secondItem="G13-U7-6uF" secondAttribute="leading" constant="37" id="oHj-mR-Qee"/>
-                            <constraint firstItem="H1q-EZ-nUb" firstAttribute="top" secondItem="mQ2-bN-RDR" secondAttribute="bottom" constant="21" id="roZ-dO-7WN"/>
-                            <constraint firstItem="H1q-EZ-nUb" firstAttribute="centerY" secondItem="Lgh-zb-uWi" secondAttribute="centerY" id="sLo-8h-3hY"/>
-                            <constraint firstItem="G13-U7-6uF" firstAttribute="trailing" secondItem="lel-8L-THu" secondAttribute="trailing" constant="38" id="xkX-gu-mTX"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="G13-U7-6uF"/>
                     </view>

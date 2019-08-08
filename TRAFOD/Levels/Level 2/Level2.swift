@@ -12,9 +12,9 @@ import SpriteKit
 
 class Level2 : Level {
     
-    override func didMove(to view: SKView) {
-        super.didMove(to: view)
+    override func didMove(to view: SKView) {        
         self.currentLevel = .LEVEL2
+        super.didMove(to: view)
         self.playBackgroundMusic(fileName: "level3")
     }
 }

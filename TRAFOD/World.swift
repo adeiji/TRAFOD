@@ -24,10 +24,13 @@ protocol BaseWorldObject {
     
 }
 
-class World: SKScene, SKPhysicsContactDelegate {
+class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     var previousWorldCameraPosition:CGPoint!
     var previousWorldPlayerPosition:CGPoint!
+    
+    lazy var buyMineralButtons: [Minerals : BuyButton]? = [Minerals: BuyButton]()
+    var purchaseScreen: PurchaseMineralsViewController?
     
     // Cannons
     /// All the cannon objects in the world
@@ -50,10 +53,6 @@ class World: SKScene, SKPhysicsContactDelegate {
     var lastPointOnGround:CGPoint?
     
     var entities = [GKEntity]()
-    
-    /// These nodes are the nodes that handle the displaying of the number of minerals that the user currently has.  Look at the World+StaticScreenNodes to see the implementation
-    var counterNodes = [String:SKNode]()
-    
     /**
      
      When messages are displayed to the player, a message box is used
@@ -118,6 +117,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     weak var thrownMineral:Mineral?
     /// Contains all the special fields within this level
     var specialFields:[SpecialField] = [SpecialField]()
+    var counterNodes: [String : SKNode] = [String: SKNode]()
     
     enum Levels:String {
         case LEVEL1 = "GameScene"
@@ -162,7 +162,11 @@ class World: SKScene, SKPhysicsContactDelegate {
      - Todo: Make sure that all objects in the game adhere to a custom object and we move away from the use of string names to determine node type
      */
     func setupAllObjectNodes (nodes: [SKNode]) {
+        var retrievalMineralNodeIndex = 0
+        
         for node in nodes {
+            retrievalMineralNodeIndex += 1
+            
             if let node = node as? ObjectWithManuallyGeneratedPhysicsBody {
                 node.setupPhysicsBody()
             }
@@ -185,7 +189,8 @@ class World: SKScene, SKPhysicsContactDelegate {
                 self.weightSwitches?.append(weightSwitch)
             case is RetrieveMineralNode:
                 if let mineralNode = node as? RetrieveMineralNode {
-                    mineralNode.setup()
+                    guard let currentLevelName = self.currentLevel?.rawValue else { fatalError("The current level name must be set") }
+                    mineralNode.setup(name: "\(currentLevelName)\(retrievalMineralNodeIndex)")
                 }
             case is SpecialField:
                 if let specialField = node as? SpecialField {
@@ -252,9 +257,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         return nil
     }
     
-    /**
-     - Todo: This needs to be moved to within the impulse object that has not been created yet
-     */
     func showImpulseTimeLeft (timeNode: SKLabelNode, timeLeft: Int = 10) {
         let secondTimer = SKAction.wait(forDuration: 1.0)
         timeNode.text = "\(timeLeft)"
@@ -327,6 +329,11 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         self.handleGrabButtonActions(atPoint: pos)
+        
+        if let buyButton = self.checkIfBuyMineralButtonWasPressedAndReturnButtonIfTrue(touchPoint: pos) {
+            self.purchaseScreen = self.showPurchaseScreen(mineralType: buyButton.mineralType, world: self)
+            return
+        }
         
         if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
             if self.player.state == .ONGROUND  || self.player.state == .SLIDINGONWALL {
@@ -426,18 +433,20 @@ class World: SKScene, SKPhysicsContactDelegate {
             ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: 10)
         }
         
-        self.playMineralSound()
-        self.showMineralCount()
+        self.playMineralSound()        
     }
     
     func handlePlayerGotoNextLevel (contact: SKPhysicsContact) {
-        
         guard let levelNode = contact.bodyA.node as? GotoLevelNode != nil ? contact.bodyA.node as? GotoLevelNode : contact.bodyB.node as? GotoLevelNode else {
             return
         }
 
-        self.loadAndGotoNextLevel(sceneName: levelNode.nextLevel, level: levelNode.nextLevel)
-
+        if let nextLevel = levelNode.nextLevel {
+            self.loadAndGotoNextLevel(level: nextLevel)
+        } else if let bookChapter = levelNode.nextBookChapter {
+            let book = self.getChapterScene(bookChapter: bookChapter)
+            self.showChapter(bookChapter: book)
+        }
     }
 
     func handlePlayerHitGround (contact: SKPhysicsContact) {
@@ -451,6 +460,22 @@ class World: SKScene, SKPhysicsContactDelegate {
             }
         } else if self.player.isSlidingOnWall(contact: contact) {
             self.player.slidOnWall()
+        }
+    }
+    
+    func handleMineralUsed (mineral: Mineral?, contact: SKPhysicsContact) {
+        if let mineral = mineral {
+            if let useMineral = mineral as? UseMinerals {
+                self.playSound(fileName: "mineralcrash")
+                
+                // Uses the mineral and than if it returns an object that can alter the physics of other objects, than we add this to the world
+                if let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self) {
+                    self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
+                    self.addChild(physicsAlteringArea)
+                }
+                
+                self.player.handleMineralUsed(mineralType: mineral.type)                 
+            }
         }
     }
     
@@ -491,16 +516,7 @@ class World: SKScene, SKPhysicsContactDelegate {
         }
         
         if let mineral = PhysicsHandler.playerUsedMineral(contact: contact) {
-            if let useMineral = mineral as? UseMinerals {
-                self.playSound(fileName: "mineralcrash")
-                if let physicsAlteringArea = try? useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self) {
-                    self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
-                    if let physicsAlteringArea = physicsAlteringArea {
-                        self.addChild(physicsAlteringArea)
-                    }
-                }
-            }
-            
+            self.handleMineralUsed(mineral: mineral, contact: contact)
             return
         }
 
@@ -572,12 +588,12 @@ class World: SKScene, SKPhysicsContactDelegate {
             for element in elements {
                 if element.level == level {
                     for node in element.nodes {
-                        if element.level == GameLevels.Level1 {
+                        if element.level == GameLevels.Level1.rawValue {
                             if self.collectedElements[.LEVEL1] == nil {
                                self.collectedElements[.LEVEL1] = [String]()
                             }
                             self.collectedElements[.LEVEL1]?.append(node)
-                        } else if element.level == GameLevels.Level2 {
+                        } else if element.level == GameLevels.Level2.rawValue {
                             if self.collectedElements[.LEVEL2] == nil {
                                 self.collectedElements[.LEVEL2] = [String]()
                             }
@@ -684,7 +700,6 @@ class World: SKScene, SKPhysicsContactDelegate {
         default:
             break;
         }
-        
     }
     
     /**
@@ -736,7 +751,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        
+        self.showMineralCount()
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
         
@@ -885,7 +900,7 @@ class World: SKScene, SKPhysicsContactDelegate {
     /**
      Moves the camera with the player.  If the player has gone too far left or too far right, than we stop moving the camera
      */
-    func moveCamera () {
+    func moveCameraWithPlayer () {
         if let _ = self.childNode(withName: "cameraMinX") {
             self.camera?.position.x = self.player.position.x
             self.camera?.position.y = self.player.position.y
@@ -895,6 +910,14 @@ class World: SKScene, SKPhysicsContactDelegate {
             leftBoundary.position.y = camera.position.y
             rightBoundary.position.y = camera.position.y
         }
+    }
+    
+    func moveCameraToFollowPlayerXPos () {
+        self.camera?.position.x = self.player.position.x
+    }
+    
+    func moveCameraToFollowPlayerYPos () {
+        self.camera?.position.y = self.player.position.y
     }
     
     /**
@@ -963,15 +986,40 @@ class World: SKScene, SKPhysicsContactDelegate {
      - Todo: We're going to need to change the parameter types for sceneName and level to type GameLevel
      
      */
-    func loadAndGotoNextLevel (sceneName: String, level:String) {
+    func loadAndGotoNextLevel (level:GameLevels) {
         guard let loading = Loading(fileNamed: "Loading") else {
-            fatalError("The loading screen must exist")
+            fatalError("The loading scene file must exist")
         }
         
         self.getMineralCounts()
-        loading.nextSceneName = sceneName
-        self.getCollectedElements(level: level)
+        loading.nextSceneName = level.rawValue
+        self.getCollectedElements(level: level.rawValue)
         loading.collectedElements = self.collectedElements
-        self.gotoNextLevel(fileName: sceneName, levelType: Loading.self, loadingScreen: loading)
+        self.gotoNextLevel(fileName: level.rawValue, levelType: Loading.self, loadingScreen: loading)
+    }
+    
+    func getChapterScene (bookChapter: BookChapters) -> Book? {
+        guard let book = Book(fileNamed: "Book") else {
+            fatalError("The Book scene file must exist")
+        }
+        for type in BookChapters.allCases {
+            switch type {
+            case .Chapter1:
+                if bookChapter == .Chapter1 {
+                    book.setChapter(chapter: bookChapter)
+                    book.setup()
+                    return book
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    func showChapter (bookChapter:Book?) {
+        guard let bookChapter = bookChapter else { return }
+        let transition = SKTransition.moveIn(with: .right, duration: 1)
+        bookChapter.scaleMode = SKSceneScaleMode.aspectFit
+        self.view?.presentScene(bookChapter, transition: transition)
     }
 }

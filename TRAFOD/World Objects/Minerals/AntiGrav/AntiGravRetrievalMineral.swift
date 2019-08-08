@@ -15,7 +15,7 @@ class AntiGravityRetrieveMineral : RetrieveMineralNode {
         super.init(coder: aDecoder)
     }
     
-    override func setup () {
+    override func setup (name: String) {
         self.mineralType = .ANTIGRAV
         let texture = SKTexture(imageNamed: MineralImageNames.AntiGravity)
         let action = SKAction.setTexture(texture, resize: true)

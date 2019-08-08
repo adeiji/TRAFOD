@@ -11,6 +11,7 @@ import GameKit
 
 class Level4 : Level {
     override func didMove(to view: SKView) {
+        self.currentLevel = .LEVEL4
         super.didMove(to: view)
         self.playBackgroundMusic(fileName: "level2")
     }

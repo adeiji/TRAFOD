@@ -55,7 +55,7 @@ class MainMenu: World {
      */
     override func getProgress () {
         if let progress = ProgressTracker.getProgress() {
-            if progress.currentLevel == GameLevels.Level1 {
+            if progress.currentLevel == GameLevels.Level1.rawValue {
                 if let continueNode = self.childNode(withName: "continue") {
                     continueNode.alpha = 1.0
                 }
@@ -80,7 +80,7 @@ class MainMenu: World {
         
         if PhysicsHandler.contactContains(strings: ["dawud", "gotoLevel"], contactA: aName, contactB: bName) {
             if self.canContinue {
-                self.loadAndGotoNextLevel(sceneName: GameLevels.Chapters, level: GameLevels.Chapters)
+                self.loadAndGotoNextLevel(level: .Chapters)
             }
         }
     }

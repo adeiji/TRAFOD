@@ -135,7 +135,7 @@ class TransferLevel : Level {
             wait = SKAction.wait(forDuration: 10.0)
             
             let nextLevelBlock = SKAction.run {
-                self.loadAndGotoNextLevel(sceneName: GameLevels.Level2, level: GameLevels.Level2)
+                self.loadAndGotoNextLevel(level: .Level2)
             }
             
             sequence = SKAction.sequence([wait, nextLevelBlock])
@@ -148,7 +148,7 @@ class TransferLevel : Level {
         self.view?.window?.rootViewController = subscriptionVC
     }
     
-    override func moveCamera () {
+    override func moveCameraWithPlayer () {
         self.camera?.position.y = self.player.position.y
         
         for node in self.children {
@@ -175,7 +175,7 @@ class TransferLevel : Level {
         // If the player hits the door to take them to level 1
         if PhysicsHandler.contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
             // Load the level 1 screen
-            self.loadAndGotoNextLevel(sceneName: GameLevels.Level1, level: GameLevels.Level1)                       
+            self.loadAndGotoNextLevel(level: .Level1)
         }
         
         if PhysicsHandler.contactContains(strings: ["ground", "mineralFreeze"], contactA: aName, contactB: bName) {

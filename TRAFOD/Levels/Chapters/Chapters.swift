@@ -43,7 +43,7 @@ class Chapters : World {
             self.enterInstructions?.alpha = 0.0
         }
         
-        self.moveCamera()
+        self.moveCameraWithPlayer()
     }
     
     func canEnterDoorway () -> Bool {
@@ -69,16 +69,16 @@ class Chapters : World {
                     {
                     case "door-chapter1":
                         // show level 1
-                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level1, level: GameLevels.Level1)
+                        self.loadAndGotoNextLevel(level: .Level1)
                         return
                     case "door-chapter2":
-                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level2, level: GameLevels.Level1)
+                        self.loadAndGotoNextLevel(level: .Level2)
                         return
                     case "door-chapter3":
-                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level3, level: GameLevels.Level1)
+                        self.loadAndGotoNextLevel(level: .Level3)
                         return
                     case "door-chapter4":
-                        self.loadAndGotoNextLevel(sceneName: GameLevels.Level4, level: GameLevels.Level4)
+                        self.loadAndGotoNextLevel(level: .Level4)
                         return
                     default: break
                     }
@@ -88,22 +88,6 @@ class Chapters : World {
             }
         } else {
             super.touchDown(atPoint: pos)
-        }
-    }
-    
-
-    
-    override func getMineralCounts () {
-        if let mineralCounts = ProgressTracker.getMineralCounts() {
-            for mineralCount in mineralCounts {
-                if mineralCount.mineral == Minerals.ANTIGRAV.rawValue {
-                    self.player.mineralCounts[.ANTIGRAV] = mineralCount.count
-                } else if mineralCount.mineral == Minerals.IMPULSE.rawValue {
-                    self.player.mineralCounts[.IMPULSE] = mineralCount.count
-                } else if mineralCount.mineral == Minerals.TELEPORT.rawValue {
-                    self.player.mineralCounts[.TELEPORT] = mineralCount.count
-                }
-            }
         }
     }
 }

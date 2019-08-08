@@ -9,6 +9,21 @@
 import Foundation
 import GameKit
 
+public class Scenes {
+    public static let PurchaseMineralScreen = "PurchaseMineralScreen"
+    public static let PurchaseMineralViewController = "purchaseMineralsViewController"
+}
+
+public class StoryFeatures {
+    public static let Dawud = "Dawud"
+    public static let Rhidahreuset = "Rhidahreueset"
+    public static let Drust = "Drust"
+    public static let RathTo = "Rath To"
+    public static let Stilgar = "Stilgar"
+    public static let Borothir = "Borothir"
+    public static let Ravenhall = "Ravenhall"
+}
+
 enum Minerals: String, CaseIterable {
     case ANTIGRAV = "antigrav"
     case IMPULSE = "impulse"
@@ -25,20 +40,25 @@ enum PhysicsAlteringObjectTypes {
 }
 
 /// The GameLevel names, these should match the name of the sks files for each level
-public class GameLevels {
-    public static let Level1 = "GameScene"
-    public static let Level2 = "Level2"
-    public static let TransferLevel = "TransferLevel"
-    public static let Level3 = "Level3"
-    public static let Level4 = "Level4"
-    public static let Level5 = "Level5"
-    public static let Chapters = "Chapters"
+enum GameLevels: String, CaseIterable {
+    case Level1 = "GameScene"
+    case BookChapter2
+    case Level2 = "Level2"
+    case TransferLevel = "TransferLevel"
+    case Level3 = "Level3"
+    case Level4 = "Level4"
+    case Level5 = "Level5"
+    case Chapters = "Chapters"
+}
+
+enum BookChapters: CaseIterable {
+    case Chapter1
 }
 
 public class ScreenButtonPositions {
     public static let AntiGravCounterNode = CGPoint(x: -870, y: 400)
     public static let AntiGravCounterLabel = CGPoint(x: -800,  y: 390)
-    public static let AntiGravThrowButton = CGPoint(x: 453, y: -374)    
+    public static let AntiGravThrowButton = CGPoint(x: 453, y: -374)
 }
 
 /** The different states that the player can be in  The player is not capable of being in more than one of these states at one time
@@ -86,6 +106,7 @@ enum PlayerAction {
 enum ImageNames: String {
     case BlueCrystal = "Blue Crystal"
     case RedCrystal = "Red Crystal"
+    case BuyButton = "BuyButton"
 }
 
 /// THe image names for the minerals
@@ -93,6 +114,7 @@ public class MineralImageNames {
     public static let FlipGravity:String = ImageNames.BlueCrystal.rawValue
     public static let AntiGravity:String = ImageNames.BlueCrystal.rawValue
     public static let Magnetic:String = ImageNames.BlueCrystal.rawValue
+    public static let Impulse:String = ImageNames.RedCrystal.rawValue
 }
 
 /// The nodes that are used to display the number of minerals that the player currently has
@@ -111,7 +133,7 @@ enum CounterNodes: CaseIterable, CustomStringConvertible {
         case .CounterNode: return "CounterNode"
         case .Label: return"Label"
         case .ThrowButtonNode: return "ThrowButtonNode"
-        case .AntiGrav: return "AntiGrav"
+        case .AntiGrav: return Minerals.ANTIGRAV.rawValue
         case .Impulse: return "Impulse"
         case .Teleport: return "Teleport"
         case .FlipGravity: return "FlipGravity"

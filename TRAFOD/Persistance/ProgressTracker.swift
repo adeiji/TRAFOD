@@ -19,16 +19,13 @@ class ProgressTracker {
         }
     }
     
-    public class func updateProgress (currentLevel: String?, player: Player) {
+    public class func updateProgress (currentLevel: GameLevels, player: Player) {
         let realm = try! Realm()
         let progresses = realm.objects(Progress.self)
         if progresses.count > 0 {
             if let progress = progresses.first {
                 try! realm.write {
-                    
-                    if let currentLevel = currentLevel {
-                        progress.currentLevel = currentLevel
-                    }
+                    progress.currentLevel = currentLevel.rawValue
                     progress.hasAntigrav = player.hasAntigrav
                     progress.hasImpulse = player.hasImpulse
                 }
@@ -36,10 +33,7 @@ class ProgressTracker {
         } else {
             let progress = Progress()
             try! realm.write {
-                if let currentLevel = currentLevel {
-                    progress.currentLevel = currentLevel
-                }
-                
+                progress.currentLevel = currentLevel.rawValue
                 progress.hasAntigrav = player.hasAntigrav
                 progress.hasImpulse = player.hasImpulse
                 

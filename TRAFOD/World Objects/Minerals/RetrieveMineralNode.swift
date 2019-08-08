@@ -12,7 +12,7 @@ import GameKit
 class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
     
     var world:World?
-    var mineralType:Minerals!
+    var mineralType:Minerals!    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -50,7 +50,7 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
      */
     func getMineral (type: Minerals) {
         if var mineralCount = self.world?.player.mineralCounts[type] {
-            mineralCount = mineralCount + 10
+            mineralCount = mineralCount + 1
             self.world?.player.mineralCounts[type] = mineralCount
             ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: mineralCount)
         } else {
@@ -59,7 +59,6 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
         }
         
         self.world?.playMineralSound()
-        self.world?.showMineralCount()
     }
     
     func setupPhysicsBody (size: CGSize) {
@@ -75,7 +74,8 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
         self.physicsBody?.allowsRotation = false
     }
     
-    func setup() {
+    func setup(name: String) {
         self.setupPhysicsBody(size: self.size)
+        self.name = name
     }
 }

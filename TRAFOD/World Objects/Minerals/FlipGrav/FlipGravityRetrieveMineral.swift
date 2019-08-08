@@ -15,23 +15,9 @@ class FlipGravityRetrieveMineral : RetrieveMineralNode {
         super.init(coder: aDecoder)
     }
     
-    override func setup () {
+    override func setup (name: String) {
         self.mineralType = .FLIPGRAVITY
         let texture = SKTexture(imageNamed: MineralImageNames.FlipGravity)
-        let action = SKAction.setTexture(texture, resize: true)
-        self.run(action)
-        self.setupPhysicsBody(size: texture.size())
-    }
-}
-
-class MagneticRetrieveMineral : RetrieveMineralNode {
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    override func setup () {
-        self.mineralType = .MAGNETIC
-        let texture = SKTexture(imageNamed: MineralImageNames.Magnetic)
         let action = SKAction.setTexture(texture, resize: true)
         self.run(action)
         self.setupPhysicsBody(size: texture.size())

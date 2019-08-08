@@ -1,67 +1,132 @@
 //
-//  PurchaseService.swift
-//  TRAFOD
+//  PKIAPHandler.swift
 //
-//  Created by adeiji on 6/21/18.
-//  Copyright © 2018 Dephyned. All rights reserved.
 //
-
-import Foundation
+import UIKit
 import StoreKit
 
-class PurchaseService: NSObject, SKProductsRequestDelegate {
+enum ProductIds:String, CaseIterable {
+    case FiveMinerals = "5minerals"
+    case FortyMinerals = "40minerals"
+    case OneHundredMinerals = "100minerals"
+    case OneThousandMinerals = "1000minerals"
+    case FiveThousandMinerals = "5000minerals"
+}
+
+enum PKIAPHandlerAlertType {
+    case setProductIds
+    case disabled
+    case restored
+    case purchased
     
-    static let shared = PurchaseService()
-    var title:String?
-    var messages:[String]?
-    var buttonText:String?
-    var products:[SKProduct]?
-    var websitePitch:String?
-    var hasReceiptData:Bool = false
-    var isSubscriptionExpired = true
+    var message: String{
+        switch self {
+        case .setProductIds: return "Product ids not set, call setProductIds method!"
+        case .disabled: return "Purchases are disabled in your device!"
+        case .restored: return "You've successfully restored your purchase!"
+        case .purchased: return "You've successfully bought this purchase!"
+        }
+    }
+}
+
+
+class PKIAPHandler: NSObject {
     
-    func loadSubscriptionOptions () {
-        let url = URL(string: "https://dephyned.com/salesPitch")
-        if let url = url {
-            let task = URLSession.shared.dataTask(with: url) { (promotionInfo, response, error) in
-                if let promotionInfo = promotionInfo {
-                    let json = try? JSONSerialization.jsonObject(with: promotionInfo, options: [])
-                    if let promotionInfo = json as? [String:Any] {
-                        self.title = promotionInfo["title"] as? String
-                        self.buttonText = promotionInfo["buttonText"] as? String
-                        self.messages = promotionInfo["messages"] as? [String]
-                        self.websitePitch = promotionInfo["website"] as? String
-                        if let ids = promotionInfo["productIds"] as? [String] {
-                            let idsSet = Set(ids)
-                            let request = SKProductsRequest(productIdentifiers: idsSet)
-                            request.delegate = self
-                            request.start()
-                        }
-                    }
-                }
+    //MARK:- Shared Object
+    //MARK:-
+    static let shared = PKIAPHandler()
+    private override init() {
+        super.init()
+        for type in ProductIds.allCases {
+            switch type {
+            case .FiveMinerals:
+                self.productIds.append(ProductIds.FiveMinerals.rawValue)
+            case .FortyMinerals:
+                self.productIds.append(ProductIds.FortyMinerals.rawValue)
+            case .OneHundredMinerals:
+                self.productIds.append(ProductIds.OneHundredMinerals.rawValue)
+            case .OneThousandMinerals:
+                self.productIds.append(ProductIds.OneThousandMinerals.rawValue)
+            case .FiveThousandMinerals:
+                self.productIds.append(ProductIds.FiveThousandMinerals.rawValue)
             }
+        }
+        
+    }
+    
+    //MARK:- Properties
+    //MARK:- Private
+    fileprivate var productIds = [String]()
+    fileprivate var productID = ""
+    fileprivate var productsRequest = SKProductsRequest()
+    fileprivate var fetchProductCompletion: (([SKProduct])->Void)?
+    
+    fileprivate var productToPurchase: SKProduct?
+    fileprivate var purchaseProductCompletion: ((PKIAPHandlerAlertType, SKProduct?, SKPaymentTransaction?)->Void)?
+    
+    fileprivate var hasReceiptData:Bool = false
+    fileprivate var isSubscriptionExpired = true
+    
+    //MARK:- Public
+    var isLogEnabled: Bool = true
+    
+    //MARK:- Methods
+    //MARK:- Public
+    
+    //Set Product Ids
+    func setProductIds(ids: [String]) {
+        self.productIds = ids
+    }
+    
+    //MAKE PURCHASE OF A PRODUCT
+    func canMakePurchases() -> Bool {  return SKPaymentQueue.canMakePayments()  }
+    
+    func purchase(product: SKProduct, Completion: @escaping ((PKIAPHandlerAlertType, SKProduct?, SKPaymentTransaction?)->Void)) {
+        
+        self.purchaseProductCompletion = Completion
+        self.productToPurchase = product
+        
+        if self.canMakePurchases() {
+            let payment = SKPayment(product: product)
+//            SKPaymentQueue.default().add(self)
+            SKPaymentQueue.default().add(payment)
             
-            task.resume()
+            log("PRODUCT TO PURCHASE: \(product.productIdentifier)")
+            productID = product.productIdentifier
+        }
+        else {
+            Completion(PKIAPHandlerAlertType.disabled, nil, nil)
         }
     }
     
-    func restorePurchases () {
+    // RESTORE PURCHASE
+    func restorePurchase(){
+        SKPaymentQueue.default().add(self)
         SKPaymentQueue.default().restoreCompletedTransactions()
     }
     
-    func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        self.products = response.products
-    }
     
-    func request(_ request: SKRequest, didFailWithError error: Error) {
-        if request is SKProductsRequest {
-            print("Subscription Options failed loading: \(error.localizedDescription)")
+    // FETCH AVAILABLE IAP PRODUCTS
+    func fetchAvailableProducts(Completion: @escaping (([SKProduct])->Void)){
+        
+        self.fetchProductCompletion = Completion
+        // Put here your IAP Products ID's
+        if self.productIds.isEmpty {
+            log(PKIAPHandlerAlertType.setProductIds.message)
+            fatalError(PKIAPHandlerAlertType.setProductIds.message)
+        }
+        else {
+            productsRequest = SKProductsRequest(productIdentifiers: Set(self.productIds))
+            productsRequest.delegate = self
+            productsRequest.start()
         }
     }
     
-    func purchase (product: SKProduct) {
-        let payment = SKPayment(product: product)
-        SKPaymentQueue.default().add(payment)
+    //MARK:- Private
+    fileprivate func log <T> (_ object: T) {
+        if isLogEnabled {
+            NSLog("\(object)")
+        }
     }
     
     func uploadReceipt (completion: ((Bool?) -> Void)? = nil) {
@@ -144,5 +209,57 @@ class PurchaseService: NSObject, SKProductsRequestDelegate {
             return nil
         }
         
+    }
+}
+
+//MARK:- Product Request Delegate and Payment Transaction Methods
+//MARK:-
+extension PKIAPHandler: SKProductsRequestDelegate, SKPaymentTransactionObserver{
+    
+    func request(_ request: SKRequest, didFailWithError error: Error) {
+        
+    }
+    
+    // REQUEST IAP PRODUCTS
+    func productsRequest (_ request:SKProductsRequest, didReceive response:SKProductsResponse) {
+        if (response.products.count > 0) {
+            if let Completion = self.fetchProductCompletion {
+                Completion(response.products)
+            }
+        }
+    }
+    
+    func paymentQueueRestoreCompletedTransactionsFinished(_ queue: SKPaymentQueue) {
+        if let completion = self.purchaseProductCompletion {
+            completion(PKIAPHandlerAlertType.restored, nil, nil)
+        }
+    }
+    
+    // IAP PAYMENT QUEUE
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        for transaction:AnyObject in transactions {
+            if let trans = transaction as? SKPaymentTransaction {
+                switch trans.transactionState {
+                case .purchased:
+                    log("Product purchase done")
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    if let Completion = self.purchaseProductCompletion {
+                        Completion(PKIAPHandlerAlertType.purchased, self.productToPurchase, trans)
+                    }
+                    break
+                    
+                case .failed:
+                    log("Product purchase failed")
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    break
+                case .restored:
+                    log("Product restored")
+                    SKPaymentQueue.default().finishTransaction(transaction as! SKPaymentTransaction)
+                    break
+                    
+                default: break
+                }
+            }            
+        }
     }
 }

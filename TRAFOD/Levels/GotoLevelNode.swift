@@ -9,18 +9,24 @@
 import Foundation
 import GameKit
 
+protocol Scene {
+    var nextLevel:GameLevels? { get set }
+    var nextBookChapter:BookChapters? { get set }
+}
+
 /**
  When the user hits this node then the we take the player to the next level
  */
 
-class GotoLevelNode : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
+class GotoLevelNode : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody, Scene {
     
     /// The next level to take the player to.  Defaults to Level1
-    var nextLevel:String = GameLevels.Level1
+    var nextLevel:GameLevels?
+    var nextBookChapter: BookChapters?
     
     func setupPhysicsBody() {
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Doorway)
-        self.physicsBody?.collisionBitMask = 0
+        self.physicsBody?.collisionBitMask = 1
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.pinned = true
     }
@@ -29,21 +35,21 @@ class GotoLevelNode : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
 class GotoLevel2 : GotoLevelNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.nextLevel = GameLevels.Level2
+        self.nextLevel = .Level2
     }
 }
 
 class GotoLevel3 : GotoLevelNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.nextLevel = GameLevels.Level3
+        self.nextLevel = .Level3
     }
 }
 
 class GotoLevel4 : GotoLevelNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.nextLevel = GameLevels.Level4
+        self.nextLevel = .Level4
     }
 }
 
@@ -51,13 +57,13 @@ class GotoLevel4 : GotoLevelNode {
 class GotoLevel5 : GotoLevelNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)        
-        self.nextLevel = GameLevels.Level5
+        self.nextLevel = .Level5
     }
 }
 
 class GotoTransferLevel : GotoLevelNode {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.nextLevel = GameLevels.TransferLevel
+        self.nextBookChapter = .Chapter1
     }
 }

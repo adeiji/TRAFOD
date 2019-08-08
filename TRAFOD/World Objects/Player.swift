@@ -26,6 +26,8 @@ class Player : SKSpriteNode, AffectedByNegationField {
     private var isFlipped = false
     public var negatedForces:[Minerals:Bool] = [Minerals:Bool]()
     
+    private var slidingPurchased = false
+    
     func getIsFlipped () -> Bool {
         return isFlipped
     }
@@ -33,6 +35,11 @@ class Player : SKSpriteNode, AffectedByNegationField {
     func grabObject (object: SKSpriteNode) {
         self.grabbedObject = object
     }
+    
+    func getMineralCount (mineralType: Minerals) -> Int {
+        return self.mineralCounts[mineralType] ?? 0
+    }
+    
     
     func hasLanded (contact: SKPhysicsContact) -> Bool {
         if self.isFlipped == false {
@@ -52,6 +59,9 @@ class Player : SKSpriteNode, AffectedByNegationField {
     }
     
     func isSlidingOnWall (contact: SKPhysicsContact) -> Bool {
+        
+        if self.slidingPurchased == false { return false }
+        
         if self.state == .INAIR {
             if self.xScale > 0 {
                 if contact.contactNormal.dx <= -0.999 && contact.contactNormal.dx >= -1.0 {
@@ -211,5 +221,13 @@ class Player : SKSpriteNode, AffectedByNegationField {
      */
     func stop () {
         self.physicsBody?.velocity = CGVector(dx: 0, dy: self.physicsBody?.velocity.dy ?? 0)
+    }
+    
+    func handleMineralUsed (mineralType: Minerals) {
+        if let mineralCount = self.mineralCounts[mineralType] {
+            let updatedMineralCount = mineralCount - 1
+            self.mineralCounts[mineralType] = updatedMineralCount
+            ProgressTracker.updateMineralCount(myMineral: mineralType.rawValue, count: updatedMineralCount)
+        }
     }
 }

@@ -25,9 +25,8 @@ protocol MineralProtocol {
  
  */
 class Mineral: SKSpriteNode {
-    
-    var type:Minerals = .ANTIGRAV
     var mineralCrashColor: UIColor = .purple
+    var type:Minerals = .ANTIGRAV
     
     func throwMineral (player: Player, world: World) {
         if world.thrownMineral != nil {
@@ -83,7 +82,6 @@ class Mineral: SKSpriteNode {
         let height = texture!.size().height * 0.5
         super.init(texture: texture , color: .clear, size:CGSize(width: width, height: height))
     }
-    
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

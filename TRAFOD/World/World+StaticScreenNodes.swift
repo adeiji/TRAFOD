@@ -39,27 +39,69 @@ extension World {
         self.counterNodes["\(counterNode)\(CounterNodes.Label)"] = SKLabelNode(text: "0")
     }
     
+    func getCounterNode (counterNode: CounterNodes, buttonType: CounterNodes) -> SKNode? {
+        return self.counterNodes["\(counterNode)\(buttonType)"]
+    }
+    
+    func showBuyMineralButton(mineralType: Minerals) {
+        let purchaseButton = self.getPurchaseButton(mineralType: mineralType)
+        self.throwButtons["\(mineralType.rawValue)"]?.alpha = 0.5
+        
+        if self.buyMineralButtons?[mineralType] == nil {
+            self.camera?.addChild(purchaseButton)
+            self.buyMineralButtons?[mineralType] = purchaseButton
+        }
+    }
+    
+    func checkIfBuyMineralButtonWasPressedAndReturnButtonIfTrue (touchPoint: CGPoint) -> BuyButton? {
+        guard let buyButtons = self.buyMineralButtons else { return nil }
+        
+        for key in buyButtons.keys {
+            if let buyButton = buyButtons[key] {
+                if self.nodes(at: touchPoint).contains(buyButton) {
+                    return buyButton
+                }
+            }
+        }
+        
+        return nil
+    }
+    
+    func removeBuyButton(mineralType: Minerals) {
+        if let buyButton = self.buyMineralButtons?[mineralType] {
+            buyButton.removeFromParent()
+            self.buyMineralButtons?[mineralType] = nil
+        }
+    }
+    
     func showMineralCount () {
         for type in Minerals.allCases {
-            if let count = self.player.mineralCounts[type] {
+            if let numberOfMineralsLeft = self.player.mineralCounts[type] {
+                
+                if (numberOfMineralsLeft <= 0) {
+                    self.showBuyMineralButton(mineralType: type)
+                } else {
+                    self.removeBuyButton(mineralType: type)
+                }
+                
                 switch type {
                 case .ANTIGRAV:
                     self.setupThrowButton(crystalImageName: .BlueCrystal, mineralType: .AntiGrav, pos: ScreenButtonPositions.AntiGravThrowButton)
-                    self.setupMineralCounterAndUseNodes(mineralType: .AntiGrav, counterMineralNodePos: ScreenButtonPositions.AntiGravCounterNode, count: count)
+                    self.setupMineralCounterAndUseNodes(mineralType: .AntiGrav, counterMineralNodePos: ScreenButtonPositions.AntiGravCounterNode, count: numberOfMineralsLeft)
                 case .IMPULSE:
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Impulse, pos: CGPoint(x: 613, y: -139))
-                    self.setupMineralCounterAndUseNodes(mineralType: .Impulse, counterMineralNodePos: CGPoint(x: -470, y: 400), count: count)
+                    self.setupMineralCounterAndUseNodes(mineralType: .Impulse, counterMineralNodePos: CGPoint(x: -470, y: 400), count: numberOfMineralsLeft)
                 case .TELEPORT:
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Teleport, pos: CGPoint(x: 332, y: -115))
-                    self.setupMineralCounterAndUseNodes(mineralType: .Teleport, counterMineralNodePos: CGPoint(x: -670, y: 400), count: count)
+                    self.setupMineralCounterAndUseNodes(mineralType: .Teleport, counterMineralNodePos: CGPoint(x: -670, y: 400), count: numberOfMineralsLeft)
                 case .USED_TELEPORT:
                     break
                 case .FLIPGRAVITY:
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .FlipGravity, pos: CGPoint(x: 160, y: -365))
-                    self.setupMineralCounterAndUseNodes(mineralType: .FlipGravity, counterMineralNodePos: CGPoint(x: -270, y: 400), count: count)
+                    self.setupMineralCounterAndUseNodes(mineralType: .FlipGravity, counterMineralNodePos: CGPoint(x: -270, y: 400), count: numberOfMineralsLeft)
                 case .MAGNETIC:
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Magnetic, pos: CGPoint(x: -120, y: -365))
-                    self.setupMineralCounterAndUseNodes(mineralType: .Magnetic, counterMineralNodePos: CGPoint(x: -70, y: 400), count: count)
+                    self.setupMineralCounterAndUseNodes(mineralType: .Magnetic, counterMineralNodePos: CGPoint(x: -70, y: 400), count: numberOfMineralsLeft)
                 }
             }
         }
@@ -99,9 +141,9 @@ extension World {
     }
     
     func setupMineralCounterAndUseNodes (mineralType: CounterNodes, counterMineralNodePos: CGPoint, count: Int) {
-        let mineralThrowNode = self.counterNodes["\(mineralType)\(CounterNodes.ThrowButtonNode)"]
-        let mineralCounterNode = self.counterNodes["\(mineralType)\(CounterNodes.CounterNode )"]
-        let mineralCounterLabel = self.counterNodes["\(mineralType)\(CounterNodes.Label )"] as? SKLabelNode
+        let mineralThrowNode = self.getCounterNode(counterNode: mineralType, buttonType: CounterNodes.ThrowButtonNode)
+        let mineralCounterNode = self.getCounterNode(counterNode: mineralType, buttonType: CounterNodes.CounterNode)
+        let mineralCounterLabel = self.getCounterNode(counterNode: mineralType, buttonType: CounterNodes.Label) as? SKLabelNode
         
         mineralThrowNode?.isHidden = false
         mineralCounterLabel?.fontSize = 50

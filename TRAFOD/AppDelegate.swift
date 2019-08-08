@@ -15,9 +15,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKPaymentTransactionObser
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
-        PurchaseService.shared.loadSubscriptionOptions()
         SKPaymentQueue.default().add(self)
-        PurchaseService.shared.uploadReceipt { (success) in
+        PKIAPHandler.shared.uploadReceipt { (success) in
             
         }
         return true
@@ -49,30 +48,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate, SKPaymentTransactionObser
         print("User purchased product id: \(transaction.payment.productIdentifier)")
         
         queue.finishTransaction(transaction)
-        PurchaseService.shared.uploadReceipt { (success) in
-            if let success = success {
-                if success {
-                    DispatchQueue.main.async {
-                        NotificationCenter.default.post(name: .UserSubscribed, object: nil)
-                    }
-                }
-            }
-        }
+//        PurchaseService.shared.uploadReceipt { (success) in
+//            if let success = success {
+//                if success {
+//                    DispatchQueue.main.async {
+//                        NotificationCenter.default.post(name: .UserSubscribed, object: nil)
+//                    }
+//                }
+//            }
+//        }
     }
     
     func handleRestoredState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {
         print("Purchase restored for product id: \(transaction.payment.productIdentifier)")
-        PurchaseService.shared.uploadReceipt { (success) in
-            DispatchQueue.main.async {
-                if let success = success {
-                    if success {
-                        DispatchQueue.main.async {
-                            NotificationCenter.default.post(name: .SubscriptionRestored, object: nil)
-                        }
-                    }
-                }
-            }
-        }
+//        PurchaseService.shared.uploadReceipt { (success) in
+//            DispatchQueue.main.async {
+//                if let success = success {
+//                    if success {
+//                        DispatchQueue.main.async {
+//                            NotificationCenter.default.post(name: .SubscriptionRestored, object: nil)
+//                        }
+//                    }
+//                }
+//            }
+//        }
     }
     
     func handleFailedState(for transaction: SKPaymentTransaction, in queue: SKPaymentQueue) {

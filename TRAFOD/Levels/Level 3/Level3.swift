@@ -14,6 +14,7 @@ class Level3 : Level {
     var temporarySwitches:[FlipSwitch]? = [FlipSwitch]()
     
     override func didMove(to view: SKView) {
+        self.currentLevel = .LEVEL3
         super.didMove(to: view)
         self.playBackgroundMusic(fileName: "level3")
     }    

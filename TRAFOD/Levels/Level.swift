@@ -22,7 +22,6 @@ class Level : World {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self        
         self.getProgress()
-        self.showMineralCount()
     }
     
     override func didEnd(_ contact: SKPhysicsContact) {
@@ -166,7 +165,7 @@ class Level : World {
         let dt = currentTime - self.lastUpdateTime
         self.handlePlayerRotation(dt: dt)
         self.lastUpdateTime = currentTime
-        self.moveCamera()
+        self.moveCameraWithPlayer()
         
         self.weightSwitches?.forEach({ (weightSwitch) in
             weightSwitch.topOfSwitch?.applyUpwardForce()

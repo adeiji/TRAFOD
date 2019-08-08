@@ -89,6 +89,7 @@
 		F44E1A6E20D116CC00FD026E /* RopeBridge 1.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A6C20D116CC00FD026E /* RopeBridge 1.png */; };
 		F44E1A7120D1170700FD026E /* TransferLevel.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A7020D1170700FD026E /* TransferLevel.sks */; };
 		F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44E1A7220D1249900FD026E /* TransferLevel.swift */; };
+		F4578F1222FBB42000F861B1 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F4578F1122FBB42000F861B1 /* StoreKit.framework */; };
 		F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */; };
 		F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF7020D8C2710076C1C8 /* Constants.swift */; };
 		F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = F45EDF7220D8C5E60076C1C8 /* SoundManager.swift */; };
@@ -139,6 +140,7 @@
 		F490A69422E61E8A00840F91 /* MagneticMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F490A69322E61E8A00840F91 /* MagneticMineral.swift */; };
 		F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49326F522E98F8B007B9B16 /* UseMinerals.swift */; };
 		F49ADDD322E3485900388C49 /* Fire.swift in Sources */ = {isa = PBXBuildFile; fileRef = F49ADDD222E3485900388C49 /* Fire.swift */; };
+		F4A5DDD022EFB40A007BF31F /* StoryHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4A5DDCF22EFB40A007BF31F /* StoryHandler.swift */; };
 		F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4A9036420E64D0C006DCDD4 /* NoWarp.sks */; };
 		F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */; };
 		F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03CE620C94B8700F0B346 /* AppDelegate.swift */; };
@@ -195,9 +197,21 @@
 		F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4EBE9E222D6407E00EC2300 /* Level4.sks */; };
 		F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */; };
 		F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */; };
+		F4F4345122F070C1003A199F /* Book.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4F4345022F070C1003A199F /* Book.sks */; };
 		F4F48F2A22EC8873002A59A5 /* Barley.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F48F2922EC8873002A59A5 /* Barley.swift */; };
 		F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */; };
 		F4F5D90E22EB2C1E00CFB2A6 /* NegateFlipGravField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */; };
+		F4F6327B22F32B390026CED6 /* book-story-image.jpg in Resources */ = {isa = PBXBuildFile; fileRef = F4F6327A22F32B380026CED6 /* book-story-image.jpg */; };
+		F4F6327D22F34D6E0026CED6 /* SceneTransitionHandling.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F6327C22F34D6E0026CED6 /* SceneTransitionHandling.swift */; };
+		F4F6327F22F350AC0026CED6 /* Ground.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F6327E22F350AC0026CED6 /* Ground.swift */; };
+		F4F6328122F35C980026CED6 /* MineralPurchasing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F6328022F35C980026CED6 /* MineralPurchasing.swift */; };
+		F4F6328722F372A90026CED6 /* PurchaseMineralScreen.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4F6328622F372A90026CED6 /* PurchaseMineralScreen.sks */; };
+		F4F884A122F9C85C002A8124 /* AntiGravityMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F884A022F9C85C002A8124 /* AntiGravityMineral.swift */; };
+		F4F884A422F9C899002A8124 /* ImpulseMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F884A322F9C899002A8124 /* ImpulseMineral.swift */; };
+		F4F884A622F9C8EA002A8124 /* ImpulseRetrievalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F884A522F9C8EA002A8124 /* ImpulseRetrievalNode.swift */; };
+		F4F884AA22F9C928002A8124 /* MagneticRetrieveMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F884A922F9C928002A8124 /* MagneticRetrieveMineral.swift */; };
+		F4F884AC22F9CAB3002A8124 /* Buttons in Resources */ = {isa = PBXBuildFile; fileRef = F4F884AB22F9CAB3002A8124 /* Buttons */; };
+		F4F884AE22F9CE4B002A8124 /* BuyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F884AD22F9CE2B002A8124 /* BuyButton.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -306,6 +320,7 @@
 		F44E1A6C20D116CC00FD026E /* RopeBridge 1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "RopeBridge 1.png"; sourceTree = "<group>"; };
 		F44E1A7020D1170700FD026E /* TransferLevel.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = TransferLevel.sks; sourceTree = "<group>"; };
 		F44E1A7220D1249900FD026E /* TransferLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TransferLevel.swift; sourceTree = "<group>"; };
+		F4578F1122FBB42000F861B1 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		F45EDF6E20D8C0390076C1C8 /* ProgressTracker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProgressTracker.swift; sourceTree = "<group>"; };
 		F45EDF7020D8C2710076C1C8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		F45EDF7220D8C5E60076C1C8 /* SoundManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoundManager.swift; sourceTree = "<group>"; };
@@ -356,6 +371,7 @@
 		F490A69322E61E8A00840F91 /* MagneticMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticMineral.swift; sourceTree = "<group>"; };
 		F49326F522E98F8B007B9B16 /* UseMinerals.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UseMinerals.swift; sourceTree = "<group>"; };
 		F49ADDD222E3485900388C49 /* Fire.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Fire.swift; sourceTree = "<group>"; };
+		F4A5DDCF22EFB40A007BF31F /* StoryHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryHandler.swift; sourceTree = "<group>"; };
 		F4A9036420E64D0C006DCDD4 /* NoWarp.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = NoWarp.sks; sourceTree = "<group>"; };
 		F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UtilityFunctions.swift; sourceTree = "<group>"; };
 		F4B03CE320C94B8700F0B346 /* TRAFOD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = TRAFOD.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -418,9 +434,21 @@
 		F4EBE9E222D6407E00EC2300 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravityMineral.swift; sourceTree = "<group>"; };
 		F4EBE9E822D64B1000EC2300 /* WorldErrors.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldErrors.swift; sourceTree = "<group>"; };
+		F4F4345022F070C1003A199F /* Book.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Book.sks; sourceTree = "<group>"; };
 		F4F48F2922EC8873002A59A5 /* Barley.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Barley.swift; sourceTree = "<group>"; };
 		F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AffectedByNegationField.swift; sourceTree = "<group>"; };
 		F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegateFlipGravField.swift; sourceTree = "<group>"; };
+		F4F6327A22F32B380026CED6 /* book-story-image.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; name = "book-story-image.jpg"; path = "images/book-story-image.jpg"; sourceTree = SOURCE_ROOT; };
+		F4F6327C22F34D6E0026CED6 /* SceneTransitionHandling.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneTransitionHandling.swift; sourceTree = "<group>"; };
+		F4F6327E22F350AC0026CED6 /* Ground.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ground.swift; sourceTree = "<group>"; };
+		F4F6328022F35C980026CED6 /* MineralPurchasing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MineralPurchasing.swift; sourceTree = "<group>"; };
+		F4F6328622F372A90026CED6 /* PurchaseMineralScreen.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PurchaseMineralScreen.sks; sourceTree = "<group>"; };
+		F4F884A022F9C85C002A8124 /* AntiGravityMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravityMineral.swift; sourceTree = "<group>"; };
+		F4F884A322F9C899002A8124 /* ImpulseMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpulseMineral.swift; sourceTree = "<group>"; };
+		F4F884A522F9C8EA002A8124 /* ImpulseRetrievalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpulseRetrievalNode.swift; sourceTree = "<group>"; };
+		F4F884A922F9C928002A8124 /* MagneticRetrieveMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticRetrieveMineral.swift; sourceTree = "<group>"; };
+		F4F884AB22F9CAB3002A8124 /* Buttons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Buttons; sourceTree = "<group>"; };
+		F4F884AD22F9CE2B002A8124 /* BuyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuyButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -429,6 +457,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				047DA2308D1C268EE4947C47 /* Pods_TRAFOD.framework in Frameworks */,
+				F4578F1222FBB42000F861B1 /* StoreKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -526,6 +555,7 @@
 				F44C31FB22E8CB5700443335 /* Level 2 */,
 				F48F7D3322CE5E3A004D1A3D /* Level.swift */,
 				F44C31F822E8C87600443335 /* GotoLevelNode.swift */,
+				F4F6327C22F34D6E0026CED6 /* SceneTransitionHandling.swift */,
 			);
 			path = Levels;
 			sourceTree = "<group>";
@@ -539,6 +569,7 @@
 				F472CABC22E0A35A001A4949 /* World+StaticScreenNodes.swift */,
 				F472CABE22E0A449001A4949 /* World+PlayerActions.swift */,
 				F46115CE22E0F5380035E059 /* World+LevelTransfers.swift */,
+				F4F6327E22F350AC0026CED6 /* Ground.swift */,
 			);
 			path = World;
 			sourceTree = "<group>";
@@ -549,6 +580,8 @@
 				F44A4D4420DC928100E53841 /* PurchaseService.swift */,
 				F44A4D4620DCDF3C00E53841 /* PurchaseViewController.swift */,
 				F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */,
+				F4F6328022F35C980026CED6 /* MineralPurchasing.swift */,
+				F4F6328622F372A90026CED6 /* PurchaseMineralScreen.sks */,
 			);
 			path = Purchasing;
 			sourceTree = "<group>";
@@ -630,6 +663,8 @@
 			children = (
 				F44E1A2C20CFBB7E00FD026E /* Story.swift */,
 				F44E1A2E20CFBC1C00FD026E /* Story.sks */,
+				F4A5DDCF22EFB40A007BF31F /* StoryHandler.swift */,
+				F4F4345022F070C1003A199F /* Book.sks */,
 			);
 			path = Story;
 			sourceTree = "<group>";
@@ -840,6 +875,9 @@
 		F4B8E88C20CA4F4200E558F8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F4F884AD22F9CE2B002A8124 /* BuyButton.png */,
+				F4F884AB22F9CAB3002A8124 /* Buttons */,
+				F4F6327A22F32B380026CED6 /* book-story-image.jpg */,
 				F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */,
 				F44B9BDB20EE1A7C00B874A1 /* grasstuft.png */,
 				F44B9BD820EE135C00B874A1 /* switch-off.png */,
@@ -952,13 +990,13 @@
 		F4EBE9E422D6435700EC2300 /* Minerals */ = {
 			isa = PBXGroup;
 			children = (
-				F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */,
+				F4F884A822F9C911002A8124 /* Magnetic */,
+				F4F884A722F9C8FB002A8124 /* FlipGrav */,
+				F4F884A222F9C88F002A8124 /* Impulse */,
+				F4F8849F22F9C84B002A8124 /* AntiGrav */,
 				F490A68122E6062400840F91 /* Mineral.swift */,
 				F490A68322E6066800840F91 /* RetrieveMineralNode.swift */,
-				F490A68522E606A600840F91 /* AntiGravRetrievalMineral.swift */,
-				F490A68722E606F300840F91 /* FlipGravityRetrieveMineral.swift */,
 				F490A68922E60F3D00840F91 /* MineralSubclasses.swift */,
-				F490A69322E61E8A00840F91 /* MagneticMineral.swift */,
 			);
 			path = Minerals;
 			sourceTree = "<group>";
@@ -979,9 +1017,46 @@
 			path = Beer;
 			sourceTree = "<group>";
 		};
+		F4F8849F22F9C84B002A8124 /* AntiGrav */ = {
+			isa = PBXGroup;
+			children = (
+				F490A68522E606A600840F91 /* AntiGravRetrievalMineral.swift */,
+				F4F884A022F9C85C002A8124 /* AntiGravityMineral.swift */,
+			);
+			path = AntiGrav;
+			sourceTree = "<group>";
+		};
+		F4F884A222F9C88F002A8124 /* Impulse */ = {
+			isa = PBXGroup;
+			children = (
+				F4F884A322F9C899002A8124 /* ImpulseMineral.swift */,
+				F4F884A522F9C8EA002A8124 /* ImpulseRetrievalNode.swift */,
+			);
+			path = Impulse;
+			sourceTree = "<group>";
+		};
+		F4F884A722F9C8FB002A8124 /* FlipGrav */ = {
+			isa = PBXGroup;
+			children = (
+				F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */,
+				F490A68722E606F300840F91 /* FlipGravityRetrieveMineral.swift */,
+			);
+			path = FlipGrav;
+			sourceTree = "<group>";
+		};
+		F4F884A822F9C911002A8124 /* Magnetic */ = {
+			isa = PBXGroup;
+			children = (
+				F4F884A922F9C928002A8124 /* MagneticRetrieveMineral.swift */,
+				F490A69322E61E8A00840F91 /* MagneticMineral.swift */,
+			);
+			path = Magnetic;
+			sourceTree = "<group>";
+		};
 		FE2E67AC52ACA1E642F75AC1 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				F4578F1122FBB42000F861B1 /* StoreKit.framework */,
 				6951A9821785757EF497684C /* Pods_TRAFOD.framework */,
 				626FC37E6E0A9D05608A9826 /* Pods_TRAFODTests.framework */,
 				64193BF446C82855668BE830 /* Pods_TRAFODUITests.framework */,
@@ -1061,6 +1136,11 @@
 				TargetAttributes = {
 					F4B03CE220C94B8700F0B346 = {
 						CreatedOnToolsVersion = 9.3;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 1;
+							};
+						};
 					};
 					F4B03CFC20C94B8900F0B346 = {
 						CreatedOnToolsVersion = 9.3;
@@ -1101,6 +1181,7 @@
 				F4B8E8B120CA79D300E558F8 /* level1ground2.png in Resources */,
 				F438D04920CD34E700EC2606 /* footsteps.mp3 in Resources */,
 				F44B9BDC20EE1A7D00B874A1 /* grasstuft.png in Resources */,
+				F4F6328722F372A90026CED6 /* PurchaseMineralScreen.sks in Resources */,
 				F442382320DA54B500EA4D01 /* birdschirping.wav in Resources */,
 				F438D04E20CD34E700EC2606 /* random_noise1.mp3 in Resources */,
 				F4BA31A920E546BF00DBD823 /* lv2rocks7.png in Resources */,
@@ -1131,6 +1212,7 @@
 				F4B8E8AC20CA72BF00E558F8 /* level1Sky.png in Resources */,
 				F4B03CF420C94B8900F0B346 /* Assets.xcassets in Resources */,
 				F438D04320CD34E700EC2606 /* hitground.mp3 in Resources */,
+				F4F6327B22F32B390026CED6 /* book-story-image.jpg in Resources */,
 				F4B8E8A420CA4FAA00E558F8 /* throwing.png in Resources */,
 				F43760D022CD257C00939E01 /* dawudsong.wav in Resources */,
 				F438D04B20CD34E700EC2606 /* eight.mp3 in Resources */,
@@ -1155,11 +1237,13 @@
 				F462CDE420E5D752004AF89E /* lv2rocks20.png in Resources */,
 				F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */,
 				F438D05A20CD518C00EC2606 /* throwbutton.png in Resources */,
+				F4F4345122F070C1003A199F /* Book.sks in Resources */,
 				F4B8E8A520CA4FAA00E558F8 /* standing.png in Resources */,
 				F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */,
 				F4BA319F20E4EE4300DBD823 /* smallrock.png in Resources */,
 				F462CDDB20E5D2FC004AF89E /* lv2rocks16.png in Resources */,
 				F438D05920CD518C00EC2606 /* jumpbutton.png in Resources */,
+				F4F884AE22F9CE4B002A8124 /* BuyButton.png in Resources */,
 				F462CDE820E5DE0C004AF89E /* level2_theme.mp3 in Resources */,
 				F462CDD520E5D23A004AF89E /* lv2rocks15.png in Resources */,
 				F4B8E89F20CA4FAA00E558F8 /* running_step3.png in Resources */,
@@ -1212,6 +1296,7 @@
 				F4B8E8AB20CA72BF00E558F8 /* City Rock.png in Resources */,
 				F4B8E8A020CA4FAA00E558F8 /* running_step6.png in Resources */,
 				F4BA31A320E53EBD00DBD823 /* lv2rocks4.png in Resources */,
+				F4F884AC22F9CAB3002A8124 /* Buttons in Resources */,
 				F462CDD920E5D264004AF89E /* lv2rocks13.png in Resources */,
 				F438D04820CD34E700EC2606 /* warp.mp3 in Resources */,
 				F4C4CA1620EB80F6005CA4D7 /* cannon.png in Resources */,
@@ -1319,11 +1404,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F4F884A122F9C85C002A8124 /* AntiGravityMineral.swift in Sources */,
 				F48F7D4722CF0140004D1A3D /* Rock.swift in Sources */,
+				F4F884A422F9C899002A8124 /* ImpulseMineral.swift in Sources */,
 				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
 				F4BA319620E3672900DBD823 /* Level2.swift in Sources */,
 				F48F7D3F22CF00AC004D1A3D /* FlipSwitch.swift in Sources */,
+				F4F6327F22F350AC0026CED6 /* Ground.swift in Sources */,
 				F490A69022E60FD500840F91 /* GameSwitchProtocol.swift in Sources */,
+				F4F884A622F9C8EA002A8124 /* ImpulseRetrievalNode.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
 				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
@@ -1334,6 +1423,7 @@
 				F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */,
 				F490A68A22E60F3D00840F91 /* MineralSubclasses.swift in Sources */,
 				F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */,
+				F4A5DDD022EFB40A007BF31F /* StoryHandler.swift in Sources */,
 				F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */,
 				F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */,
 				F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */,
@@ -1347,6 +1437,7 @@
 				F44E1A2920CF557E00FD026E /* MainMenu.swift in Sources */,
 				F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */,
 				F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */,
+				F4F6328122F35C980026CED6 /* MineralPurchasing.swift in Sources */,
 				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
 				F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */,
 				F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */,
@@ -1372,8 +1463,10 @@
 				F490A68622E606A600840F91 /* AntiGravRetrievalMineral.swift in Sources */,
 				F490A69222E61CF800840F91 /* GameSwitch.swift in Sources */,
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
+				F4F6327D22F34D6E0026CED6 /* SceneTransitionHandling.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,
 				F44C31F922E8C87600443335 /* GotoLevelNode.swift in Sources */,
+				F4F884AA22F9C928002A8124 /* MagneticRetrieveMineral.swift in Sources */,
 				F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */,
 				F49ADDD322E3485900388C49 /* Fire.swift in Sources */,
 				F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */,
@@ -1557,7 +1650,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HJPTQ3N75W;
 				INFOPLIST_FILE = TRAFOD/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1577,7 +1670,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = HJPTQ3N75W;
 				INFOPLIST_FILE = TRAFOD/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
