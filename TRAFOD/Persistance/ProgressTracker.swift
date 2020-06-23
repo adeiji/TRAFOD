@@ -9,6 +9,10 @@
 import Foundation
 import RealmSwift
 
+/**
+ The Progress Tracker is responsible for storing all the progress of the user.
+ ie - How many minerals they have of each type, what level are they on, what items have they already retrieved from each level so that we don't keep displaying the same items on the screen each time they do the level, etc.
+ */
 class ProgressTracker {
     
     // Removes all progress and starts the game anew
@@ -51,16 +55,17 @@ class ProgressTracker {
         return nil
     }
     
-    public class func updateMineralCount (myMineral: String, count: Int) {
+    /** Save the mineral count for every type of mineral */
+    public class func updateMineralCount (myMineral: Minerals, count: Int) {
         let realm = try! Realm()
-        if let mineralCount = realm.objects(MineralCount.self).filter("mineral == %@", myMineral).first {
+        if let mineralCount = realm.objects(MineralCount.self).filter("mineral == %@", myMineral.rawValue).first {
             try! realm.write {
                 mineralCount.count = count
             }
         } else {
             let mineralCount = MineralCount()
             mineralCount.count = count
-            mineralCount.mineral = myMineral
+            mineralCount.mineral = myMineral.rawValue
             
             try! realm.write {
                 realm.add(mineralCount)

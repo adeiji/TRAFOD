@@ -24,6 +24,10 @@ protocol BaseWorldObject {
     
 }
 
+struct ActionButtons {
+    var climbButton:SKNode?
+}
+
 class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     var previousWorldCameraPosition:CGPoint!
@@ -126,6 +130,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         case LEVEL4 = "Level4"
         case LEVEL5 = "Level5"
     }
+    
+    internal var actionButtons = ActionButtons()
     
     
     /**
@@ -307,6 +313,23 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         run(sequence)
     }
     
+    private func climbButtonPressed (atPoint pos: CGPoint) -> Bool {
+        if let climbButton = self.actionButtons.climbButton, self.nodes(at: pos).contains(climbButton) {
+            // If the climb button is not being shown currently, then disregard the press
+            if climbButton.alpha == 0.0 {
+                return false
+            }
+            
+            if self.player.state != .CLIMBING {
+                self.player.startClimbing()
+            }
+            
+            return true
+        }
+        
+        return false
+    }
+    
     func touchDown(atPoint pos : CGPoint) {
         
         if let camera = self.camera, let zoomOut = camera.childNode(withName: "zoomOut") {
@@ -330,14 +353,24 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         
         self.handleGrabButtonActions(atPoint: pos)
         
+        if self.climbButtonPressed(atPoint: pos) { return }
+        
         if let buyButton = self.checkIfBuyMineralButtonWasPressedAndReturnButtonIfTrue(touchPoint: pos) {
-            self.purchaseScreen = self.showPurchaseScreen(mineralType: buyButton.mineralType, world: self)
+            self.purchaseScreen = self.showPurchaseScreen(mineralType: buyButton.mineralType, world: self, completion: { (mineral, count) in
+                guard let count = count else { return }
+                guard let currentCount = self.player.mineralCounts[buyButton.mineralType] else { return }
+                self.player.mineralCounts[buyButton.mineralType] = currentCount + count
+                self.sounds?.playSound(sound: .GRABMINERAL)
+                ProgressTracker.updateMineralCount(myMineral: buyButton.mineralType, count: count)
+            } )
             return
         }
         
         if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
-            if self.player.state == .ONGROUND  || self.player.state == .SLIDINGONWALL {
+            if self.player.state == .ONGROUND || self.player.state == .SLIDINGONWALL {
                 self.handleJump()
+            } else if (self.player.isClimbing()) {
+                self.player.stoppedClimbing()
             }
             
             return
@@ -427,10 +460,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if var mineralCount = self.player.mineralCounts[type] {
             mineralCount = mineralCount + 10
             self.player.mineralCounts[type] = mineralCount
-            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: mineralCount)
+            ProgressTracker.updateMineralCount(myMineral: type, count: mineralCount)
         } else {
             self.player.mineralCounts[type] = 10;
-            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: 10)
+            ProgressTracker.updateMineralCount(myMineral: type, count: 10)
         }
         
         self.playMineralSound()        
@@ -482,6 +515,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func didBegin(_ contact: SKPhysicsContact) {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
+        
+        self.handleClimbing(physicsContact: contact)
         
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
         PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)
@@ -639,8 +674,14 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if let originalPos = self.originalTouchPosition {
             let position = self.scene?.convert(pos, to: self.camera!)
             let differenceInXPos = originalPos.x - position!.x
+                                    
+            if self.player.isClimbing() {
+                let differenceInYPos = originalPos.y - position!.y
+                self.player.updatePlayerClimbingState(differenceInXPos: differenceInXPos, differenceInYPos: differenceInYPos)
+                return
+            }
             
-            self.player.changeDirection(differenceInXPos: differenceInXPos)
+            self.player.updatePlayerRunningState(differenceInXPos: differenceInXPos)
             if self.player.runningState == .STANDING {
                 self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
             }
@@ -654,6 +695,12 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      */
     func touchUp(atPoint pos : CGPoint) {
         self.player.runningState = .STANDING
+        if self.player.isClimbing() {
+            self.player.climbingState = .STILL
+        } else {
+            self.player.climbingState = nil
+        }
+        
         self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
     }
     
@@ -750,8 +797,15 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         self.run(sound)
     }
     
+    func stopClimbingIfNecessary () {
+        if self.player.isInContactWithFence() == false && self.player.state == .CLIMBING {
+            self.player.stoppedClimbing()
+        }
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         self.showMineralCount()
+        self.stopClimbingIfNecessary()
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
         
@@ -781,6 +835,11 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 self.handlePlayerMovement()
                 
             } else if self.player.state != .GRABBING { // User can only move left to right when grabbing something
+                if self.player.state == .CLIMBING {
+                    self.player.handleClimbingMovement()
+                    return
+                }
+                
                 if self.player.runningState != .STANDING {
                     self.showRunning(currentTime: currentTime)
                     self.handlePlayerMovement()

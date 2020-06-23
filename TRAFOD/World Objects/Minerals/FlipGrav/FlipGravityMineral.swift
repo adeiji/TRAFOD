@@ -26,6 +26,19 @@ class FlipGravityMineral : Mineral, SKPhysicsContactDelegate, UseMinerals {
     }
 }
 
+class TeleportRetrievalMineral: RetrieveMineralNode {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func setup (name: String) {
+        super.setup(name: name)
+        self.mineralType = .TELEPORT
+        let texture = SKTexture(imageNamed: MineralImageNames.Teleport)
+        let action = SKAction.setTexture(texture, resize: true)
+        self.run(action)
+    }
+}
 
 class TeleportMineral : Mineral, SKPhysicsContactDelegate, UseMinerals {
     

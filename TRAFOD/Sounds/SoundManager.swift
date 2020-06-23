@@ -17,6 +17,7 @@ enum Sounds: String {
     case RUN = "FootstepsKey"
     case LANDED
     case CANNONBLAST
+    case GRABMINERAL = "mineralgrab"
 }
 
 class SoundManager {
@@ -64,6 +65,11 @@ class SoundManager {
             }
         } else if sound == .LANDED {
             self.world.run(self.hitGround)
+        } else {
+            let audioNode = SKAudioNode(fileNamed: sound.rawValue)
+            audioNode.autoplayLooped = false
+            self.world.addChild(audioNode)
+            
         }
     }
 }

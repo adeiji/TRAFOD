@@ -20,8 +20,8 @@ protocol Scene {
 
 class GotoLevelNode : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody, Scene {
     
-    /// The next level to take the player to.  Defaults to Level1
-    var nextLevel:GameLevels?
+    /// The next level to take the player to.  Defaults to Level2
+    var nextLevel:GameLevels? = .Level2
     var nextBookChapter: BookChapters?
     
     func setupPhysicsBody() {

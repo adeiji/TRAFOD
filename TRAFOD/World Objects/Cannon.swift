@@ -21,6 +21,7 @@ class Cannon : SKSpriteNode {
         
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Cannon)
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Minerals)
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Player)
         self.addChild(self.cannonBlast)
         self.cannonBlast.autoplayLooped = false
         self.cannonBlast.isPositional = true

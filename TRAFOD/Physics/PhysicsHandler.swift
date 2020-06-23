@@ -103,6 +103,7 @@ class PhysicsHandler {
      - Returns: RetrieveMineralNode? - The Mineral that the user just grabbed/made contact with
      */
     class func playerIsGrabbingMineral (contact: SKPhysicsContact) -> RetrieveMineralNode? {
+        
         if let _  = contact.bodyA.node as? Player != nil ? contact.bodyA.node : contact.bodyB.node
         {
             if let mineral = contact.bodyA.node as? RetrieveMineralNode != nil ? contact.bodyA.node as? RetrieveMineralNode : contact.bodyB.node as? RetrieveMineralNode {

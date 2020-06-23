@@ -43,6 +43,7 @@ extension World {
         return self.counterNodes["\(counterNode)\(buttonType)"]
     }
     
+    /** Show the button on the main screen allowing a player to purchase minerals. */
     func showBuyMineralButton(mineralType: Minerals) {
         let purchaseButton = self.getPurchaseButton(mineralType: mineralType)
         self.throwButtons["\(mineralType.rawValue)"]?.alpha = 0.5
@@ -53,6 +54,9 @@ extension World {
         }
     }
     
+    /**
+     Checks to see if the user has just pressed the buy minerals button
+     */
     func checkIfBuyMineralButtonWasPressedAndReturnButtonIfTrue (touchPoint: CGPoint) -> BuyButton? {
         guard let buyButtons = self.buyMineralButtons else { return nil }
         
@@ -90,7 +94,7 @@ extension World {
                     self.setupMineralCounterAndUseNodes(mineralType: .AntiGrav, counterMineralNodePos: ScreenButtonPositions.AntiGravCounterNode, count: numberOfMineralsLeft)
                 case .IMPULSE:
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Impulse, pos: CGPoint(x: 613, y: -139))
-                    self.setupMineralCounterAndUseNodes(mineralType: .Impulse, counterMineralNodePos: CGPoint(x: -470, y: 400), count: numberOfMineralsLeft)
+                    self.setupMineralCounterAndUseNodes(mineralType: .Impulse, counterMineralNodePos: ScreenButtonPositions.Impulse.CounterNode, count: numberOfMineralsLeft)
                 case .TELEPORT:
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Teleport, pos: CGPoint(x: 332, y: -115))
                     self.setupMineralCounterAndUseNodes(mineralType: .Teleport, counterMineralNodePos: CGPoint(x: -670, y: 400), count: numberOfMineralsLeft)
@@ -124,7 +128,7 @@ extension World {
     func setupButtonsOnScreen () {
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
         self.grabButton = self.camera?.childNode(withName: "grabButton")
-        
+        self.actionButtons.climbButton = self.camera?.childNode(withName: "climbButton")
         let zoomButton = SKSpriteNode(texture: SKTexture(imageNamed: "throwbutton"))
         zoomButton.position = CGPoint(x: 761, y: 320)
         zoomButton.name = "zoomOut"

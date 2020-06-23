@@ -52,10 +52,10 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
         if var mineralCount = self.world?.player.mineralCounts[type] {
             mineralCount = mineralCount + 1
             self.world?.player.mineralCounts[type] = mineralCount
-            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: mineralCount)
+            ProgressTracker.updateMineralCount(myMineral: type, count: mineralCount)
         } else {
             self.world?.player.mineralCounts[type] = 10;
-            ProgressTracker.updateMineralCount(myMineral: type.rawValue, count: 10)
+            ProgressTracker.updateMineralCount(myMineral: type, count: 10)
         }
         
         self.world?.playMineralSound()
@@ -66,7 +66,8 @@ class RetrieveMineralNode : SKSpriteNode, SKPhysicsContactDelegate {
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.restitution = 0
         self.physicsBody?.mass = 0
-        self.physicsBody?.isDynamic = true
+        self.physicsBody?.isDynamic = false
+        self.physicsBody?.pinned = true
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.GetMineralObject)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player)

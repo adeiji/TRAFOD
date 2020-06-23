@@ -10,6 +10,8 @@ import Foundation
 import GameKit
 import StoreKit
 
+typealias PurchaseMineralsComplete = ((Mineral?, Int?) -> Void)
+
 protocol MineralPurchasing {
     
     var buyMineralButtons:[Minerals:BuyButton]? { get set }
@@ -21,11 +23,11 @@ protocol MineralPurchasing {
      When the user presses the purchase button than a dialog box will appear that will ask them how m
      any of the mineral they would like to purchase.
      */
-    func getPurchaseScreen (mineralType: Minerals) -> PurchaseMineralsViewController
+    func getPurchaseScreen (mineralType: Minerals, completion: @escaping PurchaseMineralsComplete) -> PurchaseMineralsViewController
     
     func getBuyButton (mineralType: Minerals) -> BuyButton
     
-    func showPurchaseScreen (mineralType: Minerals, world: World) -> PurchaseMineralsViewController?
+    func showPurchaseScreen (mineralType: Minerals, world: World, completion: @escaping PurchaseMineralsComplete) -> PurchaseMineralsViewController?
 }
 
 class BuyButton: SKSpriteNode {
@@ -51,6 +53,9 @@ extension MineralPurchasing {
             button.position.y = ScreenButtonPositions.AntiGravCounterNode.y
             button.zPosition = 100
         case .IMPULSE:
+            button.position.x = ScreenButtonPositions.Impulse.CounterNode.x + 120
+            button.position.y = ScreenButtonPositions.Impulse.CounterNode.y
+            button.zPosition = 100
             break
         case .TELEPORT:
             break
@@ -65,19 +70,20 @@ extension MineralPurchasing {
         return button
     }
     
-    internal func getPurchaseScreen (mineralType: Minerals) -> PurchaseMineralsViewController {
+    internal func getPurchaseScreen (mineralType: Minerals, completion: @escaping PurchaseMineralsComplete) -> PurchaseMineralsViewController {
         
         guard let purchaseScreen = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: Scenes.PurchaseMineralViewController) as? PurchaseMineralsViewController else {
             fatalError("View Controller with name \(Scenes.PurchaseMineralViewController) does not exist in storyboard Main")
         }
         
+        purchaseScreen.purchaseComplete = completion
         purchaseScreen.mineralType = mineralType
         return purchaseScreen
     }
     
-    func showPurchaseScreen (mineralType: Minerals, world: World) -> PurchaseMineralsViewController? {
+    func showPurchaseScreen (mineralType: Minerals, world: World, completion: @escaping PurchaseMineralsComplete) -> PurchaseMineralsViewController? {
         
-        let purchaseScreen = self.getPurchaseScreen(mineralType: mineralType)
+        let purchaseScreen = self.getPurchaseScreen(mineralType: mineralType, completion: completion)
         let navViewController = UIApplication.shared.keyWindow?.rootViewController
         navViewController?.present(purchaseScreen, animated: true, completion: nil)
         
@@ -90,6 +96,7 @@ class PurchaseMineralsViewController: UIViewController {
     var mineralType:Minerals?
     var products:[SKProduct]?
     var errorPurchasingView:UIView?
+    var purchaseComplete: PurchaseMineralsComplete?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -106,47 +113,42 @@ class PurchaseMineralsViewController: UIViewController {
     @IBAction func cancelButtonPressed(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
     }
-    
-    @IBAction func purchase5MineralsPressed(_ sender: Any) {
+        
+    private func purchaseProduct (productId: ProductIds) {
+        
         guard let products = self.products else { return }
-        guard let product = self.getProductWithId(id: .FiveMinerals, products: products) else {
+        guard let product = self.getProductWithId(id: productId, products: products) else {
             return
         }
         
-        self.purchaseProduct(product: product) { (success) in
-            if success {
-                self.dismiss(animated: true, completion: nil)
-            } else {
-                
-            }
-        }
-        
-    }
-    
-    func purchaseProduct (product: SKProduct, completion: @escaping (Bool) -> ()) {
         PKIAPHandler.shared.purchase(product: product) { (alertType, product, transaction) in
             if let product = product, let transaction = transaction {
-                completion(true)
+                self.dismiss(animated: true, completion: nil)
+                self.purchaseComplete?(nil, productId.numOfMinerals())
             } else {
-                completion(false)
+                // Failed
             }
         }
+    }
+    
+    @IBAction func purchase5MineralsPressed(_ sender: Any) {
+        self.purchaseProduct(productId: .FiveMinerals)
     }
     
     @IBAction func purchase40MineralsPressed(_ sender: Any) {
-        
+        self.purchaseProduct(productId: .FortyMinerals)
     }
     
     @IBAction func purchase100MineralsPressed(_ sender: Any) {
-        
+        self.purchaseProduct(productId: .OneHundredMinerals)
     }
     
     @IBAction func purchase1000MineralsPressed(_ sender: Any) {
-        
+        self.purchaseProduct(productId: .OneThousandMinerals)
     }
     
     @IBAction func purchase5000MineralsPressed(_ sender: Any) {
-        
+        self.purchaseProduct(productId: .FiveThousandMinerals)
     }
     
 }

@@ -14,15 +14,53 @@ class Player : SKSpriteNode, AffectedByNegationField {
     public var hasAntigrav = false
     public var hasImpulse = false
     public var hasTeleport = false
+    
+    /**
+     The amount of minerals the user has for each mineral type, ie.
+     Impulse: 5
+     AntiGrav: 10
+     */
     public var mineralCounts = [Minerals:Int]()
+    /**
+     The physics strength of this player.  Used when calculating whether the user can push or pick up an item
+     */
     public var strength:CGFloat = 10.0
+    /**
+     The object that the user is currently grabbing
+     */
     public var grabbedObject:SKSpriteNode?
+    
+    /**
+     The object that a player can currently grab but is not currently grabbing at the moment
+     */
     public var objectThatCanBeGrabbed:SKSpriteNode?
     
-    public var state:PlayerState = .ONGROUND
+    /**
+     The current state of the player.  Is he DEAD, is he ONGROUND, is he in the AIR, etc.
+     */
+    public var state:PlayerState = .ONGROUND {
+        didSet {
+            if self.state != .CLIMBING {
+                self.climbingState = nil
+            }
+        }
+    }
+    
+    /**
+     Is the player currently runningleft, runningright, or standing etc.
+     */
     public var runningState:PlayerRunningState = .STANDING
+    /**
+     What was the player just doing.  We're they just standing, we're they just running left
+     */
     public var previousRunningState:PlayerRunningState = .STANDING
+    /**
+     The action that the player is currently partaking in
+     */
     public var action:PlayerAction = .NONE
+    
+    public var climbingState:PlayerClimbingState? = .STILL
+    
     private var isFlipped = false
     public var negatedForces:[Minerals:Bool] = [Minerals:Bool]()
     
@@ -39,8 +77,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
     func getMineralCount (mineralType: Minerals) -> Int {
         return self.mineralCounts[mineralType] ?? 0
     }
-    
-    
+        
     func hasLanded (contact: SKPhysicsContact) -> Bool {
         if self.isFlipped == false {
             if contact.contactNormal.dy > 0.99 && contact.contactNormal.dy <= 1.0 {
@@ -90,6 +127,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.physicsBody?.mass = 1
         self.physicsBody?.isDynamic = true
         self.physicsBody?.contactTestBitMask = 1 |
+            UInt32(PhysicsCategory.Fence) |
             UInt32(PhysicsCategory.Minerals) |
             UInt32(PhysicsCategory.GetMineralObject) |
             UInt32(PhysicsCategory.Doorway) |
@@ -130,7 +168,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
      - differenceInXPos: This is the distance that the user has dragged his finger along the screen.  We use this to determine whether we should worry about actually detecting this drag as intentional and worry about changing the players direction
      
      */
-    func changeDirection (differenceInXPos: CGFloat) {
+    func updatePlayerRunningState (differenceInXPos: CGFloat) {
         if abs(differenceInXPos) > 10 {
             if differenceInXPos < 0 {
                 if self.previousRunningState == .RUNNINGLEFT {
@@ -149,6 +187,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
             self.runningState = .STANDING
         }
     }
+    
     
     /**
      Handles the actual flipping of the player by creating an action in which he is flipped
@@ -202,6 +241,82 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.constraints = [];        
     }
     
+    func move (dx: CGFloat, dy: CGFloat) {
+        if abs(dx) > PhysicsHandler.kRunVelocity {
+            assertionFailure("The player should not be allowed to move faster then the maximum velocity of \(PhysicsHandler.kRunVelocity)")
+        }
+        
+        self.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
+    }
+    
+    // # MARK: Climbing
+    
+    func startClimbing () {
+        self.state = .CLIMBING
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+    }
+    
+    func stoppedClimbing () {
+        self.state = .INAIR
+        self.physicsBody?.affectedByGravity = true
+    }
+    
+    func updatePlayerClimbingState (differenceInXPos: CGFloat, differenceInYPos: CGFloat) {
+                
+        if abs(differenceInXPos) > 100 {
+            if differenceInXPos < 0 {
+                self.climbingState = .CLIMBINGRIGHT
+            } else {
+                self.climbingState = .CLIMBINGLEFT
+            }
+            
+            return
+        }
+        
+        if abs(differenceInYPos) > 100 {
+            if differenceInYPos < 0 {
+                self.climbingState = .CLIMBINGUP
+            } else {
+                self.climbingState = .CLIMBINGDOWN
+            }
+            
+            return
+        }
+        
+        self.climbingState = .STILL
+        
+    }
+    
+    /**
+     Responsible for showing the movement of the character when he is climbing
+     */
+    func handleClimbingMovement () {
+        guard let climbingState = self.climbingState else { return }
+        
+        switch climbingState {
+        case .CLIMBINGDOWN:
+            self.move(dx: 0, dy: -400)
+            break;
+        case .CLIMBINGLEFT:
+            self.move(dx: -400, dy: 0)
+            break;
+        case .CLIMBINGRIGHT:
+            self.move(dx: 400, dy: 0)
+            break;
+        case .CLIMBINGUP:
+            self.move(dx: 0, dy: 400)
+            break;
+        case .STILL:
+            self.stop()
+            break;
+        }
+    }
+    
+    func isClimbing () -> Bool {
+        return self.state == .CLIMBING
+    }
+    
     /**
      Check to see if the player is currently holding/grabbing an object
      
@@ -220,14 +335,30 @@ class Player : SKSpriteNode, AffectedByNegationField {
      Stops the players velocity
      */
     func stop () {
-        self.physicsBody?.velocity = CGVector(dx: 0, dy: self.physicsBody?.velocity.dy ?? 0)
+        self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
     }
     
     func handleMineralUsed (mineralType: Minerals) {
         if let mineralCount = self.mineralCounts[mineralType] {
             let updatedMineralCount = mineralCount - 1
             self.mineralCounts[mineralType] = updatedMineralCount
-            ProgressTracker.updateMineralCount(myMineral: mineralType.rawValue, count: updatedMineralCount)
+            ProgressTracker.updateMineralCount(myMineral: mineralType, count: updatedMineralCount)
         }
+    }
+    
+    func isInContactWithFence () -> Bool {
+        if self.physicsBody?.allContactedBodies().filter({ $0.node is Fence }).count == 0 {
+            return false
+        }
+        
+        return true
+    }
+    
+    func madeContactWithFence (contact: SKPhysicsContact) -> Bool {
+        if let _ = contact.bodyA.node as? Fence ?? contact.bodyB.node as? Fence {
+            return true
+        }
+        
+        return false
     }
 }

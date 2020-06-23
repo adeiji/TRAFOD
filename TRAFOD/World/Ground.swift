@@ -14,6 +14,23 @@ protocol GroundProtocol {
     var isImmovableGround:Bool { get set }
 }
 
+class Fence: SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
+    
+    func setupPhysicsBody() {
+        self.physicsBody = SKPhysicsBody(rectangleOf: size)
+        self.physicsBody?.affectedByGravity = false
+        self.physicsBody?.restitution = 0
+        self.physicsBody?.mass = 0
+        self.physicsBody?.isDynamic = false
+        self.physicsBody?.pinned = true
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Fence)
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player)
+        self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Nothing)
+        self.physicsBody?.allowsRotation = false
+    }                
+}
+
 class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsBody {
     
     var isImmovableGround = false
@@ -42,6 +59,8 @@ class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsB
         self.physicsBody?.friction = 1.0
         if self.isImmovableGround {
             self.physicsBody?.mass = 100000
+            self.physicsBody?.pinned = true
+            self.physicsBody?.allowsRotation = false
         }
     }
     

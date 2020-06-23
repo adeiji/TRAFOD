@@ -59,6 +59,10 @@ public class ScreenButtonPositions {
     public static let AntiGravCounterNode = CGPoint(x: -870, y: 400)
     public static let AntiGravCounterLabel = CGPoint(x: -800,  y: 390)
     public static let AntiGravThrowButton = CGPoint(x: 453, y: -374)
+    
+    struct Impulse {
+        public static let CounterNode = CGPoint(x: -470, y: 400)
+    }
 }
 
 /** The different states that the player can be in  The player is not capable of being in more than one of these states at one time
@@ -79,6 +83,7 @@ enum PlayerState {
     case DEAD
     case GRABBING
     case SLIDINGONWALL
+    case CLIMBING
 }
 
 /**
@@ -94,6 +99,14 @@ enum PlayerRunningState {
     case RUNNINGLEFT
     case RUNNINGRIGHT
     case STANDING
+}
+
+enum PlayerClimbingState {
+    case CLIMBINGLEFT
+    case CLIMBINGRIGHT
+    case CLIMBINGUP
+    case CLIMBINGDOWN
+    case STILL
 }
 
 /// The current action of the player.  For example, is the player currently throwing an mineral
@@ -115,6 +128,7 @@ public class MineralImageNames {
     public static let AntiGravity:String = ImageNames.BlueCrystal.rawValue
     public static let Magnetic:String = ImageNames.BlueCrystal.rawValue
     public static let Impulse:String = ImageNames.RedCrystal.rawValue
+    public static let Teleport:String = ImageNames.RedCrystal.rawValue
 }
 
 /// The nodes that are used to display the number of minerals that the player currently has

@@ -11,6 +11,21 @@ enum ProductIds:String, CaseIterable {
     case OneHundredMinerals = "100minerals"
     case OneThousandMinerals = "1000minerals"
     case FiveThousandMinerals = "5000minerals"
+    
+    func numOfMinerals () -> Int {
+        switch self {
+        case .FiveMinerals:
+            return 5
+        case .FortyMinerals:
+            return 40
+        case .OneHundredMinerals:
+            return 100
+        case .OneThousandMinerals:
+            return 1000
+        case .FiveThousandMinerals:
+            return 5000
+        }
+    }
 }
 
 enum PKIAPHandlerAlertType {
@@ -88,7 +103,7 @@ class PKIAPHandler: NSObject {
         
         if self.canMakePurchases() {
             let payment = SKPayment(product: product)
-//            SKPaymentQueue.default().add(self)
+            SKPaymentQueue.default().add(self)
             SKPaymentQueue.default().add(payment)
             
             log("PRODUCT TO PURCHASE: \(product.productIdentifier)")
