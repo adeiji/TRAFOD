@@ -55,7 +55,6 @@ class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsB
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Ground)
         self.physicsBody?.contactTestBitMask = 1 | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
         self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Minerals)
-        self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.friction = 1.0
         if self.isImmovableGround {
             self.physicsBody?.mass = 100000

@@ -516,8 +516,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
-        self.handleClimbing(physicsContact: contact)
-        
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
         PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)
         // Check to see if the playe has hit the door to go to another level
@@ -555,7 +553,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             return
         }
 
-        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: GroundProtocol.self) {
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: GroundProtocol.self) ||
+           PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: Cannon.self)  {
             self.handlePlayerHitGround(contact: contact)            
         }
     
@@ -806,6 +805,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     override func update(_ currentTime: TimeInterval) {
         self.showMineralCount()
         self.stopClimbingIfNecessary()
+        self.showClimbButton()
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
         

@@ -181,12 +181,8 @@ class PhysicsHandler {
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: MultiDirectionalGravObject.self, nodeBType: WeightSwitchBottom.self) {
             if let node = contact.bodyA.node?.parent as? WeightSwitch {
                 node.platform?.move()
-                if let name = node.name {
-                    if name.contains("pin") {
-                        node.topOfSwitch?.verticalForce = 0
-                        node.topOfSwitch?.physicsBody?.pinned = true
-                    }
-                }
+                node.topOfSwitch?.verticalForce = 0
+                node.topOfSwitch?.physicsBody?.pinned = true
             }
         }
     }

@@ -11,14 +11,8 @@ import GameKit
 
 extension World {
     
-    func handleClimbing (physicsContact: SKPhysicsContact) {
-                        
-        // If this physics contact does not involve a player interaction then just return
-        guard let _ = physicsContact.bodyA.node as? Player ?? physicsContact.bodyB.node as? Player else {
-            return
-        }
-        
-        if self.player.madeContactWithFence(contact: physicsContact) {
+    func showClimbButton () {
+        if self.player.isInContactWithFence() {
             if self.player.state != .CLIMBING {
                 self.actionButtons.climbButton?.alpha = 1.0
             } else {

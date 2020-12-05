@@ -62,6 +62,10 @@ class Player : SKSpriteNode, AffectedByNegationField {
     public var climbingState:PlayerClimbingState? = .STILL
     
     private var isFlipped = false
+    
+    /**
+     Negated forces are any forces that can not be applied to a character.  Typically this is because the user is in a field that does not allow them to be affected by that force, ie. Negated Flip Grav Field
+     */
     public var negatedForces:[Minerals:Bool] = [Minerals:Bool]()
     
     private var slidingPurchased = false
@@ -313,6 +317,9 @@ class Player : SKSpriteNode, AffectedByNegationField {
         }
     }
     
+    /**
+     Whether or not the player is currently climbing something like a fence
+     */
     func isClimbing () -> Bool {
         return self.state == .CLIMBING
     }
