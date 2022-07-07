@@ -91,6 +91,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     private var runTime:TimeInterval = TimeInterval()
     private var stepCounter = 0
     
+    private var touchesMovedTimer:Timer?
+    
     var backgroundMusic:SKAudioNode!
     var ambiance:SKAudioNode!
     
@@ -666,25 +668,43 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      - Parameter toPoint: The current position of where the user is touching the screen
      */
     func touchMoved(toPoint pos : CGPoint) {
+        
+        print("User is dragging something on the screen")
+        
+        guard let camera = self.camera else { return }
+                
         if self.messageBox != nil {
             return
         }
-        
+                        
         if let originalPos = self.originalTouchPosition {
-            let position = self.scene?.convert(pos, to: self.camera!)
-            let differenceInXPos = originalPos.x - position!.x
-                                    
+            
+            guard let position = self.scene?.convert(pos, to: camera) else { return }
+            let differenceInXPos = originalPos.x - position.x
+            
+            if (abs(differenceInXPos) < 10) { return }
+            
+            self.touchesMovedTimer?.invalidate()
+            self.touchesMovedTimer = Timer .scheduledTimer(withTimeInterval: 500, repeats: false, block: { timer in
+                self.originalTouchPosition = position
+            })
+            self.touchesMovedTimer?.fire()
+            
             if self.player.isClimbing() {
-                let differenceInYPos = originalPos.y - position!.y
+                let differenceInYPos = originalPos.y - position.y
                 self.player.updatePlayerClimbingState(differenceInXPos: differenceInXPos, differenceInYPos: differenceInYPos)
                 return
             }
             
-            self.player.updatePlayerRunningState(differenceInXPos: differenceInXPos)
-            if self.player.runningState == .STANDING {
-                self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
+            if (position.x < 0) {
+                self.player.updatePlayerRunningState(differenceInXPos: differenceInXPos)
+                if self.player.runningState == .STANDING {
+                    self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
+                }
             }
         }
+        
+        
     }
     
     /**
@@ -693,7 +713,18 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      - Parameter atPoint: The position of the user's finger when he stops touching the screen
      */
     func touchUp(atPoint pos : CGPoint) {
-        self.player.runningState = .STANDING
+        
+        guard let camera = self.camera else { return }
+        guard let position = self.scene?.convert(pos, to: camera) else { return }
+        
+        
+        // The user uses the left hand only for running from left to right, so we want to make sure that if the user stopped touhing the sreen
+        // and he's using his left hand, which is representative by swiping on the left side of the screen, then we stop the player from running
+        if (position.x < 0) {
+            self.player.runningState = .STANDING
+        }
+        
+        print("User stopped touching the screen")
         if self.player.isClimbing() {
             self.player.climbingState = .STILL
         } else {

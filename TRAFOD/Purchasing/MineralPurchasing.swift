@@ -40,6 +40,7 @@ extension MineralPurchasing {
         let button = BuyButton(texture: SKTexture(imageNamed: ImageNames.BuyButton.rawValue))
         button.mineralType = mineralType
         button.size = CGSize(width: 180, height: 90)
+        button.isHidden = true
         return button
     }
     

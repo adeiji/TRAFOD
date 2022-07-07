@@ -15,6 +15,12 @@ class Player : SKSpriteNode, AffectedByNegationField {
     public var hasImpulse = false
     public var hasTeleport = false
     
+    private enum Dimensions: CGFloat {
+        case playerStandingWidth = 70
+        case playerActiveWidth = 100
+        case playerHeight = 140
+    }
+    
     /**
      The amount of minerals the user has for each mineral type, ie.
      Impulse: 5
@@ -42,6 +48,12 @@ class Player : SKSpriteNode, AffectedByNegationField {
         didSet {
             if self.state != .CLIMBING {
                 self.climbingState = nil
+                
+                if self.state != .ONGROUND {
+                    self.updatePlayerDimensions(isActive: true)
+                } else {
+                    self.updatePlayerDimensions(isActive: false)
+                }
             }
         }
     }
@@ -49,7 +61,15 @@ class Player : SKSpriteNode, AffectedByNegationField {
     /**
      Is the player currently runningleft, runningright, or standing etc.
      */
-    public var runningState:PlayerRunningState = .STANDING
+    public var runningState:PlayerRunningState = .STANDING {
+        didSet {
+            if self.runningState != .STANDING {
+                self.updatePlayerDimensions(isActive: true)
+            } else if (self.runningState == .STANDING && self.state == .ONGROUND) {
+                self.updatePlayerDimensions(isActive: false)
+            }
+        }
+    }
     /**
      What was the player just doing.  We're they just standing, we're they just running left
      */
@@ -61,6 +81,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
     
     public var climbingState:PlayerClimbingState? = .STILL
     
+    /** This indicates whether the player is flipped upside down. */
     private var isFlipped = false
     
     /**
@@ -69,6 +90,22 @@ class Player : SKSpriteNode, AffectedByNegationField {
     public var negatedForces:[Minerals:Bool] = [Minerals:Bool]()
     
     private var slidingPurchased = false
+    
+    /**
+     Update the dimensions of the player
+     
+        - Parameters
+            - isActive: Whether the player is actively doing something, thinking running, or jumping, or climbing
+     */
+    private func updatePlayerDimensions (isActive active:Bool) {
+        if active {
+            self.size.width = Dimensions.playerActiveWidth.rawValue
+            self.size.height = Dimensions.playerHeight.rawValue
+        } else {
+            self.size.width = Dimensions.playerStandingWidth.rawValue
+            self.size.height = Dimensions.playerHeight.rawValue
+        }
+    }
     
     func getIsFlipped () -> Bool {
         return isFlipped
@@ -121,6 +158,8 @@ class Player : SKSpriteNode, AffectedByNegationField {
     func setupPhysicsBody () {
         self.previousRunningState = .RUNNINGRIGHT
         self.position = CGPoint(x: 116, y: 86.7)
+        self.size.width = Dimensions.playerStandingWidth.rawValue
+        self.size.height = Dimensions.playerHeight.rawValue
         self.name = "dawud"
         self.xScale = 1
         self.yScale = 0.90
