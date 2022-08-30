@@ -66,6 +66,8 @@
 		F44D96DC28BD523B009A8098 /* DawudVillageLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96DB28BD523B009A8098 /* DawudVillageLevel.swift */; };
 		F44D96DF28BD5277009A8098 /* DawudVillage.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44D96DE28BD5277009A8098 /* DawudVillage.sks */; };
 		F44D96E228BD641A009A8098 /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E128BD641A009A8098 /* Spring.swift */; };
+		F44D96E428BEA9A0009A8098 /* RopeTypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E328BEA9A0009A8098 /* RopeTypeProtocol.swift */; };
+		F44D96E628BEACD5009A8098 /* Vine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E528BEACD5009A8098 /* Vine.swift */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
 		F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2220CF541800FD026E /* MainMenu.sks */; };
 		F44E1A2520CF543900FD026E /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2420CF543900FD026E /* menu.png */; };
@@ -300,6 +302,8 @@
 		F44D96DB28BD523B009A8098 /* DawudVillageLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudVillageLevel.swift; sourceTree = "<group>"; };
 		F44D96DE28BD5277009A8098 /* DawudVillage.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DawudVillage.sks; sourceTree = "<group>"; };
 		F44D96E128BD641A009A8098 /* Spring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
+		F44D96E328BEA9A0009A8098 /* RopeTypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeTypeProtocol.swift; sourceTree = "<group>"; };
+		F44D96E528BEACD5009A8098 /* Vine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vine.swift; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
 		F44E1A2220CF541800FD026E /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		F44E1A2420CF543900FD026E /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -670,6 +674,8 @@
 			isa = PBXGroup;
 			children = (
 				F44D96E128BD641A009A8098 /* Spring.swift */,
+				F44D96E328BEA9A0009A8098 /* RopeTypeProtocol.swift */,
+				F44D96E528BEACD5009A8098 /* Vine.swift */,
 			);
 			path = Vines;
 			sourceTree = "<group>";
@@ -1470,10 +1476,12 @@
 				F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */,
 				F490A68422E6066800840F91 /* RetrieveMineralNode.swift in Sources */,
 				F44D96DC28BD523B009A8098 /* DawudVillageLevel.swift in Sources */,
+				F44D96E428BEA9A0009A8098 /* RopeTypeProtocol.swift in Sources */,
 				F44B9BD620EDFF8000B874A1 /* Chapters.swift in Sources */,
 				F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */,
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44C31FE22E8CB7E00443335 /* Level5.swift in Sources */,
+				F44D96E628BEACD5009A8098 /* Vine.swift in Sources */,
 				F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F48F7D4122CF00D3004D1A3D /* DoubleGravField.swift in Sources */,

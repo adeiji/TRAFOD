@@ -198,7 +198,8 @@ class Player : SKSpriteNode, AffectedByNegationField {
             UInt32(PhysicsCategory.NegateForceField) |
             UInt32(PhysicsCategory.Impulse) |
             UInt32(PhysicsCategory.ForceField) |
-            UInt32(PhysicsCategory.Spring)
+            UInt32(PhysicsCategory.Spring) |
+            UInt32(PhysicsCategory.FlipSwitch) 
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |
             UInt32(PhysicsCategory.Rock) |
             UInt32(PhysicsCategory.Ground) |
@@ -210,30 +211,36 @@ class Player : SKSpriteNode, AffectedByNegationField {
     }
     
     /** Launch the spring by  */
-    func launchSpring () {
+    func letGoOfRope () {
         self.letGoOfObject()
-        if let spring = self.anchors[PhysicsObjectTitles.Spring] {
+        if let spring = self.anchors[PhysicsObjectTitles.RopeType] {
             self.scene?.physicsWorld.remove(spring)
-            self.anchors[PhysicsObjectTitles.Spring] = nil
+            self.anchors[PhysicsObjectTitles.RopeType] = nil
         }        
     }
     
     /**
-        Attaches the player to a rope (vine)
+        Handles the grabbing and releasing of a rope
      */
-    func grabSpring () {
+    func handleRopeGrabInteraction () {
+        
+        // Player is already grabbing a rope
+        if (self.anchors[PhysicsObjectTitles.RopeType] != nil ) {
+            self.letGoOfRope()
+            return
+        }
         
         // Should be set whenever the player has made contact with a rope
         guard let contactPoint = self.ropeContactPoint else { return }
         guard let playerPhysicsBody = self.physicsBody else { return }
-        let touchedSpringSegmentPhysicsBody = self.physicsBody?.allContactedBodies().filter({ $0.node is SpringSegment  }).first
+        let touchedSpringSegmentPhysicsBody = self.physicsBody?.allContactedBodies().filter({ $0.node is RopeTypeSegment  }).first
         
         if let touchedSpringSegmentPhysicsBody = touchedSpringSegmentPhysicsBody {
             // Add a joint between the player and the vine segment the player has made contact with
             let joint = SKPhysicsJointPin.joint(withBodyA: playerPhysicsBody, bodyB: touchedSpringSegmentPhysicsBody, anchor: contactPoint)
             self.scene?.physicsWorld.add(joint)
-            self.anchors[PhysicsObjectTitles.Spring] = joint
-            self.grabbedObject = touchedSpringSegmentPhysicsBody.node as? SpringSegment
+            self.anchors[PhysicsObjectTitles.RopeType] = joint
+            self.grabbedObject = touchedSpringSegmentPhysicsBody.node as? RopeTypeSegment
         }
     }
     
@@ -437,15 +444,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
             self.mineralCounts[mineralType] = updatedMineralCount
             ProgressTracker.updateMineralCount(myMineral: mineralType, count: updatedMineralCount)
         }
-    }
-    
-    func isInContactWithRope () -> Bool {
-        if self.physicsBody?.allContactedBodies().filter({ $0.node is SpringSegment }).count == 0 {
-            return false
-        }
-        
-        return true
-    }
+    }        
     
     func isInContactWithFence () -> Bool {
         if self.physicsBody?.allContactedBodies().filter({ $0.node is Fence }).count == 0 {

@@ -19,9 +19,16 @@ class DawudVillageLevel: Level {
         self.addJumpButtonToScreen()
         self.addCameraMinXNode()
         
-        guard let vineNode = self.scene?.childNode(withName: "spring1") else { return }
-        let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode")
-        spring.addToScene(self.scene)                
+        self.scene?.enumerateChildNodes(withName: "spring", using: { vineNode, pointer in
+            let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode", segmentLength: 300)
+            spring.addToScene(self.scene)
+        })
+        
+        self.scene?.enumerateChildNodes(withName: "vine", using: { vineNode, pointer in
+            let vine = VineNode(length: 5, anchorPoint: vineNode.position, name: "vineNode", segmentLength: 100)
+            vine.addToScene(self.scene)
+        })
+        
     }
     
     public func addCameraMinXNode () {

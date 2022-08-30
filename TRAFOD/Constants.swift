@@ -56,7 +56,7 @@ public class PhysicsObjectTitles {
     public static let Rock = "rock"
     public static let Ground = "ground"
     public static let CannonBall = "cannonball"
-    public static let Spring = "spring"
+    public static let RopeType = "ropeType"
 }
 
 enum Minerals: String, CaseIterable {

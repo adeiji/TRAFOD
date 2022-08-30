@@ -371,12 +371,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         
         if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
             
-            if (self.player.isInContactWithRope()) {
-                // Grab onto the rope at whatever node it's touching
-                self.player.grabSpring()
-            } else if self.player.grabbedObject is SpringSegment {
-                self.player.launchSpring()                
-            }
+            
+            // Grab onto the rope at whatever node it's touching
+            self.player.handleRopeGrabInteraction()
+            
             
             if self.player.state == .ONGROUND || self.player.state == .SLIDINGONWALL {
                 self.handleJump()
@@ -458,7 +456,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             self.player.flipPlayerUpright()
         }
         
-        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: SpringSegment.self) {
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: RopeTypeSegment.self) {
 //            self.player.setRopeContactPoint(nil)
         }
     }
@@ -546,7 +544,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             return
         }
         
-        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: SpringSegment.self) {
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: RopeTypeSegment.self) {
             self.player.setRopeContactPoint(contact.contactPoint)
         }
         
