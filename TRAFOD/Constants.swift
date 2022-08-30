@@ -24,6 +24,41 @@ public class StoryFeatures {
     public static let Ravenhall = "Ravenhall"
 }
 
+public class GameNodes {
+    public static let LeftBoundary = "leftBoundary"
+    public static let RightBoundary = "rightBoundary"
+    public static let SpeechBubble = "speechBubble"
+    public static let CameraMinX = "cameraMinX"
+}
+
+public class SoundFiles {
+    struct FX {
+        public static let MineralGrab = "mineralgrab"
+        public static let BirdsChirping = "birdschirping"
+        public static let MineralCrash = "mineralcrash"
+        public static let RunningStep = "running_step"
+    }
+}
+
+public class Textures {
+    struct Dawud {
+        public static let Standing = "standing"
+    }
+    
+    struct GameElements {
+        public static let JumpButton = "jumpbutton"
+    }
+}
+
+public class PhysicsObjectTitles {
+    public static let Dawud = "dawud"
+    public static let Portal = "portal"
+    public static let Rock = "rock"
+    public static let Ground = "ground"
+    public static let CannonBall = "cannonball"
+    public static let Spring = "spring"
+}
+
 enum Minerals: String, CaseIterable {
     case ANTIGRAV = "antigrav"
     case IMPULSE = "impulse"
@@ -41,6 +76,7 @@ enum PhysicsAlteringObjectTypes {
 
 /// The GameLevel names, these should match the name of the sks files for each level
 enum GameLevels: String, CaseIterable {
+    case DawudVillage = "DawudVillage"
     case Level1 = "GameScene"
     case BookChapter2
     case Level2 = "Level2"
@@ -84,6 +120,7 @@ enum PlayerState {
     case GRABBING
     case SLIDINGONWALL
     case CLIMBING
+    case PULLINGROPE
 }
 
 /**

@@ -91,6 +91,19 @@ class Player : SKSpriteNode, AffectedByNegationField {
     
     private var slidingPurchased = false
     
+    /** If the player is currently in contact with a rope, then this is the point at which the player and the rope have made contact */
+    private var ropeContactPoint:CGPoint?
+    
+    /** All the current states that the player is currently in. For example, RUNNING, CLIMBING, PULLINGROPE*/
+    private var playerStates:[PlayerState] = []
+    
+    /**
+     All the anchors that are tying the Player to another physics body.
+        Key: Name of the anchor, for example, Ground. Use a value from PhysicsObjectTitles struct
+        Value: The joint itself
+     */
+    private (set) var anchors:[String:SKPhysicsJoint] = [:]
+    
     /**
      Update the dimensions of the player
      
@@ -107,6 +120,11 @@ class Player : SKSpriteNode, AffectedByNegationField {
         }
     }
     
+    func setRopeContactPoint (_ contactPoint: CGPoint?) {
+        self.ropeContactPoint = contactPoint
+    }
+        
+    /** Returns whether or not the player is currently flipped upside down. */
     func getIsFlipped () -> Bool {
         return isFlipped
     }
@@ -121,11 +139,11 @@ class Player : SKSpriteNode, AffectedByNegationField {
         
     func hasLanded (contact: SKPhysicsContact) -> Bool {
         if self.isFlipped == false {
-            if contact.contactNormal.dy > 0.99 && contact.contactNormal.dy <= 1.0 {
+            if contact.contactNormal.dy > 0.9 && contact.contactNormal.dy <= 1.0 {
                 return true
             }
         } else { // player is flipped or self.isFlipped == true
-            if contact.contactNormal.dy < -0.099999 && contact.contactNormal.dy >= 1.0 {
+            if contact.contactNormal.dy < -0.09 && contact.contactNormal.dy >= 1.0 {
                 return true
             }
         }
@@ -141,7 +159,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
         if self.slidingPurchased == false { return false }
         
         if self.state == .INAIR {
-            if self.xScale > 0 {
+            if self.xScale > 0 { // If the player is facing right
                 if contact.contactNormal.dx <= -0.999 && contact.contactNormal.dx >= -1.0 {
                     return true
                 }
@@ -179,14 +197,44 @@ class Player : SKSpriteNode, AffectedByNegationField {
             UInt32(PhysicsCategory.FlipGravity) |
             UInt32(PhysicsCategory.NegateForceField) |
             UInt32(PhysicsCategory.Impulse) |
-            UInt32(PhysicsCategory.ForceField) 
+            UInt32(PhysicsCategory.ForceField) |
+            UInt32(PhysicsCategory.Spring)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |
             UInt32(PhysicsCategory.Rock) |
             UInt32(PhysicsCategory.Ground) |
             UInt32(PhysicsCategory.Cannon)
+        
         self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Magnetic)
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
+    }
+    
+    /** Launch the spring by  */
+    func launchSpring () {
+        self.letGoOfObject()
+        if let spring = self.anchors[PhysicsObjectTitles.Spring] {
+            self.scene?.physicsWorld.remove(spring)
+            self.anchors[PhysicsObjectTitles.Spring] = nil
+        }        
+    }
+    
+    /**
+        Attaches the player to a rope (vine)
+     */
+    func grabSpring () {
+        
+        // Should be set whenever the player has made contact with a rope
+        guard let contactPoint = self.ropeContactPoint else { return }
+        guard let playerPhysicsBody = self.physicsBody else { return }
+        let touchedSpringSegmentPhysicsBody = self.physicsBody?.allContactedBodies().filter({ $0.node is SpringSegment  }).first
+        
+        if let touchedSpringSegmentPhysicsBody = touchedSpringSegmentPhysicsBody {
+            // Add a joint between the player and the vine segment the player has made contact with
+            let joint = SKPhysicsJointPin.joint(withBodyA: playerPhysicsBody, bodyB: touchedSpringSegmentPhysicsBody, anchor: contactPoint)
+            self.scene?.physicsWorld.add(joint)
+            self.anchors[PhysicsObjectTitles.Spring] = joint
+            self.grabbedObject = touchedSpringSegmentPhysicsBody.node as? SpringSegment
+        }
     }
     
     /// Checks to see if the player is  contacted with FlipGravity and update the player's rotation
@@ -307,7 +355,8 @@ class Player : SKSpriteNode, AffectedByNegationField {
     
     func updatePlayerClimbingState (differenceInXPos: CGFloat, differenceInYPos: CGFloat) {
                 
-        if abs(differenceInXPos) > 100 {
+        // If the differentiation of the xPos is greater, meaning that the user is trying to move left or right
+        if (abs(differenceInXPos) > abs(differenceInYPos)) {
             if differenceInXPos < 0 {
                 self.climbingState = .CLIMBINGRIGHT
             } else {
@@ -315,9 +364,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
             }
             
             return
-        }
-        
-        if abs(differenceInYPos) > 100 {
+        } else if (abs(differenceInXPos) < abs(differenceInYPos)) { // If the differentiation of the yPos is greater, meaning that the user is trying to move up or down
             if differenceInYPos < 0 {
                 self.climbingState = .CLIMBINGUP
             } else {
@@ -325,10 +372,10 @@ class Player : SKSpriteNode, AffectedByNegationField {
             }
             
             return
+        } else {
+            // If there is no update in finger movement by the user then the player should stop
+            self.climbingState = .STILL
         }
-        
-        self.climbingState = .STILL
-        
     }
     
     /**
@@ -390,6 +437,14 @@ class Player : SKSpriteNode, AffectedByNegationField {
             self.mineralCounts[mineralType] = updatedMineralCount
             ProgressTracker.updateMineralCount(myMineral: mineralType, count: updatedMineralCount)
         }
+    }
+    
+    func isInContactWithRope () -> Bool {
+        if self.physicsBody?.allContactedBodies().filter({ $0.node is SpringSegment }).count == 0 {
+            return false
+        }
+        
+        return true
     }
     
     func isInContactWithFence () -> Bool {

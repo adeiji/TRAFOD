@@ -34,7 +34,7 @@ class Fence: SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
 class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsBody {
     
     var isImmovableGround = false
-    
+
     init(size: CGSize, anchorPoint:CGPoint = CGPoint(x: 0.5, y: 0.5)) {
         super.init(texture: nil, color: .clear, size: size)
         self.anchorPoint = anchorPoint

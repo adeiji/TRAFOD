@@ -28,5 +28,7 @@ struct PhysicsCategory {
     static let Impulse:Int32 = 0x1 << 21
     static let ForceField:Int32 = 0x1 << 22
     static let Fence:Int32 = 0x1 << 23
+    static let SpringHolder:Int32 = 0x1 << 24
+    static let Spring:Int32 = 0x1 << 25
     static let WeightSwitch:Int32 = 0x1 << 32        
 }

@@ -11,7 +11,7 @@ import GameKit
 
 class PhysicsHandler {
     
-    static let kRunVelocity:CGFloat = 400
+    static let kRunVelocity:CGFloat = 450
     static let kRunInAirImpulse:CGFloat = 10
     static let kJumpImpulse:CGFloat = 600
     static let kGrabbedObjectMoveVelocity:CGFloat = 3200

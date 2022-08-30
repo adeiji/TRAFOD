@@ -126,6 +126,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     var counterNodes: [String : SKNode] = [String: SKNode]()
     
     enum Levels:String {
+        case DawudVillage = "DawudVillage"
         case LEVEL1 = "GameScene"
         case LEVEL2 = "Level2"
         case LEVEL3 = "Level3"
@@ -369,6 +370,14 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
+            
+            if (self.player.isInContactWithRope()) {
+                // Grab onto the rope at whatever node it's touching
+                self.player.grabSpring()
+            } else if self.player.grabbedObject is SpringSegment {
+                self.player.launchSpring()                
+            }
+            
             if self.player.state == .ONGROUND || self.player.state == .SLIDINGONWALL {
                 self.handleJump()
             } else if (self.player.isClimbing()) {
@@ -448,6 +457,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: FlipGravity.self, nodeBType: Player.self) {
             self.player.flipPlayerUpright()
         }
+        
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: SpringSegment.self) {
+//            self.player.setRopeContactPoint(nil)
+        }
     }
     
     /**
@@ -484,7 +497,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
     }
 
+    /** Player lands on the ground from the air. Take care of the changes to the character based off of this action */
     func handlePlayerHitGround (contact: SKPhysicsContact) {
+                
         if self.player.hasLanded(contact: contact) {
             if let physicsBody = self.player.physicsBody {
                 self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
@@ -501,7 +516,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func handleMineralUsed (mineral: Mineral?, contact: SKPhysicsContact) {
         if let mineral = mineral {
             if let useMineral = mineral as? UseMinerals {
-                self.playSound(fileName: "mineralcrash")
+                self.playSound(fileName: SoundFiles.FX.MineralCrash)
                 
                 // Uses the mineral and than if it returns an object that can alter the physics of other objects, than we add this to the world
                 if let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self) {
@@ -529,6 +544,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Fire.self, nodeBType: Player.self) {
             self.player.state = .DEAD
             return
+        }
+        
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: SpringSegment.self) {
+            self.player.setRopeContactPoint(contact.contactPoint)
         }
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Impulse.self, nodeBType: SKSpriteNode.self) {
@@ -560,8 +579,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             self.handlePlayerHitGround(contact: contact)            
         }
     
-        if PhysicsHandler.contactContains(strings: ["dawud", "portal"], contactA: contactAName , contactB: contactBName) {
-            if let node = getContactNode(name: "portal", contact: contact) {
+        if PhysicsHandler.contactContains(strings: [ PhysicsObjectTitles.Dawud, PhysicsObjectTitles.Portal], contactA: contactAName , contactB: contactBName) {
+            if let node = getContactNode(name: PhysicsObjectTitles.Portal, contact: contact) {
                 self.portalHit(portalNode: node as! SKSpriteNode)
                 node.removeFromParent()
             }
@@ -569,21 +588,21 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             return
         }
         
-        if PhysicsHandler.contactContains(strings: ["rock", self.abyssKey], contactA: contactAName, contactB: contactBName) {
-            if let node = getContactNode(name: "rock", contact: contact) as? Rock {
+        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Rock, self.abyssKey], contactA: contactAName, contactB: contactBName) {
+            if let node = getContactNode(name: PhysicsObjectTitles.Rock, contact: contact) as? Rock {
                 self.objectsToReset.append(node)
             }
             
             return
         }
         
-        if PhysicsHandler.contactContains(strings: ["dawud", self.abyssKey], contactA: contactAName, contactB: contactBName) {
+        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Dawud, self.abyssKey], contactA: contactAName, contactB: contactBName) {
             self.player.state = .DEAD
             return
         }
         
-        if PhysicsHandler.contactContains(strings: ["rock", "ground"], contact: contact) {
-            if let node = getContactNode(name: "rock", contact: contact) {
+        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Rock, PhysicsObjectTitles.Ground], contact: contact) {
+            if let node = getContactNode(name: PhysicsObjectTitles.Rock, contact: contact) {
                 node.physicsBody?.velocity.dy = 0
             }
         }
@@ -594,9 +613,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             }
         }
         
-        if PhysicsHandler.contactContains(strings: ["cannonball", "ground"], contact: contact) {
-            if PhysicsHandler.contactContains(strings: ["rock"], contact: contact) == false {
-                if let node = getContactNode(name: "cannonball", contact: contact) {
+        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.CannonBall, PhysicsObjectTitles.Ground], contact: contact) {
+            if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Rock], contact: contact) == false {
+                if let node = getContactNode(name: PhysicsObjectTitles.CannonBall, contact: contact) {
                     if let parent = node.parent {
                         // Gets the objects position relative to the scene
                         if let position = node.scene?.convert(node.position, from: parent) {
@@ -668,9 +687,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      - Parameter toPoint: The current position of where the user is touching the screen
      */
     func touchMoved(toPoint pos : CGPoint) {
-        
-        print("User is dragging something on the screen")
-        
+                        
         guard let camera = self.camera else { return }
                 
         if self.messageBox != nil {
@@ -687,6 +704,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             self.touchesMovedTimer?.invalidate()
             self.touchesMovedTimer = Timer .scheduledTimer(withTimeInterval: 500, repeats: false, block: { timer in
                 self.originalTouchPosition = position
+                print("Original position updated...")
             })
             self.touchesMovedTimer?.fire()
             
@@ -788,14 +806,14 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         // Show the first running image
         if currentTime - self.runTime == 0 {
             if self.player.state != .INAIR {
-                self.player.texture = SKTexture(imageNamed: "standing")                
+                self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)
             }
         } else if currentTime - self.runTime > 0.1 {
             if self.player.state != .INAIR {
                 // Alternate images
                 self.runTime = currentTime
                 self.stepCounter = self.stepCounter + 1
-                self.player.texture = SKTexture(imageNamed: "running_step\(self.stepCounter)")
+                self.player.texture = SKTexture(imageNamed: "\(SoundFiles.FX.RunningStep)\(self.stepCounter)")
                 if self.stepCounter == 7 {
                     self.stepCounter = 0
                 }
@@ -818,7 +836,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      - Todo: This needs to be moved to its own object
      */
     func playMineralSound () {
-        let getMineralSound = SKAction.playSoundFileNamed("mineralgrab", waitForCompletion: false)
+        let getMineralSound = SKAction.playSoundFileNamed(SoundFiles.FX.MineralGrab, waitForCompletion: false)
         run(getMineralSound)
     }
     
@@ -862,7 +880,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             self.handlePlayerDied()
         } else {
             if self.player.state == .SLIDINGONWALL {
-                self.player.texture = SKTexture(imageNamed: "standing")
+                self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)
                 self.handlePlayerMovement()
                 
             } else if self.player.state != .GRABBING { // User can only move left to right when grabbing something
@@ -876,7 +894,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                     self.handlePlayerMovement()
                 } else {
                     if self.player.state != .INAIR {
-                        self.player.texture = SKTexture(imageNamed: "standing")
+                        self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)
                         self.stopPlayer()
                     }
                 }
@@ -924,7 +942,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func showSpeech (message: String, relativeToNode: SKSpriteNode) {
         
         if self.messageBox == nil {
-            let node = SKSpriteNode(imageNamed: "speechBubble")
+            let node = SKSpriteNode(imageNamed: GameNodes.SpeechBubble)
             let text = SKLabelNode(text: message)
             
             text.fontColor = .black
@@ -976,13 +994,13 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if self.volumeIsMuted == false {
             if let musicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
                 self.backgroundMusic = SKAudioNode(url: musicURL)
-                addChild(self.backgroundMusic)
+                self.camera?.addChild(self.backgroundMusic)
             }
             
-            if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
+            if let musicURL = Bundle.main.url(forResource: SoundFiles.FX.BirdsChirping, withExtension: "wav") {
                 self.ambiance = SKAudioNode(url: musicURL)
                 self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
-                addChild(self.ambiance)
+                self.camera?.addChild(self.ambiance)
             }
         }
     }
@@ -991,12 +1009,12 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      Moves the camera with the player.  If the player has gone too far left or too far right, than we stop moving the camera
      */
     func moveCameraWithPlayer () {
-        if let _ = self.childNode(withName: "cameraMinX") {
+        if let _ = self.childNode(withName: GameNodes.CameraMinX) {
             self.camera?.position.x = self.player.position.x
             self.camera?.position.y = self.player.position.y
         }
         
-        if let leftBoundary = self.camera?.childNode(withName: "leftBoundary"), let rightBoundary = self.camera?.childNode(withName: "rightBoundary"), let camera = self.camera {
+        if let leftBoundary = self.camera?.childNode(withName: GameNodes.LeftBoundary), let rightBoundary = self.camera?.childNode(withName: GameNodes.RightBoundary), let camera = self.camera {
             leftBoundary.position.y = camera.position.y
             rightBoundary.position.y = camera.position.y
         }

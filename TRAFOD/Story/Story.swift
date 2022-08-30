@@ -92,6 +92,6 @@ class Story : World {
     }
     
     func showFirstLevel () {                
-        self.loadAndGotoNextLevel(level: .Level1)
+        self.loadAndGotoNextLevel(level: .DawudVillage)
     }
 }
