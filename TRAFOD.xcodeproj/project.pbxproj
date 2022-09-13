@@ -168,7 +168,6 @@
 		F4B03D0220C94B8900F0B346 /* TRAFODTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03D0120C94B8900F0B346 /* TRAFODTests.swift */; };
 		F4B03D0D20C94B8900F0B346 /* TRAFODUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03D0C20C94B8900F0B346 /* TRAFODUITests.swift */; };
 		F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */; };
-		F4B25DE622D165F200B5E7DD /* level3.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F4B25DE522D165F200B5E7DD /* level3.mp3 */; };
 		F4B8E89B20CA4FAA00E558F8 /* running_step5.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89020CA4FA900E558F8 /* running_step5.png */; };
 		F4B8E89C20CA4FAA00E558F8 /* running_step0.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89120CA4FA900E558F8 /* running_step0.png */; };
 		F4B8E89D20CA4FAA00E558F8 /* running_step2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89220CA4FA900E558F8 /* running_step2.png */; };
@@ -224,7 +223,6 @@
 		F4F884A422F9C899002A8124 /* ImpulseMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F884A322F9C899002A8124 /* ImpulseMineral.swift */; };
 		F4F884A622F9C8EA002A8124 /* ImpulseRetrievalNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F884A522F9C8EA002A8124 /* ImpulseRetrievalNode.swift */; };
 		F4F884AA22F9C928002A8124 /* MagneticRetrieveMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4F884A922F9C928002A8124 /* MagneticRetrieveMineral.swift */; };
-		F4F884AC22F9CAB3002A8124 /* Buttons in Resources */ = {isa = PBXBuildFile; fileRef = F4F884AB22F9CAB3002A8124 /* Buttons */; };
 		F4F884AE22F9CE4B002A8124 /* BuyButton.png in Resources */ = {isa = PBXBuildFile; fileRef = F4F884AD22F9CE2B002A8124 /* BuyButton.png */; };
 /* End PBXBuildFile section */
 
@@ -419,7 +417,6 @@
 		F4B03D0C20C94B8900F0B346 /* TRAFODUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRAFODUITests.swift; sourceTree = "<group>"; };
 		F4B03D0E20C94B8900F0B346 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsHandler.swift; sourceTree = "<group>"; };
-		F4B25DE522D165F200B5E7DD /* level3.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = level3.mp3; path = ../../../../../../Downloads/level3.mp3; sourceTree = "<group>"; };
 		F4B8E89020CA4FA900E558F8 /* running_step5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step5.png; sourceTree = "<group>"; };
 		F4B8E89120CA4FA900E558F8 /* running_step0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step0.png; sourceTree = "<group>"; };
 		F4B8E89220CA4FA900E558F8 /* running_step2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step2.png; sourceTree = "<group>"; };
@@ -475,7 +472,6 @@
 		F4F884A322F9C899002A8124 /* ImpulseMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpulseMineral.swift; sourceTree = "<group>"; };
 		F4F884A522F9C8EA002A8124 /* ImpulseRetrievalNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImpulseRetrievalNode.swift; sourceTree = "<group>"; };
 		F4F884A922F9C928002A8124 /* MagneticRetrieveMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MagneticRetrieveMineral.swift; sourceTree = "<group>"; };
-		F4F884AB22F9CAB3002A8124 /* Buttons */ = {isa = PBXFileReference; lastKnownFileType = folder; path = Buttons; sourceTree = "<group>"; };
 		F4F884AD22F9CE2B002A8124 /* BuyButton.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = BuyButton.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -549,7 +545,6 @@
 		F438D02920CD34BE00EC2606 /* Sounds */ = {
 			isa = PBXGroup;
 			children = (
-				F4B25DE422D165E300B5E7DD /* Level3 */,
 				F4C4CA1320EB14F3005CA4D7 /* cannonblast.wav */,
 				F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */,
 				F462CDE620E5DE0C004AF89E /* level2 */,
@@ -937,19 +932,10 @@
 			path = TRAFODUITests;
 			sourceTree = "<group>";
 		};
-		F4B25DE422D165E300B5E7DD /* Level3 */ = {
-			isa = PBXGroup;
-			children = (
-				F4B25DE522D165F200B5E7DD /* level3.mp3 */,
-			);
-			path = Level3;
-			sourceTree = "<group>";
-		};
 		F4B8E88C20CA4F4200E558F8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
 				F4F884AD22F9CE2B002A8124 /* BuyButton.png */,
-				F4F884AB22F9CAB3002A8124 /* Buttons */,
 				F4F6327A22F32B380026CED6 /* book-story-image.jpg */,
 				F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */,
 				F44B9BDB20EE1A7C00B874A1 /* grasstuft.png */,
@@ -1351,7 +1337,6 @@
 				F438D05020CD34E700EC2606 /* random_noise2.mp3 in Resources */,
 				F4B8E8A720CA684B00E558F8 /* Ground Merged.png in Resources */,
 				F4B03CF720C94B8900F0B346 /* LaunchScreen.storyboard in Resources */,
-				F4B25DE622D165F200B5E7DD /* level3.mp3 in Resources */,
 				F4B8E89E20CA4FAA00E558F8 /* running_step4.png in Resources */,
 				F4B8E8A220CA4FAA00E558F8 /* running_step1.png in Resources */,
 				F4BA319D20E4E87400DBD823 /* lv2rocks1.png in Resources */,
@@ -1375,7 +1360,6 @@
 				F4B8E8AB20CA72BF00E558F8 /* City Rock.png in Resources */,
 				F4B8E8A020CA4FAA00E558F8 /* running_step6.png in Resources */,
 				F4BA31A320E53EBD00DBD823 /* lv2rocks4.png in Resources */,
-				F4F884AC22F9CAB3002A8124 /* Buttons in Resources */,
 				F462CDD920E5D264004AF89E /* lv2rocks13.png in Resources */,
 				F438D04820CD34E700EC2606 /* warp.mp3 in Resources */,
 				F4C4CA1620EB80F6005CA4D7 /* cannon.png in Resources */,
