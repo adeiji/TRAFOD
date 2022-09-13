@@ -42,13 +42,6 @@ class TransferLevel : Level {
         super.didMove(to: view)
         self.player.position = CGPoint(x: -(self.scene!.size.width / 2.0) + 100 , y: 0)
         self.showMineralsReceived()
-        
-        if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
-            self.backgroundMusic = SKAudioNode(url: musicURL)
-            let volume = SKAction.changeVolume(to: 0.7, duration: 0.0)
-            self.backgroundMusic.run(volume)
-            addChild(self.backgroundMusic)
-        }
     }
     
     override func update(_ currentTime: TimeInterval) {

@@ -19,7 +19,6 @@ class DawudVillageLevel: Level {
     override init() {
         self.visualAnimator = DawudsVillageAnimationHandler()
         super.init()
-        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +29,7 @@ class DawudVillageLevel: Level {
     override func didMove(to view: SKView) {
         self.currentLevel = .DawudVillage
         super.didMove(to: view)
-        self.playBackgroundMusic(fileName: "level3")
+        self.playBackgroundMusic(fileName: Music.DawudsVillagePeaceful.rawValue)
         self.addJumpButtonToScreen()
         self.addCameraMinXNode()
         

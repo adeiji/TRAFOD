@@ -29,8 +29,7 @@ class Story : World {
         }
         
         if let musicURL = Bundle.main.url(forResource: "story", withExtension: "wav") {
-            self.backgroundMusic = SKAudioNode(url: musicURL)
-            addChild(self.backgroundMusic)
+
         }
     }
     

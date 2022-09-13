@@ -16,7 +16,9 @@ class DawudsVillageAnimationHandler {
     var scene:World?
     private (set) var playerPaused:Bool = false
     
-    let destroyerMineralStartingPosition = CGPoint(x: 16134.198, y: 2670)
+    let destroyerMineralStartingPosition = CGPoint(x: 17229.998, y: 3650)
+    let rockFragmantStartingPosition = CGPoint(x: 16484.878, y: 3890)
+    let xPositionToPass:CGFloat = 17190
     
     var player:Player? = nil
     
@@ -27,8 +29,8 @@ class DawudsVillageAnimationHandler {
     var animations:[Animations:Bool] = [:]
     
     init () {
-        let rockFragment = RockFragment(size: CGSize(width: 400, height: 857))
-        rockFragment.position = CGPoint(x: 14076.194, y: 2606.241)
+        let rockFragment = RockFragment(size: CGSize(width: 400, height: 400))
+        rockFragment.position = rockFragmantStartingPosition
         
         self.rockFragment = rockFragment
         self.rockFragment.color = UIColor.blue
@@ -36,12 +38,12 @@ class DawudsVillageAnimationHandler {
     
     func setup (scene: World, player: Player) {
         self.scene = scene
-        self.scene?.addChild(rockFragment)
+//        self.scene?.addChild(rockFragment)
         self.player = player
     }
     
     func checkForAnimations (playerXPos: CGFloat?, playerYPos: CGFloat?) {
-        if let xPos = playerXPos, xPos > 15510 {
+        if let xPos = playerXPos, xPos > self.xPositionToPass {
             if self.animations[Animations.DestroyerMineralFlyIn] == nil {
                 self.animations[Animations.DestroyerMineralFlyIn] = true
                 self.showDestroyMineralFlyIn()
@@ -60,7 +62,7 @@ class DawudsVillageAnimationHandler {
     private func showDestroyMineralFlyIn () {
         guard let player = self.player else { return }
         self.pausePlayer()
-        self.scene?.backgroundMusic.run(SKAction.stop())
+        self.scene?.backgroundMusic?.run(SKAction.stop())
                         
         let warningHorns = SKAction.playSoundFileNamed(Sounds.WARNINGHORNS.rawValue, waitForCompletion: false)
         self.scene?.run(warningHorns)
@@ -75,11 +77,10 @@ class DawudsVillageAnimationHandler {
         
         Timer.scheduledTimer(withTimeInterval: 10.0, repeats: false) { timer in
             self.scene?.showSpeech(message: "Oh no! I have to get back to my family!!", relativeToNode: player)
-            let fightishFastMusic = SKAudioNode(fileNamed: Music.FAST_FIGHTISH_MUSIC.rawValue)
-            self.scene?.backgroundMusic = fightishFastMusic
-            self.scene?.ambiance.run(SKAction.stop())
-            
-//            self.scene?.addChild(fightishFastMusic)
+            let fightishFastMusic = SKAudioNode(fileNamed: Music.FastFightish.rawValue)
+            self.scene?.playBackgroundMusic(fileName: Music.FastFightish.rawValue)
+            self.scene?.ambiance?.run(SKAction.stop())
+            self.scene?.addChild(fightishFastMusic)
             
             self.resumePlayer()
         }

@@ -11,7 +11,8 @@ import SpriteKit
 import GameKit
 
 enum Music: String, CustomStringConvertible {
-    case FAST_FIGHTISH_MUSIC = "Dawud's_Village_Under_Attack"
+    case FastFightish = "Dawud's_Village_Under_Attack"
+    case DawudsVillagePeaceful = "Dawud's_Village_2_(Peaceful)"
     
     var description: String {
         return self.rawValue

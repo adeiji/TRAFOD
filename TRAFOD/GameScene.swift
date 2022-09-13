@@ -54,14 +54,16 @@ class GameScene: Level {
     
     func playBackgroundMusic () {
         if let musicURL = Bundle.main.url(forResource: "Level1_Theme", withExtension: "mp3") {
-            self.backgroundMusic = SKAudioNode(url: musicURL)
-            addChild(self.backgroundMusic)
+            let backgroundMusic = SKAudioNode(url: musicURL)
+            self.backgroundMusic = backgroundMusic
+            addChild(backgroundMusic)
         }
         
         if let musicURL = Bundle.main.url(forResource: "birdschirping", withExtension: "wav") {
-            self.ambiance = SKAudioNode(url: musicURL)
-            self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
-            addChild(self.ambiance)
+            let ambiance = SKAudioNode(url: musicURL)
+            self.ambiance = ambiance
+            self.ambiance?.run(SKAction.changeVolume(by: -0.7, duration: 0))
+            addChild(ambiance)
         }
     }
     

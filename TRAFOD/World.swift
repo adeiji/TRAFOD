@@ -93,8 +93,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     private var touchesMovedTimer:Timer?
     
-    var backgroundMusic:SKAudioNode!
-    var ambiance:SKAudioNode!
+    var backgroundMusic:SKAudioNode?
+    var ambiance:SKAudioNode?
     
     private let abyssKey = "abyss"
     
@@ -1003,15 +1003,19 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func playBackgroundMusic (fileName: String) {        
         if self.volumeIsMuted == false {
             if let musicURL = Bundle.main.url(forResource: fileName, withExtension: "mp3") {
-                self.backgroundMusic = SKAudioNode(url: musicURL)
-                self.camera?.addChild(self.backgroundMusic)
-            }
-            
-            if let musicURL = Bundle.main.url(forResource: SoundFiles.FX.BirdsChirping, withExtension: "wav") {
-                self.ambiance = SKAudioNode(url: musicURL)
-                self.ambiance.run(SKAction.changeVolume(by: -0.7, duration: 0))
-                self.camera?.addChild(self.ambiance)
-            }
+                let backgroundMusic = SKAudioNode(url: musicURL)
+                self.backgroundMusic = backgroundMusic
+                self.camera?.addChild(backgroundMusic)
+            }                    
+        }
+    }
+    
+    func playAmbiance () {
+        if let musicURL = Bundle.main.url(forResource: SoundFiles.FX.BirdsChirping, withExtension: "wav") {
+            let ambiance = SKAudioNode(url: musicURL)
+            self.ambiance = ambiance
+            self.ambiance?.run(SKAction.changeVolume(by: -0.7, duration: 0))
+            self.camera?.addChild(ambiance)
         }
     }
     

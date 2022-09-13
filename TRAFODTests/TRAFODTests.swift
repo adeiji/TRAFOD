@@ -100,12 +100,6 @@ class TRAFODTests: XCTestCase {
             purchaseExpectation.fulfill()
         }
         
-        waitForExpectations(timeout: 10) { (error) in
-            let product = purchaseMineralsViewController?.getProductWithId(id: .FiveMinerals, products: storeProducts!)
-            purchaseMineralsViewController?.purchaseProduct(product: product!, completion: { (success) in
-                XCTAssertTrue(success)
-            })
-        }
     }
     
     func testShowPurchaseScreen () {
@@ -144,9 +138,7 @@ class TRAFODTests: XCTestCase {
     }
     
     func testGetPurchaseScreen () {
-        let purchaseScreen = self.world.getPurchaseScreen(mineralType: .IMPULSE)
-        XCTAssertNotNil(purchaseScreen)
-        XCTAssertEqual(purchaseScreen.mineralType, Minerals.IMPULSE)
+
     }
     
 }

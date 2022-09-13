@@ -47,7 +47,7 @@ class RockFragment: Ground {
                 
                 self.scene?.addChild(groundFragment)
                 
-                groundFragment.physicsBody?.applyImpulse( CGVector(dx: CGFloat.random(in: -100...100), dy: CGFloat.random(in: -100...100)) )
+                groundFragment.physicsBody?.applyImpulse( CGVector(dx: CGFloat.random(in: -250...250), dy: CGFloat.random(in: -250...250)) )
                                 
                 let newXPosition = CGFloat((x + 1 * Int(fragmentDimensions.width) + 20))
                 

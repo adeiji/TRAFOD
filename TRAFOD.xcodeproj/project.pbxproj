@@ -15,6 +15,7 @@
 		F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */; };
 		F41C839D28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */; };
 		F41C83A028D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */; };
+		F41C83A228D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C83A128D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 */; };
 		F43760D022CD257C00939E01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F43760CF22CD257C00939E01 /* dawudsong.wav */; };
 		F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02520CD0C4700EC2606 /* Red Crystal.png */; };
 		F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02620CD0C4900EC2606 /* Blue Crystal.png */; };
@@ -258,6 +259,7 @@
 		F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyerMineral.swift; sourceTree = "<group>"; };
 		F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Warning_Horn_Sound.mp3; path = TRAFOD/Sounds/Warning_Horn_Sound.mp3; sourceTree = SOURCE_ROOT; };
 		F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dawud's_Village_Under_Attack.mp3"; path = "MUSIC/Dawud's_Village_Under_Attack.mp3"; sourceTree = SOURCE_ROOT; };
+		F41C83A128D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dawud's_Village_2_(Peaceful).mp3"; path = "MUSIC/Dawud's_Village_2_(Peaceful).mp3"; sourceTree = SOURCE_ROOT; };
 		F43760CF22CD257C00939E01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dawudsong.wav; sourceTree = "<group>"; };
 		F438D02520CD0C4700EC2606 /* Red Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Crystal.png"; sourceTree = "<group>"; };
 		F438D02620CD0C4900EC2606 /* Blue Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Crystal.png"; sourceTree = "<group>"; };
@@ -695,6 +697,7 @@
 		F44D96DD28BD5245009A8098 /* Dawuds Village */ = {
 			isa = PBXGroup;
 			children = (
+				F41C83A128D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 */,
 				F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */,
 				F44D96F128C01F7B009A8098 /* StoryElementNode.swift */,
 				F44D96E928C0076E009A8098 /* 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png */,
@@ -1259,6 +1262,7 @@
 				F438D05420CD4E2300EC2606 /* Level1_Theme.mp3 in Resources */,
 				F462CDDD20E5D4A3004AF89E /* lv2rocks17.png in Resources */,
 				F462CDCD20E5CA8F004AF89E /* lv2rocks9.png in Resources */,
+				F41C83A228D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 in Resources */,
 				F4B8E89D20CA4FAA00E558F8 /* running_step2.png in Resources */,
 				F43FE24520E201270012D6E4 /* Level2.sks in Resources */,
 				F462CDCB20E5C9D7004AF89E /* lv2rocks8.png in Resources */,
