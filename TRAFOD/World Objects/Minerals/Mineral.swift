@@ -28,12 +28,7 @@ class Mineral: SKSpriteNode {
     var mineralCrashColor: UIColor = .purple
     var type:Minerals = .ANTIGRAV
     
-    func throwMineral (player: Player, world: World) {
-        if world.thrownMineral != nil {
-            return
-        }
-        
-        self.position = player.position
+    private func addPhysicsBody () {
         let width = self.texture?.size().width
         let height = self.texture?.size().height
         
@@ -45,6 +40,14 @@ class Mineral: SKSpriteNode {
         self.physicsBody?.collisionBitMask = 1 | UInt32(PhysicsCategory.Ground) | UInt32(PhysicsCategory.Cannon)
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Minerals)
         self.physicsBody?.allowsRotation = false
+    }
+    
+    func throwMineral (player: Player, world: World) {
+        if world.thrownMineral != nil {
+            return
+        }
+                
+        self.position = player.position
         
         world.addChild(self)
         world.thrownMineral = self
@@ -75,12 +78,15 @@ class Mineral: SKSpriteNode {
         case .FLIPGRAVITY:
             texture = SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue)
         case .MAGNETIC:
+            texture = SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue)        
+        default:
             texture = SKTexture(imageNamed: ImageNames.BlueCrystal.rawValue)
         }
         
         let width = texture!.size().width * 0.5
         let height = texture!.size().height * 0.5
         super.init(texture: texture , color: .clear, size:CGSize(width: width, height: height))
+        self.addPhysicsBody()
     }
     
     required init?(coder aDecoder: NSCoder) {

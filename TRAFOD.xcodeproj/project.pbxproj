@@ -10,6 +10,11 @@
 		047DA2308D1C268EE4947C47 /* Pods_TRAFOD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6951A9821785757EF497684C /* Pods_TRAFOD.framework */; };
 		7D2C9CF251C8332D810C6A89 /* Pods_TRAFODUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64193BF446C82855668BE830 /* Pods_TRAFODUITests.framework */; };
 		F1D1AB1F54790623E24D64B5 /* Pods_TRAFODTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626FC37E6E0A9D05608A9826 /* Pods_TRAFODTests.framework */; };
+		F41C839328D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839228D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift */; };
+		F41C839828D0F36B00E2C6E1 /* RockFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839728D0F36B00E2C6E1 /* RockFragment.swift */; };
+		F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */; };
+		F41C839D28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */; };
+		F41C83A028D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */; };
 		F43760D022CD257C00939E01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F43760CF22CD257C00939E01 /* dawudsong.wav */; };
 		F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02520CD0C4700EC2606 /* Red Crystal.png */; };
 		F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02620CD0C4900EC2606 /* Blue Crystal.png */; };
@@ -68,6 +73,10 @@
 		F44D96E228BD641A009A8098 /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E128BD641A009A8098 /* Spring.swift */; };
 		F44D96E428BEA9A0009A8098 /* RopeTypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E328BEA9A0009A8098 /* RopeTypeProtocol.swift */; };
 		F44D96E628BEACD5009A8098 /* Vine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E528BEACD5009A8098 /* Vine.swift */; };
+		F44D96E828BEDF08009A8098 /* DawudVillageSpeech.plist in Resources */ = {isa = PBXBuildFile; fileRef = F44D96E728BEDF08009A8098 /* DawudVillageSpeech.plist */; };
+		F44D96EA28C0076F009A8098 /* 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png in Resources */ = {isa = PBXBuildFile; fileRef = F44D96E928C0076E009A8098 /* 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png */; };
+		F44D96F028C01BF2009A8098 /* DawudsVillageStory.plist in Resources */ = {isa = PBXBuildFile; fileRef = F44D96EF28C01BF2009A8098 /* DawudsVillageStory.plist */; };
+		F44D96F228C01F7B009A8098 /* StoryElementNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96F128C01F7B009A8098 /* StoryElementNode.swift */; };
 		F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A1F20CE5E8A00FD026E /* Portal.png */; };
 		F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2220CF541800FD026E /* MainMenu.sks */; };
 		F44E1A2520CF543900FD026E /* menu.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A2420CF543900FD026E /* menu.png */; };
@@ -246,6 +255,11 @@
 		84498558B2EF9D5DC79A2E7D /* Pods-TRAFODTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODTests/Pods-TRAFODTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E860BBC35B9BD0E4CD9ECB09 /* Pods-TRAFOD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFOD.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFOD/Pods-TRAFOD.release.xcconfig"; sourceTree = "<group>"; };
 		EE59AA9465552CDB5CA491CF /* Pods-TRAFODUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODUITests/Pods-TRAFODUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F41C839228D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageAnimationHandler.swift; sourceTree = "<group>"; };
+		F41C839728D0F36B00E2C6E1 /* RockFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockFragment.swift; sourceTree = "<group>"; };
+		F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyerMineral.swift; sourceTree = "<group>"; };
+		F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Warning_Horn_Sound.mp3; path = TRAFOD/Sounds/Warning_Horn_Sound.mp3; sourceTree = SOURCE_ROOT; };
+		F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dawud's_Village_Under_Attack.mp3"; path = "MUSIC/Dawud's_Village_Under_Attack.mp3"; sourceTree = SOURCE_ROOT; };
 		F43760CF22CD257C00939E01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dawudsong.wav; sourceTree = "<group>"; };
 		F438D02520CD0C4700EC2606 /* Red Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Crystal.png"; sourceTree = "<group>"; };
 		F438D02620CD0C4900EC2606 /* Blue Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Crystal.png"; sourceTree = "<group>"; };
@@ -304,6 +318,10 @@
 		F44D96E128BD641A009A8098 /* Spring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
 		F44D96E328BEA9A0009A8098 /* RopeTypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeTypeProtocol.swift; sourceTree = "<group>"; };
 		F44D96E528BEACD5009A8098 /* Vine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vine.swift; sourceTree = "<group>"; };
+		F44D96E728BEDF08009A8098 /* DawudVillageSpeech.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DawudVillageSpeech.plist; sourceTree = "<group>"; };
+		F44D96E928C0076E009A8098 /* 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png; sourceTree = "<group>"; };
+		F44D96EF28C01BF2009A8098 /* DawudsVillageStory.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DawudsVillageStory.plist; sourceTree = "<group>"; };
+		F44D96F128C01F7B009A8098 /* StoryElementNode.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryElementNode.swift; sourceTree = "<group>"; };
 		F44E1A1F20CE5E8A00FD026E /* Portal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Portal.png; sourceTree = "<group>"; };
 		F44E1A2220CF541800FD026E /* MainMenu.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MainMenu.sks; sourceTree = "<group>"; };
 		F44E1A2420CF543900FD026E /* menu.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = menu.png; sourceTree = "<group>"; };
@@ -503,6 +521,22 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F41C839628D0F35F00E2C6E1 /* RockFragment */ = {
+			isa = PBXGroup;
+			children = (
+				F41C839728D0F36B00E2C6E1 /* RockFragment.swift */,
+			);
+			path = RockFragment;
+			sourceTree = "<group>";
+		};
+		F41C839928D0F5C800E2C6E1 /* Destroyer */ = {
+			isa = PBXGroup;
+			children = (
+				F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */,
+			);
+			path = Destroyer;
+			sourceTree = "<group>";
+		};
 		F438D02420CD0C2F00EC2606 /* Minerals */ = {
 			isa = PBXGroup;
 			children = (
@@ -517,6 +551,7 @@
 			children = (
 				F4B25DE422D165E300B5E7DD /* Level3 */,
 				F4C4CA1320EB14F3005CA4D7 /* cannonblast.wav */,
+				F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */,
 				F462CDE620E5DE0C004AF89E /* level2 */,
 				F43760CF22CD257C00939E01 /* dawudsong.wav */,
 				F44E1A3D20CFC1B600FD026E /* Story */,
@@ -609,6 +644,7 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F41C839628D0F35F00E2C6E1 /* RockFragment */,
 				F44D96E028BD640B009A8098 /* Vines */,
 				F4F48F2822EC8866002A59A5 /* Beer */,
 				F490A68E22E60FC500840F91 /* Switches */,
@@ -664,8 +700,14 @@
 		F44D96DD28BD5245009A8098 /* Dawuds Village */ = {
 			isa = PBXGroup;
 			children = (
+				F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */,
+				F44D96F128C01F7B009A8098 /* StoryElementNode.swift */,
+				F44D96E928C0076E009A8098 /* 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png */,
 				F44D96DB28BD523B009A8098 /* DawudVillageLevel.swift */,
 				F44D96DE28BD5277009A8098 /* DawudVillage.sks */,
+				F44D96E728BEDF08009A8098 /* DawudVillageSpeech.plist */,
+				F44D96EF28C01BF2009A8098 /* DawudsVillageStory.plist */,
+				F41C839228D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift */,
 			);
 			path = "Dawuds Village";
 			sourceTree = "<group>";
@@ -1021,6 +1063,7 @@
 		F4EBE9E422D6435700EC2300 /* Minerals */ = {
 			isa = PBXGroup;
 			children = (
+				F41C839928D0F5C800E2C6E1 /* Destroyer */,
 				F4F884A822F9C911002A8124 /* Magnetic */,
 				F4F884A722F9C8FB002A8124 /* FlipGrav */,
 				F4F884A222F9C88F002A8124 /* Impulse */,
@@ -1214,6 +1257,7 @@
 				F44B9BDC20EE1A7D00B874A1 /* grasstuft.png in Resources */,
 				F4F6328722F372A90026CED6 /* PurchaseMineralScreen.sks in Resources */,
 				F442382320DA54B500EA4D01 /* birdschirping.wav in Resources */,
+				F44D96E828BEDF08009A8098 /* DawudVillageSpeech.plist in Resources */,
 				F438D04E20CD34E700EC2606 /* random_noise1.mp3 in Resources */,
 				F4BA31A920E546BF00DBD823 /* lv2rocks7.png in Resources */,
 				F4C4CA1C20ECC607005CA4D7 /* cannonball.png in Resources */,
@@ -1236,6 +1280,7 @@
 				F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */,
 				F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */,
 				F438D04120CD34E700EC2606 /* breathing.mp3 in Resources */,
+				F41C83A028D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 in Resources */,
 				F44E1A7120D1170700FD026E /* TransferLevel.sks in Resources */,
 				F44E1A2020CE5E8E00FD026E /* Portal.png in Resources */,
 				F44B9BDA20EE135C00B874A1 /* switch-off.png in Resources */,
@@ -1245,6 +1290,7 @@
 				F438D04320CD34E700EC2606 /* hitground.mp3 in Resources */,
 				F4F6327B22F32B390026CED6 /* book-story-image.jpg in Resources */,
 				F4B8E8A420CA4FAA00E558F8 /* throwing.png in Resources */,
+				F41C839D28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 in Resources */,
 				F43760D022CD257C00939E01 /* dawudsong.wav in Resources */,
 				F438D04B20CD34E700EC2606 /* eight.mp3 in Resources */,
 				F44E1A4D20CFC4E600FD026E /* prosperity.png in Resources */,
@@ -1296,6 +1342,7 @@
 				F438D07520CE37DB00EC2606 /* level1background3.png in Resources */,
 				F44E1A6E20D116CC00FD026E /* RopeBridge 1.png in Resources */,
 				F4B8E8A120CA4FAA00E558F8 /* running_step7.png in Resources */,
+				F44D96EA28C0076F009A8098 /* 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png in Resources */,
 				F44E1A4820CFC4E600FD026E /* minerals.png in Resources */,
 				F4C4CA1E20ECD560005CA4D7 /* caveinside.png in Resources */,
 				F438D03E20CD34E700EC2606 /* antigrav.mp3 in Resources */,
@@ -1311,6 +1358,7 @@
 				F44B9BD920EE135C00B874A1 /* switch-on.png in Resources */,
 				F44B9BD120EDFCEA00B874A1 /* Chapters.sks in Resources */,
 				F438D04A20CD34E700EC2606 /* one.mp3 in Resources */,
+				F44D96F028C01BF2009A8098 /* DawudsVillageStory.plist in Resources */,
 				F438D07420CE37DB00EC2606 /* level1background7.png in Resources */,
 				F462CDD120E5CF18004AF89E /* lv2rocks11.png in Resources */,
 				F4B03CEB20C94B8700F0B346 /* Actions.sks in Resources */,
@@ -1436,6 +1484,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				F44D96F228C01F7B009A8098 /* StoryElementNode.swift in Sources */,
 				F4F884A122F9C85C002A8124 /* AntiGravityMineral.swift in Sources */,
 				F48F7D4722CF0140004D1A3D /* Rock.swift in Sources */,
 				F4F884A422F9C899002A8124 /* ImpulseMineral.swift in Sources */,
@@ -1448,6 +1497,7 @@
 				F4F884A622F9C8EA002A8124 /* ImpulseRetrievalNode.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
+				F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */,
 				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
 				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
 				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
@@ -1471,8 +1521,10 @@
 				F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */,
 				F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */,
 				F4F6328122F35C980026CED6 /* MineralPurchasing.swift in Sources */,
+				F41C839328D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift in Sources */,
 				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
 				F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */,
+				F41C839828D0F36B00E2C6E1 /* RockFragment.swift in Sources */,
 				F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */,
 				F490A68422E6066800840F91 /* RetrieveMineralNode.swift in Sources */,
 				F44D96DC28BD523B009A8098 /* DawudVillageLevel.swift in Sources */,

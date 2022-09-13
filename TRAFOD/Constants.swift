@@ -59,6 +59,10 @@ public class PhysicsObjectTitles {
     public static let RopeType = "ropeType"
 }
 
+public class StoryFiles {
+    public static let DawudVillage = "DawudsVillageStory"
+}
+
 enum Minerals: String, CaseIterable {
     case ANTIGRAV = "antigrav"
     case IMPULSE = "impulse"
@@ -66,6 +70,7 @@ enum Minerals: String, CaseIterable {
     case USED_TELEPORT = "teleport-mineral"
     case FLIPGRAVITY = "flipgravity"
     case MAGNETIC = "magnetic"
+    case DESTROYER = "destroyer"
 }
 
 enum PhysicsAlteringObjectTypes {

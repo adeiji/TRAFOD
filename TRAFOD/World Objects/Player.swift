@@ -432,10 +432,11 @@ class Player : SKSpriteNode, AffectedByNegationField {
      }
     
     /**
-     Stops the players velocity
+     Stops the players velocity and shows the player as standing
      */
     func stop () {
         self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+        self.runningState = .STANDING
     }
     
     func handleMineralUsed (mineralType: Minerals) {

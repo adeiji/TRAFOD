@@ -106,6 +106,8 @@ extension World {
                 case .MAGNETIC:
                     self.setupThrowButton(crystalImageName: .RedCrystal, mineralType: .Magnetic, pos: CGPoint(x: -120, y: -365))
                     self.setupMineralCounterAndUseNodes(mineralType: .Magnetic, counterMineralNodePos: CGPoint(x: -70, y: 400), count: numberOfMineralsLeft)
+                case .DESTROYER:
+                    break
                 }
             }
         }

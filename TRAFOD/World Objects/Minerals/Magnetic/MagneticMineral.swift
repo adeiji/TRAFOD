@@ -19,7 +19,7 @@ class MagneticMineral : Mineral, MineralProtocol, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed(contactPosition: CGPoint, world:World) -> PhysicsAlteringObject? {
+    func mineralUsed(contactPosition: CGPoint, world:World, objectHitByMineral:SKNode? = nil) -> PhysicsAlteringObject? {
         let magnetic = MagneticForce(contactPosition: contactPosition)
         return magnetic
     }

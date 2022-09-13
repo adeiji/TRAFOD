@@ -18,7 +18,7 @@ class AntiGravityMineral : Mineral, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed (contactPosition: CGPoint, world: World) -> PhysicsAlteringObject? {
+    func mineralUsed (contactPosition: CGPoint, world: World, objectHitByMineral:SKNode? = nil) -> PhysicsAlteringObject? {
         
         if !world.forces.contains(.ANTIGRAV) {
             world.playSound(fileName: "antigrav")

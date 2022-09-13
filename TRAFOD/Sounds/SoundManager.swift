@@ -10,6 +10,14 @@ import Foundation
 import SpriteKit
 import GameKit
 
+enum Music: String, CustomStringConvertible {
+    case FAST_FIGHTISH_MUSIC = "Dawud's_Village_Under_Attack"
+    
+    var description: String {
+        return self.rawValue
+    }
+}
+
 enum Sounds: String {
     case MINERALCRASH
     case ANTIGRAV
@@ -18,6 +26,7 @@ enum Sounds: String {
     case LANDED
     case CANNONBLAST
     case GRABMINERAL = "mineralgrab"
+    case WARNINGHORNS = "Warning_Horn_Sound"
 }
 
 class SoundManager {
@@ -48,16 +57,16 @@ class SoundManager {
         if self.isMuted {
             return
         }
+        
+         
         if sound == .MINERALCRASH {
             self.world.run(self.mineralCrashSound)        
         } else if sound == .ANTIGRAV {
             self.antiGravSound.run(SKAction.changeVolume(to: 0.5, duration: 0))
-            self.antiGravSound.run(SKAction.changeVolume(to: 0, duration: 5.0))
-            
+            self.antiGravSound.run(SKAction.changeVolume(to: 0, duration: 5.0))            
             if self.antiGravSound.parent == nil {
                 self.world.addChild(self.antiGravSound)
             }
-            
         } else if sound == .RUN {
             self.stepsSound.run(SKAction.changeVolume(to: 0.4, duration: 0))
             if self.stepsSound.parent == nil {

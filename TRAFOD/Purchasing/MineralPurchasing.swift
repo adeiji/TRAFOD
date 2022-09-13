@@ -66,6 +66,8 @@ extension MineralPurchasing {
             break
         case .MAGNETIC:
             break
+        case .DESTROYER:
+            break
         }
         
         return button

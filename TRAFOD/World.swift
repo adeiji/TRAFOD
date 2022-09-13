@@ -333,8 +333,18 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         return false
     }
     
+    /** If there's a message box currently being displayed on the screen then remove it */
+    func removeMessageBoxFromScreen () {
+        if let messageBox = self.messageBox {
+            if messageBox.parent != nil {
+                messageBox.removeFromParent()
+                self.messageBox = nil
+            }
+        }
+    }
+    
     func touchDown(atPoint pos : CGPoint) {
-        
+                        
         if let camera = self.camera, let zoomOut = camera.childNode(withName: "zoomOut") {
             if self.nodes(at: pos).contains(zoomOut) {
                 if camera.xScale == 1 {
@@ -347,12 +357,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             }
         }
         
-        if let messageBox = self.messageBox {
-            if messageBox.parent != nil {
-                messageBox.removeFromParent()
-                self.messageBox = nil
-            }
-        }
+        self.removeMessageBoxFromScreen()
         
         self.handleGrabButtonActions(atPoint: pos)
         
@@ -370,12 +375,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
-            
-            
+                        
             // Grab onto the rope at whatever node it's touching
             self.player.handleRopeGrabInteraction()
-            
-            
+                        
             if self.player.state == .ONGROUND || self.player.state == .SLIDINGONWALL {
                 self.handleJump()
             } else if (self.player.isClimbing()) {
@@ -438,6 +441,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                         
                         return
                     }
+                case .DESTROYER:
+                    break;
                 }
             }
         }
@@ -512,12 +517,15 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     func handleMineralUsed (mineral: Mineral?, contact: SKPhysicsContact) {
+        // Get the object that made contact with the mineral. We do this because sometimes we want to make a change to the object that made contact with the mineral
+        guard let objectHitByMineral = contact.bodyA.node is Mineral ? contact.bodyB.node : contact.bodyA.node  else { return }
+        
         if let mineral = mineral {
             if let useMineral = mineral as? UseMinerals {
                 self.playSound(fileName: SoundFiles.FX.MineralCrash)
                 
                 // Uses the mineral and than if it returns an object that can alter the physics of other objects, than we add this to the world
-                if let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self) {
+                if let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self, objectHitByMineral: objectHitByMineral) {
                     self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
                     self.addChild(physicsAlteringArea)
                 }
@@ -687,11 +695,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func touchMoved(toPoint pos : CGPoint) {
                         
         guard let camera = self.camera else { return }
-                
-        if self.messageBox != nil {
-            return
-        }
-                        
+                                        
         if let originalPos = self.originalTouchPosition {
             
             guard let position = self.scene?.convert(pos, to: camera) else { return }
@@ -870,6 +874,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         self.player.handleIsContactedWithFlipGravity()
+        
         self.specialFields.forEach { (field) in
             field.applyChange()
         }
@@ -934,6 +939,11 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         self.objectsToReset = [SKSpriteNode]()
     }
     
+    func stopShowingSpeech () {
+        self.messageBox?.removeFromParent()
+        self.messageBox = nil
+    }
+    
     /**
      - Todo: We need to create a speech handler for this
      */
@@ -941,23 +951,25 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         
         if self.messageBox == nil {
             let node = SKSpriteNode(imageNamed: GameNodes.SpeechBubble)
+            node.size = CGSize(width: 450, height: 350)
             let text = SKLabelNode(text: message)
             
             text.fontColor = .black
             text.fontSize = 36.0
             text.fontName = "HelveticaNeue-Medium"
-            text.position.y = text.position.y - 15
+            text.position.y = text.position.y - 45
+            text.preferredMaxLayoutWidth = 300
             if #available(iOS 11.0, *) {
                 text.numberOfLines = 0
             } else {
                 // Fallback on earlier versions
             }
             node.addChild(text)
-            node.zPosition = 15
-            text.zPosition = 5
+            node.zPosition = 500
+            text.zPosition = 400
             node.position = relativeToNode.position
-            node.position.y = node.position.y + 160
-            node.position.x = node.position.x - 45
+            node.position.y = node.position.y + 260
+            node.position.x = node.position.x - 75
             self.addChild(node)
             
             self.messageBox = node
@@ -1009,7 +1021,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func moveCameraWithPlayer () {
         if let _ = self.childNode(withName: GameNodes.CameraMinX) {
             self.camera?.position.x = self.player.position.x
-            self.camera?.position.y = self.player.position.y
+            self.camera?.position.y = self.player.position.y + 200
         }
         
         if let leftBoundary = self.camera?.childNode(withName: GameNodes.LeftBoundary), let rightBoundary = self.camera?.childNode(withName: GameNodes.RightBoundary), let camera = self.camera {

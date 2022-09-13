@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>x</key>
+		<integer>300</integer>
+        <key>y</key>
+        <integer>200</integer>
+        <key>text</key>
+        <string>It was a peaceful day in Stilgar, home of Dawud.</string>
+	</dict>
+</array>
+</plist>
