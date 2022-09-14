@@ -303,9 +303,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 self.changeGravityWithTime(antiGravView: antiGravView, timeLabel: timeLabel)
             }
             else {
-                if let _ = self.forces.index(of: .ANTIGRAV) {
+                if let _ = self.forces.firstIndex(of: .ANTIGRAV) {
                     self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -9.8)
-                    self.forces.remove(at: self.forces.index(of: .ANTIGRAV)!)
+                    self.forces.remove(at: self.forces.firstIndex(of: .ANTIGRAV)!)
                     antiGravView?.isHidden = true
                     timeLabel.removeFromParent()
                 }
@@ -705,8 +705,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             
             self.touchesMovedTimer?.invalidate()
             self.touchesMovedTimer = Timer .scheduledTimer(withTimeInterval: 500, repeats: false, block: { timer in
-                self.originalTouchPosition = position
-                print("Original position updated...")
+                self.originalTouchPosition = position                
             })
             self.touchesMovedTimer?.fire()
             

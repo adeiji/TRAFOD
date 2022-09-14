@@ -23,7 +23,6 @@ extension World {
         }
     }
     
-    
 }
 
 extension World {
@@ -113,6 +112,10 @@ extension World {
                     self.player.runningState = .STANDING
                     self.player.grabbedObject = self.player.objectThatCanBeGrabbed
                     if let grabbedObject = self.player.grabbedObject, let player = self.player {
+                        /**
+                         TODO:
+                         Need to create a joint instead of a constraint between the grabbed object and Dawud?
+                         */
                         let constraint = SKConstraint.distance(SKRange(upperLimit: self.getBufferSizeForContactedObjects(first: grabbedObject, second: player) ?? 25.0), to: grabbedObject)
                         self.player.constraints = [constraint]
                     }

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>name</key>
+		<string>Throw Flip Gravity Mineral</string>
+		<key>playerXPos</key>
+		<real>22400</real>
+		<key>shouldRotate</key>
+		<true/>
+		<key>startingPosition</key>
+		<dict>
+			<key>y</key>
+			<integer>2972</integer>
+			<key>x</key>
+			<integer>23040</integer>
+		</dict>
+		<key>item</key>
+		<string>flipgravity</string>
+		<key>impulse</key>
+		<dict>
+			<key>y</key>
+			<integer>-100</integer>
+			<key>x</key>
+			<integer>-300</integer>
+		</dict>
+	</dict>
+</array>
+</plist>

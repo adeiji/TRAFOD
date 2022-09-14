@@ -59,7 +59,7 @@ class TransferLevel : Level {
                 freezeMineral.physicsBody?.allowsRotation = false
                 freezeMineral.physicsBody?.applyImpulse(CGVector(dx: 0, dy: -1000))
                 
-                if let index = self.forces.index(of: .ANTIGRAV) {
+                if let index = self.forces.firstIndex(of: .ANTIGRAV) {
                     self.forces.remove(at: index)
                 }
                 

@@ -14,15 +14,13 @@ class DawudVillageLevel: Level {
     
     var storyNodes:[StoryElement] = []
     
-    let visualAnimator:DawudsVillageAnimationHandler
+    var visualAnimator:AnimationHandler?
 
     override init() {
-        self.visualAnimator = DawudsVillageAnimationHandler()
         super.init()
     }
     
     required init?(coder aDecoder: NSCoder) {
-        self.visualAnimator = DawudsVillageAnimationHandler()
         super.init(coder: aDecoder)
     }
     
@@ -33,6 +31,14 @@ class DawudVillageLevel: Level {
         self.addJumpButtonToScreen()
         self.addCameraMinXNode()
         
+        
+        self.visualAnimator = AnimationHandler(animations: [
+            DawudsVillageAttackedAnimationHandler(scene: self, player: self.player),
+            DawudsVillageMineralsAnimationHandler(fileName: "DawudsVillageAnimations", player: self.player, scene: self)
+        ])
+        
+        
+        
         self.scene?.enumerateChildNodes(withName: "spring", using: { vineNode, pointer in
             let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode", segmentLength: 300)
             spring.addToScene(self.scene)
@@ -42,8 +48,6 @@ class DawudVillageLevel: Level {
             let vine = VineNode(length: 5, anchorPoint: vineNode.position, name: "vineNode", segmentLength: 100)
             vine.addToScene(self.scene)
         })
-        
-        self.visualAnimator.setup(scene: self, player: self.player)
     }
     
     private func getStory () {
@@ -76,7 +80,7 @@ class DawudVillageLevel: Level {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        if (self.visualAnimator.playerPaused) {
+        if (self.visualAnimator?.playerPaused == true) {
             self.player.stop()
             return
         }
@@ -85,7 +89,7 @@ class DawudVillageLevel: Level {
     }
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if (self.visualAnimator.playerPaused) {
+        if (self.visualAnimator?.playerPaused == true) {
             self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
             return
         }
@@ -102,10 +106,10 @@ class DawudVillageLevel: Level {
             guard let self = self else { return }
             
         }
-        if self.visualAnimator.playerPaused {
+        if self.visualAnimator?.playerPaused == true {
             self.player.stop()
         }
-        self.visualAnimator.checkForAnimations(playerXPos: self.player.position.x, playerYPos: self.player.position.y)
+        self.visualAnimator?.checkForAnimations(playerXPos: self.player.position.x, playerYPos: self.player.position.y)
     }
     
     private func handleSpeech () {

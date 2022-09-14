@@ -10,12 +10,19 @@
 		047DA2308D1C268EE4947C47 /* Pods_TRAFOD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6951A9821785757EF497684C /* Pods_TRAFOD.framework */; };
 		7D2C9CF251C8332D810C6A89 /* Pods_TRAFODUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64193BF446C82855668BE830 /* Pods_TRAFODUITests.framework */; };
 		F1D1AB1F54790623E24D64B5 /* Pods_TRAFODTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626FC37E6E0A9D05608A9826 /* Pods_TRAFODTests.framework */; };
-		F41C839328D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839228D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift */; };
+		F41C839328D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */; };
 		F41C839828D0F36B00E2C6E1 /* RockFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839728D0F36B00E2C6E1 /* RockFragment.swift */; };
 		F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */; };
 		F41C839D28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */; };
 		F41C83A028D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */; };
 		F41C83A228D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 in Resources */ = {isa = PBXBuildFile; fileRef = F41C83A128D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 */; };
+		F41C83A428D13D2200E2C6E1 /* GrabbableObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83A328D13D2200E2C6E1 /* GrabbableObject.swift */; };
+		F41C83A728D1644A00E2C6E1 /* AnimationHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */; };
+		F41C83AC28D1657A00E2C6E1 /* AnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83AB28D1657A00E2C6E1 /* AnimationHandler.swift */; };
+		F41C83AE28D24A2500E2C6E1 /* DawudsVillageAnimations.plist in Resources */ = {isa = PBXBuildFile; fileRef = F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */; };
+		F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */; };
+		F41C83B328D24EE000E2C6E1 /* AnimationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */; };
+		F41C83B528D2529F00E2C6E1 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */; };
 		F43760D022CD257C00939E01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F43760CF22CD257C00939E01 /* dawudsong.wav */; };
 		F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02520CD0C4700EC2606 /* Red Crystal.png */; };
 		F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02620CD0C4900EC2606 /* Blue Crystal.png */; };
@@ -254,12 +261,19 @@
 		84498558B2EF9D5DC79A2E7D /* Pods-TRAFODTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODTests/Pods-TRAFODTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E860BBC35B9BD0E4CD9ECB09 /* Pods-TRAFOD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFOD.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFOD/Pods-TRAFOD.release.xcconfig"; sourceTree = "<group>"; };
 		EE59AA9465552CDB5CA491CF /* Pods-TRAFODUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODUITests/Pods-TRAFODUITests.release.xcconfig"; sourceTree = "<group>"; };
-		F41C839228D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageAnimationHandler.swift; sourceTree = "<group>"; };
+		F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageAttackedAnimationHandler.swift; sourceTree = "<group>"; };
 		F41C839728D0F36B00E2C6E1 /* RockFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockFragment.swift; sourceTree = "<group>"; };
 		F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyerMineral.swift; sourceTree = "<group>"; };
 		F41C839C28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = Warning_Horn_Sound.mp3; path = TRAFOD/Sounds/Warning_Horn_Sound.mp3; sourceTree = SOURCE_ROOT; };
 		F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dawud's_Village_Under_Attack.mp3"; path = "MUSIC/Dawud's_Village_Under_Attack.mp3"; sourceTree = SOURCE_ROOT; };
 		F41C83A128D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; name = "Dawud's_Village_2_(Peaceful).mp3"; path = "MUSIC/Dawud's_Village_2_(Peaceful).mp3"; sourceTree = SOURCE_ROOT; };
+		F41C83A328D13D2200E2C6E1 /* GrabbableObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GrabbableObject.swift; sourceTree = "<group>"; };
+		F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHandlerProtocol.swift; sourceTree = "<group>"; };
+		F41C83AB28D1657A00E2C6E1 /* AnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHandler.swift; sourceTree = "<group>"; };
+		F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DawudsVillageAnimations.plist; sourceTree = "<group>"; };
+		F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageMineralsAnimationHandler.swift; sourceTree = "<group>"; };
+		F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTemplate.swift; sourceTree = "<group>"; };
+		F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
 		F43760CF22CD257C00939E01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dawudsong.wav; sourceTree = "<group>"; };
 		F438D02520CD0C4700EC2606 /* Red Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Crystal.png"; sourceTree = "<group>"; };
 		F438D02620CD0C4900EC2606 /* Blue Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Crystal.png"; sourceTree = "<group>"; };
@@ -535,6 +549,23 @@
 			path = Destroyer;
 			sourceTree = "<group>";
 		};
+		F41C83A528D1643C00E2C6E1 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
+		F41C83B128D24ECE00E2C6E1 /* Animations */ = {
+			isa = PBXGroup;
+			children = (
+				F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */,
+				F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */,
+			);
+			path = Animations;
+			sourceTree = "<group>";
+		};
 		F438D02420CD0C2F00EC2606 /* Minerals */ = {
 			isa = PBXGroup;
 			children = (
@@ -663,6 +694,7 @@
 				F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */,
 				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
 				F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */,
+				F41C83A328D13D2200E2C6E1 /* GrabbableObject.swift */,
 			);
 			path = "World Objects";
 			sourceTree = "<group>";
@@ -705,7 +737,10 @@
 				F44D96DE28BD5277009A8098 /* DawudVillage.sks */,
 				F44D96E728BEDF08009A8098 /* DawudVillageSpeech.plist */,
 				F44D96EF28C01BF2009A8098 /* DawudsVillageStory.plist */,
-				F41C839228D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift */,
+				F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */,
+				F41C83AB28D1657A00E2C6E1 /* AnimationHandler.swift */,
+				F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */,
+				F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */,
 			);
 			path = "Dawuds Village";
 			sourceTree = "<group>";
@@ -887,6 +922,8 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F41C83B128D24ECE00E2C6E1 /* Animations */,
+				F41C83A528D1643C00E2C6E1 /* Protocols */,
 				F4EBE9E722D64B0700EC2300 /* Errors */,
 				F48F7D3722CF0021004D1A3D /* Physics */,
 				F44B9BD220EDFEED00B874A1 /* World Objects */,
@@ -1199,6 +1236,7 @@
 				TargetAttributes = {
 					F4B03CE220C94B8700F0B346 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1320;
 						SystemCapabilities = {
 							com.apple.InAppPurchase = {
 								enabled = 1;
@@ -1207,10 +1245,12 @@
 					};
 					F4B03CFC20C94B8900F0B346 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1320;
 						TestTargetID = F4B03CE220C94B8700F0B346;
 					};
 					F4B03D0720C94B8900F0B346 = {
 						CreatedOnToolsVersion = 9.3;
+						LastSwiftMigration = 1320;
 						TestTargetID = F4B03CE220C94B8700F0B346;
 					};
 				};
@@ -1321,6 +1361,7 @@
 				F4E799FC20D7604900ECE898 /* Fire.sks in Resources */,
 				F4A9036520E64D0C006DCDD4 /* NoWarp.sks in Resources */,
 				F44E1A2520CF543900FD026E /* menu.png in Resources */,
+				F41C83AE28D24A2500E2C6E1 /* DawudsVillageAnimations.plist in Resources */,
 				F438D07020CE37DB00EC2606 /* level1background4.png in Resources */,
 				F438D07220CE37DB00EC2606 /* level1background2.png in Resources */,
 				F438D03F20CD34E700EC2606 /* seven.mp3 in Resources */,
@@ -1480,6 +1521,7 @@
 				F4BA319620E3672900DBD823 /* Level2.swift in Sources */,
 				F48F7D3F22CF00AC004D1A3D /* FlipSwitch.swift in Sources */,
 				F4F6327F22F350AC0026CED6 /* Ground.swift in Sources */,
+				F41C83B328D24EE000E2C6E1 /* AnimationTemplate.swift in Sources */,
 				F44D96E228BD641A009A8098 /* Spring.swift in Sources */,
 				F490A69022E60FD500840F91 /* GameSwitchProtocol.swift in Sources */,
 				F4F884A622F9C8EA002A8124 /* ImpulseRetrievalNode.swift in Sources */,
@@ -1494,12 +1536,15 @@
 				F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */,
 				F490A68A22E60F3D00840F91 /* MineralSubclasses.swift in Sources */,
 				F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */,
+				F41C83A428D13D2200E2C6E1 /* GrabbableObject.swift in Sources */,
 				F4A5DDD022EFB40A007BF31F /* StoryHandler.swift in Sources */,
 				F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */,
 				F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */,
 				F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */,
 				F490A68822E606F300840F91 /* FlipGravityRetrieveMineral.swift in Sources */,
+				F41C83B528D2529F00E2C6E1 /* AnimationFactory.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
+				F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */,
 				F490A68222E6062400840F91 /* Mineral.swift in Sources */,
 				F490A68D22E60F8400840F91 /* RockNoFipGravity.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
@@ -1509,9 +1554,10 @@
 				F4EBE9E922D64B1000EC2300 /* WorldErrors.swift in Sources */,
 				F48F7D3622CEF6C5004D1A3D /* Level3+Platforms.swift in Sources */,
 				F4F6328122F35C980026CED6 /* MineralPurchasing.swift in Sources */,
-				F41C839328D0ED6F00E2C6E1 /* DawudsVillageAnimationHandler.swift in Sources */,
+				F41C839328D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift in Sources */,
 				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
 				F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */,
+				F41C83A728D1644A00E2C6E1 /* AnimationHandlerProtocol.swift in Sources */,
 				F41C839828D0F36B00E2C6E1 /* RockFragment.swift in Sources */,
 				F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */,
 				F490A68422E6066800840F91 /* RetrieveMineralNode.swift in Sources */,
@@ -1536,6 +1582,7 @@
 				F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */,
 				F48F7D3D22CF0075004D1A3D /* Reset.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
+				F41C83AC28D1657A00E2C6E1 /* AnimationHandler.swift in Sources */,
 				F490A68622E606A600840F91 /* AntiGravRetrievalMineral.swift in Sources */,
 				F490A69222E61CF800840F91 /* GameSwitch.swift in Sources */,
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
@@ -1733,7 +1780,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dephyned.trafod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -1753,7 +1800,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dephyned.trafod;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -1774,7 +1821,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dephyned.TRAFODTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TRAFOD.app/TRAFOD";
 			};
@@ -1796,7 +1843,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dephyned.TRAFODTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/TRAFOD.app/TRAFOD";
 			};
@@ -1817,7 +1864,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dephyned.TRAFODUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TRAFOD;
 			};
@@ -1838,7 +1885,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.dephyned.TRAFODUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				TEST_TARGET_NAME = TRAFOD;
 			};

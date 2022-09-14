@@ -169,7 +169,7 @@ class PKIAPHandler: NSObject {
                         return
                     }
                     
-                    if let jsonResponse = try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary {
+                    if let jsonResponse = ((try? JSONSerialization.jsonObject(with: data, options: .mutableContainers) as? NSDictionary) as NSDictionary??) {
                         self.hasReceiptData = true
                         if let expirationDate = self.expirationDateFromResponse(jsonResponse: jsonResponse) {
                             self.updateIAPExpirationDate(expirationDate: expirationDate)

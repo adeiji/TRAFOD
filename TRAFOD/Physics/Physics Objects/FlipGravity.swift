@@ -13,7 +13,7 @@ import GameKit
 class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
     
     /**
-     The force to apply to any contacted bodies to this object.  This method will be called at every update cycle of the game.  Make sure that you don't have too expensive of taaks within this method to ensure not bogging down resources
+     The force to apply to any contacted bodies to this object.  This method will be called at every update cycle of the game.  Make sure that you don't have too expensive of tasks within this method to ensure not bogging down resources
      
      - Parameter forceOfGravity: Whatever the force of gravity is that you want applied.  If you don't care about this, than just send the value of the current force of gravity which can be found in the world object
      

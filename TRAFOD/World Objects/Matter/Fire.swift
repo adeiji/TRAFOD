@@ -12,7 +12,11 @@ import GameKit
 /**
  A player cannot go through a fire object, however other items can go through just fine
  */
-class Fire : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {    
+class Fire : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+//        self.setupPhysicsBody()
+    }
     func setupPhysicsBody() {
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.mass = 0

@@ -104,11 +104,13 @@ class Player : SKSpriteNode, AffectedByNegationField {
      */
     private (set) var anchors:[String:SKPhysicsJoint] = [:]
     
+    // TODO: - Use player inages that are all the same size
     /**
      Update the dimensions of the player
      
         - Parameters
-            - isActive: Whether the player is actively doing something, thinking running, or jumping, or climbing
+            - isActive: Whether the player is actively doing something, think running, or jumping, or climbing
+             
      */
     private func updatePlayerDimensions (isActive active:Bool) {
         if active {
