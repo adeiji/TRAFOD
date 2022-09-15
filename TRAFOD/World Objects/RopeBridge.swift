@@ -9,15 +9,21 @@
 import Foundation
 import SpriteKit
 
+class Platform: SKSpriteNode, GroundProtocol {
+    var isImmovableGround: Bool = false
+}
+
 /**
     A rope bridge is a SKSpriteNode that is a bridge with two vines (ropes) that connect it to a certain point. The unique thing about this type of bridge is that it can swing back and forth, therefore physics affects it
  */
 class RopeBridge: SKNode {
     
     var ropes = (
-        leftRope: VineNode(length: 6, anchorPoint: CGPoint(x: -200, y: 0), name: "ropeBridge", segmentLength: 45),
-        rightRope: VineNode(length: 6, anchorPoint: CGPoint(x: 0, y: 0), name: "ropeBridge", segmentLength: 45)
+        leftRope: VineNode(length: 6, anchorPoint: CGPoint(x: -150, y: 0), name: "ropeBridge", segmentLength: 45),
+        rightRope: VineNode(length: 6, anchorPoint: CGPoint(x: 150, y: 0), name: "ropeBridge", segmentLength: 45)
     )
+    
+    var bridge:SKSpriteNode?
     
     init(position: CGPoint) {
         super.init()
@@ -25,7 +31,7 @@ class RopeBridge: SKNode {
     }
     
     required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+        super.init(coder: aDecoder)        
     }
     
     /**
@@ -40,7 +46,7 @@ class RopeBridge: SKNode {
      */
     func setup (scene: SKScene) {
         
-        let bridge = SKSpriteNode(color: .blue, size: CGSize(width: 300, height: 75))
+        let bridge = Platform(color: .blue, size: CGSize(width: 320, height: 75))
         bridge.physicsBody = SKPhysicsBody(rectangleOf: bridge.size)
         
         ropes.leftRope.addToScene(self)
@@ -49,26 +55,31 @@ class RopeBridge: SKNode {
         guard
             let bridgePhysicsBody = bridge.physicsBody,
             let leftSegment = ropes.leftRope.segments.last?.physicsBody,
-            let rightSegment = ropes.rightRope.segments.last?.physicsBody
+            let rightSegment = ropes.rightRope.segments.last?.physicsBody,
+            let minX = leftSegment.node?.frame.minX,
+            let maxX = rightSegment.node?.frame.maxX,
+            let minY = leftSegment.node?.frame.minY
         else { return }
                 
-        bridge.physicsBody?.mass = 5
-        bridge.position = leftSegment.node!.position
-        
-        
+        bridge.physicsBody?.mass = 2
+        bridge.position = CGPoint(x: minX + bridge.frame.width / 2.0, y: minY)
+        bridge.physicsBody?.restitution = 0
                         
         ropes.leftRope.addChild(bridge)
                 
         ropes.leftRope.ropeTypeHolder?.color = .orange
-        
-        let leftRopeLastSegmentPosition = ropes.leftRope.convert( leftSegment.node!.position , to: scene )
-        let rightRopeLastSegmentPosition = ropes.rightRope.convert( rightSegment.node!.position, to: scene )
+
+        let leftRopeLastSegmentPosition = ropes.leftRope.convert( CGPoint(x: minX, y: minY) , to: scene )
+        let rightRopeLastSegmentPosition = ropes.rightRope.convert( CGPoint(x: maxX, y: minY), to: scene )
         
         let leftRopeJoint = SKPhysicsJointPin.joint(withBodyA: bridgePhysicsBody, bodyB: leftSegment, anchor: leftRopeLastSegmentPosition)
         let rightRopeJoint = SKPhysicsJointPin.joint(withBodyA: bridgePhysicsBody, bodyB: rightSegment, anchor: rightRopeLastSegmentPosition)
 
         scene.physicsWorld.add(leftRopeJoint)
         scene.physicsWorld.add(rightRopeJoint)
+        
+        bridge.position = CGPoint(x: -421, y: -210)
+        self.bridge = bridge
         
     }
     

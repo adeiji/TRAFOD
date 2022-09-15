@@ -141,7 +141,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
         
     func hasLanded (contact: SKPhysicsContact) -> Bool {
         if self.isFlipped == false {
-            if contact.contactNormal.dy > 0.9 && contact.contactNormal.dy <= 1.0 {
+            if contact.contactPoint.y <= self.frame.minY + 20 {
                 return true
             }
         } else { // player is flipped or self.isFlipped == true

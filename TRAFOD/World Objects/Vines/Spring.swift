@@ -45,20 +45,18 @@ class SpringNode: SKNode, RopeType {
     /**
      Setup the joints between the vineholder and the vine, and then each vine segment to one another
     */
-    func setupJoints () {
+    func setupJoints (anchor: SKNode?, positionOffset: CGPoint? = nil) {
         
-        guard let ropeTypeHolder = self.ropeTypeHolder else {
-            return
-        }
+        guard let anchor = anchor else { return }
         
         // set up joint for vine holder
         
-        let joint = SKPhysicsJointSpring.joint(withBodyA: ropeTypeHolder.physicsBody!, bodyB: self.segments[0].physicsBody!, anchorA: CGPoint(x: ropeTypeHolder.frame.midX, y: ropeTypeHolder.frame.midY), anchorB: self.segments[0].position)
+        let joint = SKPhysicsJointSpring.joint(withBodyA: anchor.physicsBody!, bodyB: self.segments[0].physicsBody!, anchorA: CGPoint(x: anchor.frame.midX, y: anchor.frame.midY), anchorB: self.segments[0].position)
         joint.frequency = 0.7
         joint.damping = 0.0
         self.scene?.physicsWorld.add(joint)
         
-        let axisJoint = SKPhysicsJointSliding.joint(withBodyA: ropeTypeHolder.physicsBody!, bodyB: self.segments[0].physicsBody!, anchor: CGPoint(x: ropeTypeHolder.frame.midX, y: ropeTypeHolder.frame.midY), axis: CGVector(dx: 0, dy: 1))
+        let axisJoint = SKPhysicsJointSliding.joint(withBodyA: anchor.physicsBody!, bodyB: self.segments[0].physicsBody!, anchor: CGPoint(x: anchor.frame.midX, y: anchor.frame.midY), axis: CGVector(dx: 0, dy: 1))
         self.scene?.physicsWorld.add(axisJoint)
         
         // set up joints between vine parts

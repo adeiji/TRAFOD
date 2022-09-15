@@ -36,12 +36,8 @@ class DawudVillageLevel: Level {
             DawudsVillageAttackedAnimationHandler(scene: self, player: self.player),
             DawudsVillageMineralsAnimationHandler(fileName: "DawudsVillageAnimations", player: self.player, scene: self)
         ])
-        
-        guard let scene = self.scene else { return }
-        
-        let ropeBridge = RopeBridge(position: CGPoint(x: 30301, y: 6080))
-        self.scene?.addChild(ropeBridge)
-        ropeBridge.setup(scene: self.scene!)
+                
+        self.addRopeBridge()
         
         self.scene?.enumerateChildNodes(withName: "spring", using: { vineNode, pointer in
             let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode", segmentLength: 300)
@@ -52,6 +48,21 @@ class DawudVillageLevel: Level {
             let vine = VineNode(length: 5, anchorPoint: vineNode.position, name: "vineNode", segmentLength: 100)
             vine.addToScene(self.scene)
         })
+    }
+    
+    private func addRopeBridge () {
+        let ropeBridge = RopeBridge(position: CGPoint(x: 29831, y: 6122))
+        self.scene?.addChild(ropeBridge)
+        ropeBridge.setup(scene: self.scene!)
+        guard
+            let bridge = ropeBridge.bridge,
+            let scene = self.scene
+        else { return }
+        
+//        bridge.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.SpringHolder)
+        let bridgePosition = ropeBridge.convert(bridge.position, to: scene)
+        let vineAttachedToBridge = VineNode(length: 5, anchorPoint: bridgePosition.offset(CGPoint(x: 0, y: 10)), name: "vineAttachedToRopeBridge", segmentLength: 40)
+        vineAttachedToBridge.addToScene(self.scene, anchor: ropeBridge.bridge)
     }
     
     private func getStory () {

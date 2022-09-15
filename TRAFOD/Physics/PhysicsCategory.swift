@@ -31,5 +31,6 @@ struct PhysicsCategory {
     static let SpringHolder:Int32 = 0x1 << 24
     static let Spring:Int32 = 0x1 << 25
     static let Rope:Int32 = 0x1 << 26
+    static let RopeBridge:UInt32 = 0x1 << 27
     static let WeightSwitch:Int32 = 0x1 << 32        
 }

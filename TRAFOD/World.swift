@@ -851,12 +851,20 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
     }
     
+    private func checkIfDawudInAir () {                
+        if self.player.physicsBody?.allContactedBodies().filter({ $0.node is GroundProtocol }) .count == 0 {
+            self.player.state = .INAIR
+        } 
+    }
+    
     override func update(_ currentTime: TimeInterval) {
         self.showMineralCount()
         self.stopClimbingIfNecessary()
         self.showClimbButton()
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
+        
+        self.checkIfDawudInAir()
         
         // Called before each frame is rendered
         self.rewindPoints.append(self.player.position)

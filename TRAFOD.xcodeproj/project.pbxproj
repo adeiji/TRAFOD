@@ -25,6 +25,8 @@
 		F41C83B528D2529F00E2C6E1 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */; };
 		F41C83B728D28CD600E2C6E1 /* RopeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */; };
 		F41C83BA28D28EA800E2C6E1 /* Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B928D28EA800E2C6E1 /* Bridge.swift */; };
+		F41C83BD28D3A50F00E2C6E1 /* CGPoint+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83BC28D3A50F00E2C6E1 /* CGPoint+Offset.swift */; };
+		F41C83BF28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */; };
 		F43760D022CD257C00939E01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F43760CF22CD257C00939E01 /* dawudsong.wav */; };
 		F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02520CD0C4700EC2606 /* Red Crystal.png */; };
 		F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02620CD0C4900EC2606 /* Blue Crystal.png */; };
@@ -278,6 +280,8 @@
 		F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
 		F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeBridge.swift; sourceTree = "<group>"; };
 		F41C83B928D28EA800E2C6E1 /* Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridge.swift; sourceTree = "<group>"; };
+		F41C83BC28D3A50F00E2C6E1 /* CGPoint+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Offset.swift"; sourceTree = "<group>"; };
+		F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+ToScene.swift"; sourceTree = "<group>"; };
 		F43760CF22CD257C00939E01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dawudsong.wav; sourceTree = "<group>"; };
 		F438D02520CD0C4700EC2606 /* Red Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Crystal.png"; sourceTree = "<group>"; };
 		F438D02620CD0C4900EC2606 /* Blue Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Crystal.png"; sourceTree = "<group>"; };
@@ -576,6 +580,15 @@
 				F41C83B928D28EA800E2C6E1 /* Bridge.swift */,
 			);
 			path = Bridge;
+			sourceTree = "<group>";
+		};
+		F41C83BB28D3A4FE00E2C6E1 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				F41C83BC28D3A50F00E2C6E1 /* CGPoint+Offset.swift */,
+				F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */,
+			);
+			path = Extensions;
 			sourceTree = "<group>";
 		};
 		F438D02420CD0C2F00EC2606 /* Minerals */ = {
@@ -936,6 +949,7 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F41C83BB28D3A4FE00E2C6E1 /* Extensions */,
 				F41C83B128D24ECE00E2C6E1 /* Animations */,
 				F41C83A528D1643C00E2C6E1 /* Protocols */,
 				F4EBE9E722D64B0700EC2300 /* Errors */,
@@ -1541,6 +1555,7 @@
 				F4F884A622F9C8EA002A8124 /* ImpulseRetrievalNode.swift in Sources */,
 				F4B03CED20C94B8700F0B346 /* GameScene.swift in Sources */,
 				F45EDF6F20D8C0390076C1C8 /* ProgressTracker.swift in Sources */,
+				F41C83BD28D3A50F00E2C6E1 /* CGPoint+Offset.swift in Sources */,
 				F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */,
 				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
 				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
@@ -1550,6 +1565,7 @@
 				F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */,
 				F490A68A22E60F3D00840F91 /* MineralSubclasses.swift in Sources */,
 				F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */,
+				F41C83BF28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift in Sources */,
 				F41C83A428D13D2200E2C6E1 /* GrabbableObject.swift in Sources */,
 				F4A5DDD022EFB40A007BF31F /* StoryHandler.swift in Sources */,
 				F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */,
