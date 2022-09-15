@@ -705,7 +705,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             
             self.touchesMovedTimer?.invalidate()
             self.touchesMovedTimer = Timer .scheduledTimer(withTimeInterval: 500, repeats: false, block: { timer in
-                self.originalTouchPosition = position                
+                self.originalTouchPosition = position
             })
             self.touchesMovedTimer?.fire()
             
@@ -742,8 +742,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if (position.x < 0) {
             self.player.runningState = .STANDING
         }
-        
-        print("User stopped touching the screen")
+                
         if self.player.isClimbing() {
             self.player.climbingState = .STILL
         } else {

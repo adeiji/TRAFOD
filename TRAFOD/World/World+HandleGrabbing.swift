@@ -79,9 +79,7 @@ extension World {
     }
     
     /**
-     
-     Checks to see if the user is facing an object nearby that he is able to grab and move around
-     
+        Checks to see if the user is facing an object nearby that he is able to grab and move around
      */
     func handleContactWithGrabbableObject (contact: SKPhysicsContact) -> Bool {
         let objectToGrab = contact.bodyA.node as? Rock != nil ? contact.bodyA.node : contact.bodyB.node
@@ -95,8 +93,7 @@ extension World {
         
         return false
     }
-    
-    
+        
     func stopGrabbing () {
         self.hideGrabButton()
         self.player.letGoOfObject()
@@ -150,8 +147,8 @@ extension World {
             
             if let bufferSize = self.getBufferSizeForContactedObjects(first: self.player, second: object) {
                 if let distance = distanceBetweenNodes(first: self.player, second: object) {
-                    if distance - bufferSize > 20 {
-                        self.stopGrabbing()
+                    if distance - bufferSize > 40 {
+//                        self.stopGrabbing()
                         return
                     }
                 }

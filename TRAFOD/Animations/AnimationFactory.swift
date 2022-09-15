@@ -18,6 +18,8 @@ class AnimationFactory {
             return ImpulseMineral()
         case Minerals.FLIPGRAVITY.rawValue:
             return FlipGravityMineral()
+        case Minerals.ANTIGRAV.rawValue:
+            return AntiGravityMineral()
         default:
             return nil
         }

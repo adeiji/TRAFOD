@@ -41,6 +41,7 @@ public class SoundFiles {
 }
 
 public class Textures {
+    public static let Bridge = "RopeBridge 2"
     struct Dawud {
         public static let Standing = "standing"
     }

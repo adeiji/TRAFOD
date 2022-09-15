@@ -37,7 +37,11 @@ class DawudVillageLevel: Level {
             DawudsVillageMineralsAnimationHandler(fileName: "DawudsVillageAnimations", player: self.player, scene: self)
         ])
         
+        guard let scene = self.scene else { return }
         
+        let ropeBridge = RopeBridge(position: CGPoint(x: 30301, y: 6080))
+        self.scene?.addChild(ropeBridge)
+        ropeBridge.setup(scene: self.scene!)
         
         self.scene?.enumerateChildNodes(withName: "spring", using: { vineNode, pointer in
             let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode", segmentLength: 300)

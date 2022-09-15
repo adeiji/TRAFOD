@@ -23,9 +23,7 @@ class SpringNode: SKNode, RopeType {
     
     // The amount of chains/nodes that this rope will consist of
     internal let length:Int
-    
-    
-    
+            
     public var segments:[RopeTypeSegment] = []
             
     required init(length: Int, anchorPoint: CGPoint, name: String, segmentLength: Int) {

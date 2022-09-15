@@ -23,6 +23,8 @@
 		F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */; };
 		F41C83B328D24EE000E2C6E1 /* AnimationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */; };
 		F41C83B528D2529F00E2C6E1 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */; };
+		F41C83B728D28CD600E2C6E1 /* RopeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */; };
+		F41C83BA28D28EA800E2C6E1 /* Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B928D28EA800E2C6E1 /* Bridge.swift */; };
 		F43760D022CD257C00939E01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F43760CF22CD257C00939E01 /* dawudsong.wav */; };
 		F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02520CD0C4700EC2606 /* Red Crystal.png */; };
 		F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02620CD0C4900EC2606 /* Blue Crystal.png */; };
@@ -274,6 +276,8 @@
 		F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageMineralsAnimationHandler.swift; sourceTree = "<group>"; };
 		F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTemplate.swift; sourceTree = "<group>"; };
 		F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
+		F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeBridge.swift; sourceTree = "<group>"; };
+		F41C83B928D28EA800E2C6E1 /* Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridge.swift; sourceTree = "<group>"; };
 		F43760CF22CD257C00939E01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dawudsong.wav; sourceTree = "<group>"; };
 		F438D02520CD0C4700EC2606 /* Red Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Crystal.png"; sourceTree = "<group>"; };
 		F438D02620CD0C4900EC2606 /* Blue Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Crystal.png"; sourceTree = "<group>"; };
@@ -566,6 +570,14 @@
 			path = Animations;
 			sourceTree = "<group>";
 		};
+		F41C83B828D28E9900E2C6E1 /* Bridge */ = {
+			isa = PBXGroup;
+			children = (
+				F41C83B928D28EA800E2C6E1 /* Bridge.swift */,
+			);
+			path = Bridge;
+			sourceTree = "<group>";
+		};
 		F438D02420CD0C2F00EC2606 /* Minerals */ = {
 			isa = PBXGroup;
 			children = (
@@ -672,6 +684,7 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F41C83B828D28E9900E2C6E1 /* Bridge */,
 				F41C839628D0F35F00E2C6E1 /* RockFragment */,
 				F44D96E028BD640B009A8098 /* Vines */,
 				F4F48F2822EC8866002A59A5 /* Beer */,
@@ -695,6 +708,7 @@
 				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
 				F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */,
 				F41C83A328D13D2200E2C6E1 /* GrabbableObject.swift */,
+				F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */,
 			);
 			path = "World Objects";
 			sourceTree = "<group>";
@@ -1545,6 +1559,7 @@
 				F41C83B528D2529F00E2C6E1 /* AnimationFactory.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
 				F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */,
+				F41C83BA28D28EA800E2C6E1 /* Bridge.swift in Sources */,
 				F490A68222E6062400840F91 /* Mineral.swift in Sources */,
 				F490A68D22E60F8400840F91 /* RockNoFipGravity.swift in Sources */,
 				F4B03CE720C94B8700F0B346 /* AppDelegate.swift in Sources */,
@@ -1568,6 +1583,7 @@
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44C31FE22E8CB7E00443335 /* Level5.swift in Sources */,
 				F44D96E628BEACD5009A8098 /* Vine.swift in Sources */,
+				F41C83B728D28CD600E2C6E1 /* RopeBridge.swift in Sources */,
 				F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F48F7D4122CF00D3004D1A3D /* DoubleGravField.swift in Sources */,

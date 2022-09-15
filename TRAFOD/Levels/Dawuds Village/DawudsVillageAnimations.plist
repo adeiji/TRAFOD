@@ -12,9 +12,9 @@
 		<key>startingPosition</key>
 		<dict>
 			<key>y</key>
-			<integer>2972</integer>
+			<integer>3193</integer>
 			<key>x</key>
-			<integer>23040</integer>
+			<integer>25517</integer>
 		</dict>
 		<key>item</key>
 		<string>flipgravity</string>

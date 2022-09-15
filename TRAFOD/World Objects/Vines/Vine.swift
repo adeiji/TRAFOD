@@ -45,21 +45,43 @@ class VineNode: SKNode, RopeType {
     }
     
     func setupJoints() {
-        guard let ropeTypeHolder = self.ropeTypeHolder else {
+        guard let ropeTypeHolder = self.ropeTypeHolder, let scene = self.scene else {
+            assertionFailure("self.ropeTypeHolder or self.scene is nil")
             return
         }
+        
+        
         // set up joint for vine holder
-        let joint = SKPhysicsJointPin.joint(withBodyA: ropeTypeHolder.physicsBody!, bodyB: self.segments[0].physicsBody!, anchor: CGPoint(x: ropeTypeHolder.frame.midX, y: ropeTypeHolder.frame.midY))
+        let ropeHolderPosition = self.convert(ropeTypeHolder.position, to: scene)
+        let joint = SKPhysicsJointPin.joint(withBodyA: ropeTypeHolder.physicsBody!, bodyB: self.segments[0].physicsBody!, anchor: ropeHolderPosition)
                 
         self.scene?.physicsWorld.add(joint)
-        
+                
         // set up joints between vine parts
         for i in 1..<length {
             let nodeA = self.segments[i - 1]
-            let nodeB = self.segments[i]            
-            let joint = SKPhysicsJointPin.joint(withBodyA: nodeA.physicsBody!, bodyB: nodeB.physicsBody!, anchor: CGPoint(x: nodeA.frame.midX, y: nodeA.frame.minY))
+            let nodeB = self.segments[i]
+            
+            let nodeAPosition = self.convert(nodeA.position, to: scene)
+            
+            let joint = SKPhysicsJointPin.joint(withBodyA: nodeA.physicsBody!, bodyB: nodeB.physicsBody!, anchor: nodeAPosition)
             self.scene?.physicsWorld.add(joint)
+            
+            if i == length - 1 {
+//                let bridge = SKSpriteNode(color: .blue, size: CGSize(width: 300, height: 75))
+//                bridge.position = nodeB.position
+//                bridge.physicsBody = SKPhysicsBody(rectangleOf: bridge.size)
+//                bridge.physicsBody?.mass = 5                                
+//                self.addChild(bridge)
+//                let bridgeJoint = SKPhysicsJointPin.joint(withBodyA: nodeB.physicsBody!, bodyB: bridge.physicsBody!, anchor: nodeB.position)
+//                self.scene?.physicsWorld.add(bridgeJoint)
+            }
         }
+    }
+    
+    private func addBridge () {
+        
+        
     }
     
     

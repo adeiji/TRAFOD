@@ -26,7 +26,7 @@ protocol RopeType: SKNode {
     
     var segmentLength:Int { get }
     
-    func addToScene (_ scene: SKScene?)
+    func addToScene (_ scene: SKNode?)
     func setupJoints ()
     init(length: Int, anchorPoint: CGPoint, name: String, segmentLength: Int)
     
@@ -34,7 +34,7 @@ protocol RopeType: SKNode {
 
 extension RopeType {
     
-    func addToScene (_ scene: SKScene?) {
+    func addToScene (_ scene: SKNode?) {
         self.zPosition = 100
         scene?.addChild(self)
         
@@ -70,7 +70,7 @@ extension RopeType {
             segment.physicsBody = SKPhysicsBody(rectangleOf: segment.size)
             segment.physicsBody?.allowsRotation = self is SpringNode ? false : true
             segment.physicsBody?.mass = 0.3
-            segment.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Spring) | UInt32(PhysicsCategory.Player)
+            segment.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Rope)
             segment.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player)
             segment.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.SpringHolder)
             
