@@ -11,7 +11,7 @@ import SpriteKit
 
 class GameObjectsFactory {
     
-    static func getObject (type: String) -> SKSpriteNode? {
+    static func getObject (type: String) -> SKNode? {
         
         switch type {
         case Minerals.IMPULSE.rawValue:
@@ -21,11 +21,15 @@ class GameObjectsFactory {
         case Minerals.ANTIGRAV.rawValue:
             return AntiGravityMineral()
         case PhysicsObjectTitles.ArrowLauncher:
-            return ArrowLauncher()            
+            return ArrowLauncher()
+            return nil
+        case PhysicsObjectTitles.WeightPlatformFinalPosition:
+            return WeightSwitchPlatformFinalPosition()
+        case PhysicsObjectTitles.FlipSwitch:
+            return FlipSwitch()
         default:
             return nil
         }
-        
     }
     
     static func loadPlist <U:Codable>(fileName: String, type: U.Type) -> [U]? {

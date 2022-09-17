@@ -782,35 +782,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     /**
-     This method is called when the player is running.  If the player is in the air, then we don't want the player to move as freely as when he's on the ground obviously.
-     */
-    func handlePlayerMovement () {
-        guard let dx = self.player.physicsBody?.velocity.dx else { return }
-        let multiplier:CGFloat = self.player.runningState == .RUNNINGLEFT ? 1 : -1
-        
-        switch self.player.state {
-        case .ONGROUND:
-            self.player.physicsBody?.velocity = CGVector(dx: -PhysicsHandler.kRunVelocity * multiplier, dy: self.player.physicsBody?.velocity.dy ?? 0)
-        case .INAIR:
-            if self.player.runningState == .RUNNINGLEFT {
-                if dx > -PhysicsHandler.kRunVelocity {
-                    self.player.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
-                }
-            } else {
-                if dx < PhysicsHandler.kRunVelocity {
-                    self.player.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
-                }
-            }
-        case .SLIDINGONWALL:
-            if self.player.runningState != .STANDING {
-                self.player.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * 2.0 * multiplier, dy: 0))
-            }
-        default:
-            break;
-        }
-    }
-    
-    /**
      Show the player as running according to what state in the run he should be in.  The image of the player running changes according to how long he's been running for in order to make his run look fluid
      
      - Parameter currentTime: The current time of the update cycle.  We need this value to make sure that the correct running image is shown according to how long the player has been running for
@@ -903,7 +874,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         } else {
             if self.player.state == .SLIDINGONWALL {
                 self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)
-                self.handlePlayerMovement()
+                self.player.handlePlayerMovement()
                 
             } else if self.player.state != .GRABBING { // User can only move left to right when grabbing something
                 if self.player.state == .CLIMBING {
@@ -913,7 +884,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 
                 if self.player.runningState != .STANDING {
                     self.showRunning(currentTime: currentTime)
-                    self.handlePlayerMovement()
+                    self.player.handlePlayerMovement()
                 } else {
                     if self.player.state != .INAIR {
                         self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)

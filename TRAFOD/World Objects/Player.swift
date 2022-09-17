@@ -201,6 +201,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.restitution = 0
         self.physicsBody?.mass = 1
+        self.physicsBody?.friction = 10.0
         self.physicsBody?.isDynamic = true
         self.physicsBody?.contactTestBitMask = 1 |
             UInt32(PhysicsCategory.Fence) |
@@ -476,5 +477,34 @@ class Player : SKSpriteNode, AffectedByNegationField {
         }
         
         return false
+    }
+    
+    /**
+     This method is called when the player is running.  If the player is in the air, then we don't want the player to move as freely as when he's on the ground obviously.
+     */
+    func handlePlayerMovement () {
+        guard let dx = self.physicsBody?.velocity.dx else { return }
+        let multiplier:CGFloat = self.runningState == .RUNNINGLEFT ? 1 : -1
+        
+        switch self.state {
+        case .ONGROUND:
+            self.physicsBody?.velocity = CGVector(dx: -PhysicsHandler.kRunVelocity * multiplier, dy: self.physicsBody?.velocity.dy ?? 0)
+        case .INAIR:
+            if self.runningState == .RUNNINGLEFT {
+                if dx > -PhysicsHandler.kRunVelocity {
+                    self.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
+                }
+            } else {
+                if dx < PhysicsHandler.kRunVelocity {
+                    self.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
+                }
+            }
+        case .SLIDINGONWALL:
+            if self.runningState != .STANDING {
+                self.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * 2.0 * multiplier, dy: 0))
+            }
+        default:
+            break;
+        }
     }
 }

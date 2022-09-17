@@ -3,13 +3,47 @@
 <plist version="1.0">
 <array>
 	<dict>
+		<key>name</key>
+		<string>flipSwitch</string>
+		<key>x</key>
+		<real>29950</real>
+		<key>y</key>
+		<real>5472</real>
+		<key>size</key>
+		<dict>
+			<key>width</key>
+			<integer>300</integer>
+			<key>height</key>
+			<integer>50</integer>
+		</dict>
+		<key>children</key>
+		<array>
+			<dict>
+				<key>name</key>
+				<string>weightPlatformFinalPosition</string>
+				<key>x</key>
+				<integer>356</integer>
+				<key>y</key>
+				<real>-103.286</real>
+			</dict>
+			<dict>
+				<key>name</key>
+				<string>moveablePlatform</string>
+				<key>x</key>
+				<integer>356</integer>
+				<key>y</key>
+				<integer>319</integer>
+			</dict>
+		</array>
+	</dict>
+	<dict>
 		<key>timeToFire</key>
 		<real>0.2</real>
 		<key>name</key>
 		<string>arrowLauncher</string>
-		<key>xPos</key>
+		<key>x</key>
 		<real>30000</real>
-		<key>yPos</key>
+		<key>y</key>
 		<real>6037</real>
 	</dict>
 </array>

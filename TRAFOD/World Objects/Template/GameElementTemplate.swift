@@ -14,8 +14,14 @@ import Foundation
 struct GameElementTemplate: Codable {
     
     let name:String
-    let xPos:Double
-    let yPos:Double
+    let x:Double
+    let y:Double
     let timeToFire:Double?
-    
+    let children:[GameElementTemplate]?
+    let size:Size?
+}
+
+struct Size: Codable {
+    let width:Double
+    let height:Double
 }

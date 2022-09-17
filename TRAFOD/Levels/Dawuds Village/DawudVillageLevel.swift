@@ -53,7 +53,7 @@ class DawudVillageLevel: Level {
     }
     
     private func addRopeBridge () {
-        let ropeBridge = RopeBridge(position: CGPoint(x: 29851, y: 6122))
+        let ropeBridge = RopeBridge(position: CGPoint(x: 29900, y: 6122))
         self.scene?.addChild(ropeBridge)
         ropeBridge.setup(scene: self.scene!)
         guard
@@ -61,7 +61,6 @@ class DawudVillageLevel: Level {
             let scene = self.scene
         else { return }
         
-//        bridge.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.SpringHolder)
         let bridgePosition = ropeBridge.convert(bridge.position, to: scene)
         let vineAttachedToBridge = VineNode(length: 7, anchorPoint: bridgePosition.offset(CGPoint(x: 0, y: 10)), name: "vineAttachedToRopeBridge", segmentLength: 40)
         vineAttachedToBridge.addToScene(self.scene, anchor: ropeBridge.bridge)

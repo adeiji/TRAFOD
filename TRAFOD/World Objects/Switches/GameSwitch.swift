@@ -9,16 +9,21 @@
 import Foundation
 import GameKit
 
+// TODO: As of right now we are not including movable platform in this object, we need to make sure that we update that so that any new switches automatically inherit that
+
 /**
  This is the basic switch for the Game.  Make sure that all switches inherit from the game switch object
  
  The GameSwitch object contains a MovablePlatform object and that object is the platform that will be moved when the user activates the switch
  
- - Todo: As of right now we are not including movable platform in this object, we need to make sure that we update that so that any new switches automatically inherit that
  */
 class GameSwitch : SKSpriteNode, GameSwitchProtocol {
     
     var isOn:Bool = false
+    
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: nil, color: .clear, size: CGSize())
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)

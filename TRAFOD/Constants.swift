@@ -42,6 +42,7 @@ public class SoundFiles {
 
 public class Textures {
     public static let Cannon = SKTexture(imageNamed: "cannon")
+    public static let FlipSwitch = SKTexture(imageNamed: "switch-off")
     public static let Bridge = "RopeBridge 2"
     struct Dawud {
         public static let Standing = "standing"
@@ -61,6 +62,9 @@ public class PhysicsObjectTitles {
     public static let RopeType = "ropeType"
     public static let Cannon = "cannon"
     public static let ArrowLauncher = "arrowLauncher"
+    public static let WeightPlatformFinalPosition = "weightPlatformFinalPosition"
+    public static let FlipSwitch = "flipSwitch"
+    public static let MoveablePlatform = "moveablePlatform"
 }
 
 public class StoryFiles {

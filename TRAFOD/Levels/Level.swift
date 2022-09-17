@@ -147,7 +147,7 @@ class Level : World {
                     let objectsInField = gravFieldPhysicsBody.allContactedBodies()
                     for object in objectsInField {
                         if let node = node as? DoubleGravField {
-                            if let _ = object.node as? MovablePlatform, let _ = object.node as? PortalPortocol {
+                            if let _ = object.node as? VerticalMoveablePlatform, let _ = object.node as? PortalPortocol {
                                 continue;
                             }
                             

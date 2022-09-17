@@ -159,7 +159,7 @@
 		F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4222CF00F0004D1A3D /* Cannon.swift */; };
 		F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4422CF011C004D1A3D /* CannonBall.swift */; };
 		F48F7D4722CF0140004D1A3D /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4622CF0140004D1A3D /* Rock.swift */; };
-		F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4822CF0163004D1A3D /* MovablePlatform.swift */; };
+		F48F7D4922CF0163004D1A3D /* VerticalMoveablePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4822CF0163004D1A3D /* VerticalMoveablePlatform.swift */; };
 		F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */; };
 		F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */; };
 		F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */; };
@@ -422,7 +422,7 @@
 		F48F7D4222CF00F0004D1A3D /* Cannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
 		F48F7D4422CF011C004D1A3D /* CannonBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CannonBall.swift; sourceTree = "<group>"; };
 		F48F7D4622CF0140004D1A3D /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
-		F48F7D4822CF0163004D1A3D /* MovablePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovablePlatform.swift; sourceTree = "<group>"; };
+		F48F7D4822CF0163004D1A3D /* VerticalMoveablePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMoveablePlatform.swift; sourceTree = "<group>"; };
 		F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDirectionalGravObject.swift; sourceTree = "<group>"; };
 		F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravPlatformHeavy.swift; sourceTree = "<group>"; };
 		F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSwitch.swift; sourceTree = "<group>"; };
@@ -752,7 +752,7 @@
 				F48F7D4222CF00F0004D1A3D /* Cannon.swift */,
 				F48F7D4422CF011C004D1A3D /* CannonBall.swift */,
 				F48F7D4622CF0140004D1A3D /* Rock.swift */,
-				F48F7D4822CF0163004D1A3D /* MovablePlatform.swift */,
+				F48F7D4822CF0163004D1A3D /* VerticalMoveablePlatform.swift */,
 				F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */,
 				F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */,
 				F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */,
@@ -1599,7 +1599,7 @@
 				F41C83BD28D3A50F00E2C6E1 /* CGPoint+Offset.swift in Sources */,
 				F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */,
 				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
-				F48F7D4922CF0163004D1A3D /* MovablePlatform.swift in Sources */,
+				F48F7D4922CF0163004D1A3D /* VerticalMoveablePlatform.swift in Sources */,
 				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
 				F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,

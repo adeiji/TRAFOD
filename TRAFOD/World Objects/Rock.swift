@@ -42,7 +42,7 @@ class Rock : Ground, BaseWorldObject {
             UInt32(PhysicsCategory.Magnetic) |
             UInt32(PhysicsCategory.Impulse) |
             UInt32(PhysicsCategory.NegateForceField) |
-            UInt32(PhysicsCategory.ForceField)
+            UInt32(PhysicsCategory.ForceField)            
         self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Magnetic)
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Rock)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |

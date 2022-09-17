@@ -144,7 +144,7 @@ extension World {
                 self.stopGrabbing()
                 return
             }
-            
+                        
             if let bufferSize = self.getBufferSizeForContactedObjects(first: self.player, second: object) {
                 if let distance = distanceBetweenNodes(first: self.player, second: object) {
                     if distance - bufferSize > 40 {
@@ -158,9 +158,9 @@ extension World {
             
             if abs(physicsBody.mass * self.physicsWorld.gravity.dy) <= self.player.strength * 160.81 {
                 if self.player.runningState == .RUNNINGRIGHT {
-                    object.physicsBody?.applyImpulse(CGVector(dx: (PhysicsHandler.kGrabbedObjectMoveVelocity * 20) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                    object.physicsBody?.applyImpulse(CGVector(dx: (PhysicsHandler.kGrabbedObjectMoveVelocity * PhysicsHandler.kGrabbedObjectVelocityMultiplier) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
                 } else if self.player.runningState == .RUNNINGLEFT {
-                    object.physicsBody?.applyImpulse(CGVector(dx: (-PhysicsHandler.kGrabbedObjectMoveVelocity * 20) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                    object.physicsBody?.applyImpulse(CGVector(dx: (-PhysicsHandler.kGrabbedObjectMoveVelocity * PhysicsHandler.kGrabbedObjectVelocityMultiplier) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
                 } else if self.player.runningState == .STANDING {
                     if let physicsBody = object.physicsBody {
                         object.physicsBody?.velocity = CGVector(dx: 0, dy: physicsBody.velocity.dy)
