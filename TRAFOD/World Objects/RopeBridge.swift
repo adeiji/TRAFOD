@@ -62,6 +62,7 @@ class RopeBridge: SKNode {
         else { return }
                 
         bridge.physicsBody?.mass = 2
+        
         bridge.position = CGPoint(x: minX + bridge.frame.width / 2.0, y: minY)
         bridge.physicsBody?.restitution = 0
                         

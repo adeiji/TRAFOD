@@ -117,5 +117,6 @@ extension World {
         self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.player.runningState = .STANDING
         self.player.state = .ONGROUND
+        self.player.revive()
     }
 }

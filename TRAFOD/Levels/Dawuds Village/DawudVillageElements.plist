@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<array>
+	<dict>
+		<key>timeToFire</key>
+		<real>0.2</real>
+		<key>name</key>
+		<string>arrowLauncher</string>
+		<key>xPos</key>
+		<real>30000</real>
+		<key>yPos</key>
+		<real>6037</real>
+	</dict>
+</array>
+</plist>

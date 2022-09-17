@@ -93,6 +93,7 @@ class PhysicsHandler {
             let _ = contact.bodyB.node as? U != nil ? contact.bodyB.node as? U : contact.bodyA.node as? U {
             return true
         }
+        
         return false
     }
     

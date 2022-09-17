@@ -31,7 +31,7 @@ class DawudsVillageMineralsAnimationHandler: AnimationHandlerProtocol {
     }
     
     init(fileName: String, player: Player, scene: World) {
-        self.animationTemplates = self.loadPlist(fileName: fileName)
+        self.animationTemplates = GameObjectsFactory.loadPlist(fileName: fileName, type: AnimationTemplate.self)
         self.player = player
         self.scene = scene
     }
@@ -47,7 +47,7 @@ class DawudsVillageMineralsAnimationHandler: AnimationHandlerProtocol {
     }
     
     func executeAnimation (_ animationTemplate: AnimationTemplate) {
-        let object = AnimationFactory.getObject(type: animationTemplate.item)
+        let object = GameObjectsFactory.getObject(type: animationTemplate.item)
                 
         if let object = object {
             self.scene?.addChild(object)
@@ -66,23 +66,6 @@ class DawudsVillageMineralsAnimationHandler: AnimationHandlerProtocol {
             object?.physicsBody?.applyImpulse(CGVector(dx: impulse.x, dy: impulse.y))
         }
 
-    }
-    
-    func loadPlist (fileName: String) -> [AnimationTemplate]? {
-        guard let path = Bundle.main.path(forResource: fileName, ofType: "plist") else {
-            return nil
-        }
-        
-        let plistURL = URL(fileURLWithPath: path)
-        guard let data = try? Data(contentsOf: plistURL) else { return nil }
-        
-        do {
-            let animationTemplates = try PropertyListDecoder().decode([AnimationTemplate].self, from: data)
-            return animationTemplates
-        } catch {
-            print(error)
-            return nil
-        }
     }
     
 }

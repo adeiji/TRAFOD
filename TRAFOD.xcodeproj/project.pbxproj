@@ -22,11 +22,19 @@
 		F41C83AE28D24A2500E2C6E1 /* DawudsVillageAnimations.plist in Resources */ = {isa = PBXBuildFile; fileRef = F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */; };
 		F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */; };
 		F41C83B328D24EE000E2C6E1 /* AnimationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */; };
-		F41C83B528D2529F00E2C6E1 /* AnimationFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */; };
+		F41C83B528D2529F00E2C6E1 /* GameObjectsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B428D2529F00E2C6E1 /* GameObjectsFactory.swift */; };
 		F41C83B728D28CD600E2C6E1 /* RopeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */; };
 		F41C83BA28D28EA800E2C6E1 /* Bridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B928D28EA800E2C6E1 /* Bridge.swift */; };
 		F41C83BD28D3A50F00E2C6E1 /* CGPoint+Offset.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83BC28D3A50F00E2C6E1 /* CGPoint+Offset.swift */; };
 		F41C83BF28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */; };
+		F41C83C228D3E8F800E2C6E1 /* ArrowLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83C128D3E8F800E2C6E1 /* ArrowLauncher.swift */; };
+		F41C83C428D3E96E00E2C6E1 /* ProjectileProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83C328D3E96E00E2C6E1 /* ProjectileProtocol.swift */; };
+		F41C83C628D3EF5600E2C6E1 /* Arrow.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83C528D3EF5600E2C6E1 /* Arrow.swift */; };
+		F41C83C828D3EF7800E2C6E1 /* LaunchingProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83C728D3EF7800E2C6E1 /* LaunchingProtocol.swift */; };
+		F41C83CA28D51D2B00E2C6E1 /* Contact+GetNodeOfType.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83C928D51D2B00E2C6E1 /* Contact+GetNodeOfType.swift */; };
+		F41C83CC28D5231700E2C6E1 /* GameElementsInitializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83CB28D5231700E2C6E1 /* GameElementsInitializer.swift */; };
+		F41C83CE28D5249900E2C6E1 /* DawudVillageElements.plist in Resources */ = {isa = PBXBuildFile; fileRef = F41C83CD28D5249900E2C6E1 /* DawudVillageElements.plist */; };
+		F41C83D128D5286500E2C6E1 /* GameElementTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83D028D5286500E2C6E1 /* GameElementTemplate.swift */; };
 		F43760D022CD257C00939E01 /* dawudsong.wav in Resources */ = {isa = PBXBuildFile; fileRef = F43760CF22CD257C00939E01 /* dawudsong.wav */; };
 		F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02520CD0C4700EC2606 /* Red Crystal.png */; };
 		F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */ = {isa = PBXBuildFile; fileRef = F438D02620CD0C4900EC2606 /* Blue Crystal.png */; };
@@ -277,11 +285,19 @@
 		F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DawudsVillageAnimations.plist; sourceTree = "<group>"; };
 		F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageMineralsAnimationHandler.swift; sourceTree = "<group>"; };
 		F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTemplate.swift; sourceTree = "<group>"; };
-		F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationFactory.swift; sourceTree = "<group>"; };
+		F41C83B428D2529F00E2C6E1 /* GameObjectsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObjectsFactory.swift; sourceTree = "<group>"; };
 		F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeBridge.swift; sourceTree = "<group>"; };
 		F41C83B928D28EA800E2C6E1 /* Bridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bridge.swift; sourceTree = "<group>"; };
 		F41C83BC28D3A50F00E2C6E1 /* CGPoint+Offset.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+Offset.swift"; sourceTree = "<group>"; };
 		F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "CGPoint+ToScene.swift"; sourceTree = "<group>"; };
+		F41C83C128D3E8F800E2C6E1 /* ArrowLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArrowLauncher.swift; sourceTree = "<group>"; };
+		F41C83C328D3E96E00E2C6E1 /* ProjectileProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectileProtocol.swift; sourceTree = "<group>"; };
+		F41C83C528D3EF5600E2C6E1 /* Arrow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Arrow.swift; sourceTree = "<group>"; };
+		F41C83C728D3EF7800E2C6E1 /* LaunchingProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LaunchingProtocol.swift; sourceTree = "<group>"; };
+		F41C83C928D51D2B00E2C6E1 /* Contact+GetNodeOfType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Contact+GetNodeOfType.swift"; sourceTree = "<group>"; };
+		F41C83CB28D5231700E2C6E1 /* GameElementsInitializer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElementsInitializer.swift; sourceTree = "<group>"; };
+		F41C83CD28D5249900E2C6E1 /* DawudVillageElements.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DawudVillageElements.plist; sourceTree = "<group>"; };
+		F41C83D028D5286500E2C6E1 /* GameElementTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameElementTemplate.swift; sourceTree = "<group>"; };
 		F43760CF22CD257C00939E01 /* dawudsong.wav */ = {isa = PBXFileReference; lastKnownFileType = audio.wav; path = dawudsong.wav; sourceTree = "<group>"; };
 		F438D02520CD0C4700EC2606 /* Red Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Red Crystal.png"; sourceTree = "<group>"; };
 		F438D02620CD0C4900EC2606 /* Blue Crystal.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Blue Crystal.png"; sourceTree = "<group>"; };
@@ -561,6 +577,8 @@
 			isa = PBXGroup;
 			children = (
 				F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */,
+				F41C83C328D3E96E00E2C6E1 /* ProjectileProtocol.swift */,
+				F41C83C728D3EF7800E2C6E1 /* LaunchingProtocol.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -569,7 +587,7 @@
 			isa = PBXGroup;
 			children = (
 				F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */,
-				F41C83B428D2529F00E2C6E1 /* AnimationFactory.swift */,
+				F41C83B428D2529F00E2C6E1 /* GameObjectsFactory.swift */,
 			);
 			path = Animations;
 			sourceTree = "<group>";
@@ -587,8 +605,26 @@
 			children = (
 				F41C83BC28D3A50F00E2C6E1 /* CGPoint+Offset.swift */,
 				F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */,
+				F41C83C928D51D2B00E2C6E1 /* Contact+GetNodeOfType.swift */,
 			);
 			path = Extensions;
+			sourceTree = "<group>";
+		};
+		F41C83C028D3E8E700E2C6E1 /* Arrow Launcher */ = {
+			isa = PBXGroup;
+			children = (
+				F41C83C128D3E8F800E2C6E1 /* ArrowLauncher.swift */,
+				F41C83C528D3EF5600E2C6E1 /* Arrow.swift */,
+			);
+			path = "Arrow Launcher";
+			sourceTree = "<group>";
+		};
+		F41C83CF28D5285800E2C6E1 /* Template */ = {
+			isa = PBXGroup;
+			children = (
+				F41C83D028D5286500E2C6E1 /* GameElementTemplate.swift */,
+			);
+			path = Template;
 			sourceTree = "<group>";
 		};
 		F438D02420CD0C2F00EC2606 /* Minerals */ = {
@@ -697,6 +733,8 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F41C83CF28D5285800E2C6E1 /* Template */,
+				F41C83C028D3E8E700E2C6E1 /* Arrow Launcher */,
 				F41C83B828D28E9900E2C6E1 /* Bridge */,
 				F41C839628D0F35F00E2C6E1 /* RockFragment */,
 				F44D96E028BD640B009A8098 /* Vines */,
@@ -768,6 +806,8 @@
 				F41C83AB28D1657A00E2C6E1 /* AnimationHandler.swift */,
 				F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */,
 				F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */,
+				F41C83CB28D5231700E2C6E1 /* GameElementsInitializer.swift */,
+				F41C83CD28D5249900E2C6E1 /* DawudVillageElements.plist */,
 			);
 			path = "Dawuds Village";
 			sourceTree = "<group>";
@@ -1318,6 +1358,7 @@
 				F438D04E20CD34E700EC2606 /* random_noise1.mp3 in Resources */,
 				F4BA31A920E546BF00DBD823 /* lv2rocks7.png in Resources */,
 				F4C4CA1C20ECC607005CA4D7 /* cannonball.png in Resources */,
+				F41C83CE28D5249900E2C6E1 /* DawudVillageElements.plist in Resources */,
 				F4B03CF220C94B8700F0B346 /* Main.storyboard in Resources */,
 				F438D04620CD34E700EC2606 /* four.mp3 in Resources */,
 				F4B8E8AF20CA794900E558F8 /* level1ground1.png in Resources */,
@@ -1562,17 +1603,23 @@
 				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
 				F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,
+				F41C83C828D3EF7800E2C6E1 /* LaunchingProtocol.swift in Sources */,
 				F46115CD22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift in Sources */,
 				F490A68A22E60F3D00840F91 /* MineralSubclasses.swift in Sources */,
 				F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */,
 				F41C83BF28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift in Sources */,
+				F41C83C628D3EF5600E2C6E1 /* Arrow.swift in Sources */,
 				F41C83A428D13D2200E2C6E1 /* GrabbableObject.swift in Sources */,
 				F4A5DDD022EFB40A007BF31F /* StoryHandler.swift in Sources */,
+				F41C83D128D5286500E2C6E1 /* GameElementTemplate.swift in Sources */,
 				F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */,
+				F41C83CA28D51D2B00E2C6E1 /* Contact+GetNodeOfType.swift in Sources */,
 				F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */,
 				F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */,
+				F41C83CC28D5231700E2C6E1 /* GameElementsInitializer.swift in Sources */,
 				F490A68822E606F300840F91 /* FlipGravityRetrieveMineral.swift in Sources */,
-				F41C83B528D2529F00E2C6E1 /* AnimationFactory.swift in Sources */,
+				F41C83B528D2529F00E2C6E1 /* GameObjectsFactory.swift in Sources */,
+				F41C83C228D3E8F800E2C6E1 /* ArrowLauncher.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
 				F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */,
 				F41C83BA28D28EA800E2C6E1 /* Bridge.swift in Sources */,
@@ -1628,6 +1675,7 @@
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 				F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */,
 				F4F5D90E22EB2C1E00CFB2A6 /* NegateFlipGravField.swift in Sources */,
+				F41C83C428D3E96E00E2C6E1 /* ProjectileProtocol.swift in Sources */,
 				F490A69422E61E8A00840F91 /* MagneticMineral.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

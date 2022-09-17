@@ -76,10 +76,13 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     /// The forces that are currently being applied within the world
     var forces:[Minerals] = [Minerals]()
+    
     /// The impulses that are currently being applied within the world.  There can only be a maximum of three at one time
     var impulses:[Minerals] = [Minerals]()
+    
     /// THe amount of time left that antiGrav will be applied to the world
     var gravityTimeLeft:Int = 0
+    
     let antiGravViewKey = "antiGravView"
     
     // The original position where the user touched the screen
@@ -507,7 +510,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             if let physicsBody = self.player.physicsBody {
                 self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
             }
+            
             self.lastPointOnGround = self.player.position
+            
             if self.player.state != .GRABBING {
                 self.player.state = .ONGROUND
             }
@@ -542,13 +547,21 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
         PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)
         // Check to see if the playe has hit the door to go to another level
+        
+        if Arrow.didHitPlayer(contact) {
+            self.player.died()
+            return
+        }
+        
+        Arrow.hitGround(contact)
+        
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: GotoLevelNode.self, nodeBType: Player.self) {
             self.handlePlayerGotoNextLevel(contact: contact)
             return
         }
         // If the player hits fire than he dies
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Fire.self, nodeBType: Player.self) {
-            self.player.state = .DEAD
+            self.player.died()
             return
         }
         
@@ -603,7 +616,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Dawud, self.abyssKey], contactA: contactAName, contactB: contactBName) {
-            self.player.state = .DEAD
+            self.player.died()
             return
         }
         
@@ -885,7 +898,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             field.applyChange()
         }
         
-        if self.player.state == .DEAD {
+        if self.player.dead {
             self.handlePlayerDied()
         } else {
             if self.player.state == .SLIDINGONWALL {

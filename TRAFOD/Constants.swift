@@ -41,6 +41,7 @@ public class SoundFiles {
 }
 
 public class Textures {
+    public static let Cannon = SKTexture(imageNamed: "cannon")
     public static let Bridge = "RopeBridge 2"
     struct Dawud {
         public static let Standing = "standing"
@@ -58,6 +59,8 @@ public class PhysicsObjectTitles {
     public static let Ground = "ground"
     public static let CannonBall = "cannonball"
     public static let RopeType = "ropeType"
+    public static let Cannon = "cannon"
+    public static let ArrowLauncher = "arrowLauncher"
 }
 
 public class StoryFiles {
@@ -122,7 +125,6 @@ enum PlayerState {
     case JUMP
     case ONGROUND
     case HITPORTAL
-    case DEAD
     case GRABBING
     case SLIDINGONWALL
     case CLIMBING

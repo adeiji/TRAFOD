@@ -18,7 +18,7 @@ protocol RopeType: SKNode {
     var anchorPoint:CGPoint { get }
     
     /// The amount of segments that this rope is going to have.
-    /// > Important: If you add more then one segment to a spring than things can get very strange so be careful when doing that.
+    /// > Important: If you add more then one segment to a spring than things can get very strange so be careful when doing that. It's because of the nature of a spring. Think about the unpredictability of attaching two springs together. 
     var length:Int { get }
     
     /// The individual segments that the rope consist of

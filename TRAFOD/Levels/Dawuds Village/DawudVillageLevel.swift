@@ -48,10 +48,12 @@ class DawudVillageLevel: Level {
             let vine = VineNode(length: 5, anchorPoint: vineNode.position, name: "vineNode", segmentLength: 100)
             vine.addToScene(self.scene)
         })
+        
+        GameElementsInitializer.setupGameElements(plistFileName: "DawudVillageElements", scene: self.scene)
     }
     
     private func addRopeBridge () {
-        let ropeBridge = RopeBridge(position: CGPoint(x: 29831, y: 6122))
+        let ropeBridge = RopeBridge(position: CGPoint(x: 29851, y: 6122))
         self.scene?.addChild(ropeBridge)
         ropeBridge.setup(scene: self.scene!)
         guard
@@ -61,7 +63,7 @@ class DawudVillageLevel: Level {
         
 //        bridge.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.SpringHolder)
         let bridgePosition = ropeBridge.convert(bridge.position, to: scene)
-        let vineAttachedToBridge = VineNode(length: 5, anchorPoint: bridgePosition.offset(CGPoint(x: 0, y: 10)), name: "vineAttachedToRopeBridge", segmentLength: 40)
+        let vineAttachedToBridge = VineNode(length: 7, anchorPoint: bridgePosition.offset(CGPoint(x: 0, y: 10)), name: "vineAttachedToRopeBridge", segmentLength: 40)
         vineAttachedToBridge.addToScene(self.scene, anchor: ropeBridge.bridge)
     }
     

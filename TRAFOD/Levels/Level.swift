@@ -122,8 +122,8 @@ class Level : World {
                 if cannon.lastTimeFired == nil {
                     cannon.lastTimeFired = currentTime
                 } else {
-                    if currentTime - cannon.lastTimeFired >= cannon.timeToFire {
-                        cannon.launch()
+                    if currentTime - cannon.lastTimeFired >= cannon.timeToFire ?? 3.0 {
+                        cannon.launch(projectile: CannonBall(cannon: cannon))
                         cannon.lastTimeFired = currentTime
                     }
                 }

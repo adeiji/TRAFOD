@@ -104,6 +104,19 @@ class Player : SKSpriteNode, AffectedByNegationField {
      */
     private (set) var anchors:[String:SKPhysicsJoint] = [:]
     
+    /** Whether or not the player has died*/
+    private (set) var dead:Bool = false
+    
+    /** Call when the player has died */
+    public func died () {
+        self.dead = true
+    }
+    
+    /** Call this after reviving the player */
+    public func revive () {
+        self.dead = false
+    }
+    
     // TODO: - Use player inages that are all the same size
     /**
      Update the dimensions of the player
@@ -201,7 +214,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
             UInt32(PhysicsCategory.Impulse) |
             UInt32(PhysicsCategory.ForceField) |
             UInt32(PhysicsCategory.Spring) |
-            UInt32(PhysicsCategory.FlipSwitch) 
+            UInt32(PhysicsCategory.FlipSwitch)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |
             UInt32(PhysicsCategory.Rock) |
             UInt32(PhysicsCategory.Ground) |

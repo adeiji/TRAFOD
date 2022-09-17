@@ -9,9 +9,9 @@
 import Foundation
 import GameKit
 
-class CannonBall : SKSpriteNode {
+class CannonBall : SKSpriteNode, ProjectileProtocol {
     
-    init(cannon: Cannon) {
+    required init(cannon: LaunchingProtocol) {
         let texture = SKTexture(imageNamed: "cannonball")
         super.init(texture: texture, color: .clear, size: CGSize(width: texture.size().width / 5.0, height: texture.size().height / 10.0) )
         
