@@ -28,7 +28,30 @@ class Fence: SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player)
         self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.allowsRotation = false
-    }                
+    }
+    
+    /**
+     Returns whether or not the player is in contact with a fence object
+     */
+    static func playerInContact (player: Player) -> Bool {
+        if (player.physicsBody?.allContactedBodies().filter({ $0.node is Fence }))?.count == 0 {
+            return false
+        }
+        
+        return true
+    }
+}
+
+class Wall: Ground {
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    override func setupPhysicsBody() {
+        super.setupPhysicsBody()
+        self.physicsBody?.friction = 0.0
+        self.color = .green
+    }
 }
 
 class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsBody {

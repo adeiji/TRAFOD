@@ -201,7 +201,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.restitution = 0
         self.physicsBody?.mass = 1
-        self.physicsBody?.friction = 10.0
+        self.physicsBody?.friction = 0.2
         self.physicsBody?.isDynamic = true
         self.physicsBody?.contactTestBitMask = 1 |
             UInt32(PhysicsCategory.Fence) |
@@ -371,8 +371,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
     }
     
-    func stoppedClimbing () {
-        self.state = .INAIR
+    func stoppedClimbing () {        
         self.physicsBody?.affectedByGravity = true
     }
     

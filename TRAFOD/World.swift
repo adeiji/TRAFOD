@@ -517,6 +517,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 self.player.state = .ONGROUND
             }
         } else if self.player.isSlidingOnWall(contact: contact) {
+            self.player.physicsBody?.friction = 0.0
             self.player.slidOnWall()
         }
     }
@@ -735,8 +736,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 }
             }
         }
-        
-        
     }
     
     /**
@@ -830,13 +829,18 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     func stopClimbingIfNecessary () {
-        if self.player.isInContactWithFence() == false && self.player.state == .CLIMBING {
+        if self.player.isInContactWithFence() == false {
             self.player.stoppedClimbing()
         }
     }
     
     private func checkIfDawudInAir () {                
         if self.player.physicsBody?.allContactedBodies().filter({ $0.node is GroundProtocol }) .count == 0 {
+            // If the player is in contact with a fence, then he's climbing and we don't need to set his state to in the air
+            if Fence.playerInContact(player: self.player) {
+                return
+            }
+            
             self.player.state = .INAIR
         } 
     }
@@ -880,9 +884,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 if self.player.state == .CLIMBING {
                     self.player.handleClimbingMovement()
                     return
-                }
-                
-                if self.player.runningState != .STANDING {
+                }                
+                else if self.player.runningState != .STANDING {
                     self.showRunning(currentTime: currentTime)
                     self.player.handlePlayerMovement()
                 } else {
