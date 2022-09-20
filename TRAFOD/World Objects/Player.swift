@@ -226,6 +226,26 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
     }
     
+    //  TODO: - Move the jump function to the player object
+    /**
+     
+     Adds an impulse to the character to cuase him to jump and shows him as jumping
+      
+     */
+    func jump() {
+        self.letGoOfRope()
+        var dx:CGFloat = 0
+        if self.state == .SLIDINGONWALL {
+            dx = self.xScale > 0 ? -150 : 150
+        }
+        
+        let dy = self.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse
+        
+        self.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
+        self.texture = SKTexture(imageNamed: "running_step2")
+        self.state = .INAIR
+    }
+    
     /** Launch the spring by  */
     func letGoOfRope () {
         self.letGoOfObject()
@@ -399,7 +419,21 @@ class Player : SKSpriteNode, AffectedByNegationField {
         }
     }
     
+    /** Returns whether or not the user is currently grabbing a rope */
+    private func isGrabbingRope () -> Bool {
+        
+        // If the player is currently anchored to a rope object then that means that he/she is grabbing a rope
+        if (self.anchors[PhysicsObjectTitles.RopeType] != nil) {
+            return true
+        }
+        
+        return false
+    }
+    
     func canJump () -> Bool {
+        if self.isGrabbingRope() {
+            return true
+        }
         if self.state == .ONGROUND || self.state == .SLIDINGONWALL {
             return true
         }

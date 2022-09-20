@@ -131,6 +131,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     var leftHandView:UIView?
     var rightHandView:UIView?
     
+    var worldGestures:WorldGestures?
+    
     enum Levels:String {
         case DawudVillage = "DawudVillage"
         case LEVEL1 = "GameScene"
@@ -166,27 +168,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         try? AVAudioSession.sharedInstance().setActive(true)
         
         view.showsFields = true
-        
-        [UISwipeGestureRecognizer.Direction.up, .down].forEach { direction in
-            let swipeGesture = UISwipeGestureRecognizer()
-            swipeGesture.direction = direction
-            
-            self.rightHandView?.addGestureRecognizer(swipeGesture)            
-            swipeGesture.addTarget(self, action: #selector(swipedVertically(gestureRecognizer:)))
-        }
-        
-        self.view?.isMultipleTouchEnabled = true
-        self.view?.isExclusiveTouch = true
+
+        self.worldGestures = WorldGestures(world: self, player: self.player)
     }
-    
-    @objc func swipedVertically (gestureRecognizer: UISwipeGestureRecognizer) {
-        if gestureRecognizer.direction == .up {
-            if self.player.canJump() {
-                self.handleJump()
-            }
-        }
-    }
-    
     
     
     /**
@@ -404,7 +388,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
                         
             // Grab onto the rope at whatever node it's touching
-            self.player.handleRopeGrabInteraction()
+//            self.player.handleRopeGrabInteraction()
                         
             if self.player.state == .ONGROUND || self.player.state == .SLIDINGONWALL {
 //                self.handleJump()
@@ -745,13 +729,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             let differenceInXPos = originalPos.x - position.x
             
             if (abs(differenceInXPos) < 10) { return }
-            
-            self.touchesMovedTimer?.invalidate()
-            self.touchesMovedTimer = Timer .scheduledTimer(withTimeInterval: 500, repeats: false, block: { timer in
-                self.originalTouchPosition = position
-            })
-            self.touchesMovedTimer?.fire()
-            
+                                    
             if self.player.isClimbing() {
                 let differenceInYPos = originalPos.y - position.y
                 self.player.updatePlayerClimbingState(differenceInXPos: differenceInXPos, differenceInYPos: differenceInYPos)
@@ -763,6 +741,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
             }
         }
+                
     }
     
     /**

@@ -49,25 +49,7 @@ extension World {
         }
         
         return false
-    }
-    
-    /**
-     
-     Adds an impulse to the character to cuase him to jump and shows him as jumping
-     
-     */
-    private func jump() {
-        var dx:CGFloat = 0
-        if self.player.state == .SLIDINGONWALL {
-            dx = self.player.xScale > 0 ? -150 : 150
-        }
-        
-        let dy = self.player.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse
-        
-        self.player.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
-        self.player.texture = SKTexture(imageNamed: "running_step2")
-        self.player.state = .INAIR
-    }
+    }        
     
     func rotateJumpingPlayer (rotation: Double) {
         if self.player.previousRunningState == .RUNNINGRIGHT || self.player.previousRunningState == .STANDING {
@@ -79,7 +61,7 @@ extension World {
     
     @objc func handleJump () {
         self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
-        self.jump()
+        self.player.jump()
     }
     
     public func setupPlayer () {
