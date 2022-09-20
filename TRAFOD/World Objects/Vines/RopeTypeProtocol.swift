@@ -62,7 +62,7 @@ extension RopeType {
     func addNodes () {
         // add each of the vine parts
         for i in 0..<self.length {
-            let segment = RopeTypeSegment(color: .blue, size: CGSize(width: 30, height: self.segmentLength))
+            let segment = RopeTypeSegment(color: .blue, size: CGSize(width: 70, height: self.segmentLength))
             let offset = segment.size.height * CGFloat(i + 1)
             segment.position = CGPoint(x: self.anchorPoint.x, y: self.anchorPoint.y - offset - (CGFloat(i) * 10) )
             segment.name = name

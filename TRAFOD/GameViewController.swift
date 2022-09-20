@@ -29,6 +29,18 @@ class GameViewController: UIViewController {
                 // Set the scale mode to scale to fit the window
                 sceneNode.scaleMode = .aspectFit
                 
+                let leftHandView = UIView()
+                leftHandView.frame = CGRect(x: 0, y: 0, width: view.frame.width / 2.0, height: view.frame.height)
+                self.view?.addSubview(leftHandView)
+                let world = sceneNode as World
+                world.leftHandView = leftHandView
+                
+                let rightHandView = UIView()
+                rightHandView.frame = CGRect(x: self.view.frame.width / 2.0, y: 0, width: view.frame.width / 2.0, height: view.frame.height)
+                self.view?.addSubview(rightHandView)                
+                world.rightHandView = rightHandView
+                 
+//                )
                 // Present the scene
                 if let view = self.view as! SKView? {
                     view.presentScene(sceneNode)

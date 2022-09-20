@@ -77,7 +77,7 @@ extension World {
         }
     }
     
-    func handleJump () {
+    @objc func handleJump () {
         self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
         self.jump()
     }

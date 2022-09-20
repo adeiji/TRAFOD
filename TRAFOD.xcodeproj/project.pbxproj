@@ -10,6 +10,15 @@
 		047DA2308D1C268EE4947C47 /* Pods_TRAFOD.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6951A9821785757EF497684C /* Pods_TRAFOD.framework */; };
 		7D2C9CF251C8332D810C6A89 /* Pods_TRAFODUITests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64193BF446C82855668BE830 /* Pods_TRAFODUITests.framework */; };
 		F1D1AB1F54790623E24D64B5 /* Pods_TRAFODTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 626FC37E6E0A9D05608A9826 /* Pods_TRAFODTests.framework */; };
+		F40BE59428D6AED7005C0996 /* foliage.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE59328D6AED7005C0996 /* foliage.png */; };
+		F40BE59628D6B075005C0996 /* grass.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE59528D6B075005C0996 /* grass.png */; };
+		F40BE69828D6B68D005C0996 /* rock-stamp.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE69728D6B68C005C0996 /* rock-stamp.png */; };
+		F40BE69A28D75145005C0996 /* dawudsvillagebackground.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE69928D75144005C0996 /* dawudsvillagebackground.png */; };
+		F40BE69C28D75F13005C0996 /* cottage1.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE69B28D75F12005C0996 /* cottage1.png */; };
+		F40BE69E28D77264005C0996 /* cottage2.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE69D28D77264005C0996 /* cottage2.png */; };
+		F40BE6A028D78BB8005C0996 /* broken-wagon.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE69F28D78BB7005C0996 /* broken-wagon.png */; };
+		F40BE6A228D79009005C0996 /* GroundTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = F40BE6A128D79009005C0996 /* GroundTileSet.sks */; };
+		F40BE6A428D92786005C0996 /* TouchInteractions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE6A328D92786005C0996 /* TouchInteractions.swift */; };
 		F41C839328D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */; };
 		F41C839828D0F36B00E2C6E1 /* RockFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839728D0F36B00E2C6E1 /* RockFragment.swift */; };
 		F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */; };
@@ -273,6 +282,15 @@
 		84498558B2EF9D5DC79A2E7D /* Pods-TRAFODTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODTests/Pods-TRAFODTests.debug.xcconfig"; sourceTree = "<group>"; };
 		E860BBC35B9BD0E4CD9ECB09 /* Pods-TRAFOD.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFOD.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFOD/Pods-TRAFOD.release.xcconfig"; sourceTree = "<group>"; };
 		EE59AA9465552CDB5CA491CF /* Pods-TRAFODUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-TRAFODUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-TRAFODUITests/Pods-TRAFODUITests.release.xcconfig"; sourceTree = "<group>"; };
+		F40BE59328D6AED7005C0996 /* foliage.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = foliage.png; sourceTree = "<group>"; };
+		F40BE59528D6B075005C0996 /* grass.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = grass.png; sourceTree = "<group>"; };
+		F40BE69728D6B68C005C0996 /* rock-stamp.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rock-stamp.png"; sourceTree = "<group>"; };
+		F40BE69928D75144005C0996 /* dawudsvillagebackground.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dawudsvillagebackground.png; sourceTree = "<group>"; };
+		F40BE69B28D75F12005C0996 /* cottage1.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cottage1.png; sourceTree = "<group>"; };
+		F40BE69D28D77264005C0996 /* cottage2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cottage2.png; sourceTree = "<group>"; };
+		F40BE69F28D78BB7005C0996 /* broken-wagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "broken-wagon.png"; path = "TRAFOD/Images/broken-wagon.png"; sourceTree = SOURCE_ROOT; };
+		F40BE6A128D79009005C0996 /* GroundTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GroundTileSet.sks; sourceTree = "<group>"; };
+		F40BE6A328D92786005C0996 /* TouchInteractions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TouchInteractions.swift; sourceTree = "<group>"; };
 		F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageAttackedAnimationHandler.swift; sourceTree = "<group>"; };
 		F41C839728D0F36B00E2C6E1 /* RockFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockFragment.swift; sourceTree = "<group>"; };
 		F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyerMineral.swift; sourceTree = "<group>"; };
@@ -557,6 +575,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		F40BE59728D6B60E005C0996 /* rocks */ = {
+			isa = PBXGroup;
+			children = (
+				F40BE69728D6B68C005C0996 /* rock-stamp.png */,
+			);
+			path = rocks;
+			sourceTree = "<group>";
+		};
 		F41C839628D0F35F00E2C6E1 /* RockFragment */ = {
 			isa = PBXGroup;
 			children = (
@@ -705,6 +731,7 @@
 				F472CABE22E0A449001A4949 /* World+PlayerActions.swift */,
 				F46115CE22E0F5380035E059 /* World+LevelTransfers.swift */,
 				F4F6327E22F350AC0026CED6 /* Ground.swift */,
+				F40BE6A328D92786005C0996 /* TouchInteractions.swift */,
 			);
 			path = World;
 			sourceTree = "<group>";
@@ -1018,6 +1045,7 @@
 				F44A9A8C20D3E25D004E389C /* World.swift */,
 				F45EDF7020D8C2710076C1C8 /* Constants.swift */,
 				F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */,
+				F40BE6A128D79009005C0996 /* GroundTileSet.sks */,
 			);
 			path = TRAFOD;
 			sourceTree = "<group>";
@@ -1043,6 +1071,8 @@
 		F4B8E88C20CA4F4200E558F8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F40BE59728D6B60E005C0996 /* rocks */,
+				F4BD03ED28D678E000D58E92 /* Dawuds Village */,
 				F4F884AD22F9CE2B002A8124 /* BuyButton.png */,
 				F4F6327A22F32B380026CED6 /* book-story-image.jpg */,
 				F44B9BDD20EE1E3300B874A1 /* CaveUnderground.png */,
@@ -1135,6 +1165,19 @@
 				F4BA319C20E4E87400DBD823 /* lv2rocks1.png */,
 			);
 			path = Level2;
+			sourceTree = "<group>";
+		};
+		F4BD03ED28D678E000D58E92 /* Dawuds Village */ = {
+			isa = PBXGroup;
+			children = (
+				F40BE69F28D78BB7005C0996 /* broken-wagon.png */,
+				F40BE69D28D77264005C0996 /* cottage2.png */,
+				F40BE69B28D75F12005C0996 /* cottage1.png */,
+				F40BE69928D75144005C0996 /* dawudsvillagebackground.png */,
+				F40BE59528D6B075005C0996 /* grass.png */,
+				F40BE59328D6AED7005C0996 /* foliage.png */,
+			);
+			path = "Dawuds Village";
 			sourceTree = "<group>";
 		};
 		F4EBE9DA22D63A2000EC2300 /* Physics Objects */ = {
@@ -1369,6 +1412,7 @@
 				F4BA31A520E5408900DBD823 /* lv2rocks5.png in Resources */,
 				F462CDE520E5D752004AF89E /* lv2rocks21.png in Resources */,
 				F438D05420CD4E2300EC2606 /* Level1_Theme.mp3 in Resources */,
+				F40BE6A028D78BB8005C0996 /* broken-wagon.png in Resources */,
 				F462CDDD20E5D4A3004AF89E /* lv2rocks17.png in Resources */,
 				F462CDCD20E5CA8F004AF89E /* lv2rocks9.png in Resources */,
 				F41C83A228D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 in Resources */,
@@ -1388,8 +1432,10 @@
 				F4B03CF420C94B8900F0B346 /* Assets.xcassets in Resources */,
 				F438D04320CD34E700EC2606 /* hitground.mp3 in Resources */,
 				F4F6327B22F32B390026CED6 /* book-story-image.jpg in Resources */,
+				F40BE6A228D79009005C0996 /* GroundTileSet.sks in Resources */,
 				F4B8E8A420CA4FAA00E558F8 /* throwing.png in Resources */,
 				F41C839D28D118D000E2C6E1 /* Warning_Horn_Sound.mp3 in Resources */,
+				F40BE69A28D75145005C0996 /* dawudsvillagebackground.png in Resources */,
 				F43760D022CD257C00939E01 /* dawudsong.wav in Resources */,
 				F438D04B20CD34E700EC2606 /* eight.mp3 in Resources */,
 				F44E1A4D20CFC4E600FD026E /* prosperity.png in Resources */,
@@ -1404,11 +1450,13 @@
 				F44A9A9020D4EB16004E389C /* Loading.sks in Resources */,
 				F438D04220CD34E700EC2606 /* thirteen.mp3 in Resources */,
 				F44E1A4A20CFC4E600FD026E /* antigrav.png in Resources */,
+				F40BE59628D6B075005C0996 /* grass.png in Resources */,
 				F4C4CA1A20ECA334005CA4D7 /* speechBubble.png in Resources */,
 				F438D04020CD34E700EC2606 /* fourteen.mp3 in Resources */,
 				F438D05120CD34E700EC2606 /* ten.mp3 in Resources */,
 				F44E1A6A20D10BCB00FD026E /* Spark.sks in Resources */,
 				F4B8E8A320CA4FAA00E558F8 /* spinning.png in Resources */,
+				F40BE69828D6B68D005C0996 /* rock-stamp.png in Resources */,
 				F44E1A5920D0B0B100FD026E /* FireFlies.sks in Resources */,
 				F462CDE420E5D752004AF89E /* lv2rocks20.png in Resources */,
 				F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */,
@@ -1423,6 +1471,7 @@
 				F462CDE820E5DE0C004AF89E /* level2_theme.mp3 in Resources */,
 				F462CDD520E5D23A004AF89E /* lv2rocks15.png in Resources */,
 				F4B8E89F20CA4FAA00E558F8 /* running_step3.png in Resources */,
+				F40BE69C28D75F13005C0996 /* cottage1.png in Resources */,
 				F438D07120CE37DB00EC2606 /* level1background1.png in Resources */,
 				F44E1A5120D0A41D00FD026E /* dawud.png in Resources */,
 				F44E1A4920CFC4E600FD026E /* village.png in Resources */,
@@ -1453,6 +1502,7 @@
 				F4B03CF720C94B8900F0B346 /* LaunchScreen.storyboard in Resources */,
 				F4B8E89E20CA4FAA00E558F8 /* running_step4.png in Resources */,
 				F4B8E8A220CA4FAA00E558F8 /* running_step1.png in Resources */,
+				F40BE59428D6AED7005C0996 /* foliage.png in Resources */,
 				F4BA319D20E4E87400DBD823 /* lv2rocks1.png in Resources */,
 				F44B9BD920EE135C00B874A1 /* switch-on.png in Resources */,
 				F44B9BD120EDFCEA00B874A1 /* Chapters.sks in Resources */,
@@ -1467,6 +1517,7 @@
 				F44E1A6020D0B24800FD026E /* Rain.sks in Resources */,
 				F44E1A2F20CFBC1C00FD026E /* Story.sks in Resources */,
 				F462CDD320E5D052004AF89E /* lv2rocks12.png in Resources */,
+				F40BE69E28D77264005C0996 /* cottage2.png in Resources */,
 				F44E1A4B20CFC4E600FD026E /* destruction.png in Resources */,
 				F462CDDF20E5D543004AF89E /* lv2rocks18.png in Resources */,
 				F438D04520CD34E700EC2606 /* mineralgrab.mp3 in Resources */,
@@ -1622,6 +1673,7 @@
 				F41C83C228D3E8F800E2C6E1 /* ArrowLauncher.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
 				F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */,
+				F40BE6A428D92786005C0996 /* TouchInteractions.swift in Sources */,
 				F41C83BA28D28EA800E2C6E1 /* Bridge.swift in Sources */,
 				F490A68222E6062400840F91 /* Mineral.swift in Sources */,
 				F490A68D22E60F8400840F91 /* RockNoFipGravity.swift in Sources */,

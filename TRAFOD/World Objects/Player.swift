@@ -158,7 +158,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
                 return true
             }
         } else { // player is flipped or self.isFlipped == true
-            if contact.contactNormal.dy < -0.09 && contact.contactNormal.dy >= 1.0 {
+            if contact.contactPoint.y >= self.frame.minY - 20 {
                 return true
             }
         }
@@ -395,9 +395,16 @@ class Player : SKSpriteNode, AffectedByNegationField {
             
             return
         } else {
-            // If there is no update in finger movement by the user then the player should stop
             self.climbingState = .STILL
         }
+    }
+    
+    func canJump () -> Bool {
+        if self.state == .ONGROUND || self.state == .SLIDINGONWALL {
+            return true
+        }
+        
+        return false
     }
     
     /**

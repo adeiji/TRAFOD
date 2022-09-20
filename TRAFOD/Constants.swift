@@ -9,6 +9,16 @@
 import Foundation
 import GameKit
 
+public class ZPositions {
+    public static let Layer1 = -2000.0
+    public static let Layer2 = -1000.0
+    public static let Layer3 = 0.0
+    public static let Layer4 = 1000.0
+    public static let Layer5 = 2000.0
+    public static let Layer6 = 3000.0
+    public static let Foreground = 5000.0
+}
+
 public class Scenes {
     public static let PurchaseMineralScreen = "PurchaseMineralScreen"
     public static let PurchaseMineralViewController = "purchaseMineralsViewController"

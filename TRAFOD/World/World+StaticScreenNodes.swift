@@ -127,6 +127,9 @@ extension World {
         }
     }
     
+    /**
+     Adds the buttons that the user uses to interact with the screen
+     */
     func setupButtonsOnScreen () {
         self.jumpButton = self.camera?.childNode(withName: "jumpButton")
         self.grabButton = self.camera?.childNode(withName: "grabButton")
@@ -144,6 +147,9 @@ extension World {
         self.grabButton?.isUserInteractionEnabled = false
         self.grabButton?.isHidden = true
         self.addJumpButton()
+        
+        self.jumpButton?.zPosition = ZPositions.Foreground
+        self.actionButtons.climbButton?.zPosition = ZPositions.Foreground
     }
     
     func setupMineralCounterAndUseNodes (mineralType: CounterNodes, counterMineralNodePos: CGPoint, count: Int) {

@@ -147,8 +147,8 @@ extension World {
                         
             if let bufferSize = self.getBufferSizeForContactedObjects(first: self.player, second: object) {
                 if let distance = distanceBetweenNodes(first: self.player, second: object) {
-                    if distance - bufferSize > 40 {
-//                        self.stopGrabbing()
+                    if distance - bufferSize > 50 {
+                        self.stopGrabbing()
                         return
                     }
                 }

@@ -6,15 +6,15 @@
 		<key>name</key>
 		<string>Throw Flip Gravity Mineral</string>
 		<key>playerXPos</key>
-		<real>22400</real>
+		<real>23364</real>
 		<key>shouldRotate</key>
 		<true/>
 		<key>startingPosition</key>
 		<dict>
 			<key>y</key>
-			<integer>3193</integer>
+			<integer>2893</integer>
 			<key>x</key>
-			<integer>25517</integer>
+			<real>24583</real>
 		</dict>
 		<key>item</key>
 		<string>flipgravity</string>

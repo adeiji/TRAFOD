@@ -128,6 +128,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     var specialFields:[SpecialField] = [SpecialField]()
     var counterNodes: [String : SKNode] = [String: SKNode]()
     
+    var leftHandView:UIView?
+    var rightHandView:UIView?
+    
     enum Levels:String {
         case DawudVillage = "DawudVillage"
         case LEVEL1 = "GameScene"
@@ -163,7 +166,27 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         try? AVAudioSession.sharedInstance().setActive(true)
         
         view.showsFields = true
+        
+        [UISwipeGestureRecognizer.Direction.up, .down].forEach { direction in
+            let swipeGesture = UISwipeGestureRecognizer()
+            swipeGesture.direction = direction
+            
+            self.rightHandView?.addGestureRecognizer(swipeGesture)            
+            swipeGesture.addTarget(self, action: #selector(swipedVertically(gestureRecognizer:)))
+        }
+        
+        self.view?.isMultipleTouchEnabled = true
+        self.view?.isExclusiveTouch = true
     }
+    
+    @objc func swipedVertically (gestureRecognizer: UISwipeGestureRecognizer) {
+        if gestureRecognizer.direction == .up {
+            if self.player.canJump() {
+                self.handleJump()
+            }
+        }
+    }
+    
     
     
     /**
@@ -245,6 +268,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         self.player = Player(imageNamed: "standing")
         self.player.setupPhysicsBody()
         self.listener = self.player
+        self.player.zPosition = ZPositions.Layer3
     }
     
     /**
@@ -383,7 +407,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             self.player.handleRopeGrabInteraction()
                         
             if self.player.state == .ONGROUND || self.player.state == .SLIDINGONWALL {
-                self.handleJump()
+//                self.handleJump()
             } else if (self.player.isClimbing()) {
                 self.player.stoppedClimbing()
             }
@@ -709,6 +733,11 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func touchMoved(toPoint pos : CGPoint) {
                         
         guard let camera = self.camera else { return }
+        
+        let position = self.scene?.convertPoint(toView: pos)
+        if self.rightHandView?.frame.contains(position!) == true {
+            return
+        }
                                         
         if let originalPos = self.originalTouchPosition {
             
@@ -729,11 +758,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 return
             }
             
-            if (position.x < 0) {
-                self.player.updatePlayerRunningState(differenceInXPos: differenceInXPos)
-                if self.player.runningState == .STANDING {
-                    self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
-                }
+            self.player.updatePlayerRunningState(differenceInXPos: differenceInXPos)
+            if self.player.runningState == .STANDING {
+                self.sounds?.stopSoundWithKey(key: Sounds.RUN.rawValue)
             }
         }
     }
@@ -748,12 +775,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         guard let camera = self.camera else { return }
         guard let position = self.scene?.convert(pos, to: camera) else { return }
         
-        
-        // The user uses the left hand only for running from left to right, so we want to make sure that if the user stopped touhing the sreen
-        // and he's using his left hand, which is representative by swiping on the left side of the screen, then we stop the player from running
-        if (position.x < 0) {
-            self.player.runningState = .STANDING
-        }
+               
+        self.player.runningState = .STANDING
                 
         if self.player.isClimbing() {
             self.player.climbingState = .STILL
@@ -777,7 +800,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     override func touchesCancelled(_ touches: Set<UITouch>, with event: UIEvent?) {
-        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
+//        for t in touches { self.touchUp(atPoint: t.location(in: self)) }
     }
     
     /**
@@ -846,7 +869,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     override func update(_ currentTime: TimeInterval) {
-        self.showMineralCount()
+//        self.showMineralCount()
         self.stopClimbingIfNecessary()
         self.showClimbButton()
         // Calculate time since last update

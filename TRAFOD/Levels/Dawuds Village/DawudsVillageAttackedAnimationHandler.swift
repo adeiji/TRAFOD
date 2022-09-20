@@ -15,7 +15,7 @@ class DawudsVillageAttackedAnimationHandler: AnimationHandlerProtocol {
     var scene:World?
     internal var animationHandler:AnimationHandler? = nil
     let destroyerMineralStartingPosition = CGPoint(x: 17229.998, y: 3650)
-    let xPositionToPass:CGFloat = 17190
+    let xPositionToPass:CGFloat = 16000
     
     var player:Player? = nil
     
@@ -43,7 +43,7 @@ class DawudsVillageAttackedAnimationHandler: AnimationHandlerProtocol {
         if let xPos = playerXPos, xPos > self.xPositionToPass {
             if self.animations[Animations.DestroyerMineralFlyIn] == nil {
                 self.animations[Animations.DestroyerMineralFlyIn] = true
-//                self.showDestroyMineralFlyIn()
+                self.showDestroyMineralFlyIn()
             }
         }
     }
