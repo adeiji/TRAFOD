@@ -28,7 +28,7 @@ class WorldGestures: NSObject, UIGestureRecognizerDelegate {
                 
         let rightHandPressGesture = UILongPressGestureRecognizer()
         rightHandPressGesture.minimumPressDuration = 0.2
-        rightHandPressGesture.allowableMovement = 100
+        rightHandPressGesture.allowableMovement = 20
         self.rightHandPressGesture = rightHandPressGesture
         
         self.rightHandTapGesture = UITapGestureRecognizer()
@@ -40,26 +40,19 @@ class WorldGestures: NSObject, UIGestureRecognizerDelegate {
         rightHandPressGesture.addTarget(self, action: #selector(rightHandPress(gestureRecognizer:)))
         self.rightHandTapGesture.addTarget(self, action: #selector(rightHandTapped(gestureRecognizer:)))
         
-        self.rightHandTapGesture.view?.isUserInteractionEnabled = true
-        self.rightHandSwipeUp.view?.isUserInteractionEnabled = true
-        self.rightHandPressGesture.view?.isUserInteractionEnabled = true
+        self.world.view?.isUserInteractionEnabled = true
         
         self.rightHandSwipeUp.delegate = self
         self.rightHandPressGesture.delegate = self
         
         self.world.rightHandView?.addGestureRecognizer(rightHandPressGesture)
         self.world.rightHandView?.addGestureRecognizer(swipeUpGesture)
-        self.world.rightHandView?.addGestureRecognizer(self.rightHandTapGesture)
-        
-        
-        self.rightHandPressGesture.cancelsTouchesInView = false
-        
-        
-        
+        self.world.rightHandView?.addGestureRecognizer(self.rightHandTapGesture)                        
     }
     
-    @objc func rightHandPress (gestureRecognizer: UIPanGestureRecognizer) {
+    @objc func rightHandPress (gestureRecognizer: UILongPressGestureRecognizer) {
         if gestureRecognizer.state == .began {
+            print("Right hand press gesture began...")
             if self.player.canGrabObject() {
                 self.player.grabObject()
             }
@@ -67,6 +60,8 @@ class WorldGestures: NSObject, UIGestureRecognizerDelegate {
             if self.player.isGrabbingObject() {
                 self.player.stopGrabbingObject()
             }
+        } else if gestureRecognizer.state == .cancelled {
+            print("Right hand press gesture cancelled...")
         }
     }
     
@@ -91,10 +86,10 @@ class WorldGestures: NSObject, UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldBeRequiredToFailBy otherGestureRecognizer: UIGestureRecognizer) -> Bool {
         if gestureRecognizer == self.rightHandSwipeUp && otherGestureRecognizer == self.rightHandPressGesture {
-            return true
+            return false
         }
         
-        return false
+        return true
     }
     
 }
