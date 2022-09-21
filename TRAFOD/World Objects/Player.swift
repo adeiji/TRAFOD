@@ -226,6 +226,82 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
     }
     
+    func stopGrabbingObject () {
+        self.letGoOfObject()
+    }
+    
+    /**
+     Move a grabbed object
+     
+     - Parameters:
+        - gravity: The constant for gravity of the physics world
+     */
+    func moveGrabbedObject (gravity: CGVector) {
+        self.physicsBody?.velocity.dy = 0
+        
+        if let object = self.grabbedObject, let physicsBody = object.physicsBody {
+            if physicsBody.velocity.dy < -100 {
+                self.stopGrabbingObject()
+                return
+            }
+                        
+            if let bufferSize = self.getBufferSizeForContactedObjects(first: self, second: object) {
+                if let distance = self.distanceToNode(node: object) {
+                    if distance - bufferSize > 50 {
+                        self.stopGrabbingObject()
+                        return
+                    }
+                }
+            }
+            
+            let gravityDifference = (gravity.dy / -9.8)
+            
+            if abs(physicsBody.mass * gravity.dy) <= self.strength * 160.81 {
+                if self.runningState == .RUNNINGRIGHT {
+                    object.physicsBody?.applyImpulse(CGVector(dx: (PhysicsHandler.kGrabbedObjectMoveVelocity * PhysicsHandler.kGrabbedObjectVelocityMultiplier) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                } else if self.runningState == .RUNNINGLEFT {
+                    object.physicsBody?.applyImpulse(CGVector(dx: (-PhysicsHandler.kGrabbedObjectMoveVelocity * PhysicsHandler.kGrabbedObjectVelocityMultiplier) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                } else if self.runningState == .STANDING {
+                    if let physicsBody = object.physicsBody {
+                        object.physicsBody?.velocity = CGVector(dx: 0, dy: physicsBody.velocity.dy)
+                    }
+                }
+            } else {
+              // TODO: Need to add functionality for when the object is too heavy
+            }
+        }
+    }
+    
+    /** Returns whether or not the user can grab an object. */
+    func canGrabObject () -> Bool {
+        if self.isGrabbingObject() {
+            return false
+        }
+        
+        return self.objectThatCanBeGrabbed == nil ? false : true
+    }
+    
+    /**
+     The player grabs an object if possible
+     */
+    func grabObject () {
+        self.state = .GRABBING
+        self.runningState = .STANDING
+        self.grabbedObject = self.objectThatCanBeGrabbed
+        if let grabbedObject = self.grabbedObject {
+            /**
+             TODO:
+             Need to create a joint instead of a constraint between the grabbed object and Dawud?
+             */
+            let constraint = SKConstraint.distance(SKRange(upperLimit: self.getBufferSizeForContactedObjects(first: grabbedObject, second: self) ?? 25.0), to: grabbedObject)
+            self.constraints = [constraint]
+        }
+    }
+    
+    private func getBufferSizeForContactedObjects (first: SKSpriteNode, second: SKSpriteNode) -> CGFloat? {
+        return first.size.width / 2.0 + second.size.width / 2.0
+    }
+    
     //  TODO: - Move the jump function to the player object
     /**
      
@@ -247,7 +323,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
     }
     
     /** Launch the spring by  */
-    func letGoOfRope () {
+    private func letGoOfRope () {
         self.letGoOfObject()
         if let spring = self.anchors[PhysicsObjectTitles.RopeType] {
             self.scene?.physicsWorld.remove(spring)

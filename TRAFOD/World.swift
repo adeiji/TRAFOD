@@ -168,6 +168,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         try? AVAudioSession.sharedInstance().setActive(true)
         
         view.showsFields = true
+        
+        self.rightHandView?.isMultipleTouchEnabled = true
 
         self.worldGestures = WorldGestures(world: self, player: self.player)
     }
@@ -369,9 +371,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         self.removeMessageBoxFromScreen()
-        
-        self.handleGrabButtonActions(atPoint: pos)
-        
+                        
         if self.climbButtonPressed(atPoint: pos) { return }
         
         if let buyButton = self.checkIfBuyMineralButtonWasPressedAndReturnButtonIfTrue(touchPoint: pos) {
@@ -636,9 +636,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: Rock.self) {
-            if self.handleContactWithGrabbableObject(contact: contact) {
-                self.showGrabButton()
-            }
+            self.handleContactWithGrabbableObject(contact: contact)
         }
         
         if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.CannonBall, PhysicsObjectTitles.Ground], contact: contact) {
@@ -899,7 +897,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             }
             
             if self.player.state == .GRABBING {
-                self.moveGrabbedObject()
+                self.player.moveGrabbedObject(gravity: self.physicsWorld.gravity)
                 
                 if self.player.runningState != .STANDING {
                     self.showRunning(currentTime: currentTime)
@@ -921,7 +919,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         for object in self.objectsToReset {
             if let grabbedObject = self.player.grabbedObject {
                 if grabbedObject == object {
-                    self.stopGrabbing()
+                    self.player.stopGrabbingObject()
                 }
             }
             

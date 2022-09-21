@@ -39,6 +39,9 @@ class GameViewController: UIViewController {
                 rightHandView.frame = CGRect(x: self.view.frame.width / 2.0, y: 0, width: view.frame.width / 2.0, height: view.frame.height)
                 self.view?.addSubview(rightHandView)                
                 world.rightHandView = rightHandView
+                
+                self.view?.isMultipleTouchEnabled = true
+                self.view?.isUserInteractionEnabled = true
                  
 //                )
                 // Present the scene

@@ -19,6 +19,7 @@
 		F40BE6A028D78BB8005C0996 /* broken-wagon.png in Resources */ = {isa = PBXBuildFile; fileRef = F40BE69F28D78BB7005C0996 /* broken-wagon.png */; };
 		F40BE6A228D79009005C0996 /* GroundTileSet.sks in Resources */ = {isa = PBXBuildFile; fileRef = F40BE6A128D79009005C0996 /* GroundTileSet.sks */; };
 		F40BE6A428D92786005C0996 /* WorldGestures.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE6A328D92786005C0996 /* WorldGestures.swift */; };
+		F40BE6A728DA96D6005C0996 /* SKNode+DistanceBetweenNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F40BE6A628DA96D6005C0996 /* SKNode+DistanceBetweenNodes.swift */; };
 		F41C839328D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */; };
 		F41C839828D0F36B00E2C6E1 /* RockFragment.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839728D0F36B00E2C6E1 /* RockFragment.swift */; };
 		F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */; };
@@ -291,6 +292,7 @@
 		F40BE69F28D78BB7005C0996 /* broken-wagon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "broken-wagon.png"; path = "TRAFOD/Images/broken-wagon.png"; sourceTree = SOURCE_ROOT; };
 		F40BE6A128D79009005C0996 /* GroundTileSet.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = GroundTileSet.sks; sourceTree = "<group>"; };
 		F40BE6A328D92786005C0996 /* WorldGestures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorldGestures.swift; sourceTree = "<group>"; };
+		F40BE6A628DA96D6005C0996 /* SKNode+DistanceBetweenNodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SKNode+DistanceBetweenNodes.swift"; sourceTree = "<group>"; };
 		F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageAttackedAnimationHandler.swift; sourceTree = "<group>"; };
 		F41C839728D0F36B00E2C6E1 /* RockFragment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RockFragment.swift; sourceTree = "<group>"; };
 		F41C839A28D0F5D500E2C6E1 /* DestroyerMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DestroyerMineral.swift; sourceTree = "<group>"; };
@@ -632,6 +634,7 @@
 				F41C83BC28D3A50F00E2C6E1 /* CGPoint+Offset.swift */,
 				F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */,
 				F41C83C928D51D2B00E2C6E1 /* Contact+GetNodeOfType.swift */,
+				F40BE6A628DA96D6005C0996 /* SKNode+DistanceBetweenNodes.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -1687,6 +1690,7 @@
 				F41C839328D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift in Sources */,
 				F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */,
 				F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */,
+				F40BE6A728DA96D6005C0996 /* SKNode+DistanceBetweenNodes.swift in Sources */,
 				F41C83A728D1644A00E2C6E1 /* AnimationHandlerProtocol.swift in Sources */,
 				F41C839828D0F36B00E2C6E1 /* RockFragment.swift in Sources */,
 				F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */,
