@@ -145,8 +145,7 @@ extension World {
         self.camera?.addChild(grabButton)
         self.grabButton = grabButton
         self.grabButton?.isUserInteractionEnabled = false
-        self.grabButton?.isHidden = true
-        self.addJumpButton()
+        self.grabButton?.isHidden = true        
         
         self.jumpButton?.zPosition = ZPositions.Foreground
         self.actionButtons.climbButton?.zPosition = ZPositions.Foreground
@@ -171,8 +170,4 @@ extension World {
         
         mineralCounterLabel?.text = "\(count)"
     }
-    
-    func addJumpButton () {
-        self.jumpButton?.isHidden = false
-    }        
 }

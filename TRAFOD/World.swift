@@ -765,7 +765,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
-        guard let touch = touches.first as UITouch else { return }
+        guard let touch = touches.first else { return }
         
         if touch.view == self.rightHandView {
             return
@@ -776,7 +776,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        guard let touch = touches.first as UITouch else { return }
+        guard let touch = touches.first else { return }
         
         if touch.view == self.rightHandView {
             return
@@ -787,7 +787,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         
-        guard let touch = touches.first as UITouch else { return }
+        guard let touch = touches.first else { return }
         
         if touch.view == self.rightHandView {
             return

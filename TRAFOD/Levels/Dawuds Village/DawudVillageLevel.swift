@@ -27,8 +27,7 @@ class DawudVillageLevel: Level {
     override func didMove(to view: SKView) {
         self.currentLevel = .DawudVillage
         super.didMove(to: view)
-        self.playBackgroundMusic(fileName: Music.DawudsVillagePeaceful.rawValue)
-        self.addJumpButtonToScreen()
+        self.playBackgroundMusic(fileName: Music.DawudsVillagePeaceful.rawValue)        
         self.addCameraMinXNode()
         
         
@@ -81,17 +80,6 @@ class DawudVillageLevel: Level {
         cameraMinX.name = GameNodes.CameraMinX
         cameraMinX.position = CGPoint(x: 0, y: 0)
         self.addChild(cameraMinX)
-    }
-    
-    public func addJumpButtonToScreen () {
-        let jumpButton = SKSpriteNode(imageNamed: Textures.GameElements.JumpButton)
-        jumpButton.zPosition = 100
-        jumpButton.position.x = 761.722
-        jumpButton.position.y = -362.28
-        jumpButton.size.height = 250
-        jumpButton.size.width = 250        
-        self.camera?.addChild(jumpButton)
-        self.jumpButton = jumpButton
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {

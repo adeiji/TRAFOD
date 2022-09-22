@@ -99,7 +99,6 @@
 		F44C31FE22E8CB7E00443335 /* Level5.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44C31FD22E8CB7E00443335 /* Level5.swift */; };
 		F44C320022E8CB9000443335 /* Level5.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44C31FF22E8CB9000443335 /* Level5.sks */; };
 		F44D96DC28BD523B009A8098 /* DawudVillageLevel.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96DB28BD523B009A8098 /* DawudVillageLevel.swift */; };
-		F44D96DF28BD5277009A8098 /* DawudVillage.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44D96DE28BD5277009A8098 /* DawudVillage.sks */; };
 		F44D96E228BD641A009A8098 /* Spring.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E128BD641A009A8098 /* Spring.swift */; };
 		F44D96E428BEA9A0009A8098 /* RopeTypeProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E328BEA9A0009A8098 /* RopeTypeProtocol.swift */; };
 		F44D96E628BEACD5009A8098 /* Vine.swift in Sources */ = {isa = PBXBuildFile; fileRef = F44D96E528BEACD5009A8098 /* Vine.swift */; };
@@ -198,6 +197,7 @@
 		F4B03D0220C94B8900F0B346 /* TRAFODTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03D0120C94B8900F0B346 /* TRAFODTests.swift */; };
 		F4B03D0D20C94B8900F0B346 /* TRAFODUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B03D0C20C94B8900F0B346 /* TRAFODUITests.swift */; };
 		F4B25DE322D1568C00B5E7DD /* PhysicsHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */; };
+		F4B8A51528DBE4BD00191FB3 /* DawudVillage.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4B8A51428DBE4BD00191FB3 /* DawudVillage.sks */; };
 		F4B8E89B20CA4FAA00E558F8 /* running_step5.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89020CA4FA900E558F8 /* running_step5.png */; };
 		F4B8E89C20CA4FAA00E558F8 /* running_step0.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89120CA4FA900E558F8 /* running_step0.png */; };
 		F4B8E89D20CA4FAA00E558F8 /* running_step2.png in Resources */ = {isa = PBXBuildFile; fileRef = F4B8E89220CA4FA900E558F8 /* running_step2.png */; };
@@ -372,7 +372,6 @@
 		F44C31FD22E8CB7E00443335 /* Level5.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level5.swift; sourceTree = "<group>"; };
 		F44C31FF22E8CB9000443335 /* Level5.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level5.sks; sourceTree = "<group>"; };
 		F44D96DB28BD523B009A8098 /* DawudVillageLevel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudVillageLevel.swift; sourceTree = "<group>"; };
-		F44D96DE28BD5277009A8098 /* DawudVillage.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DawudVillage.sks; sourceTree = "<group>"; };
 		F44D96E128BD641A009A8098 /* Spring.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Spring.swift; sourceTree = "<group>"; };
 		F44D96E328BEA9A0009A8098 /* RopeTypeProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeTypeProtocol.swift; sourceTree = "<group>"; };
 		F44D96E528BEACD5009A8098 /* Vine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Vine.swift; sourceTree = "<group>"; };
@@ -477,6 +476,7 @@
 		F4B03D0C20C94B8900F0B346 /* TRAFODUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TRAFODUITests.swift; sourceTree = "<group>"; };
 		F4B03D0E20C94B8900F0B346 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsHandler.swift; sourceTree = "<group>"; };
+		F4B8A51428DBE4BD00191FB3 /* DawudVillage.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DawudVillage.sks; sourceTree = "<group>"; };
 		F4B8E89020CA4FA900E558F8 /* running_step5.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step5.png; sourceTree = "<group>"; };
 		F4B8E89120CA4FA900E558F8 /* running_step0.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step0.png; sourceTree = "<group>"; };
 		F4B8E89220CA4FA900E558F8 /* running_step2.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = running_step2.png; sourceTree = "<group>"; };
@@ -824,12 +824,12 @@
 		F44D96DD28BD5245009A8098 /* Dawuds Village */ = {
 			isa = PBXGroup;
 			children = (
+				F4B8A51428DBE4BD00191FB3 /* DawudVillage.sks */,
 				F41C83A128D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 */,
 				F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */,
 				F44D96F128C01F7B009A8098 /* StoryElementNode.swift */,
 				F44D96E928C0076E009A8098 /* 3885036216_a_painting_of_a_castle_at_the_top_of_a_hill.png */,
 				F44D96DB28BD523B009A8098 /* DawudVillageLevel.swift */,
-				F44D96DE28BD5277009A8098 /* DawudVillage.sks */,
 				F44D96E728BEDF08009A8098 /* DawudVillageSpeech.plist */,
 				F44D96EF28C01BF2009A8098 /* DawudsVillageStory.plist */,
 				F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */,
@@ -1450,6 +1450,7 @@
 				F438D07620CE37DB00EC2606 /* level1background5.png in Resources */,
 				F44E1A5E20D0B1EC00FD026E /* Smoke.sks in Resources */,
 				F462CDD820E5D264004AF89E /* lv2rocks14.png in Resources */,
+				F4B8A51528DBE4BD00191FB3 /* DawudVillage.sks in Resources */,
 				F44A9A9020D4EB16004E389C /* Loading.sks in Resources */,
 				F438D04220CD34E700EC2606 /* thirteen.mp3 in Resources */,
 				F44E1A4A20CFC4E600FD026E /* antigrav.png in Resources */,
@@ -1534,7 +1535,6 @@
 				F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */,
 				F44E1A6620D0C33F00FD026E /* RainPatter.sks in Resources */,
 				F44E1A6820D0C69A00FD026E /* Background.sks in Resources */,
-				F44D96DF28BD5277009A8098 /* DawudVillage.sks in Resources */,
 				F44E1A5A20D0B0B100FD026E /* Assets.xcassets in Resources */,
 				F438D04C20CD34E700EC2606 /* three.mp3 in Resources */,
 				F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */,
