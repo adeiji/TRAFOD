@@ -113,17 +113,36 @@ extension World {
         }
     }
     
+    func throwChrystal () {
+        
+    }
+    
     func setupThrowButton (crystalImageName: ImageNames, mineralType: CounterNodes, pos: CGPoint) {
         if self.throwButtons["\(mineralType)"] == nil
         {
-            let throwOutline = SKTexture(imageNamed: "throwbutton")
-            let button = SKSpriteNode(texture: throwOutline, color: .clear, size: throwOutline.size())
-            button.position = pos
-            button.addChild(SKSpriteNode(imageNamed: crystalImageName.rawValue))
-            button.zPosition = 5
-            button.size = CGSize(width: 250, height: 250)
-            self.camera?.addChild(button)
-            self.throwButtons["\(mineralType)"] = button
+            let throwButton = UIButton()
+            throwButton.setImage(UIImage(named: crystalImageName.rawValue), for: .normal)
+            throwButton.layer.cornerRadius = 50
+            
+            guard let rightHandView = self.rightHandView else { return }
+            throwButton.frame = CGRect(x: rightHandView.frame.width - 120, y: rightHandView.frame.height / 2.0, width: 100, height: 100)
+            throwButton.layer.borderWidth = 5
+            throwButton.layer.borderColor = UIColor.white.cgColor
+            self.rightHandView?.addSubview(throwButton)
+            throwButton.showsTouchWhenHighlighted = true
+            throwButton.addTargetClosure { button in
+                AntiGravityMineral().throwMineral(player: self.player, world: self)
+            }
+//            let throwOutline = SKTexture(imageNamed: "throwbutton")
+//            let button = SKSpriteNode(texture: throwOutline, color: .clear, size: throwOutline.size())
+//            button.position = pos
+//            let crystal = SKSpriteNode(imageNamed: crystalImageName.rawValue)
+//            crystal.size = CGSize(width: 75, height: 75)
+//            button.addChild(crystal)
+//            button.zPosition = ZPositions.Foreground
+//            button.size = CGSize(width: 100, height: 100)
+//            self.camera?.addChild(button)
+
         }
     }
     

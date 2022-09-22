@@ -49,6 +49,7 @@ class DawudVillageLevel: Level {
         })
         
         GameElementsInitializer.setupGameElements(plistFileName: "DawudVillageElements", scene: self.scene)
+                
     }
     
     private func addRopeBridge () {

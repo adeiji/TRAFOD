@@ -71,6 +71,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     /// All the buttons that are used to throw a mineral.  These buttons are generated at runtime programatically.
     var throwButtons:[String:SKNode] = [String:SKNode]()
     
+    var throwUIButtons:[String:UIButton] = [String:UIButton]()
+    
     ///The button uused to grab grabble objects
     var grabButton:SKNode?
     
@@ -172,6 +174,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         self.rightHandView?.isMultipleTouchEnabled = true
 
         self.worldGestures = WorldGestures(world: self, player: self.player)
+        
+        self.showMineralCount()
     }
     
     
@@ -888,6 +892,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         self.player.handleIsContactedWithFlipGravity()
+        self.player.update()
         
         self.specialFields.forEach { (field) in
             field.applyChange()

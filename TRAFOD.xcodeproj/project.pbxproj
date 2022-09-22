@@ -120,7 +120,6 @@
 		F44E1A4D20CFC4E600FD026E /* prosperity.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A4720CFC4E600FD026E /* prosperity.png */; };
 		F44E1A5120D0A41D00FD026E /* dawud.png in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5020D0A41D00FD026E /* dawud.png */; };
 		F44E1A5920D0B0B100FD026E /* FireFlies.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5720D0B0B100FD026E /* FireFlies.sks */; };
-		F44E1A5A20D0B0B100FD026E /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5820D0B0B100FD026E /* Assets.xcassets */; };
 		F44E1A5C20D0B1A000FD026E /* Magic.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5B20D0B1A000FD026E /* Magic.sks */; };
 		F44E1A5E20D0B1EC00FD026E /* Smoke.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5D20D0B1EC00FD026E /* Smoke.sks */; };
 		F44E1A6020D0B24800FD026E /* Rain.sks in Resources */ = {isa = PBXBuildFile; fileRef = F44E1A5F20D0B24800FD026E /* Rain.sks */; };
@@ -156,6 +155,9 @@
 		F4648F1C20D2679100CE97E1 /* platform.png in Resources */ = {isa = PBXBuildFile; fileRef = F4648F1B20D2679100CE97E1 /* platform.png */; };
 		F472CABD22E0A35A001A4949 /* World+StaticScreenNodes.swift in Sources */ = {isa = PBXBuildFile; fileRef = F472CABC22E0A35A001A4949 /* World+StaticScreenNodes.swift */; };
 		F472CABF22E0A449001A4949 /* World+PlayerActions.swift in Sources */ = {isa = PBXBuildFile; fileRef = F472CABE22E0A449001A4949 /* World+PlayerActions.swift */; };
+		F4825B8B28DD00C300C6CA79 /* PlayerTrailingColor.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4825B8928DD00C300C6CA79 /* PlayerTrailingColor.sks */; };
+		F4825B8C28DD00C300C6CA79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4825B8A28DD00C300C6CA79 /* Assets.xcassets */; };
+		F4825B9028DD11FC00C6CA79 /* UIButton+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825B8F28DD11FC00C6CA79 /* UIButton+Closure.swift */; };
 		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
 		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
 		F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3322CE5E3A004D1A3D /* Level.swift */; };
@@ -393,7 +395,6 @@
 		F44E1A4720CFC4E600FD026E /* prosperity.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = prosperity.png; sourceTree = "<group>"; };
 		F44E1A5020D0A41D00FD026E /* dawud.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = dawud.png; sourceTree = "<group>"; };
 		F44E1A5720D0B0B100FD026E /* FireFlies.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = FireFlies.sks; sourceTree = "<group>"; };
-		F44E1A5820D0B0B100FD026E /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F44E1A5B20D0B1A000FD026E /* Magic.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Magic.sks; sourceTree = "<group>"; };
 		F44E1A5D20D0B1EC00FD026E /* Smoke.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Smoke.sks; sourceTree = "<group>"; };
 		F44E1A5F20D0B24800FD026E /* Rain.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Rain.sks; sourceTree = "<group>"; };
@@ -429,6 +430,9 @@
 		F4648F1B20D2679100CE97E1 /* platform.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = platform.png; sourceTree = "<group>"; };
 		F472CABC22E0A35A001A4949 /* World+StaticScreenNodes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+StaticScreenNodes.swift"; sourceTree = "<group>"; };
 		F472CABE22E0A449001A4949 /* World+PlayerActions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+PlayerActions.swift"; sourceTree = "<group>"; };
+		F4825B8928DD00C300C6CA79 /* PlayerTrailingColor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerTrailingColor.sks; sourceTree = "<group>"; };
+		F4825B8A28DD00C300C6CA79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		F4825B8F28DD11FC00C6CA79 /* UIButton+Closure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Closure.swift"; sourceTree = "<group>"; };
 		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		F48F7D3322CE5E3A004D1A3D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -635,6 +639,7 @@
 				F41C83BE28D3BD0C00E2C6E1 /* CGPoint+ToScene.swift */,
 				F41C83C928D51D2B00E2C6E1 /* Contact+GetNodeOfType.swift */,
 				F40BE6A628DA96D6005C0996 /* SKNode+DistanceBetweenNodes.swift */,
+				F4825B8F28DD11FC00C6CA79 /* UIButton+Closure.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -899,7 +904,8 @@
 			isa = PBXGroup;
 			children = (
 				F44E1A5720D0B0B100FD026E /* FireFlies.sks */,
-				F44E1A5820D0B0B100FD026E /* Assets.xcassets */,
+				F4825B8928DD00C300C6CA79 /* PlayerTrailingColor.sks */,
+				F4825B8A28DD00C300C6CA79 /* Assets.xcassets */,
 				F44E1A5B20D0B1A000FD026E /* Magic.sks */,
 				F44E1A5D20D0B1EC00FD026E /* Smoke.sks */,
 				F44E1A5F20D0B24800FD026E /* Rain.sks */,
@@ -1470,6 +1476,7 @@
 				F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */,
 				F4BA319F20E4EE4300DBD823 /* smallrock.png in Resources */,
 				F462CDDB20E5D2FC004AF89E /* lv2rocks16.png in Resources */,
+				F4825B8B28DD00C300C6CA79 /* PlayerTrailingColor.sks in Resources */,
 				F438D05920CD518C00EC2606 /* jumpbutton.png in Resources */,
 				F4F884AE22F9CE4B002A8124 /* BuyButton.png in Resources */,
 				F462CDE820E5DE0C004AF89E /* level2_theme.mp3 in Resources */,
@@ -1477,6 +1484,7 @@
 				F4B8E89F20CA4FAA00E558F8 /* running_step3.png in Resources */,
 				F40BE69C28D75F13005C0996 /* cottage1.png in Resources */,
 				F438D07120CE37DB00EC2606 /* level1background1.png in Resources */,
+				F4825B8C28DD00C300C6CA79 /* Assets.xcassets in Resources */,
 				F44E1A5120D0A41D00FD026E /* dawud.png in Resources */,
 				F44E1A4920CFC4E600FD026E /* village.png in Resources */,
 				F462CDCF20E5CBD1004AF89E /* lv2rocks10.png in Resources */,
@@ -1535,7 +1543,6 @@
 				F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */,
 				F44E1A6620D0C33F00FD026E /* RainPatter.sks in Resources */,
 				F44E1A6820D0C69A00FD026E /* Background.sks in Resources */,
-				F44E1A5A20D0B0B100FD026E /* Assets.xcassets in Resources */,
 				F438D04C20CD34E700EC2606 /* three.mp3 in Resources */,
 				F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */,
 			);
@@ -1703,6 +1710,7 @@
 				F44C31FE22E8CB7E00443335 /* Level5.swift in Sources */,
 				F44D96E628BEACD5009A8098 /* Vine.swift in Sources */,
 				F41C83B728D28CD600E2C6E1 /* RopeBridge.swift in Sources */,
+				F4825B9028DD11FC00C6CA79 /* UIButton+Closure.swift in Sources */,
 				F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */,
 				F44E1A2D20CFBB7E00FD026E /* Story.swift in Sources */,
 				F48F7D4122CF00D3004D1A3D /* DoubleGravField.swift in Sources */,

@@ -302,6 +302,20 @@ class Player : SKSpriteNode, AffectedByNegationField {
         return first.size.width / 2.0 + second.size.width / 2.0
     }
     
+    func showJumpParticles () {
+        guard let emitter = SKEmitterNode(fileNamed: ParticleFiles.PlayerTrailingColor.rawValue) else {
+            return
+        }
+        
+        // Place the emitter at the rear of the ship.
+        emitter.position = CGPoint(x: 0, y: -40)
+        emitter.name = "exhaust"
+        
+        // Send the particles to the scene.
+        emitter.targetNode = self.scene;
+        self.addChild(emitter)
+    }
+    
     //  TODO: - Move the jump function to the player object
     /**
      
@@ -621,6 +635,15 @@ class Player : SKSpriteNode, AffectedByNegationField {
             }
         default:
             break;
+        }
+    }
+    
+    func update() {
+        guard let velocity = self.physicsBody?.velocity else { return }
+        
+        // if the player is moving upwards
+        if (velocity.dy > 0.5) {
+            self.showJumpParticles()
         }
     }
 }

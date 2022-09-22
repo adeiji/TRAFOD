@@ -19,6 +19,15 @@ public class ZPositions {
     public static let Foreground = 5000.0
 }
 
+enum ParticleFiles: String, CustomStringConvertible {
+    case FireFlies = "FireFlies.sks"
+    case PlayerTrailingColor = "PlayerTrailingColor.sks"
+    
+    var description: String {
+        return self.rawValue
+    }
+}
+
 public class Scenes {
     public static let PurchaseMineralScreen = "PurchaseMineralScreen"
     public static let PurchaseMineralViewController = "purchaseMineralsViewController"
@@ -117,7 +126,7 @@ enum BookChapters: CaseIterable {
 public class ScreenButtonPositions {
     public static let AntiGravCounterNode = CGPoint(x: -870, y: 400)
     public static let AntiGravCounterLabel = CGPoint(x: -800,  y: 390)
-    public static let AntiGravThrowButton = CGPoint(x: 453, y: -374)
+    public static let AntiGravThrowButton = CGPoint(x: 840, y: 0)
     
     struct Impulse {
         public static let CounterNode = CGPoint(x: -470, y: 400)

@@ -10,7 +10,7 @@ import Foundation
 import GameKit
 
 class AntiGravityRetrieveMineral : RetrieveMineralNode {
-    
+        
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
