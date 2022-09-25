@@ -30,14 +30,29 @@ class AntiGravityField: PhysicsAlteringObject {
         
     }
     
+    private func applyPhysicsToNode (_ node: BaseWorldObject) {
+        guard let massConstant = node.massConstant else { return }
+        guard let node = node as? SKSpriteNode else { return }
+        node.physicsBody?.mass = massConstant / 2.0
+    }
+    
     override func applyForceToPhysicsBodies(forceOfGravity: CGFloat, camera: SKCameraNode?) {
         guard let physicsBody = self.physicsBody else { return }
         for body in physicsBody.allContactedBodies() {
             guard let world = self.parent as? World else { return }
             if body.node is Player {
                 body.applyImpulse(CGVector(dx: 0, dy: world.physicsWorld.gravity.dy * -2))
-            } else if let rock = body.node as? Rock, let rockMass = rock.massConstant {
-                rock.physicsBody?.mass = rockMass / 2.0
+            } else if let rock = body.node as? Rock{
+                self.applyPhysicsToNode(rock)
+            }
+        }
+        
+        // Check to see if there is a joint between the object and a physic altering object and if there is then apply the physics change to the object. We have to do this because Box2D removes all contact detection between two objects that are connected by a joint.
+        if let joints = self.physicsBody?.joints {
+            joints.forEach { [weak self] joint in
+                if let rock = (joint.bodyA.node is Rock ? joint.bodyA.node : joint.bodyB.node) as? BaseWorldObject {
+                    self?.applyPhysicsToNode(rock)
+                }
             }
         }
     }
@@ -94,6 +109,9 @@ class AntiGravityField: PhysicsAlteringObject {
             }
             
             self.removeFromParent()
+            self.physicsBody?.joints.forEach({ joint in
+                self.scene?.physicsWorld.remove(joint)
+            })
         }
     }
     
@@ -103,8 +121,7 @@ class AntiGravityField: PhysicsAlteringObject {
             let objectPhysicsBody = objectHitByMineral.physicsBody
         else { return }
         
-        guard let joint = PhysicsAlteringFieldJoint.fieldJoint(withBodyA: antiGravPhysicsBody, bodyB: objectPhysicsBody, anchor: contactPosition) else { return }
-        joint.type = .ANTIGRAV
+        let joint = SKPhysicsJointFixed.joint(withBodyA: antiGravPhysicsBody, bodyB: objectPhysicsBody, anchor: contactPosition)
         self.scene?.physicsWorld.add(joint)
     }
 }

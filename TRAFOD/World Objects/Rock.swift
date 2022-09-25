@@ -59,7 +59,20 @@ class Rock : Ground, BaseWorldObject {
     }
     
     func update () {
-        if self.physicsBody?.allContactedBodies().contains(where: { $0.node is AntiGravityField }) == false {
+                
+        var shouldChangeMassToOriginalValue = true
+        
+        self.physicsBody?.joints.forEach({ [weak self] joint in            
+            if joint.bodyB.node is PhysicsAlteringObject || joint.bodyA.node is PhysicsAlteringObject {
+                shouldChangeMassToOriginalValue = false
+            }
+        })
+        // If the object is not in contact with an antigrav field
+        if self.physicsBody?.allContactedBodies().contains(where: { $0.node is AntiGravityField }) == true {
+            shouldChangeMassToOriginalValue = false
+        }
+        
+        if shouldChangeMassToOriginalValue {
             self.physicsBody?.mass = self.massConstant ?? 10
         }
     }

@@ -9,12 +9,3 @@
 import Foundation
 import SpriteKit
 
-class PhysicsAlteringFieldJoint: SKPhysicsJointFixed {
-        
-    var type:PhysicsAlteringObjectTypes?
-            
-    class func fieldJoint(withBodyA bodyA: SKPhysicsBody, bodyB: SKPhysicsBody, anchor: CGPoint) -> PhysicsAlteringFieldJoint? {
-        return SKPhysicsJointFixed.joint(withBodyA: bodyA, bodyB: bodyB, anchor: anchor) as? PhysicsAlteringFieldJoint
-    }
-    
-}
