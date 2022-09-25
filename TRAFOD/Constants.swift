@@ -9,6 +9,10 @@
 import Foundation
 import GameKit
 
+struct LightingCategories {
+    static let AlteringPhysicsField:UInt32 = 0x1 << 1    
+}
+
 public class ZPositions {
     public static let Layer1 = -2000.0
     public static let Layer2 = -1000.0
@@ -20,8 +24,10 @@ public class ZPositions {
 }
 
 enum ParticleFiles: String, CustomStringConvertible {
+    case MineralUsed = "MineralUsed.sks"
     case FireFlies = "FireFlies.sks"
     case PlayerTrailingColor = "PlayerTrailingColor.sks"
+    case MineralExplosion = "MineralExplosion.sks"
     
     var description: String {
         return self.rawValue
@@ -109,6 +115,7 @@ enum PhysicsAlteringObjectTypes {
 /// The GameLevel names, these should match the name of the sks files for each level
 enum GameLevels: String, CaseIterable {
     case DawudVillage = "DawudVillage"
+    case DawudsVillageRuins = "DawudsVillageRuins"
     case Level1 = "GameScene"
     case BookChapter2
     case Level2 = "Level2"

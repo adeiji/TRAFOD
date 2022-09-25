@@ -22,7 +22,7 @@ class CannonBall : SKSpriteNode, ProjectileProtocol {
         self.physicsBody?.contactTestBitMask = 1 |
             UInt32(PhysicsCategory.Ground) |
             UInt32(PhysicsCategory.Portals) |
-            UInt32(PhysicsCategory.FlipGravity) |
+            UInt32(PhysicsCategory.PhysicsAltering) |
             UInt32(PhysicsCategory.CannonBall) |
             UInt32(PhysicsCategory.Magnetic) |
             UInt32(PhysicsCategory.Impulse) |

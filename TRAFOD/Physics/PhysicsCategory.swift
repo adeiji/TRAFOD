@@ -9,6 +9,7 @@
 import Foundation
 
 struct PhysicsCategory {
+            
     static let CannonBall:Int32 = 0x1 << 4
     static let Minerals:Int32 = 0x1 << 6
     static let Reset:Int32 = 0x1 << 7
@@ -22,7 +23,7 @@ struct PhysicsCategory {
     static let Portals:Int32 = 0x1 << 15
     static let Nothing:Int32 = 0x1 << 16
     static let Fire:Int32 = 0x1 << 17
-    static let FlipGravity:Int32 = 0x1 << 18
+    static let PhysicsAltering:Int32 = 0x1 << 18
     static let Magnetic:Int32 = 0x1 << 19
     static let NegateForceField:Int32 = 0x1 << 20
     static let Impulse:Int32 = 0x1 << 21
@@ -31,6 +32,7 @@ struct PhysicsCategory {
     static let SpringHolder:Int32 = 0x1 << 24
     static let Spring:Int32 = 0x1 << 25
     static let Rope:Int32 = 0x1 << 26
-    static let Bridge:UInt32 = 0x1 << 27    
+    static let Bridge:UInt32 = 0x1 << 27
+    static let NonCollision:UInt32 = 0x1 << 28
     static let WeightSwitch:Int32 = 0x1 << 32        
 }

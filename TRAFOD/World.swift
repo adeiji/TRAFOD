@@ -20,8 +20,21 @@ extension SKSpriteNode {
 
 protocol BaseWorldObject {
     
+    /** Boolean value indicating whether or not the object is affected by objects within the game that exert a force on objects touching it */
     var allowExternalForces:Bool { get set }
     
+    /** The initial mass of the object */
+    var massConstant:CGFloat? { get set }
+    
+    func update ()
+
+}
+
+extension BaseWorldObject {
+    
+    func update () {
+        print("Update called on object")
+    }
 }
 
 struct ActionButtons {
@@ -76,7 +89,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     ///The button uused to grab grabble objects
     var grabButton:SKNode?
     
-    /// The forces that are currently being applied within the world
+    /// The forces that are currently being applied within the world. We keep track of this mainly so that we don't repeat the same mineral use twice. If you create a new mineral that has a different effect on the physics of the world then make sure in the mineralUsed function you add that effect to this array
     var forces:[Minerals] = [Minerals]()
     
     /// The impulses that are currently being applied within the world.  There can only be a maximum of three at one time
@@ -135,6 +148,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     var worldGestures:WorldGestures?
     
+    private var messageHandler:MessageHandler?
+    
     enum Levels:String {
         case DawudVillage = "DawudVillage"
         case LEVEL1 = "GameScene"
@@ -176,6 +191,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         self.worldGestures = WorldGestures(world: self, player: self.player)
         
         self.showMineralCount()
+        
+        self.messageHandler = MessageHandler(world: self)
+        
     }
     
     
@@ -256,7 +274,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      */
     func createPlayer () {
         self.player = Player(imageNamed: "standing")
-        self.player.setupPhysicsBody()
+        self.player.setup()
         self.listener = self.player
         self.player.zPosition = ZPositions.Layer3
     }
@@ -307,30 +325,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if let sounds = self.sounds {
             sounds.playSound(sound: sound)
         }
-    }
-    
-    func changeGravityWithTime (antiGravView:SKNode?, timeLabel:SKLabelNode) {
-        let seconds = SKAction.wait(forDuration: 1.0)
-        timeLabel.text = "\(self.gravityTimeLeft)"
-        
-        let changeGravityBlock = SKAction.run {
-            [unowned self] in
-            if self.gravityTimeLeft > 1 {
-                self.gravityTimeLeft = self.gravityTimeLeft - 1
-                self.changeGravityWithTime(antiGravView: antiGravView, timeLabel: timeLabel)
-            }
-            else {
-                if let _ = self.forces.firstIndex(of: .ANTIGRAV) {
-                    self.physicsWorld.gravity = CGVector(dx: 0.0, dy: -9.8)
-                    self.forces.remove(at: self.forces.firstIndex(of: .ANTIGRAV)!)
-                    antiGravView?.isHidden = true
-                    timeLabel.removeFromParent()
-                }
-            }
-        }
-        
-        let sequence = SKAction.sequence([seconds, changeGravityBlock])
-        run(sequence)
     }
     
     private func climbButtonPressed (atPoint pos: CGPoint) -> Bool {
@@ -557,6 +551,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
+        print("Collision detected: A: \(contactAName), B: \(contactBName)")
+        
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
         PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)
         // Check to see if the playe has hit the door to go to another level
@@ -730,7 +726,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             guard let position = self.scene?.convert(pos, to: camera) else { return }
             let differenceInXPos = originalPos.x - position.x
             
-            if (abs(differenceInXPos) < 10) { return }
+            if (abs(differenceInXPos) < 5) { return }
                                     
             if self.player.isClimbing() {
                 let differenceInYPos = originalPos.y - position.y
@@ -856,18 +852,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if self.player.isInContactWithFence() == false {
             self.player.stoppedClimbing()
         }
-    }
-    
-    private func checkIfDawudInAir () {                
-        if self.player.physicsBody?.allContactedBodies().filter({ $0.node is GroundProtocol }) .count == 0 {
-            // If the player is in contact with a fence, then he's climbing and we don't need to set his state to in the air
-            if Fence.playerInContact(player: self.player) {
-                return
-            }
-            
-            self.player.state = .INAIR
-        } 
-    }
+    }     
     
     override func update(_ currentTime: TimeInterval) {
 //        self.showMineralCount()
@@ -876,7 +861,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
         
-        self.checkIfDawudInAir()
+        self.player.isInAir()
         
         // Called before each frame is rendered
         self.rewindPoints.append(self.player.position)
@@ -893,6 +878,13 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         
         self.player.handleIsContactedWithFlipGravity()
         self.player.update()
+        
+        self.children.filter({ $0 is BaseWorldObject }).forEach { [weak self] body in
+            if let body = body as? BaseWorldObject {
+                body.update()
+            }
+        }
+        
         
         self.specialFields.forEach { (field) in
             field.applyChange()

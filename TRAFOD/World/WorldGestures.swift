@@ -67,6 +67,8 @@ class WorldGestures: NSObject, UIGestureRecognizerDelegate {
     
     @objc func rightHandTapped (gestureRecognizer: UISwipeGestureRecognizer) {
 
+        NotificationCenter.default.post(name: .TRStopShowingMessage, object: nil)
+        
         if self.player.isInContactWithFence() {
             self.player.startClimbing()
             return

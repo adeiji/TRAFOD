@@ -112,11 +112,7 @@ extension World {
             }
         }
     }
-    
-    func throwChrystal () {
-        
-    }
-    
+            
     func setupThrowButton (crystalImageName: ImageNames, mineralType: CounterNodes, pos: CGPoint) {
         if self.throwButtons["\(mineralType)"] == nil
         {
@@ -130,9 +126,16 @@ extension World {
             throwButton.layer.borderColor = UIColor.white.cgColor
             self.rightHandView?.addSubview(throwButton)
             throwButton.showsTouchWhenHighlighted = true
+            
             throwButton.addTargetClosure { button in
-                AntiGravityMineral().throwMineral(player: self.player, world: self)
+                switch mineralType {
+                case .AntiGrav:
+                    AntiGravityMineral().throwMineral(player: self.player, world: self)
+                default:
+                    AntiGravityMineral().throwMineral(player: self.player, world: self)
+                }
             }
+            
 //            let throwOutline = SKTexture(imageNamed: "throwbutton")
 //            let button = SKSpriteNode(texture: throwOutline, color: .clear, size: throwOutline.size())
 //            button.position = pos

@@ -9,7 +9,16 @@
 import Foundation
 import GameKit
 
-class Player : SKSpriteNode, AffectedByNegationField {
+/**
+ A player object is the base class for any object that performs player type actions, such as running, jumping, moving objects.
+ */
+class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
+    
+    var massConstant: CGFloat?
+    
+    var allowExternalForces: Bool = true
+    
+    // MARK: Player Properties
     
     public var hasAntigrav = false
     public var hasImpulse = false
@@ -45,11 +54,14 @@ class Player : SKSpriteNode, AffectedByNegationField {
      The current state of the player.  Is he DEAD, is he ONGROUND, is he in the AIR, etc.
      */
     public var state:PlayerState = .ONGROUND {
-        didSet {
+        didSet {            
             if self.state != .CLIMBING {
                 self.climbingState = nil
                 
-                if self.state != .ONGROUND {
+                if self.state == .INAIR {
+                    self.texture = SKTexture(imageNamed: "running_step2")
+                }
+                else if self.state != .ONGROUND {
                     self.updatePlayerDimensions(isActive: true)
                 } else {
                     self.updatePlayerDimensions(isActive: false)
@@ -107,12 +119,29 @@ class Player : SKSpriteNode, AffectedByNegationField {
     /** Whether or not the player has died*/
     private (set) var dead:Bool = false
     
-    /** Call when the player has died */
+    /**
+     A node underneath the player that is used to detect whether or not the player is currently standing on the ground
+     */
+    private var groundNode:SKSpriteNode?
+    
+    
+    // MARK: Player Functions
+    
+    override init(texture: SKTexture?, color: UIColor, size: CGSize) {
+        super.init(texture: texture, color: color, size: size)
+        self.lightingBitMask = LightingCategories.AlteringPhysicsField
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+    }
+    
+    /** Call when the player has died. Handles all the mechanics for the players death. */
     public func died () {
         self.dead = true
     }
     
-    /** Call this after reviving the player */
+    /** Bring the player back to life */
     public func revive () {
         self.dead = false
     }
@@ -135,6 +164,9 @@ class Player : SKSpriteNode, AffectedByNegationField {
         }
     }
     
+    /**
+     Set the point at which the player has made contact with the rope
+     */
     func setRopeContactPoint (_ contactPoint: CGPoint?) {
         self.ropeContactPoint = contactPoint
     }
@@ -168,6 +200,19 @@ class Player : SKSpriteNode, AffectedByNegationField {
     func slidOnWall () {
         self.state = .SLIDINGONWALL
     }
+        
+    func isInAir () {
+        if self.groundNode?.physicsBody?.allContactedBodies().filter({ $0.node is Ground }) .count == 0 {
+            // If the player is in contact with a fence, then he's climbing and we don't need to set his state to in the air
+            if Fence.playerInContact(player: self) {
+                return
+            }
+            
+            self.state = .INAIR
+        } else if self.state == .INAIR {
+            self.state = .ONGROUND
+        }        
+    }
     
     func isSlidingOnWall (contact: SKPhysicsContact) -> Bool {
         
@@ -188,7 +233,25 @@ class Player : SKSpriteNode, AffectedByNegationField {
         return false
     }
     
-    func setupPhysicsBody () {
+    /**
+        The ground view is responsible for detecting whether or not Dawud is standing on the ground. Because it's underneath the player and the width is smaller, then we know that the only time this node will make contact with a ground object is if it's standing on top of the ground
+     */
+    private func createGroundNode () {
+        let node = SKSpriteNode(color: .red, size: CGSize(width: self.size.width - 30     , height: 20))
+        node.position = CGPoint(x: 0, y: self.frame.minY)
+        node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
+        node.physicsBody?.pinned = true
+        node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonCollision)
+        node.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        node.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Ground) | UInt32(PhysicsCategory.Rock)
+        node.name = "Player Ground Node"
+        self.addChild(node)
+        self.groundNode = node
+    }
+    
+    func setup () {
+        self.createGroundNode()
         self.previousRunningState = .RUNNINGRIGHT
         self.position = CGPoint(x: 116, y: 86.7)
         self.size.width = Dimensions.playerStandingWidth.rawValue
@@ -196,7 +259,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
         self.name = "dawud"
         self.xScale = 1
         self.yScale = 0.90
-        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.size.width, height: self.size.height))
+        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.size.width - 20, height: self.size.height))
         self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.restitution = 0
@@ -210,7 +273,7 @@ class Player : SKSpriteNode, AffectedByNegationField {
             UInt32(PhysicsCategory.Doorway) |
             UInt32(PhysicsCategory.Portals) |
             UInt32(PhysicsCategory.Fire) |
-            UInt32(PhysicsCategory.FlipGravity) |
+            UInt32(PhysicsCategory.PhysicsAltering) |
             UInt32(PhysicsCategory.NegateForceField) |
             UInt32(PhysicsCategory.Impulse) |
             UInt32(PhysicsCategory.ForceField) |
@@ -253,14 +316,13 @@ class Player : SKSpriteNode, AffectedByNegationField {
                     }
                 }
             }
-            
-            let gravityDifference = (gravity.dy / -9.8)
-            
+                                    
             if abs(physicsBody.mass * gravity.dy) <= self.strength * 160.81 {
                 if self.runningState == .RUNNINGRIGHT {
-                    object.physicsBody?.applyImpulse(CGVector(dx: (PhysicsHandler.kGrabbedObjectMoveVelocity * PhysicsHandler.kGrabbedObjectVelocityMultiplier) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                    object.physicsBody?.velocity = CGVector(dx: 100, dy: object.physicsBody?.velocity.dy ?? 0)
                 } else if self.runningState == .RUNNINGLEFT {
-                    object.physicsBody?.applyImpulse(CGVector(dx: (-PhysicsHandler.kGrabbedObjectMoveVelocity * PhysicsHandler.kGrabbedObjectVelocityMultiplier) / ((object.physicsBody!.mass / 3.0) * gravityDifference), dy: 0))
+                    object.physicsBody?.velocity = CGVector(dx: -100, dy: object.physicsBody?.velocity.dy ?? 0)
+                    print("Moving object")
                 } else if self.runningState == .STANDING {
                     if let physicsBody = object.physicsBody {
                         object.physicsBody?.velocity = CGVector(dx: 0, dy: physicsBody.velocity.dy)
@@ -268,6 +330,8 @@ class Player : SKSpriteNode, AffectedByNegationField {
                 }
             } else {
               // TODO: Need to add functionality for when the object is too heavy
+                NotificationCenter.default.post(name: .TRMessageCreated, object: nil, userInfo: [
+                    Message.Name: Message(message: "It's too heavy!", leftImage: nil, rightImage: nil)])
             }
         }
     }
@@ -298,11 +362,20 @@ class Player : SKSpriteNode, AffectedByNegationField {
         }
     }
     
+    /** Get the maximum distance away from an object a player should be before the player lets go of a grabbed object*/
     private func getBufferSizeForContactedObjects (first: SKSpriteNode, second: SKSpriteNode) -> CGFloat? {
         return first.size.width / 2.0 + second.size.width / 2.0
     }
     
+    /**
+     When the player jumps, show a trail of particles following the player
+     */
     func showJumpParticles () {
+        
+        if self.physicsBody?.allContactedBodies().contains(where: { $0.node is PhysicsAlteringObject }) == false {
+            return
+        }
+        
         guard let emitter = SKEmitterNode(fileNamed: ParticleFiles.PlayerTrailingColor.rawValue) else {
             return
         }
@@ -332,7 +405,6 @@ class Player : SKSpriteNode, AffectedByNegationField {
         let dy = self.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse
         
         self.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
-        self.texture = SKTexture(imageNamed: "running_step2")
         self.state = .INAIR
     }
     

@@ -158,6 +158,13 @@
 		F4825B8B28DD00C300C6CA79 /* PlayerTrailingColor.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4825B8928DD00C300C6CA79 /* PlayerTrailingColor.sks */; };
 		F4825B8C28DD00C300C6CA79 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = F4825B8A28DD00C300C6CA79 /* Assets.xcassets */; };
 		F4825B9028DD11FC00C6CA79 /* UIButton+Closure.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825B8F28DD11FC00C6CA79 /* UIButton+Closure.swift */; };
+		F4825B9228DD135400C6CA79 /* MineralExplosion.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4825B9128DD135400C6CA79 /* MineralExplosion.sks */; };
+		F4825B9428DD192D00C6CA79 /* MineralUsed.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4825B9328DD192D00C6CA79 /* MineralUsed.sks */; };
+		F4825B9928DF98F000C6CA79 /* DawudsVillageRuins.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825B9828DF98F000C6CA79 /* DawudsVillageRuins.swift */; };
+		F4825B9B28DF992600C6CA79 /* DawudsVillageRuins.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4825B9A28DF992600C6CA79 /* DawudsVillageRuins.sks */; };
+		F4825B9E28DF9E0000C6CA79 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825B9D28DF9E0000C6CA79 /* MessageHandler.swift */; };
+		F4825BA128DFA8C400C6CA79 /* Herculanum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */; };
+		F4825BA328DFAA9D00C6CA79 /* AntiGravityField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */; };
 		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
 		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
 		F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3322CE5E3A004D1A3D /* Level.swift */; };
@@ -237,7 +244,7 @@
 		F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */; };
 		F4EBE9D522D3BFB700EC2300 /* Player.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D422D3BFB700EC2300 /* Player.swift */; };
 		F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */; };
-		F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9DB22D63A3A00EC2300 /* FlipGravity.swift */; };
+		F4EBE9DC22D63A3A00EC2300 /* PhysicsAltering.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9DB22D63A3A00EC2300 /* PhysicsAltering.swift */; };
 		F4EBE9DF22D6404C00EC2300 /* Level4.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9DE22D6404C00EC2300 /* Level4.swift */; };
 		F4EBE9E322D6407E00EC2300 /* Level4.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4EBE9E222D6407E00EC2300 /* Level4.sks */; };
 		F4EBE9E622D6436400EC2300 /* FlipGravityMineral.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */; };
@@ -433,6 +440,13 @@
 		F4825B8928DD00C300C6CA79 /* PlayerTrailingColor.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = PlayerTrailingColor.sks; sourceTree = "<group>"; };
 		F4825B8A28DD00C300C6CA79 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		F4825B8F28DD11FC00C6CA79 /* UIButton+Closure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIButton+Closure.swift"; sourceTree = "<group>"; };
+		F4825B9128DD135400C6CA79 /* MineralExplosion.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MineralExplosion.sks; sourceTree = "<group>"; };
+		F4825B9328DD192D00C6CA79 /* MineralUsed.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = MineralUsed.sks; sourceTree = "<group>"; };
+		F4825B9828DF98F000C6CA79 /* DawudsVillageRuins.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageRuins.swift; sourceTree = "<group>"; };
+		F4825B9A28DF992600C6CA79 /* DawudsVillageRuins.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = DawudsVillageRuins.sks; sourceTree = "<group>"; };
+		F4825B9D28DF9E0000C6CA79 /* MessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
+		F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Herculanum.ttf; path = Fonts/Herculanum.ttf; sourceTree = SOURCE_ROOT; };
+		F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravityField.swift; sourceTree = "<group>"; };
 		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		F48F7D3322CE5E3A004D1A3D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -518,7 +532,7 @@
 		F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+KeyboardControls.swift"; sourceTree = "<group>"; };
 		F4EBE9D422D3BFB700EC2300 /* Player.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Player.swift; sourceTree = "<group>"; };
 		F4EBE9D622D42EF100EC2300 /* World+HandleGrabbing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+HandleGrabbing.swift"; sourceTree = "<group>"; };
-		F4EBE9DB22D63A3A00EC2300 /* FlipGravity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravity.swift; sourceTree = "<group>"; };
+		F4EBE9DB22D63A3A00EC2300 /* PhysicsAltering.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsAltering.swift; sourceTree = "<group>"; };
 		F4EBE9DE22D6404C00EC2300 /* Level4.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level4.swift; sourceTree = "<group>"; };
 		F4EBE9E222D6407E00EC2300 /* Level4.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level4.sks; sourceTree = "<group>"; };
 		F4EBE9E522D6436400EC2300 /* FlipGravityMineral.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravityMineral.swift; sourceTree = "<group>"; };
@@ -608,6 +622,7 @@
 		F41C83A528D1643C00E2C6E1 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				F4EBE9DA22D63A2000EC2300 /* Physics Objects */,
 				F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */,
 				F41C83C328D3E96E00E2C6E1 /* ProjectileProtocol.swift */,
 				F41C83C728D3EF7800E2C6E1 /* LaunchingProtocol.swift */,
@@ -716,6 +731,7 @@
 		F43FE24320E201140012D6E4 /* Levels */ = {
 			isa = PBXGroup;
 			children = (
+				F4825B9528DF98C900C6CA79 /* The Ruins */,
 				F44D96DD28BD5245009A8098 /* Dawuds Village */,
 				F44C31FC22E8CB6300443335 /* Chapters */,
 				F44C31FA22E8CB4D00443335 /* Level 5 */,
@@ -916,6 +932,8 @@
 				F4E799FB20D7604900ECE898 /* Fire.sks */,
 				F442381C20D92CDB00EA4D01 /* Doors.sks */,
 				F4A9036420E64D0C006DCDD4 /* NoWarp.sks */,
+				F4825B9128DD135400C6CA79 /* MineralExplosion.sks */,
+				F4825B9328DD192D00C6CA79 /* MineralUsed.sks */,
 			);
 			path = Particles;
 			sourceTree = "<group>";
@@ -955,6 +973,31 @@
 			path = level2;
 			sourceTree = "<group>";
 		};
+		F4825B9528DF98C900C6CA79 /* The Ruins */ = {
+			isa = PBXGroup;
+			children = (
+				F4825B9828DF98F000C6CA79 /* DawudsVillageRuins.swift */,
+				F4825B9A28DF992600C6CA79 /* DawudsVillageRuins.sks */,
+			);
+			path = "The Ruins";
+			sourceTree = "<group>";
+		};
+		F4825B9C28DF9DB400C6CA79 /* Messages */ = {
+			isa = PBXGroup;
+			children = (
+				F4825B9D28DF9E0000C6CA79 /* MessageHandler.swift */,
+			);
+			path = Messages;
+			sourceTree = "<group>";
+		};
+		F4825B9F28DFA8AA00C6CA79 /* Fonts */ = {
+			isa = PBXGroup;
+			children = (
+				F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */,
+			);
+			path = Fonts;
+			sourceTree = "<group>";
+		};
 		F48F7D3022CE5785004D1A3D /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -968,9 +1011,9 @@
 		F48F7D3722CF0021004D1A3D /* Physics */ = {
 			isa = PBXGroup;
 			children = (
-				F4EBE9DA22D63A2000EC2300 /* Physics Objects */,
 				F48F7D3822CF0031004D1A3D /* PhysicsCategory.swift */,
 				F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */,
+				F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */,
 			);
 			path = Physics;
 			sourceTree = "<group>";
@@ -1025,6 +1068,8 @@
 		F4B03CE520C94B8700F0B346 /* TRAFOD */ = {
 			isa = PBXGroup;
 			children = (
+				F4825B9F28DFA8AA00C6CA79 /* Fonts */,
+				F4825B9C28DF9DB400C6CA79 /* Messages */,
 				F41C83BB28D3A4FE00E2C6E1 /* Extensions */,
 				F41C83B128D24ECE00E2C6E1 /* Animations */,
 				F41C83A528D1643C00E2C6E1 /* Protocols */,
@@ -1192,7 +1237,7 @@
 		F4EBE9DA22D63A2000EC2300 /* Physics Objects */ = {
 			isa = PBXGroup;
 			children = (
-				F4EBE9DB22D63A3A00EC2300 /* FlipGravity.swift */,
+				F4EBE9DB22D63A3A00EC2300 /* PhysicsAltering.swift */,
 			);
 			path = "Physics Objects";
 			sourceTree = "<group>";
@@ -1414,6 +1459,7 @@
 				F4B03CF220C94B8700F0B346 /* Main.storyboard in Resources */,
 				F438D04620CD34E700EC2606 /* four.mp3 in Resources */,
 				F4B8E8AF20CA794900E558F8 /* level1ground1.png in Resources */,
+				F4825BA128DFA8C400C6CA79 /* Herculanum.ttf in Resources */,
 				F4B8E89B20CA4FAA00E558F8 /* running_step5.png in Resources */,
 				F4BA31A720E5448100DBD823 /* lv2rocks6.png in Resources */,
 				F438D04D20CD34E700EC2606 /* mineralcrash.mp3 in Resources */,
@@ -1458,6 +1504,7 @@
 				F462CDD820E5D264004AF89E /* lv2rocks14.png in Resources */,
 				F4B8A51528DBE4BD00191FB3 /* DawudVillage.sks in Resources */,
 				F44A9A9020D4EB16004E389C /* Loading.sks in Resources */,
+				F4825B9B28DF992600C6CA79 /* DawudsVillageRuins.sks in Resources */,
 				F438D04220CD34E700EC2606 /* thirteen.mp3 in Resources */,
 				F44E1A4A20CFC4E600FD026E /* antigrav.png in Resources */,
 				F40BE59628D6B075005C0996 /* grass.png in Resources */,
@@ -1473,6 +1520,7 @@
 				F438D05A20CD518C00EC2606 /* throwbutton.png in Resources */,
 				F4F4345122F070C1003A199F /* Book.sks in Resources */,
 				F4B8E8A520CA4FAA00E558F8 /* standing.png in Resources */,
+				F4825B9428DD192D00C6CA79 /* MineralUsed.sks in Resources */,
 				F44E1A2320CF541800FD026E /* MainMenu.sks in Resources */,
 				F4BA319F20E4EE4300DBD823 /* smallrock.png in Resources */,
 				F462CDDB20E5D2FC004AF89E /* lv2rocks16.png in Resources */,
@@ -1538,6 +1586,7 @@
 				F4B8E8A020CA4FAA00E558F8 /* running_step6.png in Resources */,
 				F4BA31A320E53EBD00DBD823 /* lv2rocks4.png in Resources */,
 				F462CDD920E5D264004AF89E /* lv2rocks13.png in Resources */,
+				F4825B9228DD135400C6CA79 /* MineralExplosion.sks in Resources */,
 				F438D04820CD34E700EC2606 /* warp.mp3 in Resources */,
 				F4C4CA1620EB80F6005CA4D7 /* cannon.png in Resources */,
 				F438D02820CD0C4900EC2606 /* Blue Crystal.png in Resources */,
@@ -1661,7 +1710,8 @@
 				F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */,
 				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
 				F48F7D4922CF0163004D1A3D /* VerticalMoveablePlatform.swift in Sources */,
-				F4EBE9DC22D63A3A00EC2300 /* FlipGravity.swift in Sources */,
+				F4825B9928DF98F000C6CA79 /* DawudsVillageRuins.swift in Sources */,
+				F4EBE9DC22D63A3A00EC2300 /* PhysicsAltering.swift in Sources */,
 				F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */,
 				F48F7D3B22CF0058004D1A3D /* AntiGravPlatformProtocol.swift in Sources */,
 				F41C83C828D3EF7800E2C6E1 /* LaunchingProtocol.swift in Sources */,
@@ -1724,6 +1774,7 @@
 				F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */,
 				F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */,
 				F48F7D3D22CF0075004D1A3D /* Reset.swift in Sources */,
+				F4825B9E28DF9E0000C6CA79 /* MessageHandler.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
 				F41C83AC28D1657A00E2C6E1 /* AnimationHandler.swift in Sources */,
 				F490A68622E606A600840F91 /* AntiGravRetrievalMineral.swift in Sources */,
@@ -1736,6 +1787,7 @@
 				F45EDF7320D8C5E60076C1C8 /* SoundManager.swift in Sources */,
 				F49ADDD322E3485900388C49 /* Fire.swift in Sources */,
 				F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */,
+				F4825BA328DFAA9D00C6CA79 /* AntiGravityField.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 				F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */,
 				F4F5D90E22EB2C1E00CFB2A6 /* NegateFlipGravField.swift in Sources */,

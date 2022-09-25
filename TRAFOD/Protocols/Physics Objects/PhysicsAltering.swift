@@ -9,7 +9,7 @@
 import Foundation
 import GameKit
 
-/// This is the base object for all objects within the game that affect the physics of other objects, for example FlipGravity inherits from PhysicsAlteringObject, as does MagneticForce
+/// This is the base object for all objects (fields) within the game that affect the physics of other objects, for example FlipGravity inherits from PhysicsAlteringObject, as does MagneticForce.
 class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
     
     /**
@@ -39,12 +39,15 @@ class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
         self.anchorPoint = anchorPoint
         self.position = contactPosition
         self.physicsBody = SKPhysicsBody(rectangleOf: size ?? self.size)
-        self.physicsBody?.contactTestBitMask = 1
+        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Rock) | UInt32(PhysicsCategory.Player)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.pinned = true
         self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.isDynamic = true
+        self.physicsBody?.isDynamic = false
+        self.physicsBody?.mass = 0.0
+        self.physicsBody?.density = 0.0
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -106,7 +109,7 @@ class FlipGravity : PhysicsAlteringObject {
     }
     
     internal override func setCategoryBitmask() {
-        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.FlipGravity)
+        self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.PhysicsAltering)
     }
     
     /**

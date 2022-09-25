@@ -22,7 +22,7 @@ class PhysicsHandler {
     static let kGrabbedObjectMoveVelocity:CGFloat = 3200
     
     /**
-     This is the Flip Gravity node, when an object makes contact with this node than flip grav is activated
+     This contains all the nodes that can alter the physics of other objects that have been used and are currently active
      */
     var physicsAlteringAreas:[Minerals: PhysicsAlteringObject] = [Minerals: PhysicsAlteringObject]()
     

@@ -69,9 +69,6 @@ class Impulse : PhysicsAlteringObject {
     class func applyImpulseToNodeInContact (contact: SKPhysicsContact) {
         if let nodeInContact = contact.bodyA.node as? Impulse == nil ? contact.bodyA.node : contact.bodyB.node {
             nodeInContact.physicsBody?.applyImpulse(CGVector(dx: (nodeInContact.physicsBody!.velocity.dx > 0 ? 600 : -600) * (nodeInContact.physicsBody?.mass ?? 1), dy: 250))
-            if let player = nodeInContact as? Player {
-                player.state = .INAIR
-            }
         }
     }
 }

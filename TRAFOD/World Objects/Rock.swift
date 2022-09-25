@@ -11,7 +11,11 @@ import GameKit
 
 class Rock : Ground, BaseWorldObject {
     
+    var massConstant: CGFloat?
+    
+    /** The position where the rock enters the scene at */
     var startingPos:CGPoint!
+    
     var allowExternalForces: Bool = true {
         didSet {
             if self.allowExternalForces == false {
@@ -36,7 +40,7 @@ class Rock : Ground, BaseWorldObject {
             UInt32(PhysicsCategory.Reset) |
             UInt32(PhysicsCategory.Player) |
             UInt32(PhysicsCategory.Portals) |
-            UInt32(PhysicsCategory.FlipGravity) |
+            UInt32(PhysicsCategory.PhysicsAltering) |
             UInt32(PhysicsCategory.Rock) |
             UInt32(PhysicsCategory.Minerals) |
             UInt32(PhysicsCategory.Magnetic) |
@@ -50,7 +54,14 @@ class Rock : Ground, BaseWorldObject {
             UInt32(PhysicsCategory.Rock) |
             UInt32(PhysicsCategory.Cannon)
         self.physicsBody?.allowsRotation = true
-        self.physicsBody?.friction = 0.5
+        self.physicsBody?.friction = 0.2
+        self.massConstant = self.physicsBody?.mass
+    }
+    
+    func update () {
+        if self.physicsBody?.allContactedBodies().contains(where: { $0.node is AntiGravityField }) == false {
+            self.physicsBody?.mass = self.massConstant ?? 10
+        }
     }
 }
 

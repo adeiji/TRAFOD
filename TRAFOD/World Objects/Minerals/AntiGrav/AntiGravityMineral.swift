@@ -19,32 +19,23 @@ class AntiGravityMineral : Mineral, UseMinerals {
     }
     
     func mineralUsed (contactPosition: CGPoint, world: World, objectHitByMineral:SKNode? = nil) -> PhysicsAlteringObject? {
-        
-        if !world.forces.contains(.ANTIGRAV) {
+                        
+        if !world.forces.contains(.ANTIGRAV) {            
             world.playSound(fileName: "antigrav")
-            world.physicsWorld.gravity.dy = world.physicsWorld.gravity.dy / 2.2
             world.forces.append(.ANTIGRAV)
-            
-            let antiGravView = world.camera?.childNode(withName: world.antiGravViewKey)
-            antiGravView?.isHidden = false
-            
-            let timeNode = SKLabelNode()
-            timeNode.fontSize = 100
-            timeNode.position = CGPoint(x: 0, y: 0)
-            world.camera?.addChild(timeNode)
-            world.gravityTimeLeft = 10
-            let timeLabel = SKLabelNode()
-            timeLabel.fontSize = 120
-            timeLabel.fontName = "HelveticaNeue-Bold"
-            timeLabel.position = CGPoint(x: 0, y: 0)
-            timeLabel.zPosition = 5
-            world.gravityTimeLeftLabel = timeLabel
-            world.camera?.addChild(timeLabel)
-            world.changeGravityWithTime(antiGravView: antiGravView, timeLabel: timeLabel)
+            self.removeFromParent()
+            return self.createAntiGravField(point: contactPosition, world: world)
         } else {
             world.gravityTimeLeft = 10
         }
         
         return nil
+    }
+    
+    private func createAntiGravField (point: CGPoint, world: World) -> PhysicsAlteringObject {
+        let antiGravField = AntiGravityField(contactPosition: point, size: nil, color: .clear, anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        antiGravField.showMineralEffectOnView(point: point, world: world)
+        return antiGravField
+        
     }
 }
