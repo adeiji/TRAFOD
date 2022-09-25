@@ -18,23 +18,24 @@ class AntiGravityMineral : Mineral, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed (contactPosition: CGPoint, world: World, objectHitByMineral:SKNode? = nil) -> PhysicsAlteringObject? {
-                        
+    func mineralUsed (contactPosition: CGPoint, world: World, objectHitByMineral:SKNode) -> PhysicsAlteringObject? {
+                                        
         if !world.forces.contains(.ANTIGRAV) {            
             world.playSound(fileName: "antigrav")
             world.forces.append(.ANTIGRAV)
             self.removeFromParent()
-            return self.createAntiGravField(point: contactPosition, world: world)
-        } else {
-            world.gravityTimeLeft = 10
+            let antiGravField = self.createAntiGravField(point: contactPosition, world: world, objectHitByMineral: objectHitByMineral)
+            return antiGravField
         }
         
         return nil
     }
     
-    private func createAntiGravField (point: CGPoint, world: World) -> PhysicsAlteringObject {
+    private func createAntiGravField (point: CGPoint, world: World, objectHitByMineral:SKNode) -> PhysicsAlteringObject {
         let antiGravField = AntiGravityField(contactPosition: point, size: nil, color: .clear, anchorPoint: CGPoint(x: 0.5, y: 0.5))
         antiGravField.showMineralEffectOnView(point: point, world: world)
+        antiGravField.anchorToObject(world: world, objectHitByMineral: objectHitByMineral, contactPosition: point)
+        
         return antiGravField
         
     }

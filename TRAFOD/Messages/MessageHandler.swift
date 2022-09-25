@@ -15,12 +15,20 @@ extension Notification.Name {
     static let TRStopShowingMessage = Notification.Name("TRStopShowingMessage")
 }
 
+/**
+ A message that is displayed to the user on the screen
+ */
 struct Message {
     
     static let Name:String = "Message"
+        
+    /// The text to display to the user
+    let text:String
     
-    let message:String
+    /// The image that is displayed on the left side of the screen (should be whomever is talking that is on the left side)
     let leftImage:UIImage?
+    
+    /// The image that is displayed on the right side of the screen (should be whomever is talking that is on the right side)
     let rightImage:UIImage?
 }
 
@@ -53,7 +61,7 @@ class MessageHandler {
         
         let brownColor = UIColor(red: 171/255, green: 147/255, blue: 94/255, alpha: 0.5)
         let messageNode = SKSpriteNode(color: brownColor, size: CGSize(width: 985, height: 385))
-        let speechNode = SKLabelNode(text: "\"It's too heavy!\"")
+        let speechNode = SKLabelNode(text: "\"\(message.text)\"")
         speechNode.fontName = "Herculanum"
         speechNode.fontSize = 75
         speechNode.preferredMaxLayoutWidth = 900
@@ -64,5 +72,10 @@ class MessageHandler {
         messageNode.addChild(speechNode)
         self.world.addChild(messageNode)
         self.messageNode = messageNode
+        
+        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
+            self.messageNode?.removeFromParent()
+            self.messageNode = nil
+        }
     }
 }

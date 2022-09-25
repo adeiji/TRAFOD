@@ -211,7 +211,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             self.state = .INAIR
         } else if self.state == .INAIR {
             self.state = .ONGROUND
-        }        
+        }
     }
     
     func isSlidingOnWall (contact: SKPhysicsContact) -> Bool {
@@ -331,7 +331,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             } else {
               // TODO: Need to add functionality for when the object is too heavy
                 NotificationCenter.default.post(name: .TRMessageCreated, object: nil, userInfo: [
-                    Message.Name: Message(message: "It's too heavy!", leftImage: nil, rightImage: nil)])
+                    Message.Name: Message(text: "It's too heavy!", leftImage: nil, rightImage: nil)])
             }
         }
     }
@@ -347,6 +347,8 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     
     /**
      The player grabs an object if possible
+     
+     Applies a constraint to the player and the object that the player can grab. If you want the player to stop grabbing the object, it is best to call letGoOfObject() in this class. If you remove the constraint manually from the constraints object, then you will probably run into issues.
      */
     func grabObject () {
         self.state = .GRABBING

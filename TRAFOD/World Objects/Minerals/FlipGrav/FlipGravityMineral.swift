@@ -19,7 +19,7 @@ class FlipGravityMineral : Mineral, SKPhysicsContactDelegate, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed (contactPosition: CGPoint, world:World, objectHitByMineral:SKNode? = nil) -> PhysicsAlteringObject? {
+    func mineralUsed (contactPosition: CGPoint, world:World, objectHitByMineral:SKNode) -> PhysicsAlteringObject? {
         let flipGravity = FlipGravity(contactPosition: contactPosition, size: CGSize(width: 600, height: 4000), color: .purple, anchorPoint: CGPoint(x: 0.5, y: 0.5))
         flipGravity.zPosition = -5
         return flipGravity
@@ -50,7 +50,7 @@ class TeleportMineral : Mineral, SKPhysicsContactDelegate, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed (contactPosition: CGPoint, world:World, objectHitByMineral:SKNode? = nil) -> PhysicsAlteringObject? {
+    func mineralUsed (contactPosition: CGPoint, world:World, objectHitByMineral:SKNode) -> PhysicsAlteringObject? {
         let teleportNode = SKSpriteNode(color: .clear, size: CGSize(width: 200, height: 200))
         teleportNode.position = contactPosition
         

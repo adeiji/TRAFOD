@@ -20,7 +20,7 @@ class DestroyerMineral: Mineral, SKPhysicsContactDelegate, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed(contactPosition: CGPoint, world: World, objectHitByMineral: SKNode?) -> PhysicsAlteringObject? {
+    func mineralUsed(contactPosition: CGPoint, world: World, objectHitByMineral: SKNode) -> PhysicsAlteringObject? {
         
         guard let rockFragment = objectHitByMineral as? RockFragment else { return nil }
         rockFragment.breakApart()

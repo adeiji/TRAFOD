@@ -540,6 +540,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 if let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self, objectHitByMineral: objectHitByMineral) {
                     self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
                     self.addChild(physicsAlteringArea)
+                    physicsAlteringArea.anchorToObject(world: self, objectHitByMineral: objectHitByMineral, contactPosition: contact.contactPoint)
                 }
                 
                 self.player.handleMineralUsed(mineralType: mineral.type)                 

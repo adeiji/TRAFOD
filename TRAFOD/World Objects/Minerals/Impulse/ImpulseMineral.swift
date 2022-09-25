@@ -18,7 +18,7 @@ class ImpulseMineral : Mineral, UseMinerals {
         super.init(coder: aDecoder)
     }
     
-    func mineralUsed (contactPosition: CGPoint, world:World, objectHitByMineral:SKNode? = nil) -> PhysicsAlteringObject? {
+    func mineralUsed (contactPosition: CGPoint, world:World, objectHitByMineral:SKNode) -> PhysicsAlteringObject? {
         if world.impulses.count < 3 {
             let impulseNode = Impulse(contactPosition: contactPosition, anchorPoint: CGPoint(x: 0.5, y: 0))
             impulseNode.position = contactPosition

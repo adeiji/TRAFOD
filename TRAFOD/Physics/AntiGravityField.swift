@@ -13,7 +13,7 @@ import SpriteKit
 /** An object (field) which changes the gravity of objects within the game. Not all objects that come into contact with this field have their physics altered. There are other factors involved such as if the object is one that resist this fields gravitational force */
 class AntiGravityField: PhysicsAlteringObject {
     
-    let timeFieldActive = 5.0
+    let timeFieldActive = 10.0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -76,13 +76,13 @@ class AntiGravityField: PhysicsAlteringObject {
             return
         }
         
-        mineralUsedEmitter.position = self.position
+        mineralUsedEmitter.position = CGPoint(x: 0, y: 0)
         mineralUsedEmitter.name = "antigravfield"
         mineralUsedEmitter.targetNode = world
-        world.addChild(mineralUsedEmitter)
+        self.addChild(mineralUsedEmitter)
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            mineralUsedEmitter.particleAlpha = mineralUsedEmitter.particleAlpha - 0.2
+            mineralUsedEmitter.particleAlpha = mineralUsedEmitter.particleAlpha - 0.1
         }
         
         Timer.scheduledTimer(withTimeInterval: self.timeFieldActive, repeats: false) { timer in
@@ -95,5 +95,10 @@ class AntiGravityField: PhysicsAlteringObject {
             
             self.removeFromParent()
         }
+    }
+    
+    override func anchorToObject (world: World, objectHitByMineral: SKNode, contactPosition: CGPoint) {                                            
+        let constraint = SKConstraint.distance(SKRange(upperLimit: 10), to: objectHitByMineral)
+        self.constraints = [constraint]
     }
 }

@@ -23,6 +23,16 @@ class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
      */
     func applyForceToPhysicsBodies(forceOfGravity: CGFloat, camera: SKCameraNode?) {}
     
+    /**
+     Anchor the physics altering object (field) to the object that it hit. This makes sure that the field will move with whatever object it hit.
+     
+     - Parameters:
+        - world: The world object to add the physics joint to
+        - objectHitByMineral: The object that the mineral used to active this object (field) hit
+        - contactPosition: The position in which the mineral hit (made contact with) the object
+     */
+    func anchorToObject (world: World, objectHitByMineral: SKNode, contactPosition: CGPoint) {}
+    
     func setCategoryBitmask() {}
     
     /**
@@ -42,9 +52,7 @@ class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Rock) | UInt32(PhysicsCategory.Player)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.allowsRotation = false
-        self.physicsBody?.pinned = true
         self.physicsBody?.affectedByGravity = false
-        self.physicsBody?.isDynamic = false
         self.physicsBody?.mass = 0.0
         self.physicsBody?.density = 0.0
         
