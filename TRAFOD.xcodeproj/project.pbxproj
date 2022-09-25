@@ -165,6 +165,7 @@
 		F4825B9E28DF9E0000C6CA79 /* MessageHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825B9D28DF9E0000C6CA79 /* MessageHandler.swift */; };
 		F4825BA128DFA8C400C6CA79 /* Herculanum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */; };
 		F4825BA328DFAA9D00C6CA79 /* AntiGravityField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */; };
+		F4825BA528E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BA428E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift */; };
 		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
 		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
 		F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3322CE5E3A004D1A3D /* Level.swift */; };
@@ -447,6 +448,7 @@
 		F4825B9D28DF9E0000C6CA79 /* MessageHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageHandler.swift; sourceTree = "<group>"; };
 		F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Herculanum.ttf; path = Fonts/Herculanum.ttf; sourceTree = SOURCE_ROOT; };
 		F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravityField.swift; sourceTree = "<group>"; };
+		F4825BA428E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsAlteringFieldJoint.swift; sourceTree = "<group>"; };
 		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		F48F7D3322CE5E3A004D1A3D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -1014,6 +1016,7 @@
 				F48F7D3822CF0031004D1A3D /* PhysicsCategory.swift */,
 				F4B25DE222D1568C00B5E7DD /* PhysicsHandler.swift */,
 				F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */,
+				F4825BA428E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift */,
 			);
 			path = Physics;
 			sourceTree = "<group>";
@@ -1779,6 +1782,7 @@
 				F41C83AC28D1657A00E2C6E1 /* AnimationHandler.swift in Sources */,
 				F490A68622E606A600840F91 /* AntiGravRetrievalMineral.swift in Sources */,
 				F490A69222E61CF800840F91 /* GameSwitch.swift in Sources */,
+				F4825BA528E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift in Sources */,
 				F44A4D4720DCDF3C00E53841 /* PurchaseViewController.swift in Sources */,
 				F4F6327D22F34D6E0026CED6 /* SceneTransitionHandling.swift in Sources */,
 				F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */,

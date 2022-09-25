@@ -98,7 +98,13 @@ class AntiGravityField: PhysicsAlteringObject {
     }
     
     override func anchorToObject (world: World, objectHitByMineral: SKNode, contactPosition: CGPoint) {                                            
-        let constraint = SKConstraint.distance(SKRange(upperLimit: 10), to: objectHitByMineral)
-        self.constraints = [constraint]
+        guard
+            let antiGravPhysicsBody = self.physicsBody,
+            let objectPhysicsBody = objectHitByMineral.physicsBody
+        else { return }
+        
+        guard let joint = PhysicsAlteringFieldJoint.fieldJoint(withBodyA: antiGravPhysicsBody, bodyB: objectPhysicsBody, anchor: contactPosition) else { return }
+        joint.type = .ANTIGRAV
+        self.scene?.physicsWorld.add(joint)
     }
 }

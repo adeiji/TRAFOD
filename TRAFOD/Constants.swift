@@ -110,6 +110,7 @@ enum PhysicsAlteringObjectTypes {
     case FLIPGRAVITY
     case MAGNETIC
     case REMOVEROTATION
+    case ANTIGRAV
 }
 
 /// The GameLevel names, these should match the name of the sks files for each level
