@@ -55,6 +55,8 @@ class WorldGestures: NSObject, UIGestureRecognizerDelegate {
             print("Right hand press gesture began...")
             if self.player.canGrabObject() {
                 self.player.grabObject()
+            } else {
+                self.player.handleFlipSwitch()
             }
         } else if gestureRecognizer.state == .ended {
             if self.player.isGrabbingObject() {

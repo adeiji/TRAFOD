@@ -26,6 +26,18 @@ struct FlipSwitchParams {
     let startPos: CGPoint
     let endPos: CGPoint
     let platformSize: CGSize
+    let direction: MoveablePlatformDirection
+    
+    static let Horizontal = "horizontal"
+    static let Vertical = "vertical"
+    
+    static func getDirectionFromString (_ direction: String) -> MoveablePlatformDirection {
+        if direction == FlipSwitchParams.Horizontal {
+            return .horizontal
+        } else {
+            return .vertical
+        }
+    }
 }
 
 class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
@@ -39,7 +51,7 @@ class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
     }
     
     /// The platform that moves from one position to another position
-    var movablePlatform:VerticalMoveablePlatform?
+    var movablePlatform:MoveablePlatform?
     
     let switchSize = CGSize(width: 150, height: 150)
     
@@ -50,7 +62,7 @@ class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
         - switchParams: The parameters that are used for setup of self and children
      */
     private func setupObject (switchParams: FlipSwitchParams) {        
-        let startNode = VerticalMoveablePlatform(startingPosition: switchParams.startPos, size: switchParams.platformSize)
+        let startNode = MoveablePlatform(startingPosition: switchParams.startPos, size: switchParams.platformSize, direction: switchParams.direction)
         let endPositionNode = WeightSwitchPlatformFinalPosition()
         endPositionNode.position = switchParams.endPos
         
@@ -80,7 +92,7 @@ class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
         
         self.physicsBody?.collisionBitMask = 0
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.FlipSwitch)
-        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.CannonBall) | UInt32(PhysicsCategory.Rock)
+        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.CannonBall) | UInt32(PhysicsCategory.Rock) | UInt32(PhysicsCategory.Player)
         self.physicsBody?.pinned = true
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.isDynamic = true
@@ -105,7 +117,7 @@ class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
     
     func setMovablePlatformWithTimeInterval (timeInterval: TimeInterval) {
         self.children.forEach { (node) in
-            if let node = node as? VerticalMoveablePlatform {
+            if let node = node as? MoveablePlatform {
                 self.movablePlatform = node
                 self.setEndPointAndTimeInterval(timeInterval: timeInterval)
             }

@@ -12,20 +12,20 @@ import SpriteKit
 
 class GameElementsInitializer {
     
-    /**
-     Adds game objects to a scene based off of the information given from a plist file
-     */
-    static func setupGameElements (plistFileName: String, scene: SKNode?) {
+    private static func setupGameElements (gameElements: [GameElementTemplate]?, scene: SKNode?) {
         guard let scene = scene else { return }
-        let gameElements = GameObjectsFactory.loadPlist(fileName: plistFileName, type: GameElementTemplate.self)
         
         gameElements?.forEach({ element in
             guard let gameObject = GameObjectsFactory.getObject(type: element.name) else { return }
             gameObject.position = CGPoint(x: element.x, y: element.y)
-            
+            gameObject.name = element.id
             if let gameObject = gameObject as? FlipSwitch {
                 GameElementsInitializer.setupFlipSwitch(flipSwitch: gameObject, gameObjectTemplate: element, scene: scene)
                 return
+            }
+            
+            if let gameObject = gameObject as? DiaryPieceNode {
+                gameObject.message = Message(text: element.message ?? "", leftImage: nil, rightImage: nil)
             }
             
             scene.addChild(gameObject)
@@ -34,6 +34,21 @@ class GameElementsInitializer {
                 gameObject.timeToFire = element.timeToFire ?? 3.0
             }
         })
+    }
+    
+    static func setupGameElementsFromJson (jsonFileName: String, scene: SKNode?) {
+        guard let scene = scene else { return }
+        let gameElements = GameObjectsFactory.loadFile(fileName: jsonFileName, type: GameElementTemplate.self, fileType: "json")
+        self.setupGameElements(gameElements: gameElements, scene: scene)
+    }
+    
+    /**
+     Adds game objects to a scene based off of the information given from a plist file
+     */
+    static func setupGameElementsFromPlist (plistFileName: String, scene: SKNode?) {
+        guard let scene = scene else { return }
+        let gameElements = GameObjectsFactory.loadFile(fileName: plistFileName, type: GameElementTemplate.self, fileType: "plist")
+        self.setupGameElements(gameElements: gameElements, scene: scene)
     }
     
     static func setupFlipSwitch (flipSwitch: FlipSwitch, gameObjectTemplate: GameElementTemplate, scene: SKNode) {
@@ -57,7 +72,8 @@ class GameElementsInitializer {
             switchPos: CGPoint(x: gameObjectTemplate.x, y: gameObjectTemplate.y),
             startPos: CGPoint(x: startPos.x, y: startPos.y),
             endPos: CGPoint(x: finalPosition.x, y: finalPosition.y),
-            platformSize: CGSize(width: size.width, height: size.height))
+            platformSize: CGSize(width: size.width, height: size.height),
+            direction: FlipSwitchParams.getDirectionFromString(gameObjectTemplate.direction ?? FlipSwitchParams.Vertical))
         
         scene.addChild(flipSwitch)
     }

@@ -16,6 +16,9 @@ struct GameElementTemplate: Codable {
     let name:String
     let x:Double
     let y:Double
+    let id:String?
+    let direction:String?
+    let message:String?
     let timeToFire:Double?
     let children:[GameElementTemplate]?
     let size:Size?

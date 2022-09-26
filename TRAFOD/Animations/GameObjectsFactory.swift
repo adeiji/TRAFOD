@@ -23,6 +23,8 @@ class GameObjectsFactory {
         case PhysicsObjectTitles.ArrowLauncher:
             return ArrowLauncher()
             return nil
+        case PhysicsObjectTitles.DiaryFragment:
+            return DiaryPieceNode()
         case PhysicsObjectTitles.WeightPlatformFinalPosition:
             return WeightSwitchPlatformFinalPosition()
         case PhysicsObjectTitles.FlipSwitch:
@@ -32,17 +34,24 @@ class GameObjectsFactory {
         }
     }
     
-    static func loadPlist <U:Codable>(fileName: String, type: U.Type) -> [U]? {
-        guard let path = Bundle.main.path(forResource: fileName, ofType: "plist") else {
+    static func loadFile <U:Codable>(fileName: String, type: U.Type, fileType:String) -> [U]? {
+        guard let path = Bundle.main.path(forResource: fileName, ofType: fileType) else {
             return nil
         }
         
-        let plistURL = URL(fileURLWithPath: path)
-        guard let data = try? Data(contentsOf: plistURL) else { return nil }
+        let fileUrl = URL(fileURLWithPath: path)
+        guard let data = try? Data(contentsOf: fileUrl) else { return nil }
         
         do {
-            let templates = try PropertyListDecoder().decode([U].self, from: data)
-            return templates
+            if fileType == "plist" {
+                let templates = try PropertyListDecoder().decode([U].self, from: data)
+                return templates
+            } else {
+                let data = try Data(contentsOf: fileUrl)
+                let templates = try JSONDecoder().decode([U].self, from: data)
+                return templates
+            }
+            
         } catch {
             print(error)
             return nil

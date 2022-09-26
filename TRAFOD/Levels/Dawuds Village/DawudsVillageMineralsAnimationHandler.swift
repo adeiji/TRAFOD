@@ -31,7 +31,7 @@ class DawudsVillageMineralsAnimationHandler: AnimationHandlerProtocol {
     }
     
     init(fileName: String, player: Player, scene: World) {
-        self.animationTemplates = GameObjectsFactory.loadPlist(fileName: fileName, type: AnimationTemplate.self)
+        self.animationTemplates = GameObjectsFactory.loadFile(fileName: fileName, type: AnimationTemplate.self, fileType: "plist")
         self.player = player
         self.scene = scene
     }

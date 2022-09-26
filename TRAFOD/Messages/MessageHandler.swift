@@ -61,6 +61,7 @@ class MessageHandler {
         
         let brownColor = UIColor(red: 171/255, green: 147/255, blue: 94/255, alpha: 0.5)
         let messageNode = SKSpriteNode(color: brownColor, size: CGSize(width: 985, height: 385))
+        messageNode.position = CGPoint(x: 0, y: 300)
         let speechNode = SKLabelNode(text: "\"\(message.text)\"")
         speechNode.fontName = "Herculanum"
         speechNode.fontSize = 75
@@ -70,10 +71,11 @@ class MessageHandler {
         speechNode.numberOfLines = 0
         
         messageNode.addChild(speechNode)
-        self.world.addChild(messageNode)
+        messageNode.zPosition = ZPositions.Foreground
+        self.world.camera?.addChild(messageNode)
         self.messageNode = messageNode
         
-        Timer.scheduledTimer(withTimeInterval: 3.0, repeats: false) { timer in
+        Timer.scheduledTimer(withTimeInterval: 8.0, repeats: false) { timer in
             self.messageNode?.removeFromParent()
             self.messageNode = nil
         }

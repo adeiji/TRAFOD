@@ -9,10 +9,17 @@
 import Foundation
 import GameKit
 
+enum MoveablePlatformDirection {
+    case vertical
+    case horizontal        
+}
+
 /**
  A vertical Moveable Platform only moves along it's y-axis
  */
-class VerticalMoveablePlatform : Ground {
+class MoveablePlatform : Ground {
+    
+    private let direction:MoveablePlatformDirection
     
     /**
      Whether the platform is at it's starting position or not.  If it is at it's starting position that means that it's finished moving
@@ -29,7 +36,8 @@ class VerticalMoveablePlatform : Ground {
     
     var originalPosition:CGPoint!
     
-    init(startingPosition: CGPoint, size: CGSize) {
+    init(startingPosition: CGPoint, size: CGSize, direction: MoveablePlatformDirection) {
+        self.direction = direction
         super.init(size: size)
         
         self.setupPhysicsBody()
@@ -40,11 +48,19 @@ class VerticalMoveablePlatform : Ground {
         self.zPosition = 1000
         
         let constraint = SKConstraint.zRotation(SKRange(constantValue: self.zRotation))
-        let yConstraint = SKConstraint.positionX(SKRange(constantValue: startingPosition.x))
-        self.constraints = [constraint, yConstraint]
+        
+        if direction == .vertical {
+            let xConstraint = SKConstraint.positionX(SKRange(constantValue: startingPosition.x))
+            self.constraints = [constraint, xConstraint]
+        } else {
+            let yConstraint = SKConstraint.positionY(SKRange(constantValue: startingPosition.y))
+            self.constraints = [constraint, yConstraint]
+        }
+        
     }
     
     required init?(coder aDecoder: NSCoder) {
+        self.direction = .horizontal
         super.init(coder: aDecoder)
         
         self.originalPosition = self.position
@@ -72,10 +88,29 @@ class VerticalMoveablePlatform : Ground {
                         
         self.physicsBody?.velocity = .zero
         let yVector = self.position.y < moveToPoint.y ? 100 : -100
-        let isMovingForward = self.position.y < moveToPoint.y ? true : false
+        let xVector = self.position.x < moveToPoint.x ? 100 : -100
         
+        var isMovingForward = false
         self.physicsBody?.isDynamic = true
-        self.physicsBody?.velocity = CGVector(dx: 0,dy: yVector)
+        
+        switch self.direction {
+        case .horizontal:
+            if self.position.x < moveToPoint.x {
+                isMovingForward = true
+            } else {
+                isMovingForward = false
+            }
+            self.physicsBody?.velocity = CGVector(dx: xVector,dy: 0)
+        case.vertical:
+            if self.position.y < moveToPoint.y {
+                isMovingForward = true
+            } else {
+                isMovingForward = false
+            }
+            
+            self.physicsBody?.velocity = CGVector(dx: 0,dy: yVector)
+        }
+        
         self.finishedMoving = !self.finishedMoving
         
         Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
@@ -86,13 +121,16 @@ class VerticalMoveablePlatform : Ground {
                 self.physicsBody?.isDynamic = false
             }
             
+            let moveToPointAxis = self.direction == .vertical ? moveToPoint.y : moveToPoint.x
+            let positionAxis = self.direction == .vertical ? self.position.y : self.position.x
+            
             switch isMovingForward {
             case true:
-                if self.position.y >= moveToPoint.y {
+                if positionAxis >= moveToPointAxis {
                     stopMoving()
                 }
             case false:
-                if self.position.y <= moveToPoint.y {
+                if positionAxis <= moveToPointAxis {
                     stopMoving()
                 }
             }

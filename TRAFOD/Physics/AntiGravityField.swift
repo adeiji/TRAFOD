@@ -13,7 +13,7 @@ import SpriteKit
 /** An object (field) which changes the gravity of objects within the game. Not all objects that come into contact with this field have their physics altered. There are other factors involved such as if the object is one that resist this fields gravitational force */
 class AntiGravityField: PhysicsAlteringObject {
     
-    let timeFieldActive = 10.0
+    let timeFieldActive = 20.0
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -40,10 +40,13 @@ class AntiGravityField: PhysicsAlteringObject {
         guard let physicsBody = self.physicsBody else { return }
         for body in physicsBody.allContactedBodies() {
             guard let world = self.parent as? World else { return }
-            if body.node is Player {
-                body.applyImpulse(CGVector(dx: 0, dy: world.physicsWorld.gravity.dy * -2))
+            if let player = body.node as? Player {
+                if player.state == .INAIR {
+                    body.applyImpulse(CGVector(dx: 0, dy: world.physicsWorld.gravity.dy * -2))
+                }
             } else if let rock = body.node as? Rock{
                 self.applyPhysicsToNode(rock)
+                rock.physicsBody?.applyImpulse(CGVector(dx: 0, dy: rock.physicsBody!.mass * world.physicsWorld.gravity.dy * -2  ))
             }
         }
         
@@ -97,7 +100,7 @@ class AntiGravityField: PhysicsAlteringObject {
         self.addChild(mineralUsedEmitter)
         
         Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
-            mineralUsedEmitter.particleAlpha = mineralUsedEmitter.particleAlpha - 0.1
+            mineralUsedEmitter.particleAlpha = mineralUsedEmitter.particleAlpha - (1 / self.timeFieldActive)
         }
         
         Timer.scheduledTimer(withTimeInterval: self.timeFieldActive, repeats: false) { timer in

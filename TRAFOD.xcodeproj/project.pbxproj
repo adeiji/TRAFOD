@@ -166,6 +166,12 @@
 		F4825BA128DFA8C400C6CA79 /* Herculanum.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */; };
 		F4825BA328DFAA9D00C6CA79 /* AntiGravityField.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */; };
 		F4825BA528E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BA428E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift */; };
+		F4825BA728E0DFB100C6CA79 /* DiaryPieceNode.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BA628E0DFB100C6CA79 /* DiaryPieceNode.swift */; };
+		F4825BAA28E0E8FB00C6CA79 /* villageruins.png in Resources */ = {isa = PBXBuildFile; fileRef = F4825BA928E0E8FB00C6CA79 /* villageruins.png */; };
+		F4825BAE28E10AB500C6CA79 /* DawudsVillageRuinsElements.json in Resources */ = {isa = PBXBuildFile; fileRef = F4825BAD28E10AB500C6CA79 /* DawudsVillageRuinsElements.json */; };
+		F4825BB028E1101A00C6CA79 /* diarypiece.png in Resources */ = {isa = PBXBuildFile; fileRef = F4825BAF28E1101A00C6CA79 /* diarypiece.png */; };
+		F4825BB228E2295200C6CA79 /* SelfMovingPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */; };
+		F4825BB428E22C8600C6CA79 /* NegateMineralsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BB328E22C8600C6CA79 /* NegateMineralsProtocols.swift */; };
 		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
 		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
 		F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3322CE5E3A004D1A3D /* Level.swift */; };
@@ -178,7 +184,7 @@
 		F48F7D4322CF00F0004D1A3D /* Cannon.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4222CF00F0004D1A3D /* Cannon.swift */; };
 		F48F7D4522CF011C004D1A3D /* CannonBall.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4422CF011C004D1A3D /* CannonBall.swift */; };
 		F48F7D4722CF0140004D1A3D /* Rock.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4622CF0140004D1A3D /* Rock.swift */; };
-		F48F7D4922CF0163004D1A3D /* VerticalMoveablePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4822CF0163004D1A3D /* VerticalMoveablePlatform.swift */; };
+		F48F7D4922CF0163004D1A3D /* MoveablePlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4822CF0163004D1A3D /* MoveablePlatform.swift */; };
 		F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */; };
 		F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */; };
 		F48F7D4F22CF8182004D1A3D /* WeightSwitch.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */; };
@@ -449,6 +455,12 @@
 		F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; name = Herculanum.ttf; path = Fonts/Herculanum.ttf; sourceTree = SOURCE_ROOT; };
 		F4825BA228DFAA9D00C6CA79 /* AntiGravityField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravityField.swift; sourceTree = "<group>"; };
 		F4825BA428E0C52100C6CA79 /* PhysicsAlteringFieldJoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhysicsAlteringFieldJoint.swift; sourceTree = "<group>"; };
+		F4825BA628E0DFB100C6CA79 /* DiaryPieceNode.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiaryPieceNode.swift; sourceTree = "<group>"; };
+		F4825BA928E0E8FB00C6CA79 /* villageruins.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = villageruins.png; path = "TRAFOD/Images/village ruins/villageruins.png"; sourceTree = SOURCE_ROOT; };
+		F4825BAD28E10AB500C6CA79 /* DawudsVillageRuinsElements.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DawudsVillageRuinsElements.json; sourceTree = "<group>"; };
+		F4825BAF28E1101A00C6CA79 /* diarypiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diarypiece.png; sourceTree = "<group>"; };
+		F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfMovingPlatform.swift; sourceTree = "<group>"; };
+		F4825BB328E22C8600C6CA79 /* NegateMineralsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegateMineralsProtocols.swift; sourceTree = "<group>"; };
 		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		F48F7D3322CE5E3A004D1A3D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -461,7 +473,7 @@
 		F48F7D4222CF00F0004D1A3D /* Cannon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cannon.swift; sourceTree = "<group>"; };
 		F48F7D4422CF011C004D1A3D /* CannonBall.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CannonBall.swift; sourceTree = "<group>"; };
 		F48F7D4622CF0140004D1A3D /* Rock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rock.swift; sourceTree = "<group>"; };
-		F48F7D4822CF0163004D1A3D /* VerticalMoveablePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalMoveablePlatform.swift; sourceTree = "<group>"; };
+		F48F7D4822CF0163004D1A3D /* MoveablePlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MoveablePlatform.swift; sourceTree = "<group>"; };
 		F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDirectionalGravObject.swift; sourceTree = "<group>"; };
 		F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AntiGravPlatformHeavy.swift; sourceTree = "<group>"; };
 		F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeightSwitch.swift; sourceTree = "<group>"; };
@@ -628,6 +640,7 @@
 				F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */,
 				F41C83C328D3E96E00E2C6E1 /* ProjectileProtocol.swift */,
 				F41C83C728D3EF7800E2C6E1 /* LaunchingProtocol.swift */,
+				F4825BB328E22C8600C6CA79 /* NegateMineralsProtocols.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -805,7 +818,7 @@
 				F48F7D4222CF00F0004D1A3D /* Cannon.swift */,
 				F48F7D4422CF011C004D1A3D /* CannonBall.swift */,
 				F48F7D4622CF0140004D1A3D /* Rock.swift */,
-				F48F7D4822CF0163004D1A3D /* VerticalMoveablePlatform.swift */,
+				F48F7D4822CF0163004D1A3D /* MoveablePlatform.swift */,
 				F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */,
 				F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */,
 				F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */,
@@ -978,6 +991,7 @@
 		F4825B9528DF98C900C6CA79 /* The Ruins */ = {
 			isa = PBXGroup;
 			children = (
+				F4825BAD28E10AB500C6CA79 /* DawudsVillageRuinsElements.json */,
 				F4825B9828DF98F000C6CA79 /* DawudsVillageRuins.swift */,
 				F4825B9A28DF992600C6CA79 /* DawudsVillageRuins.sks */,
 			);
@@ -988,6 +1002,7 @@
 			isa = PBXGroup;
 			children = (
 				F4825B9D28DF9E0000C6CA79 /* MessageHandler.swift */,
+				F4825BA628E0DFB100C6CA79 /* DiaryPieceNode.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -998,6 +1013,14 @@
 				F4825BA028DFA8C400C6CA79 /* Herculanum.ttf */,
 			);
 			path = Fonts;
+			sourceTree = "<group>";
+		};
+		F4825BA828E0E8E700C6CA79 /* DawudsVillageRuins */ = {
+			isa = PBXGroup;
+			children = (
+				F4825BA928E0E8FB00C6CA79 /* villageruins.png */,
+			);
+			path = DawudsVillageRuins;
 			sourceTree = "<group>";
 		};
 		F48F7D3022CE5785004D1A3D /* Level 3 */ = {
@@ -1025,6 +1048,7 @@
 			isa = PBXGroup;
 			children = (
 				F490A68C22E60F8400840F91 /* RockNoFipGravity.swift */,
+				F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */,
 			);
 			path = Rock;
 			sourceTree = "<group>";
@@ -1128,6 +1152,8 @@
 		F4B8E88C20CA4F4200E558F8 /* Images */ = {
 			isa = PBXGroup;
 			children = (
+				F4825BAF28E1101A00C6CA79 /* diarypiece.png */,
+				F4825BA828E0E8E700C6CA79 /* DawudsVillageRuins */,
 				F40BE59728D6B60E005C0996 /* rocks */,
 				F4BD03ED28D678E000D58E92 /* Dawuds Village */,
 				F4F884AD22F9CE2B002A8124 /* BuyButton.png */,
@@ -1480,6 +1506,7 @@
 				F438D04F20CD34E700EC2606 /* five.mp3 in Resources */,
 				F438D02720CD0C4900EC2606 /* Red Crystal.png in Resources */,
 				F4B03CE920C94B8700F0B346 /* GameScene.sks in Resources */,
+				F4825BAA28E0E8FB00C6CA79 /* villageruins.png in Resources */,
 				F438D04120CD34E700EC2606 /* breathing.mp3 in Resources */,
 				F41C83A028D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 in Resources */,
 				F44E1A7120D1170700FD026E /* TransferLevel.sks in Resources */,
@@ -1583,10 +1610,12 @@
 				F40BE69E28D77264005C0996 /* cottage2.png in Resources */,
 				F44E1A4B20CFC4E600FD026E /* destruction.png in Resources */,
 				F462CDDF20E5D543004AF89E /* lv2rocks18.png in Resources */,
+				F4825BB028E1101A00C6CA79 /* diarypiece.png in Resources */,
 				F438D04520CD34E700EC2606 /* mineralgrab.mp3 in Resources */,
 				F4C4CA1420EB14F4005CA4D7 /* cannonblast.wav in Resources */,
 				F4B8E8AB20CA72BF00E558F8 /* City Rock.png in Resources */,
 				F4B8E8A020CA4FAA00E558F8 /* running_step6.png in Resources */,
+				F4825BAE28E10AB500C6CA79 /* DawudsVillageRuinsElements.json in Resources */,
 				F4BA31A320E53EBD00DBD823 /* lv2rocks4.png in Resources */,
 				F462CDD920E5D264004AF89E /* lv2rocks13.png in Resources */,
 				F4825B9228DD135400C6CA79 /* MineralExplosion.sks in Resources */,
@@ -1697,6 +1726,8 @@
 			files = (
 				F44D96F228C01F7B009A8098 /* StoryElementNode.swift in Sources */,
 				F4F884A122F9C85C002A8124 /* AntiGravityMineral.swift in Sources */,
+				F4825BB428E22C8600C6CA79 /* NegateMineralsProtocols.swift in Sources */,
+				F4825BB228E2295200C6CA79 /* SelfMovingPlatform.swift in Sources */,
 				F48F7D4722CF0140004D1A3D /* Rock.swift in Sources */,
 				F4F884A422F9C899002A8124 /* ImpulseMineral.swift in Sources */,
 				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
@@ -1712,7 +1743,7 @@
 				F41C83BD28D3A50F00E2C6E1 /* CGPoint+Offset.swift in Sources */,
 				F41C839B28D0F5D500E2C6E1 /* DestroyerMineral.swift in Sources */,
 				F49326F622E98F8B007B9B16 /* UseMinerals.swift in Sources */,
-				F48F7D4922CF0163004D1A3D /* VerticalMoveablePlatform.swift in Sources */,
+				F48F7D4922CF0163004D1A3D /* MoveablePlatform.swift in Sources */,
 				F4825B9928DF98F000C6CA79 /* DawudsVillageRuins.swift in Sources */,
 				F4EBE9DC22D63A3A00EC2300 /* PhysicsAltering.swift in Sources */,
 				F4F5D90C22EB2AA300CFB2A6 /* AffectedByNegationField.swift in Sources */,
@@ -1770,6 +1801,7 @@
 				F44A9A8D20D3E25D004E389C /* World.swift in Sources */,
 				F48F7D4B22CF018A004D1A3D /* MultiDirectionalGravObject.swift in Sources */,
 				F43FE24A20E21A550012D6E4 /* World+Particles.swift in Sources */,
+				F4825BA728E0DFB100C6CA79 /* DiaryPieceNode.swift in Sources */,
 				F46115CF22E0F5380035E059 /* World+LevelTransfers.swift in Sources */,
 				F472CABF22E0A449001A4949 /* World+PlayerActions.swift in Sources */,
 				F48F7D3922CF0031004D1A3D /* PhysicsCategory.swift in Sources */,

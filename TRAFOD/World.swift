@@ -223,6 +223,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 self.cannons?.append(cannon)
             case is Rock:
                 break;
+            case is Reset:
+                let node = node as? Reset
+                node?.setupPhysicsBody()
+                break;
             case is FlipSwitch:
                 let flipSwitch = node as! FlipSwitch
                 flipSwitch.setMovablePlatformWithTimeInterval(timeInterval: 3.0)
@@ -473,6 +477,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: RopeTypeSegment.self) {
 //            self.player.setRopeContactPoint(nil)
         }
+        
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: FlipSwitch.self) {
+            self.player.removeFlipSwitch()
+        }
     }
     
     /**
@@ -552,6 +560,12 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         let contactAName = contact.bodyA.node?.name ?? ""
         let contactBName = contact.bodyB.node?.name ?? ""
         
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: FlipSwitch.self) {
+            if let flipSwitch = contact.getNodeOfType(FlipSwitch.self) as? FlipSwitch {
+                self.player.setFlipSwitch(flipSwitch)
+            }
+        }
+        
         print("Collision detected: A: \(contactAName), B: \(contactBName)")
         
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
@@ -564,6 +578,12 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         Arrow.hitGround(contact)
+        
+        if let diaryPiece = contact.getNodeOfType(DiaryPieceNode.self) as? RetrievableObject {
+            if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: DiaryPieceNode.self) {
+                diaryPiece.execute()
+            }
+        }
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: GotoLevelNode.self, nodeBType: Player.self) {
             self.handlePlayerGotoNextLevel(contact: contact)
@@ -1036,7 +1056,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func moveCameraWithPlayer () {
         if let _ = self.childNode(withName: GameNodes.CameraMinX) {
             self.camera?.position.x = self.player.position.x
-            self.camera?.position.y = self.player.position.y + 200
+            self.camera?.position.y = self.player.position.y
         }
         
         if let leftBoundary = self.camera?.childNode(withName: GameNodes.LeftBoundary), let rightBoundary = self.camera?.childNode(withName: GameNodes.RightBoundary), let camera = self.camera {

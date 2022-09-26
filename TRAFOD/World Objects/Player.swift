@@ -124,6 +124,20 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
      */
     private var groundNode:SKSpriteNode?
     
+    /** If the player is in contact with a flip switch then we store it here while the player is in contact with it*/
+    private var flipSwitch:FlipSwitch?
+    
+    func setFlipSwitch (_ flipSwitch: FlipSwitch) {
+        self.flipSwitch = flipSwitch
+    }
+    
+    func removeFlipSwitch () {
+        self.flipSwitch = nil
+    }
+    
+    func handleFlipSwitch () {
+        self.flipSwitch?.flipSwitch()
+    }
     
     // MARK: Player Functions
     
@@ -269,7 +283,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         self.physicsBody?.contactTestBitMask = 1 |
             UInt32(PhysicsCategory.Fence) |
             UInt32(PhysicsCategory.Minerals) |
-            UInt32(PhysicsCategory.GetMineralObject) |
+            UInt32(PhysicsCategory.GetObject) |
             UInt32(PhysicsCategory.Doorway) |
             UInt32(PhysicsCategory.Portals) |
             UInt32(PhysicsCategory.Fire) |

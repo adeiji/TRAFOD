@@ -11,7 +11,7 @@ import GameKit
 
 class PhysicsHandler {
     
-    static let kRunVelocity:CGFloat = 600
+    static let kRunVelocity:CGFloat = 480
     
     /**
      When the player is grabbing an object we apply a velocity to the object that is being held. The velocity is whatever the player's running velocity is, multiplied by this number
@@ -25,6 +25,25 @@ class PhysicsHandler {
      This contains all the nodes that can alter the physics of other objects that have been used and are currently active
      */
     var physicsAlteringAreas:[Minerals: PhysicsAlteringObject] = [Minerals: PhysicsAlteringObject]()
+    
+    /**
+     Get a physics body for the type of object that the player hits and retrieves something
+     */
+    class func getPhysicsBodyForRetrievableObject (size: CGSize) -> SKPhysicsBody {
+        let physicsBody = SKPhysicsBody(rectangleOf: size)
+        physicsBody.affectedByGravity = false
+        physicsBody.restitution = 0
+        physicsBody.mass = 0
+        physicsBody.isDynamic = false
+        physicsBody.pinned = true
+        physicsBody.categoryBitMask = UInt32(PhysicsCategory.GetObject)
+        physicsBody.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        physicsBody.contactTestBitMask = UInt32(PhysicsCategory.Player)
+        physicsBody.fieldBitMask = UInt32(PhysicsCategory.Nothing)
+        physicsBody.allowsRotation = false
+        
+        return physicsBody
+    }
     
     class func contactContains (strings: [String], contactA: String = "", contactB: String = "", contact: SKPhysicsContact? = nil) -> Bool {
         var result = true
@@ -164,7 +183,7 @@ class PhysicsHandler {
                         return nil
                     }
                 case is AntiGravityMineral:
-                    if contactContains(strings: ["noantigrav"], contact: contact) {
+                    if contact.getNodeOfType(NegateGravityGround.self) != nil {
                         return nil
                     }
                 default:

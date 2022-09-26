@@ -48,7 +48,7 @@ class DawudVillageLevel: Level {
             vine.addToScene(self.scene)
         })
         
-        GameElementsInitializer.setupGameElements(plistFileName: "DawudVillageElements", scene: self.scene)
+        GameElementsInitializer.setupGameElementsFromPlist(plistFileName: "DawudVillageElements", scene: self.scene)
                 
     }
     

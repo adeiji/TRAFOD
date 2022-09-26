@@ -36,8 +36,6 @@ class Level : World {
     
     override func didBegin(_ contact: SKPhysicsContact) {
         super.didBegin(contact);
-
-        FlipSwitch.flipSwitch(contact: contact)
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: NegateFlipGravField.self, nodeBType: AffectedByNegationField.self) {
             NegateFlipGravField.negateForceForObjectInContact(contact: contact)
@@ -147,7 +145,7 @@ class Level : World {
                     let objectsInField = gravFieldPhysicsBody.allContactedBodies()
                     for object in objectsInField {
                         if let node = node as? DoubleGravField {
-                            if let _ = object.node as? VerticalMoveablePlatform, let _ = object.node as? PortalPortocol {
+                            if let _ = object.node as? MoveablePlatform, let _ = object.node as? PortalPortocol {
                                 continue;
                             }
                             

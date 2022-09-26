@@ -15,7 +15,7 @@ class WeightSwitch : GameSwitch {
     /** - TODO: In the future this will be deprecated and we'll inherit this from GameSwitch */
     var platformMoveToPos:WeightSwitchPlatformFinalPosition?
     /** - TODO: In the future this will be deprecated and we'll inherit this from GameSwitch */
-    var platform:VerticalMoveablePlatform?
+    var platform:MoveablePlatform?
     var topOfSwitch:MultiDirectionalGravObject?
     
     required init?(coder aDecoder: NSCoder) {
@@ -30,7 +30,7 @@ class WeightSwitch : GameSwitch {
                 self.bottomSwitch = node
             } else if let node = node as? WeightSwitchPlatformFinalPosition {
                 self.platformMoveToPos = node
-            } else if let node = node as? VerticalMoveablePlatform {
+            } else if let node = node as? MoveablePlatform {
                 self.platform = node
                 self.platform?.moveToPoint = self.childNode(withName: "end")?.position
             } else if let node = node as? MultiDirectionalGravObject {

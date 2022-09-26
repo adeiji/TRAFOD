@@ -1,0 +1,58 @@
+[{
+    "name": "DiaryFragment",
+    "message": "Fear has gripped the hearts of my men, for there are whispers his arrival is imminent",    
+    "x": 1442,
+    "y": 347
+},
+{
+    "name": "DiaryFragment",
+    "message": "I will be forever grateful to the Men of the Forest. To them we owe our life, and allegiance.",    
+    "x": 4705,
+    "y": 1118
+},
+{
+    "name": "flipSwitch",
+    "id": "flipSwitch-1",
+    "direction": "horizontal",
+    "x": 3123,
+    "y": 515,
+    "size": {
+        "width": 300,
+        "height": 50
+    },
+    "children": [
+        {
+            "name": "weightPlatformFinalPosition",
+            "x": 1045,
+            "y": -100
+        },
+        {
+            "name": "moveablePlatform",
+            "x": 75,
+            "y": -100
+        }
+    ]
+},
+{
+    "name": "flipSwitch",
+    "id": "flipSwitch-2",
+    "direction": "vertical",
+    "x": 2553,
+    "y": 515,
+    "size": {
+        "width": 300,
+        "height": 50
+    },
+    "children": [
+        {
+            "name": "weightPlatformFinalPosition",
+            "x": 85,
+            "y": 300
+        },
+        {
+            "name": "moveablePlatform",
+            "x": 85,
+            "y": -100
+        }
+    ]
+}]

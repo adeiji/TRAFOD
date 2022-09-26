@@ -62,11 +62,13 @@ class Rock : Ground, BaseWorldObject {
                 
         var shouldChangeMassToOriginalValue = true
         
-        self.physicsBody?.joints.forEach({ [weak self] joint in            
+        // If the object is in joined with any objects that alter physics
+        self.physicsBody?.joints.forEach({ joint in
             if joint.bodyB.node is PhysicsAlteringObject || joint.bodyA.node is PhysicsAlteringObject {
                 shouldChangeMassToOriginalValue = false
             }
         })
+        
         // If the object is not in contact with an antigrav field
         if self.physicsBody?.allContactedBodies().contains(where: { $0.node is AntiGravityField }) == true {
             shouldChangeMassToOriginalValue = false

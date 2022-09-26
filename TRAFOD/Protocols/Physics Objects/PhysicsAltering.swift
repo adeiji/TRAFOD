@@ -139,7 +139,7 @@ class FlipGravity : PhysicsAlteringObject {
                     if camera.contains(node.position) {
                         
                         switch node {
-                        case is VerticalMoveablePlatform:
+                        case is MoveablePlatform:
                             continue
                         case is BaseWorldObject:
                             if let node = node as? BaseWorldObject {

@@ -67,6 +67,7 @@ public class SoundFiles {
 
 public class Textures {
     public static let Cannon = SKTexture(imageNamed: "cannon")
+    public static let DiaryPiece = SKTexture(imageNamed: "diarypiece")
     public static let FlipSwitch = SKTexture(imageNamed: "switch-off")
     public static let Bridge = "RopeBridge 2"
     struct Dawud {
@@ -79,6 +80,7 @@ public class Textures {
 }
 
 public class PhysicsObjectTitles {
+    public static let DiaryFragment = "DiaryFragment"
     public static let Dawud = "dawud"
     public static let Portal = "portal"
     public static let Rock = "rock"
