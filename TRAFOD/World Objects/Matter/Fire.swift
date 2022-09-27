@@ -22,5 +22,6 @@ class Fire : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
         self.physicsBody?.mass = 0
         self.physicsBody?.collisionBitMask = 0
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Fire)
+        self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
     }
 }

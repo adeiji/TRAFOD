@@ -36,12 +36,7 @@ class DawudVillageLevel: Level {
             DawudsVillageMineralsAnimationHandler(fileName: "DawudsVillageAnimations", player: self.player, scene: self)
         ])
                 
-        self.addRopeBridge()
-        
-        self.scene?.enumerateChildNodes(withName: "spring", using: { vineNode, pointer in
-            let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode", segmentLength: 300)
-            spring.addToScene(self.scene)
-        })
+        self.addRopeBridge()                
         
         self.scene?.enumerateChildNodes(withName: "vine", using: { vineNode, pointer in
             let vine = VineNode(length: 5, anchorPoint: vineNode.position, name: "vineNode", segmentLength: 100)

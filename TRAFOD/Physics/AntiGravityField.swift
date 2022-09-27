@@ -20,7 +20,7 @@ class AntiGravityField: PhysicsAlteringObject {
     }
     
     required init(contactPosition: CGPoint, size: CGSize?, color: UIColor?, anchorPoint: CGPoint) {
-        super.init(contactPosition: contactPosition, size: size ?? CGSize(width: 400, height: 2000), color: color ?? .purple, anchorPoint: anchorPoint)
+        super.init(contactPosition: contactPosition, size: size ?? CGSize(width: 400, height: 5000), color: color ?? .purple, anchorPoint: anchorPoint)
         self.setCategoryBitmask()
     }
     

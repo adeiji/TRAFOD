@@ -139,8 +139,13 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     let physicsHandler = PhysicsHandler()
     
     weak var thrownMineral:Mineral?
+    
     /// Contains all the special fields within this level
     var specialFields:[SpecialField] = [SpecialField]()
+    
+    /** All the physics altering fields created from minerals that are currently on the screen*/
+    private var physicsAlteringFields:[PhysicsAlteringObject] = []
+    
     var counterNodes: [String : SKNode] = [String: SKNode]()
     
     var leftHandView:UIView?
@@ -152,6 +157,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     enum Levels:String {
         case DawudVillage = "DawudVillage"
+        case RuinsOfAnthril = "RuinsOfAnthril"
         case LEVEL1 = "GameScene"
         case LEVEL2 = "Level2"
         case LEVEL3 = "Level3"
@@ -169,6 +175,15 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     override func sceneDidLoad() {
         self.lastUpdateTime = 0
+    }
+    
+    /** Checks to see if the type of field that's about to be added to the world already exist in the world or not*/
+    func getPhysicsAlteringFieldFromWorldOfType <T> (_ physicsAlteringFieldType: T.Type) -> T? {
+        return self.physicsAlteringFields.first(where: { $0 is T } ) as? T
+    }
+    
+    func addPhysicsAlteringFieldToWorld (_ physicsAlteringObject: PhysicsAlteringObject) {
+        self.physicsAlteringFields.append(physicsAlteringObject)
     }
     
     override func didMove(to view: SKView) {
@@ -236,7 +251,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 self.weightSwitches?.append(weightSwitch)
             case is RetrieveMineralNode:
                 if let mineralNode = node as? RetrieveMineralNode {
-                    guard let currentLevelName = self.currentLevel?.rawValue else { fatalError("The current level name must be set") }
+                    guard let currentLevelName = self.currentLevel?.rawValue else { fatalError("The current level name must be set. This is because we need to keep track of what minerals have been picked up on what levels. Set the current level in the didMove(to: ) method for the Level. Set the current level before you call super.didMove(to: )\nAlso, make sure that you add the name of the level to the Levels enum.") }
                     mineralNode.setup(name: "\(currentLevelName)\(retrievalMineralNodeIndex)")
                 }
             case is SpecialField:

@@ -13,14 +13,15 @@ import SpriteKit
 class DawudsVillageRuins: Level {
     
     let gameElementsFilename = "DawudsVillageRuinsElements"
-    
+            
     var cameraUpdates = [
         (point: CGPoint(x: 2435, y: 400), scale: 1.5, id: "second-puzzle"),
         (point: CGPoint(x: -1000, y: -500), scale: 1, id: "beginning")
     ]
     var currentCameraState:String = ""
     
-    override func didMove(to view: SKView) {
+    override func didMove(to view: SKView) {        
+        self.currentLevel = .RuinsOfAnthril
         super.didMove(to: view)
         
         GameElementsInitializer.setupGameElementsFromJson(jsonFileName: self.gameElementsFilename, scene: self.scene)

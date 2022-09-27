@@ -19,16 +19,17 @@ class AntiGravityMineral : Mineral, UseMinerals {
     }
     
     func mineralUsed (contactPosition: CGPoint, world: World, objectHitByMineral:SKNode) -> PhysicsAlteringObject? {
-                                        
-        if !world.forces.contains(.ANTIGRAV) {            
-            world.playSound(fileName: "antigrav")
-            world.forces.append(.ANTIGRAV)
-            self.removeFromParent()
-            let antiGravField = self.createAntiGravField(point: contactPosition, world: world, objectHitByMineral: objectHitByMineral)
-            return antiGravField
+        
+        if let antiGravField = world.getPhysicsAlteringFieldFromWorldOfType(AntiGravityField.self) {
+            antiGravField.removeFromParent()
         }
         
-        return nil
+        world.playSound(fileName: "antigrav")
+        world.forces.append(.ANTIGRAV)        
+        self.removeFromParent()
+        let antiGravField = self.createAntiGravField(point: contactPosition, world: world, objectHitByMineral: objectHitByMineral)
+        world.addPhysicsAlteringFieldToWorld(antiGravField)
+        return antiGravField
     }
     
     private func createAntiGravField (point: CGPoint, world: World, objectHitByMineral:SKNode) -> PhysicsAlteringObject {

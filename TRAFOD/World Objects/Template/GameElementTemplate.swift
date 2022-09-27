@@ -22,6 +22,7 @@ struct GameElementTemplate: Codable {
     let timeToFire:Double?
     let children:[GameElementTemplate]?
     let size:Size?
+    let velocity:Double?
 }
 
 struct Size: Codable {

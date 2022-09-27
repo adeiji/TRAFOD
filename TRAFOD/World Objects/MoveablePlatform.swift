@@ -21,6 +21,8 @@ class MoveablePlatform : Ground {
     
     private let direction:MoveablePlatformDirection
     
+    private let velocity:Double
+    
     /**
      Whether the platform is at it's starting position or not.  If it is at it's starting position that means that it's finished moving
      */
@@ -36,24 +38,25 @@ class MoveablePlatform : Ground {
     
     var originalPosition:CGPoint!
     
-    init(startingPosition: CGPoint, size: CGSize, direction: MoveablePlatformDirection) {
-        self.direction = direction
-        super.init(size: size)
+    init(switchParams: FlipSwitchParams) {
+        self.velocity = switchParams.velocity
+        self.direction = switchParams.direction
+        super.init(size: switchParams.platformSize)
         
         self.setupPhysicsBody()
         self.anchorPoint = CGPoint(x: 0, y: 0.5)
         self.color = .green
-        self.position = startingPosition
-        self.originalPosition = startingPosition
+        self.position = switchParams.startPos
+        self.originalPosition = switchParams.startPos
         self.zPosition = 1000
         
         let constraint = SKConstraint.zRotation(SKRange(constantValue: self.zRotation))
         
         if direction == .vertical {
-            let xConstraint = SKConstraint.positionX(SKRange(constantValue: startingPosition.x))
+            let xConstraint = SKConstraint.positionX(SKRange(constantValue: switchParams.startPos.x))
             self.constraints = [constraint, xConstraint]
         } else {
-            let yConstraint = SKConstraint.positionY(SKRange(constantValue: startingPosition.y))
+            let yConstraint = SKConstraint.positionY(SKRange(constantValue: switchParams.startPos.y))
             self.constraints = [constraint, yConstraint]
         }
         
@@ -61,6 +64,7 @@ class MoveablePlatform : Ground {
     
     required init?(coder aDecoder: NSCoder) {
         self.direction = .horizontal
+        self.velocity = 100
         super.init(coder: aDecoder)
         
         self.originalPosition = self.position
@@ -78,20 +82,16 @@ class MoveablePlatform : Ground {
         self.physicsBody?.usesPreciseCollisionDetection = true
     }
     
-    /*
-     Moves the platform from it's starting position to the moveToPoint position or to it's original starting position
+    /**
+     Sets the velocity of this object and then returns whether or not the object is moving towards it's final position or not
      */
-    func move () {
-        guard let moveToPoint = self.finishedMoving == false ? self.moveToPoint : self.originalPosition else {
-            return
-        }
-                        
-        self.physicsBody?.velocity = .zero
-        let yVector = self.position.y < moveToPoint.y ? 100 : -100
-        let xVector = self.position.x < moveToPoint.x ? 100 : -100
+    @discardableResult private func setVelocityAndGetIsMovingForward (moveToPoint: CGPoint) -> Bool {
+
+        
+        let yVector = self.position.y < moveToPoint.y ? self.velocity : -self.velocity
+        let xVector = self.position.x < moveToPoint.x ? self.velocity : -self.velocity
         
         var isMovingForward = false
-        self.physicsBody?.isDynamic = true
         
         switch self.direction {
         case .horizontal:
@@ -111,6 +111,21 @@ class MoveablePlatform : Ground {
             self.physicsBody?.velocity = CGVector(dx: 0,dy: yVector)
         }
         
+        return isMovingForward
+    }
+    
+    /*
+     Moves the platform from it's starting position to the moveToPoint position or to it's original starting position
+     */
+    func move () {
+        guard let moveToPoint = self.finishedMoving == false ? self.moveToPoint : self.originalPosition else {
+            return
+        }
+                        
+        self.physicsBody?.velocity = .zero
+        self.physicsBody?.isDynamic = true
+        
+        var isMovingForward = self.setVelocityAndGetIsMovingForward(moveToPoint: moveToPoint)
         self.finishedMoving = !self.finishedMoving
         
         Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
@@ -128,10 +143,14 @@ class MoveablePlatform : Ground {
             case true:
                 if positionAxis >= moveToPointAxis {
                     stopMoving()
+                } else {
+                    self.setVelocityAndGetIsMovingForward(moveToPoint: moveToPoint)
                 }
             case false:
                 if positionAxis <= moveToPointAxis {
                     stopMoving()
+                } else {
+                    self.setVelocityAndGetIsMovingForward(moveToPoint: moveToPoint)
                 }
             }
         }

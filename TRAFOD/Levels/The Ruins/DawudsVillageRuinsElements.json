@@ -11,6 +11,12 @@
     "y": 1118
 },
 {
+    "name": "DiaryFragment",
+    "message": "This man's wit is sharper than the finest of swords. What cunning he adds to his skills with the lance.",    
+    "x": 7738,
+    "y": 893
+},
+{
     "name": "flipSwitch",
     "id": "flipSwitch-1",
     "direction": "horizontal",
@@ -52,6 +58,30 @@
         {
             "name": "moveablePlatform",
             "x": 85,
+            "y": -100
+        }
+    ]
+},
+{
+    "name": "flipSwitch",
+    "id": "flipSwitch-3",
+    "direction": "vertical",
+    "x": 6815,
+    "y": 980,
+    "velocity": 750,
+    "size": {
+        "width": 210,
+        "height": 50
+    },
+    "children": [
+        {
+            "name": "weightPlatformFinalPosition",
+            "x": 200,
+            "y": -1200
+        },
+        {
+            "name": "moveablePlatform",
+            "x": 200,
             "y": -100
         }
     ]

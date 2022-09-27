@@ -22,6 +22,11 @@ class Level : World {
         super.didMove(to: view)
         self.physicsWorld.contactDelegate = self        
         self.getProgress()
+        
+        self.scene?.enumerateChildNodes(withName: "spring", using: { vineNode, pointer in
+            let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode", segmentLength: 200)
+            spring.addToScene(self.scene)
+        })
     }
     
     override func didEnd(_ contact: SKPhysicsContact) {

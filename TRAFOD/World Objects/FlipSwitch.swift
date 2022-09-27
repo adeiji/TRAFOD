@@ -27,6 +27,7 @@ struct FlipSwitchParams {
     let endPos: CGPoint
     let platformSize: CGSize
     let direction: MoveablePlatformDirection
+    let velocity: Double
     
     static let Horizontal = "horizontal"
     static let Vertical = "vertical"
@@ -62,7 +63,7 @@ class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
         - switchParams: The parameters that are used for setup of self and children
      */
     private func setupObject (switchParams: FlipSwitchParams) {        
-        let startNode = MoveablePlatform(startingPosition: switchParams.startPos, size: switchParams.platformSize, direction: switchParams.direction)
+        let startNode = MoveablePlatform(switchParams: switchParams)
         let endPositionNode = WeightSwitchPlatformFinalPosition()
         endPositionNode.position = switchParams.endPos
         
@@ -117,7 +118,7 @@ class FlipSwitch : GameSwitch, ObjectWithManuallyGeneratedPhysicsBody {
     
     func setMovablePlatformWithTimeInterval (timeInterval: TimeInterval) {
         self.children.forEach { (node) in
-            if let node = node as? MoveablePlatform {
+            if let node = node as? MoveablePlatform {                
                 self.movablePlatform = node
                 self.setEndPointAndTimeInterval(timeInterval: timeInterval)
             }
