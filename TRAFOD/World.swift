@@ -64,10 +64,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     /**
-     When the player leaves the ground, this point is stored containing the point of his last contact with the ground
-     - Bug: Right now there is an issue with sometimes the last point is on the side of a mountain or the edge of a cliff.  This needs to be fixed
+     Whenever the player hits a checkpoint, the start position is updated so that if he dies he will come back at the right point
      */
-    var lastPointOnGround:CGPoint?
+    var startPosition:CGPoint?
     
     var entities = [GKEntity]()
     /**
@@ -538,9 +537,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         if self.player.hasLanded(contact: contact) {
             if let physicsBody = self.player.physicsBody {
                 self.player.physicsBody?.velocity = CGVector(dx: physicsBody.velocity.dx / 2.0, dy: 0)
-            }
-            
-            self.lastPointOnGround = self.player.position
+            }                        
             
             if self.player.state != .GRABBING {
                 self.player.state = .ONGROUND
@@ -586,6 +583,8 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
         PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)
         // Check to see if the playe has hit the door to go to another level
+        
+        Checkpoint.handleContact(contact: contact, world: self)
         
         if Arrow.didHitPlayer(contact) {
             self.player.died()

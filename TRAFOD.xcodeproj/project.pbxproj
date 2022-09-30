@@ -172,6 +172,7 @@
 		F4825BB028E1101A00C6CA79 /* diarypiece.png in Resources */ = {isa = PBXBuildFile; fileRef = F4825BAF28E1101A00C6CA79 /* diarypiece.png */; };
 		F4825BB228E2295200C6CA79 /* SelfMovingPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */; };
 		F4825BB428E22C8600C6CA79 /* NegateMineralsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BB328E22C8600C6CA79 /* NegateMineralsProtocols.swift */; };
+		F4825BBB28E754D200C6CA79 /* Checkpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BBA28E754D200C6CA79 /* Checkpoint.swift */; };
 		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
 		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
 		F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3322CE5E3A004D1A3D /* Level.swift */; };
@@ -461,6 +462,7 @@
 		F4825BAF28E1101A00C6CA79 /* diarypiece.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = diarypiece.png; sourceTree = "<group>"; };
 		F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfMovingPlatform.swift; sourceTree = "<group>"; };
 		F4825BB328E22C8600C6CA79 /* NegateMineralsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegateMineralsProtocols.swift; sourceTree = "<group>"; };
+		F4825BBA28E754D200C6CA79 /* Checkpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkpoint.swift; sourceTree = "<group>"; };
 		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		F48F7D3322CE5E3A004D1A3D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -617,14 +619,6 @@
 			path = rocks;
 			sourceTree = "<group>";
 		};
-		F41C839628D0F35F00E2C6E1 /* RockFragment */ = {
-			isa = PBXGroup;
-			children = (
-				F41C839728D0F36B00E2C6E1 /* RockFragment.swift */,
-			);
-			path = RockFragment;
-			sourceTree = "<group>";
-		};
 		F41C839928D0F5C800E2C6E1 /* Destroyer */ = {
 			isa = PBXGroup;
 			children = (
@@ -657,6 +651,7 @@
 		F41C83B828D28E9900E2C6E1 /* Bridge */ = {
 			isa = PBXGroup;
 			children = (
+				F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */,
 				F41C83B928D28EA800E2C6E1 /* Bridge.swift */,
 			);
 			path = Bridge;
@@ -672,15 +667,6 @@
 				F4825B8F28DD11FC00C6CA79 /* UIButton+Closure.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		F41C83C028D3E8E700E2C6E1 /* Arrow Launcher */ = {
-			isa = PBXGroup;
-			children = (
-				F41C83C128D3E8F800E2C6E1 /* ArrowLauncher.swift */,
-				F41C83C528D3EF5600E2C6E1 /* Arrow.swift */,
-			);
-			path = "Arrow Launcher";
 			sourceTree = "<group>";
 		};
 		F41C83CF28D5285800E2C6E1 /* Template */ = {
@@ -799,10 +785,12 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F4825BB928E754B400C6CA79 /* Contact Objects */,
+				F4825BB828E754A900C6CA79 /* Platforms */,
+				F4825BB728E7544200C6CA79 /* Physics Fields */,
+				F4825BB628E7537A00C6CA79 /* Projectiles */,
 				F41C83CF28D5285800E2C6E1 /* Template */,
-				F41C83C028D3E8E700E2C6E1 /* Arrow Launcher */,
 				F41C83B828D28E9900E2C6E1 /* Bridge */,
-				F41C839628D0F35F00E2C6E1 /* RockFragment */,
 				F44D96E028BD640B009A8098 /* Vines */,
 				F4F48F2822EC8866002A59A5 /* Beer */,
 				F490A68E22E60FC500840F91 /* Switches */,
@@ -810,22 +798,7 @@
 				F49ADDD122E3483D00388C49 /* Matter */,
 				F46115CB22E0E5340035E059 /* Protocols */,
 				F4EBE9E422D6435700EC2300 /* Minerals */,
-				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
-				F48F7D3A22CF0058004D1A3D /* AntiGravPlatformProtocol.swift */,
-				F48F7D3C22CF0075004D1A3D /* Reset.swift */,
-				F48F7D3E22CF00AC004D1A3D /* FlipSwitch.swift */,
-				F48F7D4022CF00D3004D1A3D /* DoubleGravField.swift */,
-				F48F7D4222CF00F0004D1A3D /* Cannon.swift */,
-				F48F7D4422CF011C004D1A3D /* CannonBall.swift */,
-				F48F7D4622CF0140004D1A3D /* Rock.swift */,
-				F48F7D4822CF0163004D1A3D /* MoveablePlatform.swift */,
-				F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */,
-				F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */,
-				F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */,
 				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
-				F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */,
-				F41C83A328D13D2200E2C6E1 /* GrabbableObject.swift */,
-				F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */,
 			);
 			path = "World Objects";
 			sourceTree = "<group>";
@@ -973,6 +946,8 @@
 		F46115CB22E0E5340035E059 /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				F48F7D3A22CF0058004D1A3D /* AntiGravPlatformProtocol.swift */,
+				F41C83A328D13D2200E2C6E1 /* GrabbableObject.swift */,
 				F4F5D90B22EB2AA300CFB2A6 /* AffectedByNegationField.swift */,
 				F46115CC22E0E54D0035E059 /* ObjectWithManuallyGeneratedPhysicsBody.swift */,
 				F49326F522E98F8B007B9B16 /* UseMinerals.swift */,
@@ -1023,6 +998,45 @@
 			path = DawudsVillageRuins;
 			sourceTree = "<group>";
 		};
+		F4825BB628E7537A00C6CA79 /* Projectiles */ = {
+			isa = PBXGroup;
+			children = (
+				F41C83C128D3E8F800E2C6E1 /* ArrowLauncher.swift */,
+				F48F7D4222CF00F0004D1A3D /* Cannon.swift */,
+				F48F7D4422CF011C004D1A3D /* CannonBall.swift */,
+				F41C83C528D3EF5600E2C6E1 /* Arrow.swift */,
+			);
+			path = Projectiles;
+			sourceTree = "<group>";
+		};
+		F4825BB728E7544200C6CA79 /* Physics Fields */ = {
+			isa = PBXGroup;
+			children = (
+				F48F7D4022CF00D3004D1A3D /* DoubleGravField.swift */,
+				F48F7D4A22CF018A004D1A3D /* MultiDirectionalGravObject.swift */,
+				F4F5D90D22EB2C1E00CFB2A6 /* NegateFlipGravField.swift */,
+			);
+			path = "Physics Fields";
+			sourceTree = "<group>";
+		};
+		F4825BB828E754A900C6CA79 /* Platforms */ = {
+			isa = PBXGroup;
+			children = (
+				F48F7D4C22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift */,
+			);
+			path = Platforms;
+			sourceTree = "<group>";
+		};
+		F4825BB928E754B400C6CA79 /* Contact Objects */ = {
+			isa = PBXGroup;
+			children = (
+				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
+				F48F7D3C22CF0075004D1A3D /* Reset.swift */,
+				F4825BBA28E754D200C6CA79 /* Checkpoint.swift */,
+			);
+			path = "Contact Objects";
+			sourceTree = "<group>";
+		};
 		F48F7D3022CE5785004D1A3D /* Level 3 */ = {
 			isa = PBXGroup;
 			children = (
@@ -1047,6 +1061,8 @@
 		F490A68B22E60F7500840F91 /* Rock */ = {
 			isa = PBXGroup;
 			children = (
+				F41C839728D0F36B00E2C6E1 /* RockFragment.swift */,
+				F48F7D4622CF0140004D1A3D /* Rock.swift */,
 				F490A68C22E60F8400840F91 /* RockNoFipGravity.swift */,
 				F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */,
 			);
@@ -1056,6 +1072,9 @@
 		F490A68E22E60FC500840F91 /* Switches */ = {
 			isa = PBXGroup;
 			children = (
+				F48F7D4822CF0163004D1A3D /* MoveablePlatform.swift */,
+				F48F7D4E22CF8182004D1A3D /* WeightSwitch.swift */,
+				F48F7D3E22CF00AC004D1A3D /* FlipSwitch.swift */,
 				F490A68F22E60FD500840F91 /* GameSwitchProtocol.swift */,
 				F490A69122E61CF800840F91 /* GameSwitch.swift */,
 			);
@@ -1733,6 +1752,7 @@
 				F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */,
 				F4BA319620E3672900DBD823 /* Level2.swift in Sources */,
 				F48F7D3F22CF00AC004D1A3D /* FlipSwitch.swift in Sources */,
+				F4825BBB28E754D200C6CA79 /* Checkpoint.swift in Sources */,
 				F4F6327F22F350AC0026CED6 /* Ground.swift in Sources */,
 				F41C83B328D24EE000E2C6E1 /* AnimationTemplate.swift in Sources */,
 				F44D96E228BD641A009A8098 /* Spring.swift in Sources */,

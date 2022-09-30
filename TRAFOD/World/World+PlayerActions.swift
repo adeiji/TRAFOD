@@ -19,7 +19,7 @@ extension World {
      */
     func playerIsFalling () -> Bool {
         
-        if let point = self.lastPointOnGround {
+        if let point = self.startPosition {
             if self.player.position.y < point.y {
                 return true
             }
@@ -91,7 +91,7 @@ extension World {
     }
     
     func handlePlayerDied () {
-        if let point = self.lastPointOnGround {
+        if let point = self.startPosition {
             self.player.position = point
         }
         
