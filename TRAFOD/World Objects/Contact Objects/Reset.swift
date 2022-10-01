@@ -9,6 +9,9 @@
 import Foundation
 import GameKit
 
+/**
+ When certain items hit this object they are returned to their original position
+ */
 class Reset: SKSpriteNode {
     var startingPos:CGPoint!
     
@@ -17,6 +20,7 @@ class Reset: SKSpriteNode {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Reset)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Rock)
+        self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.isDynamic = true
         self.physicsBody?.pinned = true
         self.physicsBody?.affectedByGravity = false

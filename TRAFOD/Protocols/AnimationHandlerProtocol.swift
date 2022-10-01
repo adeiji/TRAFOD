@@ -9,6 +9,11 @@
 import Foundation
 import UIKit
 
+/**
+ The structure for all animation handler objects.
+ 
+ The animation handlers are responsible for executing animations
+ */
 protocol AnimationHandlerProtocol: AnyObject {
     
     /// The player in the world. We need this object because at times the player needs to be interacted with to execute an animation

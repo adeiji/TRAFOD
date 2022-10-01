@@ -21,6 +21,9 @@ protocol RetrievableObject: SKSpriteNode {
     
 }
 
+/**
+ A snippet of information that is related to the story that is shown to the user
+ */
 class DiaryPieceNode:SKSpriteNode, RetrievableObject {
             
     var message:Message?

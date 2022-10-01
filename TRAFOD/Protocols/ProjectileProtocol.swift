@@ -9,6 +9,11 @@
 import Foundation
 import SpriteKit
 
+/**
+ A template for anything that is thrown from another object as a projectile.
+ 
+Examples of objects that would adhere to this protocol are Cannon and Arrow objects
+ */
 protocol ProjectileProtocol: SKSpriteNode {
     init(cannon: LaunchingProtocol)
 }

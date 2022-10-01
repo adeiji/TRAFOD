@@ -9,6 +9,10 @@
 import SpriteKit
 import GameKit
 
+
+/**
+ Object which takes you to another part of the game
+ */
 class Doorway : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     
     required init?(coder aDecoder: NSCoder) {

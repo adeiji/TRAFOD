@@ -16,7 +16,7 @@ extension Notification.Name {
 }
 
 /**
- A message that is displayed to the user on the screen
+ The object that defines a message that is displayed to the user on the screen
  */
 struct Message {
     

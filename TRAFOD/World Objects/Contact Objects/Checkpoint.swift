@@ -9,6 +9,9 @@
 import Foundation
 import SpriteKit
 
+/**
+ The area that the player should respawn if they are to do
+ */
 class Checkpoint: SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     func setupPhysicsBody() {
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)

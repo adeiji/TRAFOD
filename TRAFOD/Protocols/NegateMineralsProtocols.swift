@@ -8,6 +8,9 @@
 
 import Foundation
 
+/**
+ Protocol for any object which negates gravity
+ */
 protocol NegateGravityProtocol { }
 
 class NegateGravityGround: Ground, NegateGravityProtocol { }

@@ -86,7 +86,6 @@ class MoveablePlatform : Ground {
      Sets the velocity of this object and then returns whether or not the object is moving towards it's final position or not
      */
     @discardableResult private func setVelocityAndGetIsMovingForward (moveToPoint: CGPoint) -> Bool {
-
         
         let yVector = self.position.y < moveToPoint.y ? self.velocity : -self.velocity
         let xVector = self.position.x < moveToPoint.x ? self.velocity : -self.velocity
@@ -100,7 +99,9 @@ class MoveablePlatform : Ground {
             } else {
                 isMovingForward = false
             }
-            self.physicsBody?.velocity = CGVector(dx: xVector,dy: 0)
+            
+            
+//            self.physicsBody?.velocity = CGVector(dx: xVector, dy: 0)
         case.vertical:
             if self.position.y < moveToPoint.y {
                 isMovingForward = true
@@ -108,7 +109,7 @@ class MoveablePlatform : Ground {
                 isMovingForward = false
             }
             
-            self.physicsBody?.velocity = CGVector(dx: 0,dy: yVector)
+//            self.physicsBody?.velocity = CGVector(dx: 0, dy: yVector)
         }
         
         return isMovingForward
@@ -125,34 +126,12 @@ class MoveablePlatform : Ground {
         self.physicsBody?.velocity = .zero
         self.physicsBody?.isDynamic = true
         
-        var isMovingForward = self.setVelocityAndGetIsMovingForward(moveToPoint: moveToPoint)
+        let isMovingForward = self.setVelocityAndGetIsMovingForward(moveToPoint: moveToPoint)
         self.finishedMoving = !self.finishedMoving
         
-        Timer.scheduledTimer(withTimeInterval: 0.01, repeats: true) { timer in
-            
-            func stopMoving () {
-                self.physicsBody?.velocity = .zero
-                timer.invalidate()
-                self.physicsBody?.isDynamic = false
-            }
-            
-            let moveToPointAxis = self.direction == .vertical ? moveToPoint.y : moveToPoint.x
-            let positionAxis = self.direction == .vertical ? self.position.y : self.position.x
-            
-            switch isMovingForward {
-            case true:
-                if positionAxis >= moveToPointAxis {
-                    stopMoving()
-                } else {
-                    self.setVelocityAndGetIsMovingForward(moveToPoint: moveToPoint)
-                }
-            case false:
-                if positionAxis <= moveToPointAxis {
-                    stopMoving()
-                } else {
-                    self.setVelocityAndGetIsMovingForward(moveToPoint: moveToPoint)
-                }
-            }
+        let action = SKAction.move(to: moveToPoint, duration: 3.0)
+        self.run(action) {
+            self.physicsBody?.isDynamic = false
         }
     }
 }

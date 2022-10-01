@@ -9,13 +9,16 @@
 import Foundation
 import SpriteKit
 
+/**
+ Protocol for any object which launches a projectile object
+ */
 protocol LaunchingProtocol: SKSpriteNode {
     
     // The time to wait before firing again
     var timeToFire:Double? { get set }
     var lastTimeFired:TimeInterval! { get set }
     var sound:SKAudioNode { get }
-    
+    // TODO: Change the projectile parameter to take a Projectile object instead of an SKSpriteNode object
     func launch(projectile: SKSpriteNode)
 }
 

@@ -9,7 +9,7 @@
 import Foundation
 import GameKit
 
-/// Special fields are fields within the game that apply different changes to nodes within the game
+/// Special fields are fields within the game that apply different changes to nodes within the game. These changes may not always be physics based
 protocol SpecialField  {
     func applyChange ()
 }

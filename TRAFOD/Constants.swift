@@ -71,7 +71,7 @@ public class Textures {
     public static let FlipSwitch = SKTexture(imageNamed: "switch-off")
     public static let Bridge = "RopeBridge 2"
     struct Dawud {
-        public static let Standing = "standing"
+        public static let Standing = SKTexture(imageNamed: "standing")
     }
     
     struct GameElements {

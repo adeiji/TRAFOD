@@ -9,7 +9,9 @@
 import Foundation
 import GameKit
 
-/// This is the base object for all objects (fields) within the game that affect the physics of other objects, for example FlipGravity inherits from PhysicsAlteringObject, as does MagneticForce.
+/// This is the base object for all objects (fields) within the game that affect the physics of other objects
+///
+/// Examples of these objects are FlipGravity which inherits from PhysicsAlteringObject, as does MagneticForce.
 class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
     
     /**
@@ -33,6 +35,9 @@ class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
      */
     func anchorToObject (world: World, objectHitByMineral: SKNode, contactPosition: CGPoint) {}
     
+    /**
+     Sets the categoryBitMask of the physics body of the object
+     */
     func setCategoryBitmask() {}
     
     /**
@@ -54,8 +59,7 @@ class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.mass = 0.0
-        self.physicsBody?.density = 0.0
-        
+        self.physicsBody?.density = 0.0        
     }
     
     required init?(coder aDecoder: NSCoder) {

@@ -42,7 +42,8 @@ class AntiGravityField: PhysicsAlteringObject {
             guard let world = self.parent as? World else { return }
             if let player = body.node as? Player {
                 if player.state == .INAIR {
-                    body.applyImpulse(CGVector(dx: 0, dy: world.physicsWorld.gravity.dy * -2))
+                    // TODO: For whatever reason, we have to use an impulse and not a force object. I think the ground node of the player object is causing the issue
+                    body.applyImpulse(CGVector(dx: 0, dy: world.physicsWorld.gravity.dy * -1.7))
                 }
             } else if let rock = body.node as? Rock{
                 self.applyPhysicsToNode(rock)
@@ -86,7 +87,7 @@ class AntiGravityField: PhysicsAlteringObject {
         let darkView = SKSpriteNode(color: .black, size: world.size)
         darkView.position = CGPoint(x: 0, y: 0)
         darkView.zPosition = ZPositions.Layer3
-        darkView.alpha = 0.7
+        darkView.alpha = 0.2
         camera.addChild(darkView)
         
         // Create the Emitter which displays the gravity field being created
@@ -124,7 +125,7 @@ class AntiGravityField: PhysicsAlteringObject {
             let objectPhysicsBody = objectHitByMineral.physicsBody
         else { return }
         
-        let joint = SKPhysicsJointFixed.joint(withBodyA: antiGravPhysicsBody, bodyB: objectPhysicsBody, anchor: contactPosition)
+        let joint = SKPhysicsJointPin.joint(withBodyA: antiGravPhysicsBody, bodyB: objectPhysicsBody, anchor: contactPosition)
         self.scene?.physicsWorld.add(joint)
     }
 }

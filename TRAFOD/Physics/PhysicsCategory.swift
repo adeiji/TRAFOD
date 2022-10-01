@@ -8,8 +8,9 @@
 
 import Foundation
 
+/** All the categories for a physics body used within the game*/
 struct PhysicsCategory {
-            
+    // TODO: Make these names less specific and be used as categories that cover multiple objects. Right now there's basically a category per object which is unecessary.
     static let CannonBall:Int32 = 0x1 << 4
     static let Minerals:Int32 = 0x1 << 6
     static let Reset:Int32 = 0x1 << 7
@@ -22,7 +23,7 @@ struct PhysicsCategory {
     static let Doorway:Int32 = 0x1 << 14
     static let Portals:Int32 = 0x1 << 15
     static let Nothing:Int32 = 0x1 << 16
-    static let Fire:Int32 = 0x1 << 17
+    static let Element:Int32 = 0x1 << 17
     static let PhysicsAltering:Int32 = 0x1 << 18
     static let Magnetic:Int32 = 0x1 << 19
     static let NegateForceField:Int32 = 0x1 << 20

@@ -52,10 +52,10 @@ class Rock : Ground, BaseWorldObject {
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |
             UInt32(PhysicsCategory.Ground) |
             UInt32(PhysicsCategory.Rock) |
-            UInt32(PhysicsCategory.Cannon)
-        self.physicsBody?.allowsRotation = true
+            UInt32(PhysicsCategory.Cannon)        
         self.physicsBody?.friction = 0.2
         self.massConstant = self.physicsBody?.mass
+        self.physicsBody?.allowsRotation = true
     }
     
     func update () {

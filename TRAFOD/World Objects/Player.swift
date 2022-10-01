@@ -251,14 +251,17 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         The ground view is responsible for detecting whether or not Dawud is standing on the ground. Because it's underneath the player and the width is smaller, then we know that the only time this node will make contact with a ground object is if it's standing on top of the ground
      */
     private func createGroundNode () {
-        let node = SKSpriteNode(color: .red, size: CGSize(width: self.size.width - 30     , height: 20))
+        let node = SKSpriteNode(color: .red, size: CGSize(width: self.size.width - 5, height: 10))
         node.position = CGPoint(x: 0, y: self.frame.minY)
         node.physicsBody = SKPhysicsBody(rectangleOf: node.size)
         node.physicsBody?.pinned = true
         node.physicsBody?.affectedByGravity = false
+        node.physicsBody?.allowsRotation = false
         node.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.NonCollision)
         node.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)
         node.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Ground) | UInt32(PhysicsCategory.Rock)
+        node.physicsBody?.mass = 0
+        node.physicsBody?.density = 0
         node.name = "Player Ground Node"
         self.addChild(node)
         self.groundNode = node
@@ -273,7 +276,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         self.name = "dawud"
         self.xScale = 1
         self.yScale = 0.90
-        self.physicsBody = SKPhysicsBody(rectangleOf: CGSize(width: self.size.width - 20, height: self.size.height))
+        self.physicsBody = SKPhysicsBody(polygonFrom: CGPath(roundedRect: CGRect(x: -self.size.width / 2.0, y: -self.size.height / 2.0, width: self.size.width, height: self.size.height), cornerWidth: 20, cornerHeight: 20, transform: nil))
         self.physicsBody?.usesPreciseCollisionDetection = true
         self.physicsBody?.affectedByGravity = true
         self.physicsBody?.restitution = 0
@@ -286,7 +289,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             UInt32(PhysicsCategory.GetObject) |
             UInt32(PhysicsCategory.Doorway) |
             UInt32(PhysicsCategory.Portals) |
-            UInt32(PhysicsCategory.Fire) |
+            UInt32(PhysicsCategory.Element) |
             UInt32(PhysicsCategory.PhysicsAltering) |
             UInt32(PhysicsCategory.NegateForceField) |
             UInt32(PhysicsCategory.Impulse) |
@@ -630,10 +633,10 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             self.move(dx: 0, dy: -400)
             break;
         case .CLIMBINGLEFT:
-            self.move(dx: -400, dy: 0)
+            self.move(dx: -PhysicsHandler.kRunVelocity, dy: 0)
             break;
         case .CLIMBINGRIGHT:
-            self.move(dx: 400, dy: 0)
+            self.move(dx: PhysicsHandler.kRunVelocity, dy: 0)
             break;
         case .CLIMBINGUP:
             self.move(dx: 0, dy: 400)

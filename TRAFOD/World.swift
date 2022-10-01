@@ -186,6 +186,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     override func didMove(to view: SKView) {
+        self.view?.showsPhysics = true
         self.setupPlayer()
         self.getMineralCounts()
         self.setupCounterNodes()
@@ -345,23 +346,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
     }
     
-    private func climbButtonPressed (atPoint pos: CGPoint) -> Bool {
-        if let climbButton = self.actionButtons.climbButton, self.nodes(at: pos).contains(climbButton) {
-            // If the climb button is not being shown currently, then disregard the press
-            if climbButton.alpha == 0.0 {
-                return false
-            }
-            
-            if self.player.state != .CLIMBING {
-                self.player.startClimbing()
-            }
-            
-            return true
-        }
-        
-        return false
-    }
-    
     /** If there's a message box currently being displayed on the screen then remove it */
     func removeMessageBoxFromScreen () {
         if let messageBox = self.messageBox {
@@ -387,8 +371,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         }
         
         self.removeMessageBoxFromScreen()
-                        
-        if self.climbButtonPressed(atPoint: pos) { return }
         
         if let buyButton = self.checkIfBuyMineralButtonWasPressedAndReturnButtonIfTrue(touchPoint: pos) {
             self.purchaseScreen = self.showPurchaseScreen(mineralType: buyButton.mineralType, world: self, completion: { (mineral, count) in
@@ -400,79 +382,66 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             } )
             return
         }
-        
-        if let jumpButton = self.jumpButton, self.nodes(at: pos).contains(jumpButton) {
-                        
-            // Grab onto the rope at whatever node it's touching
-//            self.player.handleRopeGrabInteraction()
-                        
-            if self.player.state == .ONGROUND || self.player.state == .SLIDINGONWALL {
-//                self.handleJump()
-            } else if (self.player.isClimbing()) {
-                self.player.stoppedClimbing()
-            }
-            
-            return
-        } else {
-            for type in Minerals.allCases {
-                switch type {
-                case .USED_TELEPORT:
-                    break;
-                case .ANTIGRAV:
-                    if let throwButton = self.throwButtons["\(CounterNodes.AntiGrav)"], self.nodes(at: pos).contains(throwButton) {
-                        AntiGravityMineral().throwMineral(player: self.player, world: self)
-                        
-                        return
-                    }
-                case .IMPULSE:
-                    if let throwButton = self.throwButtons["\(CounterNodes.Impulse)"], self.nodes(at: pos).contains(throwButton) {
-                        ImpulseMineral().throwMineral(player: self.player, world: self)
-                        
-                        return
-                    }
-                case .TELEPORT:
-                    if let throwButton = self.throwButtons["\(CounterNodes.Teleport)"], self.nodes(at: pos).contains(throwButton) {
-                        // User presses the teleport button
-                        // The way that the teleport button works is that they press it once and it activates a teleportation portal at the player's current position
-                        // When they press the button again, the player is automatically transported back to that position of the teleportation portal
-                        if let teleportNode = self.teleportNode {
-                            // Bring the player back to where they actived the teleport node
-                            self.player.position = teleportNode.position
-                            self.teleportNode?.removeFromParent()
-                            self.teleportNode = nil
-                            self.player.flipPlayerUpright()
-                        } else { // Throw a Teleportation mineral
-                            TeleportMineral().throwMineral(player: self.player, world: self)
-                        }
-                        return
-                    }
-                case .FLIPGRAVITY:
-                    if let throwButton = self.throwButtons["\(CounterNodes.FlipGravity)"], self.nodes(at: pos).contains(throwButton) {
-                        if let flipGravArea =  self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] {
-                            flipGravArea.removeFromParent()
-                            self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] = nil
-                            self.player.flipPlayerUpright()
-                        } else {
-                            FlipGravityMineral().throwMineral(player: self.player, world: self)
-                        }
-                        return
-                    }
-                case .MAGNETIC:
-                    if let throwButton = self.throwButtons["\(CounterNodes.Magnetic)"], self.nodes(at: pos).contains(throwButton) {
-                        if let magneticArea = self.physicsHandler.physicsAlteringAreas[.MAGNETIC] {
-                            magneticArea.removeFromParent()
-                            self.physicsHandler.physicsAlteringAreas[.MAGNETIC] = nil
-                        } else {
-                            MagneticMineral().throwMineral(player: self.player, world: self)
-                        }
-                        
-                        return
-                    }
-                case .DESTROYER:
-                    break;
+                
+        for type in Minerals.allCases {
+            switch type {
+            case .USED_TELEPORT:
+                break;
+            case .ANTIGRAV:
+                if let throwButton = self.throwButtons["\(CounterNodes.AntiGrav)"], self.nodes(at: pos).contains(throwButton) {
+                    AntiGravityMineral().throwMineral(player: self.player, world: self)
+                    
+                    return
                 }
+            case .IMPULSE:
+                if let throwButton = self.throwButtons["\(CounterNodes.Impulse)"], self.nodes(at: pos).contains(throwButton) {
+                    ImpulseMineral().throwMineral(player: self.player, world: self)
+                    
+                    return
+                }
+            case .TELEPORT:
+                if let throwButton = self.throwButtons["\(CounterNodes.Teleport)"], self.nodes(at: pos).contains(throwButton) {
+                    // User presses the teleport button
+                    // The way that the teleport button works is that they press it once and it activates a teleportation portal at the player's current position
+                    // When they press the button again, the player is automatically transported back to that position of the teleportation portal
+                    if let teleportNode = self.teleportNode {
+                        // Bring the player back to where they actived the teleport node
+                        self.player.position = teleportNode.position
+                        self.teleportNode?.removeFromParent()
+                        self.teleportNode = nil
+                        self.player.flipPlayerUpright()
+                    } else { // Throw a Teleportation mineral
+                        TeleportMineral().throwMineral(player: self.player, world: self)
+                    }
+                    return
+                }
+            case .FLIPGRAVITY:
+                if let throwButton = self.throwButtons["\(CounterNodes.FlipGravity)"], self.nodes(at: pos).contains(throwButton) {
+                    if let flipGravArea =  self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] {
+                        flipGravArea.removeFromParent()
+                        self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] = nil
+                        self.player.flipPlayerUpright()
+                    } else {
+                        FlipGravityMineral().throwMineral(player: self.player, world: self)
+                    }
+                    return
+                }
+            case .MAGNETIC:
+                if let throwButton = self.throwButtons["\(CounterNodes.Magnetic)"], self.nodes(at: pos).contains(throwButton) {
+                    if let magneticArea = self.physicsHandler.physicsAlteringAreas[.MAGNETIC] {
+                        magneticArea.removeFromParent()
+                        self.physicsHandler.physicsAlteringAreas[.MAGNETIC] = nil
+                    } else {
+                        MagneticMineral().throwMineral(player: self.player, world: self)
+                    }
+                    
+                    return
+                }
+            case .DESTROYER:
+                break;
             }
         }
+        
         
         if let camera = self.camera {
             if let originalPos = self.scene?.convert(pos, to: camera) {
@@ -486,10 +455,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: FlipGravity.self, nodeBType: Player.self) {
             self.player.flipPlayerUpright()
-        }
-        
-        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: RopeTypeSegment.self) {
-//            self.player.setRopeContactPoint(nil)
         }
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: FlipSwitch.self) {
@@ -585,6 +550,16 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         // Check to see if the playe has hit the door to go to another level
         
         Checkpoint.handleContact(contact: contact, world: self)
+        CameraZoom.handleContact(contact, world: self)
+        Water.handleContact(contact, world: self)
+        
+        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Rock, self.abyssKey], contactA: contactAName, contactB: contactBName) {
+            if let node = getContactNode(name: PhysicsObjectTitles.Rock, contact: contact) as? Rock {
+                self.objectsToReset.append(node)
+            }
+            
+            return
+        }
         
         if Arrow.didHitPlayer(contact) {
             self.player.died()
@@ -646,14 +621,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             if let node = getContactNode(name: PhysicsObjectTitles.Portal, contact: contact) {
                 self.portalHit(portalNode: node as! SKSpriteNode)
                 node.removeFromParent()
-            }
-            
-            return
-        }
-        
-        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Rock, self.abyssKey], contactA: contactAName, contactB: contactBName) {
-            if let node = getContactNode(name: PhysicsObjectTitles.Rock, contact: contact) as? Rock {
-                self.objectsToReset.append(node)
             }
             
             return
@@ -844,7 +811,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         // Show the first running image
         if currentTime - self.runTime == 0 {
             if self.player.state != .INAIR {
-                self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)
+                self.player.texture = Textures.Dawud.Standing
             }
         } else if currentTime - self.runTime > 0.1 {
             if self.player.state != .INAIR {
@@ -890,12 +857,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }     
     
     override func update(_ currentTime: TimeInterval) {
-//        self.showMineralCount()
-        self.stopClimbingIfNecessary()
-        self.showClimbButton()
         // Calculate time since last update
         let dt = currentTime - self.lastUpdateTime
         
+        self.stopClimbingIfNecessary()
         self.player.isInAir()
         
         // Called before each frame is rendered
@@ -913,14 +878,14 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         
         self.player.handleIsContactedWithFlipGravity()
         self.player.update()
+        self.resetObjectsToOriginalPosition()
         
         self.children.filter({ $0 is BaseWorldObject }).forEach { [weak self] body in
             if let body = body as? BaseWorldObject {
                 body.update()
             }
         }
-        
-        
+                
         self.specialFields.forEach { (field) in
             field.applyChange()
         }
@@ -929,7 +894,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             self.handlePlayerDied()
         } else {
             if self.player.state == .SLIDINGONWALL {
-                self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)
+                self.player.texture = Textures.Dawud.Standing
                 self.player.handlePlayerMovement()
                 
             } else if self.player.state != .GRABBING { // User can only move left to right when grabbing something
@@ -942,7 +907,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                     self.player.handlePlayerMovement()
                 } else {
                     if self.player.state != .INAIR {
-                        self.player.texture = SKTexture(imageNamed: Textures.Dawud.Standing)
+                        self.player.texture = Textures.Dawud.Standing
                         self.stopPlayer()
                     }
                 }
@@ -956,8 +921,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                 }
             }
         }
-        
-        self.resetObjectsToOriginalPosition()
         
         for key in self.physicsHandler.physicsAlteringAreas.keys {
             if let physicsAlteringArea = self.physicsHandler.physicsAlteringAreas[key] {
@@ -978,6 +941,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             if let object = object as? Rock {
                 object.position = object.startingPos
                 object.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
+                object.physicsBody?.angularVelocity  = 0.0
             }
         }
         

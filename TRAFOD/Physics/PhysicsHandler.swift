@@ -9,16 +9,21 @@
 import Foundation
 import GameKit
 
+/**
+ Responsible for handling the physics related aspects of the game.
+ 
+ There are many specific interactions that we pay attention to. For example when a mineral hits the ground, or the player hits a retrievable item. In this class we detect whether the collision is one we care about and then handle the action that should ensue as a result of the interaction (collision or contact).
+ */
 class PhysicsHandler {
     
-    static let kRunVelocity:CGFloat = 480
+    static let kRunVelocity:CGFloat = 300
     
     /**
      When the player is grabbing an object we apply a velocity to the object that is being held. The velocity is whatever the player's running velocity is, multiplied by this number
      */
     static let kGrabbedObjectVelocityMultiplier:CGFloat = 50
     static let kRunInAirImpulse:CGFloat = 10
-    static let kJumpImpulse:CGFloat = 600
+    static let kJumpImpulse:CGFloat = 750
     static let kGrabbedObjectMoveVelocity:CGFloat = 3200
     
     /**
@@ -42,6 +47,15 @@ class PhysicsHandler {
         physicsBody.fieldBitMask = UInt32(PhysicsCategory.Nothing)
         physicsBody.allowsRotation = false
         
+        return physicsBody
+    }
+    
+    class func getPhysicsBodyForContactOnlyObject (size: CGSize) -> SKPhysicsBody {
+        let physicsBody = SKPhysicsBody(rectangleOf: size)
+        physicsBody.isDynamic = false
+        physicsBody.collisionBitMask = UInt32(PhysicsCategory.Nothing)
+        physicsBody.categoryBitMask = UInt32(PhysicsCategory.NonCollision)
+        physicsBody.contactTestBitMask = UInt32(PhysicsCategory.Player)
         return physicsBody
     }
     

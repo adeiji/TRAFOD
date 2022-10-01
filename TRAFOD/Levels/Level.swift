@@ -27,6 +27,11 @@ class Level : World {
             let spring = SpringNode(length: 1, anchorPoint: vineNode.position, name: "SpringNode", segmentLength: 200)
             spring.addToScene(self.scene)
         })
+        
+        self.scene?.enumerateChildNodes(withName: "vine", using: { vineNode, pointer in
+            let vine = VineNode(length: 5, anchorPoint: vineNode.position, name: "vineNode", segmentLength: 100)
+            vine.addToScene(self.scene)
+        })
     }
     
     override func didEnd(_ contact: SKPhysicsContact) {

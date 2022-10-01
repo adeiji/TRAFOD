@@ -9,6 +9,13 @@
 import Foundation
 import SpriteKit
 
+/**
+ Responsible for creating game objects
+ 
+ The best way to use this is to keep your game object information stored within a **json** or **plist** file and then call the static func loadFile of this class to get the object templates.
+ 
+ You can then use these templates to get the actual objects using the static getObject method of this class
+ */
 class GameObjectsFactory {
     
     static func getObject (type: String) -> SKNode? {
@@ -22,7 +29,6 @@ class GameObjectsFactory {
             return AntiGravityMineral()
         case PhysicsObjectTitles.ArrowLauncher:
             return ArrowLauncher()
-            return nil
         case PhysicsObjectTitles.DiaryFragment:
             return DiaryPieceNode()
         case PhysicsObjectTitles.WeightPlatformFinalPosition:

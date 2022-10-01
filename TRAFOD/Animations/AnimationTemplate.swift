@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 /**
- The structure for an object that determines how an animation behaves.
- Animations are stored within pList files and then read and executed within AnimationHandler classes
+ The structure for an object that determines how an animation behaves
+ 
+ Animations are stored within plist or json files and then read and executed within AnimationHandler classes
  */
 struct AnimationTemplate: Codable {
     

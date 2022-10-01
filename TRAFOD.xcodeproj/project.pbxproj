@@ -173,6 +173,7 @@
 		F4825BB228E2295200C6CA79 /* SelfMovingPlatform.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */; };
 		F4825BB428E22C8600C6CA79 /* NegateMineralsProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BB328E22C8600C6CA79 /* NegateMineralsProtocols.swift */; };
 		F4825BBB28E754D200C6CA79 /* Checkpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BBA28E754D200C6CA79 /* Checkpoint.swift */; };
+		F4825BBD28E7692600C6CA79 /* CameraZoom.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4825BBC28E7692600C6CA79 /* CameraZoom.swift */; };
 		F48F7D2F22CE5243004D1A3D /* Level3.sks in Resources */ = {isa = PBXBuildFile; fileRef = F48F7D2E22CE5243004D1A3D /* Level3.sks */; };
 		F48F7D3222CE5798004D1A3D /* Level3.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3122CE5798004D1A3D /* Level3.swift */; };
 		F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */ = {isa = PBXBuildFile; fileRef = F48F7D3322CE5E3A004D1A3D /* Level.swift */; };
@@ -463,6 +464,7 @@
 		F4825BB128E2295200C6CA79 /* SelfMovingPlatform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelfMovingPlatform.swift; sourceTree = "<group>"; };
 		F4825BB328E22C8600C6CA79 /* NegateMineralsProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NegateMineralsProtocols.swift; sourceTree = "<group>"; };
 		F4825BBA28E754D200C6CA79 /* Checkpoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Checkpoint.swift; sourceTree = "<group>"; };
+		F4825BBC28E7692600C6CA79 /* CameraZoom.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraZoom.swift; sourceTree = "<group>"; };
 		F48F7D2E22CE5243004D1A3D /* Level3.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Level3.sks; sourceTree = "<group>"; };
 		F48F7D3122CE5798004D1A3D /* Level3.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level3.swift; sourceTree = "<group>"; };
 		F48F7D3322CE5E3A004D1A3D /* Level.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Level.swift; sourceTree = "<group>"; };
@@ -1033,6 +1035,7 @@
 				F44B9BD320EDFEF700B874A1 /* Doorway.swift */,
 				F48F7D3C22CF0075004D1A3D /* Reset.swift */,
 				F4825BBA28E754D200C6CA79 /* Checkpoint.swift */,
+				F4825BBC28E7692600C6CA79 /* CameraZoom.swift */,
 			);
 			path = "Contact Objects";
 			sourceTree = "<group>";
@@ -1844,6 +1847,7 @@
 				F49ADDD322E3485900388C49 /* Fire.swift in Sources */,
 				F48F7D4D22CF01AC004D1A3D /* AntiGravPlatformHeavy.swift in Sources */,
 				F4825BA328DFAA9D00C6CA79 /* AntiGravityField.swift in Sources */,
+				F4825BBD28E7692600C6CA79 /* CameraZoom.swift in Sources */,
 				F44E1A7320D1249900FD026E /* TransferLevel.swift in Sources */,
 				F4ADE24D22E846CD00648ACF /* UtilityFunctions.swift in Sources */,
 				F4F5D90E22EB2C1E00CFB2A6 /* NegateFlipGravField.swift in Sources */,

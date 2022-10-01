@@ -6,6 +6,12 @@
 },
 {
     "name": "DiaryFragment",
+    "message": "Minerals are power. But what is power without wisdom?",    
+    "x": 12910,
+    "y": 908
+},
+{
+    "name": "DiaryFragment",
     "message": "I will be forever grateful to the Men of the Forest. To them we owe our life, and allegiance.",    
     "x": 4705,
     "y": 1118
@@ -29,7 +35,7 @@
     "children": [
         {
             "name": "weightPlatformFinalPosition",
-            "x": 1045,
+            "x": 950,
             "y": -100
         },
         {
@@ -83,6 +89,30 @@
             "name": "moveablePlatform",
             "x": 200,
             "y": -100
+        }
+    ]
+},
+{
+    "name": "flipSwitch",
+    "id": "flipSwitch-4",
+    "direction": "vertical",
+    "x": 14400,
+    "y": 2920,
+    "velocity": 100,
+    "size": {
+        "width": 300,
+        "height": 50
+    },
+    "children": [
+        {
+            "name": "weightPlatformFinalPosition",
+            "x": -440,
+            "y": -840
+        },
+        {
+            "name": "moveablePlatform",
+            "x": -440,
+            "y": -70
         }
     ]
 }]
