@@ -64,11 +64,8 @@ extension World {
         self.player.jump()
     }
     
-    public func setupPlayer () {
-        if self.player == nil {
-            self.createPlayer()
-        }
-        
+    public func setupPlayer () {        
+        self.createPlayer()
         self.player.xScale = 1
         self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         if let start = self.childNode(withName: "start") {

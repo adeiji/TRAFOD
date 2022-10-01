@@ -21,12 +21,11 @@ protocol Scene {
 class GotoLevelNode : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody, Scene {
     
     /// The next level to take the player to.  Defaults to Level2
-    var nextLevel:GameLevels? = .Level2
+    var nextLevel:GameLevels? = .DawudVillage
     var nextBookChapter: BookChapters?
     
     func setupPhysicsBody() {
-        self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Doorway)
-        self.physicsBody?.collisionBitMask = 1
+        self.physicsBody = PhysicsHandler.getPhysicsBodyForContactOnlyObject(size: self.size)    
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.pinned = true
     }
