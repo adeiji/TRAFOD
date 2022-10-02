@@ -117,13 +117,17 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     var rain:SKEmitterNode!
     var lastUpdateTime : TimeInterval = 0
+    
     var gravityTimeLeftLabel:SKLabelNode!
     
     var rewindPoints = [CGPoint]()
+    
     var rewindPointCounter = 0
     
     var collectedElements:[Levels:[String]] = [Levels:[String]]()
+    
     var sounds:SoundManager?
+    
     var currentLevel:Levels?
     
     var impulseObjects:[SKNode] = [SKNode]()
@@ -134,7 +138,9 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     var objectsToReset:[SKSpriteNode] = [SKSpriteNode]()
     
     var teleportNode:SKNode?
+    
     var volumeIsMuted:Bool = false
+    
     let physicsHandler = PhysicsHandler()
     
     weak var thrownMineral:Mineral?
@@ -148,9 +154,12 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     var counterNodes: [String : SKNode] = [String: SKNode]()
     
     var leftHandView:UIView?
+    
     var rightHandView:UIView?
     
     var worldGestures:WorldGestures?
+    
+    var controller:GameViewController?
     
     private var messageHandler:MessageHandler?
     
@@ -752,8 +761,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     func touchUp(atPoint pos : CGPoint) {
         
         guard let camera = self.camera else { return }
-        guard let position = self.scene?.convert(pos, to: camera) else { return }
-        
                
         self.player.runningState = .STANDING
                 
@@ -1118,15 +1125,23 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
      
      */
     func loadAndGotoNextLevel (level:GameLevels) {
-        guard let loading = Loading(fileNamed: "Loading") else {
-            fatalError("The loading scene file must exist")
+//        guard let loading = Loading(fileNamed: "Loading") else {
+//            fatalError("The loading scene file must exist")
+//        }
+//
+//        self.getMineralCounts()
+//        loading.nextSceneName = level.rawValue
+//        self.getCollectedElements(level: level.rawValue)
+//        loading.collectedElements = self.collectedElements
+//        self.gotoNextLevel(fileName: level.rawValue, levelType: Loading.self, loadingScreen: loading)
+        
+        guard let nextLevel = World(fileNamed: level.rawValue) else {
+            assertionFailure("There is no .sks file named \(level.rawValue)")
+            return
         }
         
-        self.getMineralCounts()
-        loading.nextSceneName = level.rawValue
-        self.getCollectedElements(level: level.rawValue)
-        loading.collectedElements = self.collectedElements
-        self.gotoNextLevel(fileName: level.rawValue, levelType: Loading.self, loadingScreen: loading)
+        self.controller?.presentScene(nextLevel, previousScene: self)
+        
     }
     
     func getChapterScene (bookChapter: BookChapters) -> Book? {

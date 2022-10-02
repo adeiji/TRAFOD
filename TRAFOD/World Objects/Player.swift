@@ -54,7 +54,8 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
      The current state of the player.  Is he DEAD, is he ONGROUND, is he in the AIR, etc.
      */
     public var state:PlayerState = .ONGROUND {
-        didSet {            
+        didSet {
+            print ("Current player state: \(self.state)")
             if self.state != .CLIMBING {
                 self.climbingState = nil
                 
@@ -218,8 +219,9 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     func isInAir () {
         if self.groundNode?.physicsBody?.allContactedBodies().filter({ $0.node is Ground }) .count == 0 {
             // If the player is in contact with a fence, then he's climbing and we don't need to set his state to in the air
-            if Fence.playerInContact(player: self) {
+            if Fence.playerInContact(player: self) && self.isClimbing() {
                 return
+                
             }
             
             self.state = .INAIR
@@ -424,7 +426,6 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         let dy = self.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse
         
         self.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
-        self.state = .INAIR
     }
     
     /** Launch the spring by  */

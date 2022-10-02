@@ -19,8 +19,13 @@ class WorldGestures: NSObject, UIGestureRecognizerDelegate {
     let rightHandTapGesture:UITapGestureRecognizer
     
     init (world: World, player: Player) {
+                        
         self.world = world
         self.player = player
+        
+        if self.world.rightHandView == nil {
+            assertionFailure("Make sure that the rightHandView is set in the world object before you present the World Scene.")                
+        }
                 
         let swipeUpGesture = UISwipeGestureRecognizer()
         swipeUpGesture.direction = .up

@@ -11,6 +11,28 @@ import SpriteKit
 import GameplayKit
 
 class GameViewController: UIViewController {
+    
+    var leftHandView:UIView?
+    var rightHandView:UIView?
+    
+    /** Responsible for presenting a scene */
+    func presentScene (_ scene: World, previousScene: World) {
+        let transition = SKTransition.moveIn(with: .right, duration: 0)
+        scene.scaleMode = SKSceneScaleMode.aspectFit
+        scene.rightHandView = self.rightHandView
+        scene.leftHandView = self.leftHandView
+        (self.view as? SKView)?.presentScene(scene, transition: transition)
+    }
+    
+    /**
+     The game has a view on the right to handle hand gestures on the right hand side and one on the left to handle gestures on the left hand side
+     
+     - Parameters:
+        - view: The view to add the gesture views to
+     */
+    private func addGestureViews () {
+        
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,17 +55,22 @@ class GameViewController: UIViewController {
                 leftHandView.frame = CGRect(x: 0, y: 0, width: view.frame.width / 2.0, height: view.frame.height)
                 self.view?.addSubview(leftHandView)
                 let world = sceneNode as World
+                
                 world.leftHandView = leftHandView
+                self.leftHandView = leftHandView
                 
                 let rightHandView = UIView()
                 rightHandView.frame = CGRect(x: self.view.frame.width / 2.0, y: 0, width: view.frame.width / 2.0, height: view.frame.height)
                 self.view?.addSubview(rightHandView)
+                
                 world.view?.showsPhysics = true
                 world.rightHandView = rightHandView
+                world.controller = self
+                
+                self.rightHandView = rightHandView
                 
                 self.view?.isMultipleTouchEnabled = true
                 self.view?.isUserInteractionEnabled = true
-
                 
                 // Present the scene
                 if let view = self.view as! SKView? {

@@ -80,6 +80,7 @@ public class Textures {
 }
 
 public class PhysicsObjectTitles {
+    public static let PlayerGroundNode = "Player Ground Node"
     public static let DiaryFragment = "DiaryFragment"
     public static let Dawud = "dawud"
     public static let Portal = "portal"

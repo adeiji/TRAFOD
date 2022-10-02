@@ -37,9 +37,14 @@ extension World {
     func objectIsInFront (object: SKNode?) -> Bool {
         if let object = object {
             if let parent = object.parent {
+                
+                // If the object is in contact with the PlayerGroundNode then the player is standing ont he object so we don't want to allow movement of the object
+                if object.physicsBody?.allContactedBodies().first(where: { $0.node?.name == PhysicsObjectTitles.PlayerGroundNode }) != nil{
+                    return false
+                }
+                
                 // Gets the objects position relative to the scene
                 if let position = object.scene?.convert(object.position, from: parent) {
-                    
                     let playerIsFlipped = self.player.getIsFlipped()
                     
                     if playerIsFlipped == false {
