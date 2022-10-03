@@ -26,9 +26,16 @@ class Rock : Ground, BaseWorldObject {
         }
     }
     
+    override init(size: CGSize, anchorPoint:CGPoint = CGPoint(x: 0.5, y: 0.5)) {
+        super.init(size: size)
+        self.anchorPoint = anchorPoint
+        self.color = .blue
+        self.physicsBody = SKPhysicsBody(rectangleOf: size)
+        self.setupPhysicsBody()
+    }
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
         self.startingPos = self.position
         self.isImmovableGround = false
     }
@@ -59,7 +66,6 @@ class Rock : Ground, BaseWorldObject {
     }
     
     func update () {
-                
         var shouldChangeMassToOriginalValue = true
         
         // If the object is in joined with any objects that alter physics

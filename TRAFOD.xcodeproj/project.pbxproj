@@ -248,6 +248,7 @@
 		F4C4CA1C20ECC607005CA4D7 /* cannonball.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1B20ECC607005CA4D7 /* cannonball.png */; };
 		F4C4CA1E20ECD560005CA4D7 /* caveinside.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1D20ECD55F005CA4D7 /* caveinside.png */; };
 		F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */; };
+		F4DBD7D428EA2C7700EB8054 /* DawudVillageAnimations.json in Resources */ = {isa = PBXBuildFile; fileRef = F4DBD7D328EA2C7700EB8054 /* DawudVillageAnimations.json */; };
 		F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */; };
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
 		F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */; };
@@ -545,6 +546,7 @@
 		F4C4CA1B20ECC607005CA4D7 /* cannonball.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = cannonball.png; sourceTree = "<group>"; };
 		F4C4CA1D20ECD55F005CA4D7 /* caveinside.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caveinside.png; sourceTree = "<group>"; };
 		F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
+		F4DBD7D328EA2C7700EB8054 /* DawudVillageAnimations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DawudVillageAnimations.json; sourceTree = "<group>"; };
 		F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+KeyboardControls.swift"; sourceTree = "<group>"; };
@@ -835,6 +837,7 @@
 		F44D96DD28BD5245009A8098 /* Dawuds Village */ = {
 			isa = PBXGroup;
 			children = (
+				F4DBD7D328EA2C7700EB8054 /* DawudVillageAnimations.json */,
 				F4B8A51428DBE4BD00191FB3 /* DawudVillage.sks */,
 				F41C83A128D129B700E2C6E1 /* Dawud's_Village_2_(Peaceful).mp3 */,
 				F41C839F28D1216000E2C6E1 /* Dawud's_Village_Under_Attack.mp3 */,
@@ -1555,6 +1558,7 @@
 				F44E1A5E20D0B1EC00FD026E /* Smoke.sks in Resources */,
 				F462CDD820E5D264004AF89E /* lv2rocks14.png in Resources */,
 				F4B8A51528DBE4BD00191FB3 /* DawudVillage.sks in Resources */,
+				F4DBD7D428EA2C7700EB8054 /* DawudVillageAnimations.json in Resources */,
 				F44A9A9020D4EB16004E389C /* Loading.sks in Resources */,
 				F4825B9B28DF992600C6CA79 /* DawudsVillageRuins.sks in Resources */,
 				F438D04220CD34E700EC2606 /* thirteen.mp3 in Resources */,

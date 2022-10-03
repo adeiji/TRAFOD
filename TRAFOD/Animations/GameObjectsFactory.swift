@@ -27,6 +27,8 @@ class GameObjectsFactory {
             return FlipGravityMineral()
         case Minerals.ANTIGRAV.rawValue:
             return AntiGravityMineral()
+        case Minerals.DESTROYER.rawValue:
+            return DestroyerMineral()
         case PhysicsObjectTitles.ArrowLauncher:
             return ArrowLauncher()
         case PhysicsObjectTitles.DiaryFragment:

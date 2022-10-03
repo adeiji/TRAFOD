@@ -35,12 +35,9 @@ class RockFragment: Ground {
             
             for x in 0...Int(self.size.width / fragmentDimensions.width) {
                 let groundFragment = Ground(size: CGSize(width: fragmentDimensions.width, height: fragmentDimensions.height))
-                
                 groundFragment.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Ground)
                 groundFragment.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Ground)
                 groundFragment.physicsBody?.affectedByGravity = true
-                
-                
                 groundFragment.position = groundFragmentPosition
                 groundFragment.color = .white
                 groundFragment.physicsBody?.allowsRotation = true

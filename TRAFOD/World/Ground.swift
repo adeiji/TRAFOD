@@ -64,7 +64,7 @@ class Ground : SKSpriteNode, GroundProtocol, ObjectWithManuallyGeneratedPhysicsB
         super.init(texture: nil, color: .clear, size: size)
         self.anchorPoint = anchorPoint
         self.color = .blue
-        self.physicsBody = SKPhysicsBody(rectangleOf: size, center: CGPoint(x: self.position.x + self.size.width / 2.0, y: self.position.y))
+        self.physicsBody = SKPhysicsBody(rectangleOf: size)
         self.setupPhysicsBody()
     }
     

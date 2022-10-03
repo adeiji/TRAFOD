@@ -1,0 +1,29 @@
+[{
+
+    "name": "Throw Flip Gravity Mineral",
+    "playerXPos": 23364,
+    "shouldRotate": true,
+    "startingPosition": {
+        "x": 24583,
+        "y": 2893
+    },
+    "item": "flipgravity",
+    "impulse": {
+        "x": -300,
+        "y": -100
+    }
+},
+{
+    "name": "Throw Destroyer Mineral",
+    "playerXPos": 21900,
+    "shouldRotate": true,
+    "startingPosition": {
+        "x": 21382,
+        "y": 4070
+    },
+    "item": "destroyer",
+    "impulse": {
+        "x": 0,
+        "y": -100
+    }
+}]

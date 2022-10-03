@@ -550,9 +550,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             if let flipSwitch = contact.getNodeOfType(FlipSwitch.self) as? FlipSwitch {
                 self.player.setFlipSwitch(flipSwitch)
             }
-        }
-        
-        print("Collision detected: A: \(contactAName), B: \(contactBName)")
+        }                
         
         // Check to see if the player has just switched a weight switch, if so then handle the process after that
         PhysicsHandler.handlePlayerSwitchedWeightSwitch(contact: contact)

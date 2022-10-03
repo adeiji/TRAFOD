@@ -33,7 +33,7 @@ class DawudVillageLevel: Level {
         
         self.visualAnimator = AnimationHandler(animations: [
             DawudsVillageAttackedAnimationHandler(scene: self, player: self.player),
-            DawudsVillageMineralsAnimationHandler(fileName: "DawudsVillageAnimations", player: self.player, scene: self)
+            DawudsVillageMineralsAnimationHandler(fileName: "DawudVillageAnimations", player: self.player, scene: self)
         ])
                 
         self.addRopeBridge()                                
