@@ -249,6 +249,7 @@
 		F4C4CA1E20ECD560005CA4D7 /* caveinside.png in Resources */ = {isa = PBXBuildFile; fileRef = F4C4CA1D20ECD55F005CA4D7 /* caveinside.png */; };
 		F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */; };
 		F4DBD7D428EA2C7700EB8054 /* DawudVillageAnimations.json in Resources */ = {isa = PBXBuildFile; fileRef = F4DBD7D328EA2C7700EB8054 /* DawudVillageAnimations.json */; };
+		F4DBD7D628EB90B100EB8054 /* DebugConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DBD7D528EB90B100EB8054 /* DebugConfiguration.swift */; };
 		F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */; };
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
 		F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */; };
@@ -547,6 +548,7 @@
 		F4C4CA1D20ECD55F005CA4D7 /* caveinside.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = caveinside.png; sourceTree = "<group>"; };
 		F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		F4DBD7D328EA2C7700EB8054 /* DawudVillageAnimations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DawudVillageAnimations.json; sourceTree = "<group>"; };
+		F4DBD7D528EB90B100EB8054 /* DebugConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugConfiguration.swift; sourceTree = "<group>"; };
 		F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+KeyboardControls.swift"; sourceTree = "<group>"; };
@@ -1152,6 +1154,7 @@
 				F45EDF7020D8C2710076C1C8 /* Constants.swift */,
 				F4ADE24C22E846CD00648ACF /* UtilityFunctions.swift */,
 				F40BE6A128D79009005C0996 /* GroundTileSet.sks */,
+				F4DBD7D528EB90B100EB8054 /* DebugConfiguration.swift */,
 			);
 			path = TRAFOD;
 			sourceTree = "<group>";
@@ -1836,6 +1839,7 @@
 				F48F7D3422CE5E3A004D1A3D /* Level.swift in Sources */,
 				F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */,
 				F48F7D3D22CF0075004D1A3D /* Reset.swift in Sources */,
+				F4DBD7D628EB90B100EB8054 /* DebugConfiguration.swift in Sources */,
 				F4825B9E28DF9E0000C6CA79 /* MessageHandler.swift in Sources */,
 				F44A4D4520DC928100E53841 /* PurchaseService.swift in Sources */,
 				F41C83AC28D1657A00E2C6E1 /* AnimationHandler.swift in Sources */,

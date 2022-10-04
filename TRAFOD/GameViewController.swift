@@ -18,6 +18,8 @@ class GameViewController: UIViewController {
     /** Responsible for presenting a scene */
     func presentScene (_ scene: World, previousScene: World) {
         let transition = SKTransition.moveIn(with: .right, duration: 0)
+        previousScene.player.removeFromParent()
+        scene.player = previousScene.player
         scene.scaleMode = SKSceneScaleMode.aspectFit
         scene.rightHandView = self.rightHandView
         scene.leftHandView = self.leftHandView

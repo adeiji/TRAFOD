@@ -16,11 +16,11 @@ class Fire : SKSpriteNode, ObjectWithManuallyGeneratedPhysicsBody {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
+    
     func setupPhysicsBody() {
         self.physicsBody = SKPhysicsBody(rectangleOf: self.size)
         self.physicsBody?.affectedByGravity = false
         self.physicsBody?.mass = 0
-        self.physicsBody?.collisionBitMask = 0
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Element)
         self.physicsBody?.contactTestBitMask = UInt32(PhysicsCategory.Player) | UInt32(PhysicsCategory.Element)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.Nothing)

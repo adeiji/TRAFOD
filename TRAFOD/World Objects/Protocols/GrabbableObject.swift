@@ -8,4 +8,7 @@
 
 import Foundation
 
+protocol GrabbableObject: Ground {
+    
+}
 

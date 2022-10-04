@@ -87,7 +87,7 @@ extension World {
         Checks to see if the user is facing an object nearby that he is able to grab and move around
      */
     @discardableResult func handleContactWithGrabbableObject (contact: SKPhysicsContact) -> Bool {
-        let objectToGrab = contact.bodyA.node as? Rock != nil ? contact.bodyA.node : contact.bodyB.node
+        let objectToGrab = contact.bodyA.node as? GrabbableObject != nil ? contact.bodyA.node : contact.bodyB.node
         
         if self.player.state == .ONGROUND {
             if self.objectIsInFront(object: objectToGrab) {

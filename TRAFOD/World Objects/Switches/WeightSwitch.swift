@@ -32,7 +32,11 @@ class WeightSwitch : GameSwitch {
                 self.platformMoveToPos = node
             } else if let node = node as? MoveablePlatform {
                 self.platform = node
-                self.platform?.moveToPoint = self.childNode(withName: "end")?.position
+                guard let endPosition = self.childNode(withName: "end")?.position else {
+                    assertionFailure("The weight switch needs to have an end position node set up for the final position of the moveable platform")
+                    return
+                }
+                self.platform?.moveToPoint = endPosition
             } else if let node = node as? MultiDirectionalGravObject {
                 self.topOfSwitch = node
             }

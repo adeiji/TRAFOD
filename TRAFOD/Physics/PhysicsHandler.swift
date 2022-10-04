@@ -24,7 +24,7 @@ class PhysicsHandler {
     static let kGrabbedObjectVelocityMultiplier:CGFloat = 50
     static let kRunInAirImpulse:CGFloat = 10
     static let kJumpImpulse:CGFloat = 750
-    static let kGrabbedObjectMoveVelocity:CGFloat = 3200
+    static let kGrabbedObjectMoveVelocity:CGFloat = 4000
     
     /**
      This contains all the nodes that can alter the physics of other objects that have been used and are currently active

@@ -9,7 +9,7 @@
 import Foundation
 import GameKit
 
-class Rock : Ground, BaseWorldObject {
+class Rock : Ground, BaseWorldObject, GrabbableObject {
     
     var massConstant: CGFloat?
     

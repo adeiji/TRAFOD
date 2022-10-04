@@ -32,7 +32,7 @@ class DawudVillageLevel: Level {
         
         
         self.visualAnimator = AnimationHandler(animations: [
-            DawudsVillageAttackedAnimationHandler(scene: self, player: self.player),
+//            DawudsVillageAttackedAnimationHandler(scene: self, player: self.player),
             DawudsVillageMineralsAnimationHandler(fileName: "DawudVillageAnimations", player: self.player, scene: self)
         ])
                 

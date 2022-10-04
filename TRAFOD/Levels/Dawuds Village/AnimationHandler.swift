@@ -21,7 +21,7 @@ class AnimationHandler {
         }
     }
     
-    func checkForAnimations (playerXPos: CGFloat?, playerYPos: CGFloat?) {
+    func checkForAnimations (playerXPos: CGFloat?, playerYPos: CGFloat?) {        
         for animation in self.animations {
             animation.checkForAnimations(playerXPos: playerXPos, playerYPos: playerYPos)
         }

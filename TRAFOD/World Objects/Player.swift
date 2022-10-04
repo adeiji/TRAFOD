@@ -48,7 +48,11 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     /**
      The object that a player can currently grab but is not currently grabbing at the moment
      */
-    public var objectThatCanBeGrabbed:SKSpriteNode?
+    public var objectThatCanBeGrabbed:SKSpriteNode? {
+        didSet {
+            print("object that can be grabbed is \(self.objectThatCanBeGrabbed)")
+        }
+    }
     
     /**
      The current state of the player.  Is he DEAD, is he ONGROUND, is he in the AIR, etc.
@@ -297,7 +301,8 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             UInt32(PhysicsCategory.Impulse) |
             UInt32(PhysicsCategory.ForceField) |
             UInt32(PhysicsCategory.Spring) |
-            UInt32(PhysicsCategory.FlipSwitch)
+            UInt32(PhysicsCategory.FlipSwitch) |
+            UInt32(PhysicsCategory.Rock)
         self.physicsBody?.collisionBitMask = UInt32(PhysicsCategory.CannonBall) |
             UInt32(PhysicsCategory.Rock) |
             UInt32(PhysicsCategory.Ground) |
@@ -426,6 +431,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         let dy = self.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse
         
         self.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
+        self.showJumpParticles()
     }
     
     /** Launch the spring by  */
@@ -473,7 +479,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             }
         }
         
-        self.flipPlayerUpright()
+        self.flipUpright()
     }
     
     /**
@@ -522,7 +528,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         self.run(flipPlayerAction)
     }
     
-    public func flipPlayerUpright () {
+    public func flipUpright () {
         if self.isFlipped {
             self.flipPlayer(byAngle: -Double.pi, duration: 0.5)
             self.isFlipped = false
@@ -735,7 +741,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         
         // if the player is moving upwards
         if (velocity.dy > 0.5) {
-            self.showJumpParticles()
+//            self.showJumpParticles()
         }
     }
 }

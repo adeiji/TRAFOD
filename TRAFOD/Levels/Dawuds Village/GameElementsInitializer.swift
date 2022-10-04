@@ -74,6 +74,7 @@ class GameElementsInitializer {
             endPos: CGPoint(x: finalPosition.x, y: finalPosition.y),
             platformSize: CGSize(width: size.width, height: size.height),
             direction: FlipSwitchParams.getDirectionFromString(gameObjectTemplate.direction ?? FlipSwitchParams.Vertical),
+            duration: gameObjectTemplate.duration ?? 3.0,
             velocity: gameObjectTemplate.velocity ?? 100)
         
         scene.addChild(flipSwitch)

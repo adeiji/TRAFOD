@@ -32,24 +32,7 @@ extension World {
         if type == .ANTIGRAV {
             
         }
-    }
-    /**
-     
-     Checks to see if the player is on the ground
-     
-     - Todo: Only return true if the player is standing on the ground
-     - Returns: Bool If the player is on the ground or not
-     
-     */
-    private func isGrounded () -> Bool {
-        if let bodies = self.player.physicsBody?.allContactedBodies(), let groundPhysicsBody = self.lastGroundObjectPlayerStoodOn?.physicsBody {
-            if bodies.contains(groundPhysicsBody) {
-                return true
-            }
-        }
-        
-        return false
-    }        
+    }  
     
     func rotateJumpingPlayer (rotation: Double) {
         if self.player.previousRunningState == .RUNNINGRIGHT || self.player.previousRunningState == .STANDING {
@@ -70,6 +53,7 @@ extension World {
         self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
         if let start = self.childNode(withName: "start") {
             self.player.position = start.position
+            self.startPosition = start.position            
         }
         
         self.player.previousRunningState = .RUNNINGRIGHT
@@ -92,7 +76,7 @@ extension World {
             self.player.position = point
         }
         
-        self.player.zRotation = 0.0
+        self.player.flipUpright()
         self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.player.runningState = .STANDING
         self.player.state = .ONGROUND

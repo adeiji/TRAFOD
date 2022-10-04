@@ -64,7 +64,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     }
     
     /**
-     Whenever the player hits a checkpoint, the start position is updated so that if he dies he will come back at the right point
+     Whenever the player hits a checkpoint, the start position is updated so that if he dies he will come back at the right point. Wherever the player begins in the world is the initial start position
      */
     var startPosition:CGPoint?
     
@@ -102,13 +102,10 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     // The original position where the user touched the screen
     private var originalTouchPosition:CGPoint?    
     var throwingMineral:Minerals!
-    var lastGroundObjectPlayerStoodOn:SKShapeNode?
     
     /// This property is used to get the length of time the player has been running for, and we use this to show the proper running image
     private var runTime:TimeInterval = TimeInterval()
     private var stepCounter = 0
-    
-    private var touchesMovedTimer:Timer?
     
     var backgroundMusic:SKAudioNode?
     var ambiance:SKAudioNode?
@@ -418,7 +415,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                         self.player.position = teleportNode.position
                         self.teleportNode?.removeFromParent()
                         self.teleportNode = nil
-                        self.player.flipPlayerUpright()
+                        self.player.flipUpright()
                     } else { // Throw a Teleportation mineral
                         TeleportMineral().throwMineral(player: self.player, world: self)
                     }
@@ -429,7 +426,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                     if let flipGravArea =  self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] {
                         flipGravArea.removeFromParent()
                         self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] = nil
-                        self.player.flipPlayerUpright()
+                        self.player.flipUpright()
                     } else {
                         FlipGravityMineral().throwMineral(player: self.player, world: self)
                     }
@@ -463,7 +460,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         self.handleGrabbedObjectContactEnded(contact: contact)
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: FlipGravity.self, nodeBType: Player.self) {
-            self.player.flipPlayerUpright()
+            self.player.flipUpright()
         }
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: FlipSwitch.self) {
@@ -644,7 +641,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
             }
         }
         
-        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: Rock.self) {
+        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: GrabbableObject.self) {
             self.handleContactWithGrabbableObject(contact: contact)
         }
         

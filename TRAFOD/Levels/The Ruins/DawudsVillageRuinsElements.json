@@ -28,6 +28,7 @@
     "direction": "horizontal",
     "x": 3123,
     "y": 515,
+    "duration": 18,
     "size": {
         "width": 300,
         "height": 50
@@ -35,12 +36,12 @@
     "children": [
         {
             "name": "weightPlatformFinalPosition",
-            "x": 950,
+            "x": 1100,
             "y": -100
         },
         {
             "name": "moveablePlatform",
-            "x": 75,
+            "x": 225,
             "y": -100
         }
     ]
@@ -49,6 +50,7 @@
     "name": "flipSwitch",
     "id": "flipSwitch-2",
     "direction": "vertical",
+    "duration": 3,
     "x": 2553,
     "y": 515,
     "size": {
@@ -58,12 +60,12 @@
     "children": [
         {
             "name": "weightPlatformFinalPosition",
-            "x": 85,
+            "x": 235,
             "y": 300
         },
         {
             "name": "moveablePlatform",
-            "x": 85,
+            "x": 235,
             "y": -100
         }
     ]
@@ -82,12 +84,12 @@
     "children": [
         {
             "name": "weightPlatformFinalPosition",
-            "x": 200,
+            "x": 305,
             "y": -1200
         },
         {
             "name": "moveablePlatform",
-            "x": 200,
+            "x": 305,
             "y": -100
         }
     ]
@@ -106,12 +108,12 @@
     "children": [
         {
             "name": "weightPlatformFinalPosition",
-            "x": -440,
+            "x": -290,
             "y": -840
         },
         {
             "name": "moveablePlatform",
-            "x": -440,
+            "x": -290,
             "y": -70
         }
     ]
