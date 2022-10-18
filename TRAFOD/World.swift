@@ -184,11 +184,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     /** Checks to see if the type of field that's about to be added to the world already exist in the world or not*/
     func getPhysicsAlteringFieldFromWorldOfType <T> (_ physicsAlteringFieldType: T.Type) -> T? {
-        return self.physicsAlteringFields.first(where: { $0 is T } ) as? T
-    }
-    
-    func addPhysicsAlteringFieldToWorld (_ physicsAlteringObject: PhysicsAlteringObject) {
-        self.physicsAlteringFields.append(physicsAlteringObject)
+        return self.physicsHandler.physicsAlteringAreas.first(where: { $0 is T } ) as? T
     }
     
     override func didMove(to view: SKView) {
@@ -302,6 +298,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         self.player.setup()
         self.listener = self.player
         self.player.zPosition = ZPositions.Layer3
+        self.player.name = PhysicsObjectTitles.Dawud
     }
     
     /**
@@ -415,7 +412,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                         self.player.position = teleportNode.position
                         self.teleportNode?.removeFromParent()
                         self.teleportNode = nil
-                        self.player.flipUpright()
                     } else { // Throw a Teleportation mineral
                         TeleportMineral().throwMineral(player: self.player, world: self)
                     }
@@ -426,7 +422,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
                     if let flipGravArea =  self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] {
                         flipGravArea.removeFromParent()
                         self.physicsHandler.physicsAlteringAreas[.FLIPGRAVITY] = nil
-                        self.player.flipUpright()
                     } else {
                         FlipGravityMineral().throwMineral(player: self.player, world: self)
                     }
@@ -458,10 +453,6 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     func didEnd(_ contact: SKPhysicsContact) {
         self.handleGrabbedObjectContactEnded(contact: contact)
-        
-        if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: FlipGravity.self, nodeBType: Player.self) {
-            self.player.flipUpright()
-        }
         
         if PhysicsHandler.nodesAreOfType(contact: contact, nodeAType: Player.self, nodeBType: FlipSwitch.self) {
             self.player.removeFlipSwitch()
@@ -524,11 +515,13 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         guard let objectHitByMineral = contact.bodyA.node is Mineral ? contact.bodyB.node : contact.bodyA.node  else { return }
         
         if let mineral = mineral {
+            let throwerId = mineral.throwerId
             if let useMineral = mineral as? UseMinerals {
                 self.playSound(fileName: SoundFiles.FX.MineralCrash)
                 
                 // Uses the mineral and than if it returns an object that can alter the physics of other objects, than we add this to the world
                 if let physicsAlteringArea = useMineral.mineralUsed(contactPosition: contact.contactPoint, world: self, objectHitByMineral: objectHitByMineral) {
+                    physicsAlteringArea.throwerId = throwerId
                     self.physicsHandler.physicsAlteringAreas[mineral.type] = physicsAlteringArea
                     self.addChild(physicsAlteringArea)
                     physicsAlteringArea.anchorToObject(world: self, objectHitByMineral: objectHitByMineral, contactPosition: contact.contactPoint)
@@ -556,6 +549,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         Checkpoint.handleContact(contact: contact, world: self)
         CameraZoom.handleContact(contact, world: self)
         Water.handleContact(contact, world: self)
+        FlipGravSoldier.handleContact(contact, world: self)
         
         if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Rock, self.abyssKey], contactA: contactAName, contactB: contactBName) {
             if let node = getContactNode(name: PhysicsObjectTitles.Rock, contact: contact) as? Rock {
@@ -860,7 +854,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
     
     override func update(_ currentTime: TimeInterval) {
         // Calculate time since last update
-        let dt = currentTime - self.lastUpdateTime
+        let dt = currentTime - self.lastUpdateTime                
         
         self.stopClimbingIfNecessary()
         self.player.isInAir()
@@ -877,8 +871,7 @@ class World: SKScene, SKPhysicsContactDelegate, MineralPurchasing {
         for entity in self.entities {
             entity.update(deltaTime: dt)
         }
-        
-        self.player.handleIsContactedWithFlipGravity()
+                
         self.player.update()
         self.resetObjectsToOriginalPosition()
         

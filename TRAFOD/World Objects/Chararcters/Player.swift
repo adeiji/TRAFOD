@@ -13,6 +13,21 @@ import GameKit
  A player object is the base class for any object that performs player type actions, such as running, jumping, moving objects.
  */
 class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
+
+    var direction:Direction = .down {
+        didSet {
+            switch self.direction {
+            case .right:
+                self.flip(toAngle: (Double.pi / 2.0), withKey: "flipPlayerRight")
+            case .up:
+                self.flip(toAngle: -Double.pi, withKey: "flipPlayerUp")
+            case .down:
+                self.flip(toAngle: 0)
+            case .left:
+                self.flip(toAngle: (-Double.pi / 2.0), withKey: "flipPlayerLeft")
+            }
+        }
+    }
     
     var massConstant: CGFloat?
     
@@ -24,7 +39,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     public var hasImpulse = false
     public var hasTeleport = false
     
-    private enum Dimensions: CGFloat {
+    internal enum Dimensions: CGFloat {
         case playerStandingWidth = 70
         case playerActiveWidth = 100
         case playerHeight = 140
@@ -64,6 +79,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
                 self.climbingState = nil
                 
                 if self.state == .INAIR {
+                    self.texture = SKTexture(imageNamed: "running_step2")
                     self.texture = SKTexture(imageNamed: "running_step2")
                 }
                 else if self.state != .ONGROUND {
@@ -127,10 +143,14 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     /**
      A node underneath the player that is used to detect whether or not the player is currently standing on the ground
      */
-    private var groundNode:SKSpriteNode?
+    internal var groundNode:SKSpriteNode?
     
     /** If the player is in contact with a flip switch then we store it here while the player is in contact with it*/
     private var flipSwitch:FlipSwitch?
+                    
+    // MARK: End Parameters
+    
+    // MARK: Player Functions
     
     func setFlipSwitch (_ flipSwitch: FlipSwitch) {
         self.flipSwitch = flipSwitch
@@ -143,8 +163,6 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     func handleFlipSwitch () {
         self.flipSwitch?.flipSwitch()
     }
-    
-    // MARK: Player Functions
     
     override init(texture: SKTexture?, color: UIColor, size: CGSize) {
         super.init(texture: texture, color: color, size: size)
@@ -225,7 +243,6 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             // If the player is in contact with a fence, then he's climbing and we don't need to set his state to in the air
             if Fence.playerInContact(player: self) && self.isClimbing() {
                 return
-                
             }
             
             self.state = .INAIR
@@ -254,7 +271,9 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     }
     
     /**
-        The ground view is responsible for detecting whether or not Dawud is standing on the ground. Because it's underneath the player and the width is smaller, then we know that the only time this node will make contact with a ground object is if it's standing on top of the ground
+        The ground view is responsible for detecting whether or not the character is standing on the ground.
+     
+     Because this node is underneath the player and the width is smaller, then we know that the only time this node will make contact with a ground object is if the character standing on top of the ground
      */
     private func createGroundNode () {
         let node = SKSpriteNode(color: .red, size: CGSize(width: self.size.width - 5, height: 10))
@@ -279,7 +298,6 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         self.position = CGPoint(x: 116, y: 86.7)
         self.size.width = Dimensions.playerStandingWidth.rawValue
         self.size.height = Dimensions.playerHeight.rawValue
-        self.name = "dawud"
         self.xScale = 1
         self.yScale = 0.90
         self.physicsBody = SKPhysicsBody(polygonFrom: CGPath(roundedRect: CGRect(x: -self.size.width / 2.0, y: -self.size.height / 2.0, width: self.size.width, height: self.size.height), cornerWidth: 20, cornerHeight: 20, transform: nil))
@@ -311,6 +329,10 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         self.physicsBody?.fieldBitMask = UInt32(PhysicsCategory.Magnetic)
         self.physicsBody?.allowsRotation = false
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Player)
+        
+        self.xScale = 1
+        self.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        self.previousRunningState = .RUNNINGRIGHT
     }
     
     func stopGrabbingObject () {
@@ -414,23 +436,30 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         emitter.targetNode = self.scene;
         self.addChild(emitter)
     }
-    
-    //  TODO: - Move the jump function to the player object
+        
     /**
      
-     Adds an impulse to the character to cuase him to jump and shows him as jumping
+     Adds an impulse to the character to cause him to jump and shows him as jumping
       
      */
     func jump() {
         self.letGoOfRope()
-        var dx:CGFloat = 0
+        var horizontalVelocity:CGFloat = 0
         if self.state == .SLIDINGONWALL {
-            dx = self.xScale > 0 ? -150 : 150
+            horizontalVelocity = self.xScale > 0 ? -150 : 150
+        }
+                        
+        switch self.direction {
+        case .up:
+            self.physicsBody?.applyImpulse(CGVector(dx: horizontalVelocity, dy: -PhysicsHandler.kJumpImpulse))
+        case .down:
+            self.physicsBody?.applyImpulse(CGVector(dx: horizontalVelocity, dy: PhysicsHandler.kJumpImpulse))
+        case .right:
+            self.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kJumpImpulse, dy: horizontalVelocity))
+        case .left:
+            self.physicsBody?.applyImpulse(CGVector(dx: PhysicsHandler.kJumpImpulse, dy: horizontalVelocity))
         }
         
-        let dy = self.getIsFlipped() ?  -PhysicsHandler.kJumpImpulse : PhysicsHandler.kJumpImpulse
-        
-        self.physicsBody?.applyImpulse(CGVector(dx: dx, dy: dy))
         self.showJumpParticles()
     }
     
@@ -467,21 +496,7 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             self.grabbedObject = touchedSpringSegmentPhysicsBody.node as? RopeTypeSegment
         }
     }
-    
-    /// Checks to see if the player is  contacted with FlipGravity and update the player's rotation
-    func handleIsContactedWithFlipGravity () {
-        guard let physicsBody = self.physicsBody else { return }
         
-        for body in physicsBody.allContactedBodies() {
-            if body.node is FlipGravity && self.negatedForces[.FLIPGRAVITY] == nil {
-                self.flipPlayer(flipUpsideDown: true)
-                return
-            }
-        }
-        
-        self.flipUpright()
-    }
-    
     /**
      
      Changes the direction that the player is facing
@@ -521,35 +536,17 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
      Note: Keep in mind that if the angle in which to rotate the player is not divisible by Pi he will not be standing erect which can cause major problems with the physics of the player and his interactions with other objects in the game
      
      */
-    private func flipPlayer (byAngle: Double, duration: TimeInterval) {
-        self.previousRunningState = self.previousRunningState == .RUNNINGLEFT ? .RUNNINGRIGHT : .RUNNINGLEFT
-        let flipPlayerAction = SKAction.rotate(byAngle: CGFloat(Double.pi), duration: 0.01)
+    
+    func flip (toAngle: Double, duration: TimeInterval = 0.01, withKey key:String = "flipPlayerUp") {
+//        self.previousRunningState = self.previousRunningState == .RUNNINGLEFT ? .RUNNINGRIGHT : .RUNNINGLEFT
+        let flipPlayerAction = SKAction.rotate(toAngle: toAngle, duration: 0.01)
+        
+        if let _ = self.action(forKey: key) {
+            return
+        }
+        
         self.removeAllActions()
-        self.run(flipPlayerAction)
-    }
-    
-    public func flipUpright () {
-        if self.isFlipped {
-            self.flipPlayer(byAngle: -Double.pi, duration: 0.5)
-            self.isFlipped = false
-        }
-    }
-    
-    /**
-     
-     Flips the player upside down or to his original position.
-     
-     - Parameters:
-     - flipUpsideDown: A boolean value indicating whether the player should be flipped upside down (true), or if he should be flipped back to his original position (false)
-     */
-    public func flipPlayer (flipUpsideDown: Bool) {
-        if flipUpsideDown && !self.isFlipped {
-            self.flipPlayer(byAngle: Double.pi, duration: 0.5)
-            self.isFlipped = true
-        } else if flipUpsideDown == false && self.isFlipped {
-            self.flipPlayer(byAngle:-Double.pi , duration: 0.5)
-            self.isFlipped = false
-        }
+        self.run(flipPlayerAction, withKey: key)
     }
     
     /**
@@ -564,8 +561,8 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
     }
     
     func move (dx: CGFloat, dy: CGFloat) {
-        if abs(dx) > PhysicsHandler.kRunVelocity {
-            assertionFailure("The player should not be allowed to move faster then the maximum velocity of \(PhysicsHandler.kRunVelocity)")
+        if abs(dx) > PhysicsHandler.kPlayerRunVelocity && self.direction == .down || self.direction == .up {
+//            assertionFailure("The player should not be allowed to move faster then the maximum velocity of \(PhysicsHandler.kPlayerRunVelocity)")
         }
         
         self.physicsBody?.velocity = CGVector(dx: dx, dy: dy)
@@ -640,10 +637,10 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
             self.move(dx: 0, dy: -400)
             break;
         case .CLIMBINGLEFT:
-            self.move(dx: -PhysicsHandler.kRunVelocity, dy: 0)
+            self.move(dx: -PhysicsHandler.kPlayerRunVelocity, dy: 0)
             break;
         case .CLIMBINGRIGHT:
-            self.move(dx: PhysicsHandler.kRunVelocity, dy: 0)
+            self.move(dx: PhysicsHandler.kPlayerRunVelocity, dy: 0)
             break;
         case .CLIMBINGUP:
             self.move(dx: 0, dy: 400)
@@ -716,14 +713,26 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         
         switch self.state {
         case .ONGROUND:
-            self.physicsBody?.velocity = CGVector(dx: -PhysicsHandler.kRunVelocity * multiplier, dy: self.physicsBody?.velocity.dy ?? 0)
+            
+            let horizontalVelocity = -PhysicsHandler.kPlayerRunVelocity * multiplier
+            let verticalVelocity = self.physicsBody?.velocity.dy ?? 0
+            
+            switch self.direction {
+            case .down:
+                self.move(dx: horizontalVelocity, dy: verticalVelocity)
+            case .right: // Bottom of the player is facing right
+                self.move(dx: verticalVelocity, dy: horizontalVelocity)
+            default:
+                self.move(dx: horizontalVelocity, dy: verticalVelocity)
+            }
+            
         case .INAIR:
             if self.runningState == .RUNNINGLEFT {
-                if dx > -PhysicsHandler.kRunVelocity {
+                if dx > -PhysicsHandler.kPlayerRunVelocity {
                     self.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
                 }
             } else {
-                if dx < PhysicsHandler.kRunVelocity {
+                if dx < PhysicsHandler.kPlayerRunVelocity {
                     self.physicsBody?.applyImpulse(CGVector(dx: -PhysicsHandler.kRunInAirImpulse * multiplier, dy: 0))
                 }
             }
@@ -736,12 +745,21 @@ class Player : SKSpriteNode, AffectedByNegationField, BaseWorldObject {
         }
     }
     
+    func flipPlayerUpright () {
+        if let body = self.physicsBody?.allContactedBodies().first(where: { $0.node is FlipGravity }) {
+            return
+        }
+        
+        self.direction = .down
+    }
+    
+    /**
+     Make whatever updates to the player.
+     
+     This is called in the update method as part of the run loop on the world class.
+     */
     func update() {
         guard let velocity = self.physicsBody?.velocity else { return }
-        
-        // if the player is moving upwards
-        if (velocity.dy > 0.5) {
-//            self.showJumpParticles()
-        }
+        self.flipPlayerUpright()
     }
 }

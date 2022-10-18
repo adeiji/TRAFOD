@@ -49,14 +49,12 @@ extension World {
     
     public func setupPlayer () {        
         self.createPlayer()
-        self.player.xScale = 1
-        self.player.anchorPoint = CGPoint(x: 0.5, y: 0.5)
+        
         if let start = self.childNode(withName: "start") {
             self.player.position = start.position
             self.startPosition = start.position            
         }
-        
-        self.player.previousRunningState = .RUNNINGRIGHT
+                
     }
     
     func stopPlayer () {
@@ -75,8 +73,7 @@ extension World {
         if let point = self.startPosition {
             self.player.position = point
         }
-        
-        self.player.flipUpright()
+                
         self.player.physicsBody?.velocity = CGVector(dx: 0, dy: 0)
         self.player.runningState = .STANDING
         self.player.state = .ONGROUND

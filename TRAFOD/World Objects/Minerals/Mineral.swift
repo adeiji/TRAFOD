@@ -17,16 +17,13 @@ protocol MineralProtocol {
  
  Throwing and handling of showing the crash from the throw are all handled from within this object.
  
- - Note: The functions that can be called within this object are the following
-    ```
-    class func throwMineral (imageName: String, player: Player, world: World, self: Mineral)
-    func showMineralCrash (withColor color: UIColor, contact: SKPhysicsContact, duration: TimeInterval = 5)
-    ```
- 
  */
 class Mineral: SKSpriteNode {
     var mineralCrashColor: UIColor = .purple
     var type:Minerals = .ANTIGRAV
+    
+    /** The identifier so that we know which mineral hit the ground when thrown*/
+    var throwerId = UUID().uuidString
     
     private func addPhysicsBody () {
         let width = self.texture?.size().width
@@ -41,7 +38,7 @@ class Mineral: SKSpriteNode {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.Minerals)
         self.physicsBody?.allowsRotation = false
     }
-    
+       
     func throwMineral (player: Player, world: World) {
         if world.thrownMineral != nil {
             return
@@ -58,8 +55,7 @@ class Mineral: SKSpriteNode {
         } else {
             self.position.x = player.position.x - self.size.width
             self.physicsBody?.applyImpulse(CGVector(dx: -10, dy: -30))
-        }
-        
+        }        
     }
     
     init(mineralType: Minerals) {

@@ -11,6 +11,8 @@ import GameKit
 
 class FlipGravityMineral : Mineral, SKPhysicsContactDelegate, UseMinerals {
     
+    var direction:Direction = .up
+    
     init() {
         super.init(mineralType: .FLIPGRAVITY)
     }
@@ -20,8 +22,18 @@ class FlipGravityMineral : Mineral, SKPhysicsContactDelegate, UseMinerals {
     }
     
     func mineralUsed (contactPosition: CGPoint, world:World, objectHitByMineral:SKNode) -> PhysicsAlteringObject? {
-        let flipGravity = FlipGravity(contactPosition: contactPosition, size: CGSize(width: 600, height: 4000), color: .purple, anchorPoint: CGPoint(x: 0.5, y: 0.5))
-        flipGravity.zPosition = -5
+        
+        var flipGravity:FlipGravity?
+        
+        switch direction {
+        case .right, .left:
+            flipGravity = FlipGravity(contactPosition: contactPosition, size: CGSize(width: 4000, height: 600), color: .purple, anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        default:
+            flipGravity = FlipGravity(contactPosition: contactPosition, size: CGSize(width: 600, height: 4000), color: .purple, anchorPoint: CGPoint(x: 0.5, y: 0.5))
+        }
+        
+        flipGravity?.direction = self.direction
+        flipGravity?.zPosition = -5
         return flipGravity
     }
 }

@@ -16,7 +16,8 @@ import GameKit
  */
 class PhysicsHandler {
     
-    static let kRunVelocity:CGFloat = 300
+    static let kPlayerRunVelocity:CGFloat = 300
+    static let kSoldierRunVelocity:CGFloat = 100
     
     /**
      When the player is grabbing an object we apply a velocity to the object that is being held. The velocity is whatever the player's running velocity is, multiplied by this number

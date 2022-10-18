@@ -63,7 +63,7 @@ class Level : World {
                 resetNode = contact.bodyB.node as? Reset
             }
             
-            if PhysicsHandler.contactContains(strings: ["dawud"], contact: contact) == false {
+            if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Dawud], contact: contact) == false {
                 if resetNode.parent == nil {
                     nodeHasParent = true
                 }
@@ -100,7 +100,7 @@ class Level : World {
      - Parameter contact: The physics contact between the weightSwitch and the player
      */
     func checkForAndHandleWeightSwitchCollision (contact: SKPhysicsContact) {
-        if PhysicsHandler.contactContains(strings: ["dawud", "weightSwitch"], contact: contact ) {
+        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Dawud, "weightSwitch"], contact: contact ) {
             if (contact.collisionImpulse > 1000) {
                 if let weightSwitch = contact.bodyA.node as? WeightSwitch {
                     weightSwitch.topOfSwitch?.verticalForce = 0

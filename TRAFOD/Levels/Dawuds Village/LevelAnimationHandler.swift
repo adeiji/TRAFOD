@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 import SpriteKit
 
-class DawudsVillageMineralsAnimationHandler: AnimationHandlerProtocol {
+class LevelAnimationHandler: AnimationHandlerProtocol {
     
     /// See AnimationHandlerProtocol
     var player: Player?
@@ -24,11 +24,7 @@ class DawudsVillageMineralsAnimationHandler: AnimationHandlerProtocol {
     /// See AnimationHandlerProtocol
     var animationHandler: AnimationHandler?
         
-    var animationTemplates:[AnimationTemplate]?
-    
-    struct AnimationPropertyListConstants {
-        let playerXPos = "playerXPos"
-    }
+    var animationTemplates:[AnimationTemplate]?        
     
     init(fileName: String, player: Player, scene: World) {
         self.animationTemplates = GameObjectsFactory.loadFile(fileName: fileName, type: AnimationTemplate.self, fileType: "json")

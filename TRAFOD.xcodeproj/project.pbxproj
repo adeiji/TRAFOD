@@ -30,7 +30,7 @@
 		F41C83A728D1644A00E2C6E1 /* AnimationHandlerProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */; };
 		F41C83AC28D1657A00E2C6E1 /* AnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83AB28D1657A00E2C6E1 /* AnimationHandler.swift */; };
 		F41C83AE28D24A2500E2C6E1 /* DawudsVillageAnimations.plist in Resources */ = {isa = PBXBuildFile; fileRef = F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */; };
-		F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */; };
+		F41C83B028D24D7500E2C6E1 /* LevelAnimationHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83AF28D24D7500E2C6E1 /* LevelAnimationHandler.swift */; };
 		F41C83B328D24EE000E2C6E1 /* AnimationTemplate.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */; };
 		F41C83B528D2529F00E2C6E1 /* GameObjectsFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B428D2529F00E2C6E1 /* GameObjectsFactory.swift */; };
 		F41C83B728D28CD600E2C6E1 /* RopeBridge.swift in Sources */ = {isa = PBXBuildFile; fileRef = F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */; };
@@ -250,6 +250,7 @@
 		F4D57DF220DE268600C5B5A3 /* ConfirmationViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */; };
 		F4DBD7D428EA2C7700EB8054 /* DawudVillageAnimations.json in Resources */ = {isa = PBXBuildFile; fileRef = F4DBD7D328EA2C7700EB8054 /* DawudVillageAnimations.json */; };
 		F4DBD7D628EB90B100EB8054 /* DebugConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DBD7D528EB90B100EB8054 /* DebugConfiguration.swift */; };
+		F4DBD7D928EF60E700EB8054 /* FlipGravSoldier.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DBD7D828EF60E700EB8054 /* FlipGravSoldier.swift */; };
 		F4DE8C8B20D4EC2900D25AE0 /* Loading.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */; };
 		F4E799FC20D7604900ECE898 /* Fire.sks in Resources */ = {isa = PBXBuildFile; fileRef = F4E799FB20D7604900ECE898 /* Fire.sks */; };
 		F4EBE9D322D3AD8400EC2300 /* World+KeyboardControls.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */; };
@@ -323,7 +324,7 @@
 		F41C83A628D1644A00E2C6E1 /* AnimationHandlerProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHandlerProtocol.swift; sourceTree = "<group>"; };
 		F41C83AB28D1657A00E2C6E1 /* AnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationHandler.swift; sourceTree = "<group>"; };
 		F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = DawudsVillageAnimations.plist; sourceTree = "<group>"; };
-		F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DawudsVillageMineralsAnimationHandler.swift; sourceTree = "<group>"; };
+		F41C83AF28D24D7500E2C6E1 /* LevelAnimationHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LevelAnimationHandler.swift; sourceTree = "<group>"; };
 		F41C83B228D24EE000E2C6E1 /* AnimationTemplate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnimationTemplate.swift; sourceTree = "<group>"; };
 		F41C83B428D2529F00E2C6E1 /* GameObjectsFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameObjectsFactory.swift; sourceTree = "<group>"; };
 		F41C83B628D28CD600E2C6E1 /* RopeBridge.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RopeBridge.swift; sourceTree = "<group>"; };
@@ -549,6 +550,7 @@
 		F4D57DF120DE268600C5B5A3 /* ConfirmationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConfirmationViewController.swift; sourceTree = "<group>"; };
 		F4DBD7D328EA2C7700EB8054 /* DawudVillageAnimations.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = DawudVillageAnimations.json; sourceTree = "<group>"; };
 		F4DBD7D528EB90B100EB8054 /* DebugConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebugConfiguration.swift; sourceTree = "<group>"; };
+		F4DBD7D828EF60E700EB8054 /* FlipGravSoldier.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlipGravSoldier.swift; sourceTree = "<group>"; };
 		F4DE8C8A20D4EC2900D25AE0 /* Loading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Loading.swift; sourceTree = "<group>"; };
 		F4E799FB20D7604900ECE898 /* Fire.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = Fire.sks; sourceTree = "<group>"; };
 		F4EBE9D222D3AD8400EC2300 /* World+KeyboardControls.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "World+KeyboardControls.swift"; sourceTree = "<group>"; };
@@ -791,6 +793,7 @@
 		F44B9BD220EDFEED00B874A1 /* World Objects */ = {
 			isa = PBXGroup;
 			children = (
+				F4DBD7D728EF60D100EB8054 /* Chararcters */,
 				F4825BB928E754B400C6CA79 /* Contact Objects */,
 				F4825BB828E754A900C6CA79 /* Platforms */,
 				F4825BB728E7544200C6CA79 /* Physics Fields */,
@@ -804,7 +807,6 @@
 				F49ADDD122E3483D00388C49 /* Matter */,
 				F46115CB22E0E5340035E059 /* Protocols */,
 				F4EBE9E422D6435700EC2300 /* Minerals */,
-				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
 			);
 			path = "World Objects";
 			sourceTree = "<group>";
@@ -851,7 +853,7 @@
 				F41C839228D0ED6F00E2C6E1 /* DawudsVillageAttackedAnimationHandler.swift */,
 				F41C83AB28D1657A00E2C6E1 /* AnimationHandler.swift */,
 				F41C83AD28D24A2500E2C6E1 /* DawudsVillageAnimations.plist */,
-				F41C83AF28D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift */,
+				F41C83AF28D24D7500E2C6E1 /* LevelAnimationHandler.swift */,
 				F41C83CB28D5231700E2C6E1 /* GameElementsInitializer.swift */,
 				F41C83CD28D5249900E2C6E1 /* DawudVillageElements.plist */,
 			);
@@ -1289,6 +1291,15 @@
 				F40BE59328D6AED7005C0996 /* foliage.png */,
 			);
 			path = "Dawuds Village";
+			sourceTree = "<group>";
+		};
+		F4DBD7D728EF60D100EB8054 /* Chararcters */ = {
+			isa = PBXGroup;
+			children = (
+				F4EBE9D422D3BFB700EC2300 /* Player.swift */,
+				F4DBD7D828EF60E700EB8054 /* FlipGravSoldier.swift */,
+			);
+			path = Chararcters;
 			sourceTree = "<group>";
 		};
 		F4EBE9DA22D63A2000EC2300 /* Physics Objects */ = {
@@ -1796,7 +1807,7 @@
 				F41C83B528D2529F00E2C6E1 /* GameObjectsFactory.swift in Sources */,
 				F41C83C228D3E8F800E2C6E1 /* ArrowLauncher.swift in Sources */,
 				F4B03CEF20C94B8700F0B346 /* GameViewController.swift in Sources */,
-				F41C83B028D24D7500E2C6E1 /* DawudsVillageMineralsAnimationHandler.swift in Sources */,
+				F41C83B028D24D7500E2C6E1 /* LevelAnimationHandler.swift in Sources */,
 				F40BE6A428D92786005C0996 /* WorldGestures.swift in Sources */,
 				F41C83BA28D28EA800E2C6E1 /* Bridge.swift in Sources */,
 				F490A68222E6062400840F91 /* Mineral.swift in Sources */,
@@ -1823,6 +1834,7 @@
 				F45EDF7120D8C2710076C1C8 /* Constants.swift in Sources */,
 				F44C31FE22E8CB7E00443335 /* Level5.swift in Sources */,
 				F44D96E628BEACD5009A8098 /* Vine.swift in Sources */,
+				F4DBD7D928EF60E700EB8054 /* FlipGravSoldier.swift in Sources */,
 				F41C83B728D28CD600E2C6E1 /* RopeBridge.swift in Sources */,
 				F4825B9028DD11FC00C6CA79 /* UIButton+Closure.swift in Sources */,
 				F4EBE9D722D42EF100EC2300 /* World+HandleGrabbing.swift in Sources */,

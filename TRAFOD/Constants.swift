@@ -23,6 +23,13 @@ public class ZPositions {
     public static let Foreground = 5000.0
 }
 
+public enum Direction {
+    case up
+    case down
+    case left
+    case right
+}
+
 enum ParticleFiles: String, CustomStringConvertible {
     case MineralUsed = "MineralUsed.sks"
     case FireFlies = "FireFlies.sks"

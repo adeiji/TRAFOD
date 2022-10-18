@@ -33,12 +33,20 @@ class DawudVillageLevel: Level {
         
         self.visualAnimator = AnimationHandler(animations: [
 //            DawudsVillageAttackedAnimationHandler(scene: self, player: self.player),
-            DawudsVillageMineralsAnimationHandler(fileName: "DawudVillageAnimations", player: self.player, scene: self)
+            LevelAnimationHandler(fileName: "DawudVillageAnimations", player: self.player, scene: self)
         ])
                 
         self.addRopeBridge()                                
         
         GameElementsInitializer.setupGameElementsFromPlist(plistFileName: "DawudVillageElements", scene: self.scene)
+        
+        let enemy = FlipGravSoldier(imageNamed: "standing")
+        self.addChild(enemy)
+        enemy.setup()
+        enemy.position = CGPoint(x: 23553, y: 2973)
+        
+        enemy.name = "Soldier"
+        
                 
     }
     
@@ -126,8 +134,7 @@ class DawudVillageLevel: Level {
         }
         
         if (self.player.position.x > 1700) {
-            
-            
+                        
         }
     }
     

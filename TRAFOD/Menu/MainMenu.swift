@@ -72,13 +72,13 @@ class MainMenu: World {
         let aName = contact.bodyA.node?.name ?? ""
         let bName = contact.bodyB.node?.name ?? ""
         
-        if PhysicsHandler.contactContains(strings: ["story", "dawud"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.contactContains(strings: ["story", PhysicsObjectTitles.Dawud], contactA: aName, contactB: bName) {
             // Take user to the first level and remove all progress
             self.beginNewGame()
             return            
         }
         
-        if PhysicsHandler.contactContains(strings: ["dawud", "gotoLevel"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.contactContains(strings: [PhysicsObjectTitles.Dawud, "gotoLevel"], contactA: aName, contactB: bName) {
             if self.canContinue {
                 self.loadAndGotoNextLevel(level: .Chapters)
             }

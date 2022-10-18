@@ -13,7 +13,9 @@ import GameKit
 ///
 /// Examples of these objects are FlipGravity which inherits from PhysicsAlteringObject, as does MagneticForce.
 class PhysicsAlteringObject : SKSpriteNode, PortalPortocol {
-    
+        
+    /// The id of the object that was responsible for throwing the mineral which created this field
+    var throwerId:String?
     /**
      The force to apply to any contacted bodies to this object.  This method will be called at every update cycle of the game.  Make sure that you don't have too expensive of tasks within this method to ensure not bogging down resources
      
@@ -111,6 +113,8 @@ class RemoveRotation : PhysicsAlteringObject, SpecialField {
  */
 class FlipGravity : PhysicsAlteringObject {
     
+    var direction:Direction = .up        
+    
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
     }
@@ -122,6 +126,10 @@ class FlipGravity : PhysicsAlteringObject {
     
     internal override func setCategoryBitmask() {
         self.physicsBody?.categoryBitMask = UInt32(PhysicsCategory.PhysicsAltering)
+    }
+    
+    func removeField () {
+        self.removeFromParent()
     }
     
     /**
@@ -162,7 +170,23 @@ class FlipGravity : PhysicsAlteringObject {
                             
                             fallthrough
                         default:
-                            body.applyImpulse(CGVector(dx: 0, dy: (forceOfGravity * -1) * 5 * body.mass))
+                            switch self.direction {
+                            case .up:
+                                body.applyImpulse(CGVector(dx: 0, dy: (forceOfGravity * -1) * 5 * body.mass))
+                                if let player = body.node as? Player {
+                                    player.direction = .up
+                                }
+                            case .right:
+                                body.affectedByGravity = false
+                                body.applyImpulse(CGVector(dx: (forceOfGravity * -1) * 5 * body.mass, dy: 0))
+                                
+                                if let player = body.node as? Player {
+                                    player.direction = .right
+                                }
+                            default:
+                                body.applyImpulse(CGVector(dx: 0, dy: (forceOfGravity * -1) * 5 * body.mass))
+                            }
+                            
                         }
                         
                     }

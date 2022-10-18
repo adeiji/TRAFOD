@@ -166,7 +166,7 @@ class TransferLevel : Level {
         let bName = contact.bodyB.node?.name ?? ""
         
         // If the player hits the door to take them to level 1
-        if PhysicsHandler.contactContains(strings: ["level1", "dawud"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.contactContains(strings: ["level1", PhysicsObjectTitles.Dawud], contactA: aName, contactB: bName) {
             // Load the level 1 screen
             self.loadAndGotoNextLevel(level: .Level1)
         }
@@ -179,7 +179,7 @@ class TransferLevel : Level {
             }
         }
         
-        if PhysicsHandler.self.contactContains(strings: ["dawud", "level2"], contactA: aName, contactB: bName) {
+        if PhysicsHandler.self.contactContains(strings: [PhysicsObjectTitles.Dawud, "level2"], contactA: aName, contactB: bName) {
             if contact.contactNormal.dy > 0 {
                 self.sceneState = .MOVIE
                 self.throwMineral = true

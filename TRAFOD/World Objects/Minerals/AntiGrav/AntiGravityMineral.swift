@@ -27,8 +27,7 @@ class AntiGravityMineral : Mineral, UseMinerals {
         world.playSound(fileName: "antigrav")
         world.forces.append(.ANTIGRAV)        
         self.removeFromParent()
-        let antiGravField = self.createAntiGravField(point: contactPosition, world: world, objectHitByMineral: objectHitByMineral)
-        world.addPhysicsAlteringFieldToWorld(antiGravField)
+        let antiGravField = self.createAntiGravField(point: contactPosition, world: world, objectHitByMineral: objectHitByMineral)        
         return antiGravField
     }
     
